@@ -115,13 +115,19 @@ sie im Feedback selbst als gemerkt zählen.
 - **Tagesziel** 1 / 3 / 5 / 8 Karten (3 empfohlen). Ist es erreicht und nichts mehr fällig, kommt
   „Für heute ist alles gemerkt“ mit „Freiwillige Runde“.
 
-## Felder, Teilübungen und Inhalte
+## Level, Teile und Inhalte
 
-Jeder Knoten im Pfad ist ein **Feld** mit 1–4 **Teilübungen**. Die Anzahl ist bewusst
-unterschiedlich. Ein Feld ist erst abgeschlossen, wenn **alle** Teilübungen gemeistert sind,
-also mindestens teilweise richtig beantwortet. Erst dann schaltet sich das nächste Feld frei.
-Ist eine Übung daneben, kommt am Ende der Runde ein zweiter Versuch. Er kostet kein Herz und
-ändert kein Intervall. Jede Teilübung hat ihren eigenen Spaced-Repetition-Verlauf.
+Jeder Knoten im Pfad ist ein **Level** aus 3–4 **Teilen**. Ein Teil ist ein Abschnitt einer
+längeren Geschichte (ein Gespräch) oder ein Text einer Themenreihe, jeweils mit **3–4 Fragen**.
+Ein Tippen auf den Knoten startet genau den nächsten offenen Teil: erst hören bzw. lesen, dann
+die Fragen dieses Teils.
+
+Ein Teil ist geschafft, wenn alle seine Fragen gemeistert sind, also mindestens teilweise
+richtig beantwortet. Ist eine Frage daneben, kommt am Ende der Runde ein zweiter Versuch. Er
+kostet kein Herz und ändert kein Intervall. Klappt auch der nicht, wird der Teil beim nächsten
+Mal komplett neu gespielt, samt Original. Schon gemeisterte Fragen laufen dabei nur als Übung
+mit. Erst wenn alle Teile geschafft sind, ist das Level fertig und das nächste schaltet frei.
+Jede Frage hat ihren eigenen Spaced-Repetition-Verlauf.
 
 | Typ | Übung | Anteil |
 |---|---|---|
@@ -130,9 +136,9 @@ Ist eine Übung daneben, kommt am Ende der Runde ein zweiter Versuch. Er kostet 
 | `sequence_events` | 3–4 Ereignisse in die richtige Reihenfolge tippen | gelegentlich |
 | `detail_match` | Antwort-Chips, eine oder mehrere richtig | gelegentlich |
 
-Am Knoten zeigt ein **Segment-Ring** den Stand: ein Bogen pro Teilübung. Gemeisterte Bögen
-sind voll in der Spurfarbe, offene zu 28 %. In der Übung steht oben „Frage X von Y“, bezogen
-auf das aktuelle Feld.
+Am Knoten zeigt ein **Segment-Ring** den Stand: ein Bogen pro Teil. Geschaffte Teile sind voll
+in der Spurfarbe, offene zu 28 %. Nach einem geschafften Teil füllt sich das Segment auf dem
+Pfad sichtbar. In der Übung steht oben „Teil X · Frage Y von Z“.
 
 Jede JSON-Datei in `src/content/chapters/` ist ein Kapitel. Ein neues Kapitel ist einfach eine
 neue Datei, danach `npm run check:content` und `npm run audio`.
@@ -140,18 +146,18 @@ neue Datei, danach `npm run check:content` und `npm run audio`.
 ```jsonc
 {
   "id": "zuhoeren-6", "order": 6, "title": "…", "track": "listen" /* | "read" | "mixed" */, "difficulty": 6,
-  "lessons": [                                         // Felder, beliebig viele
-    { "id": "z6-beispiel", "title": "Beispiel", "items": [
+  "lessons": [                                         // Level, beliebig viele
+    { "id": "z6-beispiel", "title": "Beispiel", "items": [   // 3–4 Teile pro Level
       { "id": "z6-beispiel-d", "type": "dialog", "title": "…", "characterId": "frau-berger",
         "text": "…"                                   /* oder "lines": [{ "who": "Name", "text": "…" }] */,
-        "subExercises": [                              // 1–4 pro Feld
+        "subExercises": [                              // 3–4 Fragen pro Teil
           { "id": "q1", "type": "recall_text", "prompt": "Frage?", "answers": [["Jonas", "Bruder"]], "solution": "…", "quote": "„…“" },
           { "id": "s1", "type": "sequence_events", "prompt": "Was passierte zuerst?", "events": ["…", "…", "…"] },
           { "id": "m1", "type": "detail_match", "prompt": "…", "options": ["…", "…", "…"], "correct": ["…"], "quote": "„…“" }
         ],
         "worldRefs": { "charactersReferenced": [], "locationsReferenced": [] } },
       { "id": "l6-text-t", "type": "text", "title": "…", "topic": "…", "paragraphs": ["…"], "keyPoints": ["…"],
-        "subExercises": [{ "id": "retell", "type": "recall_text" }] }
+        "subExercises": [{ "id": "retell", "type": "recall_text" }, /* + 2–3 weitere Fragen */] }
     ] },
     { "id": "z6-checkpoint", "type": "checkpoint", "title": "Checkpoint" }
   ]
@@ -162,9 +168,8 @@ Werden Karten-IDs umgebaut, etwa weil ein Gespräch in zwei Teile geteilt wird, 
 alte und die neue ID in `src/content/migrations.json` ein. Verlauf und Intervalle wandern beim
 nächsten Start mit.
 
-Mitgeliefert: 11 Kapitel mit 57 Feldern und 163 Teilübungen. Davon sind 106 Freitext,
-24 Nacherzählen, 16 Reihenfolge und 17 Auswahl. Die Lesetexte haben 117–193 Wörter. Die
-Gespräche haben 200–260 Wörter, meist aufgeteilt in zwei Hörteile.
+Mitgeliefert: 11 Kapitel mit 31 Leveln, 93 Teilen und 340 Fragen. Davon sind 221 Freitext,
+33 Nacherzählen, 19 Reihenfolge und 67 Auswahl. Ein Teil hat 82–193 Wörter (Schnitt 124).
 
 ## Pfad
 

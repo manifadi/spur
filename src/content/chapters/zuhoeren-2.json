@@ -1,353 +1,648 @@
 {
-  "id": "zuhoeren-2",
-  "order": 2,
-  "title": "Namen & Zahlen",
-  "track": "listen",
-  "difficulty": 2,
-  "lessons": [
+ "id": "zuhoeren-2",
+ "order": 2,
+ "title": "Namen & Zahlen",
+ "track": "listen",
+ "difficulty": 2,
+ "lessons": [
+  {
+   "id": "z2-geburtstag",
+   "title": "Miras Geburtstag",
+   "items": [
     {
-      "id": "z2-geburtstag",
-      "title": "Geburtstag",
-      "items": [
-        {
-          "id": "z2-geburtstag-d",
-          "type": "dialog",
-          "title": "Geburtstag",
-          "characterId": "mia",
-          "text": "Hast du am Samstag Zeit? Mira feiert ihren Geburtstag, diesmal im Garten ihrer Eltern, Lindenweg 14. Das ist das Haus mit dem grünen Zaun, gleich nach der Bushaltestelle. Los geht's ab vier, es gibt Kuchen und später wird gegrillt. Bring bitte keine Blumen mit, sie hat Heuschnupfen, und zwar richtig schlimm. Letztes Jahr hat ihr jemand Lilien geschenkt, und sie hat den ganzen Abend nur geniest. Mira wird übrigens 35, aber sag's keinem, sie tut so, als wäre es der 30. Wir legen zusammen für einen Kochkurs, italienisch, der ist im Oktober. Ich sammle das Geld ein, zwanzig Euro pro Person.",
-          "subExercises": [
-            {
-              "id": "q1",
-              "type": "recall_text",
-              "prompt": "Wie lautet die Adresse von Miras Eltern?",
-              "answers": [
-                [
-                  "Lindenweg",
-                  "Linden"
-                ],
-                [
-                  "14",
-                  "vierzehn"
-                ]
-              ],
-              "solution": "Lindenweg 14.",
-              "quote": "„… im Garten ihrer Eltern, Lindenweg 14.“"
-            },
-            {
-              "id": "q2",
-              "type": "recall_text",
-              "prompt": "Warum soll man keine Blumen mitbringen?",
-              "answers": [
-                [
-                  "Heuschnupfen",
-                  "Allergie",
-                  "allergisch",
-                  "Pollen"
-                ]
-              ],
-              "solution": "Mira hat Heuschnupfen.",
-              "quote": "„Bring bitte keine Blumen mit, sie hat Heuschnupfen …“"
-            }
-          ],
-          "worldRefs": {
-            "charactersReferenced": [],
-            "locationsReferenced": []
-          }
-        }
-      ]
+     "id": "z2-geburtstag-d",
+     "type": "dialog",
+     "title": "Die Einladung",
+     "characterId": "mia",
+     "text": "Hast du am Samstag Zeit? Mira feiert ihren Geburtstag, diesmal im Garten ihrer Eltern, Lindenweg 14. Das ist das Haus mit dem grünen Zaun, gleich nach der Bushaltestelle. Los geht's ab vier, es gibt Kuchen und später wird gegrillt. Bring bitte keine Blumen mit, sie hat Heuschnupfen, und zwar richtig schlimm. Letztes Jahr hat ihr jemand Lilien geschenkt, und sie hat den ganzen Abend nur geniest. Mira wird übrigens 35, aber sag's keinem, sie tut so, als wäre es der 30. Wir legen zusammen für einen Kochkurs, italienisch, der ist im Oktober. Ich sammle das Geld ein, zwanzig Euro pro Person.",
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Wie lautet die Adresse von Miras Eltern?",
+       "answers": [
+        [
+         "Lindenweg",
+         "Linden"
+        ],
+        [
+         "14",
+         "vierzehn"
+        ]
+       ],
+       "solution": "Lindenweg 14.",
+       "quote": "„… im Garten ihrer Eltern, Lindenweg 14.“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Warum soll man keine Blumen mitbringen?",
+       "answers": [
+        [
+         "Heuschnupfen",
+         "Allergie",
+         "allergisch",
+         "Pollen"
+        ]
+       ],
+       "solution": "Mira hat Heuschnupfen.",
+       "quote": "„Bring bitte keine Blumen mit, sie hat Heuschnupfen …“"
+      },
+      {
+       "id": "q5",
+       "type": "recall_text",
+       "prompt": "Wie alt wird Mira wirklich?",
+       "answers": [
+        [
+         "35",
+         "fünfunddreißig",
+         "fuenfunddreissig"
+        ]
+       ],
+       "solution": "35.",
+       "quote": "„Mira wird übrigens 35 …“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Was bekommt Mira als gemeinsames Geschenk?",
+       "options": [
+        "Einen italienischen Kochkurs",
+        "Einen Tanzkurs",
+        "Einen Blumenstrauß",
+        "Ein Konzertticket"
+       ],
+       "correct": [
+        "Einen italienischen Kochkurs"
+       ],
+       "quote": "„Wir legen zusammen für einen Kochkurs, italienisch …“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": []
+     }
     },
     {
-      "id": "z2-geburtstag-2",
-      "title": "Geburtstag, Teil 2",
-      "items": [
-        {
-          "id": "z2-geburtstag-d2",
-          "type": "dialog",
-          "title": "Geburtstag, Teil 2",
-          "characterId": "mia",
-          "text": "Ach, und noch was zum Samstag: Ab acht spielt ihr Cousin Felix Gitarre. Der ist eigentlich Zahnarzt, aber am Wochenende tut er so, als wäre er ein Rockstar. Erst gibt's Kuchen, dann wird gegrillt, und wenn es dunkel wird, will Mira eine Feuerschale anmachen. Ich bringe den Nudelsalat mit. Wenn du magst, kannst du Brot besorgen, das vergisst nämlich jedes Jahr jemand. Parken ist schwierig, die Straße ist eng. Am besten stellst du dein Auto am Sportplatz ab und läufst die fünf Minuten. Und nimm eine Jacke mit, im Garten wird es abends kalt, auch wenn es tagsüber warm ist.",
-          "subExercises": [
-            {
-              "id": "q3",
-              "type": "recall_text",
-              "prompt": "Wer spielt ab acht Gitarre?",
-              "answers": [
-                [
-                  "Felix",
-                  "Cousin"
-                ]
-              ],
-              "solution": "Ihr Cousin Felix.",
-              "quote": "„Ab acht spielt ihr Cousin Felix Gitarre.“"
-            },
-            {
-              "id": "q4",
-              "type": "recall_text",
-              "prompt": "Was ist Felix von Beruf?",
-              "answers": [
-                [
-                  "Zahnarzt",
-                  "Zahnärztin"
-                ]
-              ],
-              "solution": "Zahnarzt.",
-              "quote": "„Der ist eigentlich Zahnarzt …“"
-            },
-            {
-              "id": "s1",
-              "type": "sequence_events",
-              "prompt": "In welcher Reihenfolge läuft die Feier ab?",
-              "events": [
-                "Kuchen",
-                "Grillen",
-                "Feuerschale im Dunkeln"
-              ]
-            }
-          ],
-          "worldRefs": {
-            "charactersReferenced": [],
-            "locationsReferenced": []
-          }
-        }
-      ]
+     "id": "z2-geburtstag-d2",
+     "type": "dialog",
+     "title": "Der Ablauf",
+     "characterId": "mia",
+     "text": "Ach, und noch was zum Samstag: Ab acht spielt ihr Cousin Felix Gitarre. Der ist eigentlich Zahnarzt, aber am Wochenende tut er so, als wäre er ein Rockstar. Erst gibt's Kuchen, dann wird gegrillt, und wenn es dunkel wird, will Mira eine Feuerschale anmachen. Ich bringe den Nudelsalat mit. Wenn du magst, kannst du Brot besorgen, das vergisst nämlich jedes Jahr jemand. Parken ist schwierig, die Straße ist eng. Am besten stellst du dein Auto am Sportplatz ab und läufst die fünf Minuten. Und nimm eine Jacke mit, im Garten wird es abends kalt, auch wenn es tagsüber warm ist.",
+     "subExercises": [
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Wer spielt ab acht Gitarre?",
+       "answers": [
+        [
+         "Felix",
+         "Cousin"
+        ]
+       ],
+       "solution": "Ihr Cousin Felix.",
+       "quote": "„Ab acht spielt ihr Cousin Felix Gitarre.“"
+      },
+      {
+       "id": "q4",
+       "type": "recall_text",
+       "prompt": "Was ist Felix von Beruf?",
+       "answers": [
+        [
+         "Zahnarzt",
+         "Zahnärztin"
+        ]
+       ],
+       "solution": "Zahnarzt.",
+       "quote": "„Der ist eigentlich Zahnarzt …“"
+      },
+      {
+       "id": "s1",
+       "type": "sequence_events",
+       "prompt": "In welcher Reihenfolge läuft die Feier ab?",
+       "events": [
+        "Kuchen",
+        "Grillen",
+        "Feuerschale im Dunkeln"
+       ]
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": []
+     }
     },
     {
-      "id": "z2-arztpraxis",
-      "title": "Arztpraxis",
-      "items": [
-        {
-          "id": "z2-arztpraxis-d",
-          "type": "dialog",
-          "title": "Arztpraxis",
-          "characterId": "sandra",
-          "text": "Na toll. Die Praxis hat meinen Termin auf Donnerstag, 9:40 Uhr, verschoben. Mitten in der Teambesprechung natürlich. Dr. Albers ist im Urlaub, drei Wochen Mallorca, also komme ich zu ihrer Vertretung, Frau Dr. Kaya. Die soll gut sein, sagt meine Schwester. Mitbringen soll ich die Versichertenkarte und den Impfpass, weil sie gleich die Tetanus-Impfung auffrischen wollen. Und nüchtern soll ich kommen, wegen der Blutabnahme. Ohne Kaffee. Um 9:40. Ich freu mich schon. Danach muss ich noch zur Apotheke am Markt, die haben meine Tabletten endlich wieder vorrätig. Drei Wochen hat das gedauert. Wenn ich bis zwölf nicht zurück bin, fang ohne mich mit der Präsentation an, die Folien liegen im gemeinsamen Ordner.",
-          "subExercises": [
-            {
-              "id": "q1",
-              "type": "recall_text",
-              "prompt": "Wann ist der neue Termin?",
-              "answers": [
-                [
-                  "Donnerstag"
-                ],
-                [
-                  "9 40",
-                  "940",
-                  "neun uhr vierzig"
-                ]
-              ],
-              "solution": "Donnerstag, 9:40 Uhr.",
-              "quote": "„… meinen Termin auf Donnerstag, 9:40 Uhr, verschoben.“"
-            },
-            {
-              "id": "q2",
-              "type": "recall_text",
-              "prompt": "Warum ist Dr. Albers nicht da?",
-              "answers": [
-                [
-                  "Urlaub",
-                  "Ferien",
-                  "Mallorca"
-                ]
-              ],
-              "solution": "Sie ist im Urlaub.",
-              "quote": "„Dr. Albers ist im Urlaub, drei Wochen Mallorca …“"
-            },
-            {
-              "id": "q3",
-              "type": "recall_text",
-              "prompt": "Wie heißt die Vertretung?",
-              "answers": [
-                [
-                  "Kaya",
-                  "Kaja"
-                ]
-              ],
-              "solution": "Frau Dr. Kaya.",
-              "quote": "„… zu ihrer Vertretung, Frau Dr. Kaya.“"
-            },
-            {
-              "id": "q4",
-              "type": "recall_text",
-              "prompt": "Was soll zum Termin mit?",
-              "answers": [
-                [
-                  "Versichertenkarte",
-                  "Krankenkassenkarte",
-                  "Gesundheitskarte",
-                  "Karte"
-                ],
-                [
-                  "Impfpass",
-                  "Impfausweis",
-                  "Impfbuch"
-                ]
-              ],
-              "solution": "Versichertenkarte und Impfpass.",
-              "quote": "„Mitbringen soll ich die Versichertenkarte und den Impfpass …“"
-            }
-          ],
-          "worldRefs": {
-            "charactersReferenced": [],
-            "locationsReferenced": [
-              "arztpraxis"
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "id": "z2-nachbarn",
-      "title": "Neue Nachbarn",
-      "items": [
-        {
-          "id": "z2-nachbarn-d",
-          "type": "dialog",
-          "title": "Neue Nachbarn",
-          "characterId": "frau-berger",
-          "text": "Haben Sie die Neuen schon gesehen? Die im dritten Stock, wo früher Herr Wagner gewohnt hat! Die heißen Okafor. Er arbeitet bei der Feuerwehr, sie ist Hebamme — da hat man ja gleich zwei Leute im Haus, die im Notfall wissen, was zu tun ist! Und die haben einen Hund namens Bruno, so ein großer brauner, der hat Angst vor dem Aufzug. Stellen Sie sich das vor, der läuft jeden Tag drei Stockwerke. Nett sind die aber, sie hat mir gleich Kekse gebracht. Die haben auch eine kleine Tochter, Amara heißt sie, die geht in die zweite Klasse. Und wissen Sie was? Die spielt Geige! Ich hab sie schon üben hören, jeden Nachmittag um fünf. Na ja, sie übt ja noch. Wir sollten sie mal zum Kaffee einladen, finden Sie nicht?",
-          "subExercises": [
-            {
-              "id": "q1",
-              "type": "recall_text",
-              "prompt": "Wie heißen die neuen Nachbarn mit Nachnamen?",
-              "answers": [
-                [
-                  "Okafor",
-                  "Okafur",
-                  "Okafo"
-                ]
-              ],
-              "solution": "Okafor.",
-              "quote": "„Die heißen Okafor.“"
-            },
-            {
-              "id": "q2",
-              "type": "recall_text",
-              "prompt": "In welchem Stock wohnen sie?",
-              "answers": [
-                [
-                  "3",
-                  "drei",
-                  "dritten",
-                  "dritte",
-                  "dritter"
-                ]
-              ],
-              "solution": "Im dritten Stock.",
-              "quote": "„Die im dritten Stock, wo früher Herr Wagner gewohnt hat!“"
-            },
-            {
-              "id": "q3",
-              "type": "recall_text",
-              "prompt": "Was ist die neue Nachbarin von Beruf?",
-              "answers": [
-                [
-                  "Hebamme"
-                ]
-              ],
-              "solution": "Hebamme.",
-              "quote": "„Er arbeitet bei der Feuerwehr, sie ist Hebamme …“"
-            },
-            {
-              "id": "q4",
-              "type": "recall_text",
-              "prompt": "Wovor hat der Hund Angst?",
-              "answers": [
-                [
-                  "Aufzug",
-                  "Fahrstuhl",
-                  "Lift"
-                ]
-              ],
-              "solution": "Vor dem Aufzug.",
-              "quote": "„… einen Hund namens Bruno …, der hat Angst vor dem Aufzug.“"
-            }
-          ],
-          "worldRefs": {
-            "charactersReferenced": [],
-            "locationsReferenced": [
-              "treppenhaus"
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "id": "z2-zugfahrt",
-      "title": "Zugfahrt",
-      "items": [
-        {
-          "id": "z2-zugfahrt-d",
-          "type": "dialog",
-          "title": "Zugfahrt",
-          "characterId": "thomas",
-          "text": "Für die Schulung nächste Woche fahre ich mit dem Zug. Mein Zug nach Leipzig fährt um 7:12 von Gleis 5. Ich hab Platz 63 in Wagen 8 reserviert, am Fenster, in Fahrtrichtung. Umsteigen muss ich nur einmal, in Erfurt, da habe ich elf Minuten. Wenn der Anschluss klappt, bin ich um zehn nach elf da. Wenn nicht, nehme ich den nächsten und bin eine Stunde später. Rechnet also sicherheitshalber mit mir erst nach der Mittagspause. Die Schulung geht zwei Tage, übernachten tue ich im Hotel am Hauptbahnhof. Zurück fahre ich am Freitag um halb fünf, dann bin ich gegen neun wieder zu Hause. Falls mich jemand braucht: Das Telefon habe ich dabei, aber Empfang gibt es auf der Strecke nicht überall.",
-          "subExercises": [
-            {
-              "id": "q1",
-              "type": "recall_text",
-              "prompt": "Wohin fährt der Zug?",
-              "answers": [
-                [
-                  "Leipzig"
-                ]
-              ],
-              "solution": "Nach Leipzig.",
-              "quote": "„Mein Zug nach Leipzig fährt um 7:12 …“"
-            },
-            {
-              "id": "q2",
-              "type": "recall_text",
-              "prompt": "Von welchem Gleis fährt er?",
-              "answers": [
-                [
-                  "5",
-                  "fünf",
-                  "fuenf"
-                ]
-              ],
-              "solution": "Gleis 5.",
-              "quote": "„… fährt um 7:12 von Gleis 5.“"
-            },
-            {
-              "id": "q3",
-              "type": "recall_text",
-              "prompt": "Welcher Platz in welchem Wagen?",
-              "answers": [
-                [
-                  "63",
-                  "dreiundsechzig"
-                ],
-                [
-                  "8",
-                  "acht"
-                ]
-              ],
-              "solution": "Platz 63 in Wagen 8.",
-              "quote": "„Ich hab Platz 63 in Wagen 8 reserviert …“"
-            },
-            {
-              "id": "q4",
-              "type": "recall_text",
-              "prompt": "Wo muss Thomas umsteigen?",
-              "answers": [
-                [
-                  "Erfurt"
-                ]
-              ],
-              "solution": "In Erfurt.",
-              "quote": "„Umsteigen muss ich nur einmal, in Erfurt …“"
-            }
-          ],
-          "worldRefs": {
-            "charactersReferenced": [],
-            "locationsReferenced": [
-              "bahnhof"
-            ]
-          }
-        }
-      ]
+     "id": "z2-geburtstag-d3",
+     "type": "dialog",
+     "title": "Der Abend danach",
+     "characterId": "mia",
+     "text": "Na, gut nach Hause gekommen? Was für ein Abend! Felix hat übrigens nicht nur Gitarre gespielt, sondern auch noch gesungen, zwei Stunden lang. Beim dritten Lied von den Beatles hat Miras Vater mitgesungen, und zwar lauter als Felix. Das Brot hast du super besorgt, nur hat jemand anders auch zwei Laibe mitgebracht, jetzt hat Mira Brot für eine Woche. Den Kochkurs fand sie toll, sie hat sogar ein bisschen geweint. Und rate mal: Um Mitternacht hat die Feuerschale den Rasen angesengt, ein Fleck so groß wie ein Wagenrad. Ihr Vater hat nur gelacht und gesagt, der Rasen war sowieso hässlich. Nächstes Jahr feiert sie trotzdem lieber in einer Bar.",
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Wie lange hat Felix gesungen?",
+       "answers": [
+        [
+         "zwei Stunden",
+         "2 Stunden"
+        ]
+       ],
+       "solution": "Zwei Stunden lang.",
+       "quote": "„… sondern auch noch gesungen, zwei Stunden lang.“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Wer hat bei den Beatles mitgesungen?",
+       "answers": [
+        [
+         "Vater",
+         "Papa",
+         "Miras Vater"
+        ]
+       ],
+       "solution": "Miras Vater.",
+       "quote": "„… hat Miras Vater mitgesungen, und zwar lauter als Felix.“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Was ist um Mitternacht passiert?",
+       "options": [
+        "Die Feuerschale hat den Rasen angesengt",
+        "Der Strom ist ausgefallen",
+        "Es hat angefangen zu regnen",
+        "Die Nachbarn haben sich beschwert"
+       ],
+       "correct": [
+        "Die Feuerschale hat den Rasen angesengt"
+       ],
+       "quote": "„Um Mitternacht hat die Feuerschale den Rasen angesengt …“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Wo will Mira nächstes Jahr feiern?",
+       "answers": [
+        [
+         "Bar",
+         "Kneipe"
+        ]
+       ],
+       "solution": "In einer Bar.",
+       "quote": "„Nächstes Jahr feiert sie trotzdem lieber in einer Bar.“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": []
+     }
     }
-  ]
+   ]
+  },
+  {
+   "id": "z2-woche",
+   "title": "Eine volle Woche",
+   "items": [
+    {
+     "id": "z2-arztpraxis-d",
+     "type": "dialog",
+     "title": "Der verschobene Termin",
+     "characterId": "sandra",
+     "text": "Na toll. Die Praxis hat meinen Termin auf Donnerstag, 9:40 Uhr, verschoben. Mitten in der Teambesprechung natürlich. Dr. Albers ist im Urlaub, drei Wochen Mallorca, also komme ich zu ihrer Vertretung, Frau Dr. Kaya. Die soll gut sein, sagt meine Schwester. Mitbringen soll ich die Versichertenkarte und den Impfpass, weil sie gleich die Tetanus-Impfung auffrischen wollen. Und nüchtern soll ich kommen, wegen der Blutabnahme. Ohne Kaffee. Um 9:40. Ich freu mich schon. Danach muss ich noch zur Apotheke am Markt, die haben meine Tabletten endlich wieder vorrätig. Drei Wochen hat das gedauert. Wenn ich bis zwölf nicht zurück bin, fang ohne mich mit der Präsentation an, die Folien liegen im gemeinsamen Ordner.",
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Wann ist der neue Termin?",
+       "answers": [
+        [
+         "Donnerstag"
+        ],
+        [
+         "9 40",
+         "940",
+         "neun uhr vierzig"
+        ]
+       ],
+       "solution": "Donnerstag, 9:40 Uhr.",
+       "quote": "„… meinen Termin auf Donnerstag, 9:40 Uhr, verschoben.“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Warum ist Dr. Albers nicht da?",
+       "answers": [
+        [
+         "Urlaub",
+         "Ferien",
+         "Mallorca"
+        ]
+       ],
+       "solution": "Sie ist im Urlaub.",
+       "quote": "„Dr. Albers ist im Urlaub, drei Wochen Mallorca …“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Wie heißt die Vertretung?",
+       "answers": [
+        [
+         "Kaya",
+         "Kaja"
+        ]
+       ],
+       "solution": "Frau Dr. Kaya.",
+       "quote": "„… zu ihrer Vertretung, Frau Dr. Kaya.“"
+      },
+      {
+       "id": "q4",
+       "type": "recall_text",
+       "prompt": "Was soll zum Termin mit?",
+       "answers": [
+        [
+         "Versichertenkarte",
+         "Krankenkassenkarte",
+         "Gesundheitskarte",
+         "Karte"
+        ],
+        [
+         "Impfpass",
+         "Impfausweis",
+         "Impfbuch"
+        ]
+       ],
+       "solution": "Versichertenkarte und Impfpass.",
+       "quote": "„Mitbringen soll ich die Versichertenkarte und den Impfpass …“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": [
+       "arztpraxis"
+      ]
+     }
+    },
+    {
+     "id": "z2-zugfahrt-d",
+     "type": "dialog",
+     "title": "Die Dienstreise",
+     "characterId": "thomas",
+     "text": "Für die Schulung nächste Woche fahre ich mit dem Zug. Mein Zug nach Leipzig fährt um 7:12 von Gleis 5. Ich hab Platz 63 in Wagen 8 reserviert, am Fenster, in Fahrtrichtung. Umsteigen muss ich nur einmal, in Erfurt, da habe ich elf Minuten. Wenn der Anschluss klappt, bin ich um zehn nach elf da. Wenn nicht, nehme ich den nächsten und bin eine Stunde später. Rechnet also sicherheitshalber mit mir erst nach der Mittagspause. Die Schulung geht zwei Tage, übernachten tue ich im Hotel am Hauptbahnhof. Zurück fahre ich am Freitag um halb fünf, dann bin ich gegen neun wieder zu Hause. Falls mich jemand braucht: Das Telefon habe ich dabei, aber Empfang gibt es auf der Strecke nicht überall.",
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Wohin fährt der Zug?",
+       "answers": [
+        [
+         "Leipzig"
+        ]
+       ],
+       "solution": "Nach Leipzig.",
+       "quote": "„Mein Zug nach Leipzig fährt um 7:12 …“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Von welchem Gleis fährt er?",
+       "answers": [
+        [
+         "5",
+         "fünf",
+         "fuenf"
+        ]
+       ],
+       "solution": "Gleis 5.",
+       "quote": "„… fährt um 7:12 von Gleis 5.“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Welcher Platz in welchem Wagen?",
+       "answers": [
+        [
+         "63",
+         "dreiundsechzig"
+        ],
+        [
+         "8",
+         "acht"
+        ]
+       ],
+       "solution": "Platz 63 in Wagen 8.",
+       "quote": "„Ich hab Platz 63 in Wagen 8 reserviert …“"
+      },
+      {
+       "id": "q4",
+       "type": "recall_text",
+       "prompt": "Wo muss Thomas umsteigen?",
+       "answers": [
+        [
+         "Erfurt"
+        ]
+       ],
+       "solution": "In Erfurt.",
+       "quote": "„Umsteigen muss ich nur einmal, in Erfurt …“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": [
+       "bahnhof"
+      ]
+     }
+    },
+    {
+     "id": "z2-woche-d3",
+     "type": "dialog",
+     "title": "Grüße aus Leipzig",
+     "characterId": "thomas",
+     "text": "Kurze Nachricht aus Leipzig. Der Anschluss in Erfurt hat geklappt, ich war sogar um fünf nach elf da. Ein Wunder. Die Schulung ist im vierten Stock, Raum 412, und wir sind nur acht Leute. Der Trainer heißt Herr Nguyen und macht alle zwanzig Minuten ein Quiz. Morgen geht es um Tabellenkalkulation, heute war Projektplanung dran. Das Hotel ist in Ordnung, aber das Fenster geht auf die Straßenbahn raus, ab halb fünf morgens fährt sie im Takt von zehn Minuten. Sagt Sandra bitte, dass ich ihre Präsentation noch nicht gelesen habe. Ich mache das im Zug am Freitag. Und falls die Kaffeemaschine wieder streikt: Der Techniker hat seine Nummer an den Kühlschrank geklebt.",
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Um wie viel Uhr ist Thomas in Leipzig angekommen?",
+       "answers": [
+        [
+         "fünf nach elf",
+         "11:05",
+         "11 05",
+         "11.05"
+        ]
+       ],
+       "solution": "Um fünf nach elf.",
+       "quote": "„… ich war sogar um fünf nach elf da.“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "In welchem Raum ist die Schulung?",
+       "answers": [
+        [
+         "412"
+        ]
+       ],
+       "solution": "In Raum 412, im vierten Stock.",
+       "quote": "„… im vierten Stock, Raum 412 …“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Wie heißt der Trainer?",
+       "answers": [
+        [
+         "Nguyen",
+         "Nguien",
+         "Ngujen"
+        ]
+       ],
+       "solution": "Herr Nguyen.",
+       "quote": "„Der Trainer heißt Herr Nguyen …“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Was stört Thomas im Hotel?",
+       "options": [
+        "Die Straßenbahn vor dem Fenster",
+        "Das kalte Wasser",
+        "Das Frühstück",
+        "Die laute Bar im Erdgeschoss"
+       ],
+       "correct": [
+        "Die Straßenbahn vor dem Fenster"
+       ],
+       "quote": "„… das Fenster geht auf die Straßenbahn raus …“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [
+       "sandra"
+      ],
+      "locationsReferenced": [
+       "bahnhof"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "z2-nachbarn",
+   "title": "Die Neuen im dritten Stock",
+   "items": [
+    {
+     "id": "z2-nachbarn-d",
+     "type": "dialog",
+     "title": "Familie Okafor",
+     "characterId": "frau-berger",
+     "text": "Haben Sie die Neuen schon gesehen? Die im dritten Stock, wo früher Herr Wagner gewohnt hat! Die heißen Okafor. Er arbeitet bei der Feuerwehr, sie ist Hebamme — da hat man ja gleich zwei Leute im Haus, die im Notfall wissen, was zu tun ist! Und die haben einen Hund namens Bruno, so ein großer brauner, der hat Angst vor dem Aufzug. Stellen Sie sich das vor, der läuft jeden Tag drei Stockwerke. Nett sind die aber, sie hat mir gleich Kekse gebracht. Die haben auch eine kleine Tochter, Amara heißt sie, die geht in die zweite Klasse. Und wissen Sie was? Die spielt Geige! Ich hab sie schon üben hören, jeden Nachmittag um fünf. Na ja, sie übt ja noch. Wir sollten sie mal zum Kaffee einladen, finden Sie nicht?",
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Wie heißen die neuen Nachbarn mit Nachnamen?",
+       "answers": [
+        [
+         "Okafor",
+         "Okafur",
+         "Okafo"
+        ]
+       ],
+       "solution": "Okafor.",
+       "quote": "„Die heißen Okafor.“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "In welchem Stock wohnen sie?",
+       "answers": [
+        [
+         "3",
+         "drei",
+         "dritten",
+         "dritte",
+         "dritter"
+        ]
+       ],
+       "solution": "Im dritten Stock.",
+       "quote": "„Die im dritten Stock, wo früher Herr Wagner gewohnt hat!“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Was ist die neue Nachbarin von Beruf?",
+       "answers": [
+        [
+         "Hebamme"
+        ]
+       ],
+       "solution": "Hebamme.",
+       "quote": "„Er arbeitet bei der Feuerwehr, sie ist Hebamme …“"
+      },
+      {
+       "id": "q4",
+       "type": "recall_text",
+       "prompt": "Wovor hat der Hund Angst?",
+       "answers": [
+        [
+         "Aufzug",
+         "Fahrstuhl",
+         "Lift"
+        ]
+       ],
+       "solution": "Vor dem Aufzug.",
+       "quote": "„… einen Hund namens Bruno …, der hat Angst vor dem Aufzug.“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": [
+       "treppenhaus"
+      ]
+     }
+    },
+    {
+     "id": "z2-nachbarn-d2",
+     "type": "dialog",
+     "title": "Kaffee bei Frau Berger",
+     "characterId": "frau-berger",
+     "text": "Die Okafors waren gestern bei mir zum Kaffee! Er heißt übrigens Emeka, sie heißt Grace. Sie kommen aus Hannover, er hat sich hierher versetzen lassen, zur Wache in der Hafenstraße. Grace hat Bananenbrot mitgebracht, so ein gutes hab ich noch nie gegessen. Das Rezept ist von ihrer Großmutter, mit Zimt und einer Prise Kardamom. Bruno lag die ganze Zeit unter meinem Tisch und hat geschnarcht. Und die Kleine, Amara, hat mir auf der Geige ein Lied vorgespielt, „Alle meine Entchen“. Zweimal. Nächsten Monat hat sie ihr erstes Vorspiel in der Musikschule. Ich hab versprochen, dass ich komme.",
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Wie heißt Herr Okafor mit Vornamen?",
+       "answers": [
+        [
+         "Emeka",
+         "Emecka"
+        ]
+       ],
+       "solution": "Emeka.",
+       "quote": "„Er heißt übrigens Emeka, sie heißt Grace.“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Aus welcher Stadt kommen die Okafors?",
+       "answers": [
+        [
+         "Hannover",
+         "Hanover"
+        ]
+       ],
+       "solution": "Aus Hannover.",
+       "quote": "„Sie kommen aus Hannover …“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Welche Gewürze sind im Bananenbrot?",
+       "options": [
+        "Zimt und Kardamom",
+        "Vanille und Nelken",
+        "Ingwer und Muskat",
+        "Anis und Zimt"
+       ],
+       "correct": [
+        "Zimt und Kardamom"
+       ],
+       "quote": "„… mit Zimt und einer Prise Kardamom.“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Welches Lied hat Amara vorgespielt?",
+       "answers": [
+        [
+         "Alle meine Entchen",
+         "Entchen"
+        ]
+       ],
+       "solution": "„Alle meine Entchen“.",
+       "quote": "„… ‚Alle meine Entchen‘. Zweimal.“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": [
+       "treppenhaus"
+      ]
+     }
+    },
+    {
+     "id": "z2-nachbarn-d3",
+     "type": "dialog",
+     "title": "Das Vorspiel",
+     "characterId": "frau-berger",
+     "text": "Ich war gestern beim Vorspiel in der Musikschule, wie versprochen. Elf Kinder, und Amara war die Neunte. Sie hatte ein gelbes Kleid an und hat vorher so gezittert, dass ihr der Bogen runtergefallen ist. Aber dann! Sie hat ein Menuett von Bach gespielt, ohne einen einzigen Fehler. Ihre Lehrerin, Frau Takahashi, hat gesagt, sie übt jetzt schon eine halbe Stunde länger als die anderen. Emeka hatte Dienst, der konnte nicht kommen, also hab ich mit dem Handy gefilmt. Leider nur die zweite Hälfte, am Anfang hatte ich den Finger vor der Linse. Grace hat trotzdem geweint vor Freude.",
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Als Wievielte hat Amara gespielt?",
+       "answers": [
+        [
+         "neunte",
+         "9",
+         "neun"
+        ]
+       ],
+       "solution": "Als Neunte von elf Kindern.",
+       "quote": "„Elf Kinder, und Amara war die Neunte.“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Was hat Amara gespielt?",
+       "answers": [
+        [
+         "Menuett",
+         "Bach"
+        ]
+       ],
+       "solution": "Ein Menuett von Bach.",
+       "quote": "„Sie hat ein Menuett von Bach gespielt …“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Wie heißt die Geigenlehrerin?",
+       "answers": [
+        [
+         "Takahashi",
+         "Takahasi"
+        ]
+       ],
+       "solution": "Frau Takahashi.",
+       "quote": "„Ihre Lehrerin, Frau Takahashi …“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Warum war Emeka nicht dabei?",
+       "options": [
+        "Er hatte Dienst",
+        "Er war krank",
+        "Er war verreist",
+        "Er hat es vergessen"
+       ],
+       "correct": [
+        "Er hatte Dienst"
+       ],
+       "quote": "„Emeka hatte Dienst, der konnte nicht kommen …“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": []
+     }
+    }
+   ]
+  }
+ ]
 }

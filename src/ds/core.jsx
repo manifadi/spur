@@ -77,7 +77,7 @@ export function TextField({ value, onChange, placeholder, label, hint, state = '
           width: '100%', padding: '14px 16px', font: 'var(--type-body)', fontSize: 'var(--text-body-l)',
           lineHeight: 'var(--leading-relaxed)', color: 'var(--text-ink)', background: s.bg,
           border: `2px solid ${s.border}`, borderRadius: 'var(--radius-md)', outline: 'none', resize: 'none',
-          transition: 'border-color var(--dur-fast) var(--ease-out-soft), background var(--dur-fast) var(--ease-out-soft)',
+          transition: 'border-color var(--dur-fast) var(--ease-out-soft), background var(--dur-fast) var(--ease-out-soft), max-height var(--dur-base) var(--ease-out-soft)',
         }} {...rest} />
       {hint && <span style={{ font: 'var(--type-label)', fontWeight: 500, color: 'var(--text-muted)' }}>{hint}</span>}
     </label>

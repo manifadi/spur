@@ -9,11 +9,12 @@ import { GoalRing, HeartsMeter, InfinityPill, PathNode, StreakPill, XPPill } fro
 import { SettingsSheet } from './Settings.jsx';
 import {
   buildPath, doneTodayCount, dueCardIds, hasAnyProgress, isInfinite, nextLessonAfter, daysSinceFirstSeen, isMastered, pickPopup,
+  lessonParts, isPartDone,
 } from '../engine/game.js';
 import { dayKey, daysBetween } from '../engine/dates.js';
 import { Sheet } from '../ds/feedback.jsx';
 import { cap, daysAgoText, numWord } from '../lib/format.js';
-import { prefersReducedMotion, useCountUp, EASE } from '../lib/motion.js';
+import { prefersReducedMotion, useCountUp, usePresence, EASE } from '../lib/motion.js';
 
 const OFFSETS = [0, 56, 82, 40, -14, -56, -82, -40];
 const TRACK_NAME = { listen: 'Zuhören', read: 'Lesen', mixed: 'Gemischt' };
@@ -34,6 +35,7 @@ export function PathHeader({ xpFrom, xpDelay = 300, streakBump = false, onMenu }
   const p = state.progress;
   const infinite = isInfinite(p);
   const [tip, setTip] = useState(false);
+  const [tipShown, tipLeaving] = usePresence(tip, 220);
   const [bump, setBump] = useState(0);
   const xp = useCountUp(p.xp, { from: xpFrom ?? p.xp, delay: xpDelay, run: xpFrom != null && xpFrom !== p.xp });
   useEffect(() => {
@@ -54,8 +56,8 @@ export function PathHeader({ xpFrom, xpDelay = 300, streakBump = false, onMenu }
         {infinite ? <InfinityPill onClick={() => setTip((t) => !t)} /> : <HeartsMeter value={p.hearts} size={18} />}
       </div>
       <IconButton icon="menu" label="Menü" size={44} onClick={onMenu} />
-      {tip && (
-        <div role="tooltip" className="a-rise" style={{ position: 'absolute', top: 'calc(60px + env(safe-area-inset-top))', left: 110, width: 'min(230px, calc(100% - 110px - var(--gutter-screen)))', background: '#1F2130', color: '#fff',
+      {tipShown && (
+        <div role="tooltip" className={tipLeaving ? 'a-leave' : 'a-rise'} style={{ position: 'absolute', top: 'calc(60px + env(safe-area-inset-top))', left: 110, width: 'min(230px, calc(100% - 110px - var(--gutter-screen)))', background: '#1F2130', color: '#fff',
           borderRadius: 'var(--radius-md)', padding: '12px 14px', boxShadow: 'var(--shadow-raised)', animationDuration: '200ms' }}>
           <span style={{ display: 'block', font: 'var(--type-headline)', fontSize: 'var(--text-body)', marginBottom: 2 }}>Unendlich bis Mitternacht</span>
           <span style={{ display: 'block', font: 'var(--type-label)', fontWeight: 500, color: 'rgba(255,255,255,.75)' }}>Belohnung für {p.streak} Tage am Stück. Fehler kosten heute nichts.</span>
@@ -80,35 +82,40 @@ function bubbleText(index, state) {
   return 'Heute ist nichts fällig. Zeit für was Neues.';
 }
 
-function nodeInfo(node, state) {
+function nodeInfo(node, state, index) {
   const now = new Date();
-  const teil = (k) => `${k} ${k === 1 ? 'Teilübung' : 'Teilübungen'}`;
-  const n = node.cardIds.length;
+  const fragen = (k) => `${k} ${k === 1 ? 'Frage' : 'Fragen'}`;
   const t = node.track;
+  const variant = t === 'mixed' ? 'primary' : t;
   if (node.lesson.type === 'checkpoint') {
     const done = node.status === 'done';
     return { title: 'Checkpoint', meta: done ? 'Gemischte Wiederholung · erledigt' : 'Gemischte Wiederholung · bis zu 6 Karten', cta: done ? 'Nochmal üben' : 'Los geht’s', variant: 'primary' };
   }
-  const open = node.cardIds.filter((id) => !isMastered(state.cards[id])).length;
-  if (node.status === 'done' && open > 0) {
-    return { title: node.lesson.title, meta: `${n - open} von ${teil(n)} geschafft`, cta: 'Weitermachen', variant: t === 'mixed' ? 'primary' : t };
-  }
-  if (node.status === 'done') {
-    const at = state.progress.lessonsDone[node.id];
-    const d = at ? daysBetween(dayKey(new Date(at)), dayKey(now)) : daysSinceFirstSeen(state, node.cardIds, now);
-    return { title: node.lesson.title, meta: `${teil(n)} · abgeschlossen ${daysAgoText(d)}`, cta: t === 'read' ? 'Nochmal lesen' : 'Nochmal hören', variant: t === 'mixed' ? 'primary' : t };
-  }
+  const parts = lessonParts(index, node.id);
+  const of = parts.length;
+  const next = parts.find((p) => !isPartDone(state, p));
+  const media = (p) => (p.item.type === 'text' ? '1 Text' : '1 Gespräch');
+  const minutes = (p) => Math.max(2, Math.round(p.cardIds.length * 0.8 + (p.item.type === 'text' ? 1.5 : 1)));
   if (node.status === 'due') {
     const today = dayKey(now);
     const due = node.cardIds.filter((id) => { const r = state.cards[id]; return r && r.stage >= 0 && r.due <= today; }).length;
     const d = daysSinceFirstSeen(state, node.cardIds, now);
-    if (t === 'read') return { title: 'Fällige Wiedergabe', meta: `${teil(due)} · gelesen ${daysAgoText(d)}`, cta: 'Wiedergeben', variant: 'read' };
-    return { title: 'Fällige Wiederholung', meta: `${teil(due)} · zuletzt ${daysAgoText(d)}`, cta: 'Wiederholen', variant: 'listen' };
+    if (t === 'read') return { title: 'Fällige Wiedergabe', meta: `${fragen(due)} · gelesen ${daysAgoText(d)}`, cta: 'Wiedergeben', variant: 'read' };
+    return { title: 'Fällige Wiederholung', meta: `${fragen(due)} · zuletzt ${daysAgoText(d)}`, cta: 'Wiederholen', variant: 'listen' };
   }
-  const started = open < n;
-  const cta = started ? 'Weitermachen' : 'Los geht’s';
-  if (t === 'read') return { title: node.lesson.title, meta: `${started ? 'Noch ' : '1 Text · '}${teil(open)} · ca. ${Math.max(2, open + 1)} Minuten`, cta, variant: 'read' };
-  return { title: node.lesson.title, meta: `${started ? 'Noch ' : '1 Gespräch · '}${teil(open)} · ca. ${Math.max(1, Math.round(open * 0.8 + 1))} Minuten`, cta, variant: t === 'mixed' ? 'primary' : t };
+  if (next) {
+    // Offener Teil: "Teil 2 von 4 · 1 Gespräch · 3 Fragen · ca. 3 Minuten"
+    const label = of > 1 ? `Teil ${next.n} von ${of} · ` : '';
+    return {
+      title: node.lesson.title,
+      meta: `${label}${media(next)} · ${fragen(next.cardIds.length)} · ca. ${minutes(next)} Minuten`,
+      cta: next.n === 1 && !next.cardIds.some((id) => state.cards[id]) ? 'Los geht’s' : `Teil ${next.n} starten`,
+      variant,
+    };
+  }
+  const at = state.progress.lessonsDone[node.id];
+  const d = at ? daysBetween(dayKey(new Date(at)), dayKey(now)) : daysSinceFirstSeen(state, node.cardIds, now);
+  return { title: node.lesson.title, meta: `${of} ${of === 1 ? 'Teil' : 'Teile'} · abgeschlossen ${daysAgoText(d)}`, cta: t === 'read' ? 'Einen Teil nochmal lesen' : 'Einen Teil nochmal hören', variant };
 }
 
 /* ---- Kapitel-Banner --------------------------------------------------------- */
@@ -141,13 +148,14 @@ function ChapterBanner({ group }) {
 }
 
 /* ---- Knoten mit Überblendung (3e) ------------------------------------------ */
-function NodeView({ node, from, delay, onTap, nodeRef }) {
+function NodeView({ node, from, delay, freshPart, onTap, nodeRef }) {
   const common = { track: node.track === 'mixed' ? 'mixed' : node.track, icon: node.lesson.type === 'checkpoint' ? 'target' : undefined };
   const label = node.lesson.type === 'checkpoint' && node.status !== 'locked' ? 'Checkpoint' : node.label;
   const tap = node.status === 'locked' ? undefined : (e) => { e.stopPropagation(); onTap(node); };
   const aria = `${node.lesson.title}${node.status === 'locked' ? ', gesperrt' : node.status === 'due' ? ', fällig' : node.status === 'done' ? ', erledigt' : ''}`;
   if (!from || from === node.status) {
-    return <span ref={nodeRef}><PathNode {...common} state={node.status} segments={node.segments} label={label} ariaLabel={aria} onClick={tap} /></span>;
+    const segments = freshPart ? { ...node.segments, fresh: freshPart } : node.segments;
+    return <span ref={nodeRef}><PathNode {...common} state={node.status} segments={segments} label={label} ariaLabel={aria} onClick={tap} /></span>;
   }
   return (
     <span ref={nodeRef} style={{ position: 'relative', display: 'inline-flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -331,20 +339,26 @@ export function Home({ anim, onOpenNode, onPopupTest }) {
     }
   }
 
-  const info = selected ? nodeInfo(selected, state) : null;
+  // Alles, was eingeblendet wird, blendet auch weich wieder aus.
+  const [popupShown] = usePresence(popup, 260);
+  const [sel, selLeaving] = usePresence(selected, 220);
+  const [toastShown, toastLeaving] = usePresence(toast, 260);
+  const [stickyShown, stickyLeaving] = usePresence(sticky, 200);
+  const [targetShown, targetLeaving] = usePresence(!targetVisible && !selected && target ? target : null, 220);
+  const info = sel ? nodeInfo(sel, state, index) : null;
 
   return (
     <div className="screen">
       <PathHeader xpFrom={anim?.xpFrom} xpDelay={animState ? 3000 : 300} streakBump={anim?.streakBump} onMenu={() => { setSelected(null); setSettings(true); }} />
 
       <div style={{ position: 'relative', flex: 1, minHeight: 0 }}>
-      {sticky && (() => {
-        const g = groups.find((x) => x.chapter.id === sticky);
+      {stickyShown && (() => {
+        const g = groups.find((x) => x.chapter.id === stickyShown);
         const tone = g.chapter.track;
         const soft = tone === 'read' ? 'var(--track-read-soft)' : tone === 'listen' ? 'var(--track-listen-soft)' : 'var(--surface-sunken)';
         const shade = tone === 'read' ? 'var(--track-read-shade)' : tone === 'listen' ? 'var(--track-listen-shade)' : 'var(--spur-indigo)';
         return (
-          <button type="button" key={sticky} className="a-rise" onClick={() => sectionEls.current.get(sticky)?.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' })}
+          <button type="button" key={stickyShown} className={stickyLeaving ? 'a-leave' : 'a-rise'} onClick={() => sectionEls.current.get(stickyShown)?.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' })}
             aria-label={`Kapitel ${g.number}: ${g.chapter.title}, ${TRACK_NAME[tone]}`}
             style={{ position: 'absolute', top: 0, left: 0, right: 0, zIndex: 6, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10,
               height: 44, padding: '0 var(--gutter-screen)', border: 'none', borderBottom: '2px solid var(--border-default)', background: soft, cursor: 'pointer',
@@ -390,6 +404,7 @@ export function Home({ anim, onOpenNode, onPopupTest }) {
                     <NodeView node={node}
                       from={animState?.doneId === node.id ? 'current' : animState?.nextId === node.id ? 'locked' : null}
                       delay={animState?.doneId === node.id ? 500 : 2400}
+                      freshPart={!reduced && anim?.partDone?.lessonId === node.id && !anim.lessonDone ? anim.partDone.n : null}
                       onTap={(n) => setSelected(n)}
                       nodeRef={(el) => { if (el) nodeEls.current.set(node.id, el); else nodeEls.current.delete(node.id); }} />
                   </div>
@@ -413,18 +428,18 @@ export function Home({ anim, onOpenNode, onPopupTest }) {
       </div>
       </div>
 
-      {!targetVisible && !selected && target && (
-        <button type="button" onClick={scrollToTarget} aria-label="Zur aktuellen Position" className="a-popin"
+      {targetShown && (
+        <button type="button" onClick={scrollToTarget} aria-label="Zur aktuellen Position" className={targetLeaving ? 'a-leave' : 'a-popin'}
           style={{ position: 'absolute', right: 'var(--gutter-screen)', bottom: 'calc(24px + env(safe-area-inset-bottom))', zIndex: 15,
             width: 56, height: 56, borderRadius: '50%', border: '2px solid var(--border-default)', background: 'var(--surface-card)',
-            color: target.status === 'due' ? 'var(--spur-amber-shade)' : `var(--track-${target.track === 'read' ? 'read' : 'listen'})`,
+            color: targetShown.status === 'due' ? 'var(--spur-amber-shade)' : `var(--track-${targetShown.track === 'read' ? 'read' : 'listen'})`,
             boxShadow: '0 4px 0 var(--border-strong), var(--shadow-raised)', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
           <Icon name="target" size={26} strokeWidth={2.4} />
         </button>
       )}
 
-      {selected && info && (
-        <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: '0 var(--gutter-screen) calc(20px + env(safe-area-inset-bottom))', zIndex: 20 }} className="a-rise">
+      {sel && info && (
+        <div key={sel.id} style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: '0 var(--gutter-screen) calc(20px + env(safe-area-inset-bottom))', zIndex: 20 }} className={selLeaving ? 'a-leave' : 'a-rise'}>
           <div role="dialog" aria-label={info.title} style={{ background: 'var(--surface-card)', border: '2px solid var(--border-default)', borderRadius: 'var(--radius-xl)', boxShadow: 'var(--shadow-raised)', padding: 18 }}>
             <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12, marginBottom: 12 }}>
               <span style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
@@ -433,25 +448,25 @@ export function Home({ anim, onOpenNode, onPopupTest }) {
               </span>
               <IconButton icon="x" label="Schließen" size={44} onClick={() => setSelected(null)} />
             </div>
-            <Button variant={info.variant} full autoFocus onClick={() => { const n = selected; setSelected(null); onOpenNode(n); }}>{info.cta}</Button>
+            <Button variant={info.variant} full autoFocus onClick={() => { const n = sel; setSelected(null); onOpenNode(n); }}>{info.cta}</Button>
           </div>
         </div>
       )}
 
-      {toast && (
-        <div className="toast a-rise" role="status" style={{ animationDuration: '480ms' }}>
+      {toastShown && (
+        <div className={`toast ${toastLeaving ? 'a-leave' : 'a-rise'}`} role="status" style={toastLeaving ? undefined : { animationDuration: '480ms' }}>
           <Icon name="unlock" />
-          <span>{toast}</span>
+          <span>{toastShown}</span>
         </div>
       )}
 
       <SettingsSheet open={settings} onClose={() => setSettings(false)} />
 
-      {popup && (() => {
-        const ch = index.chapters.find((c) => c.id === popup);
+      {popupShown && (() => {
+        const ch = index.chapters.find((c) => c.id === popupShown);
         const read = ch.track === 'read';
         return (
-          <Sheet title="Kurz gefragt" onClose={() => setPopup(null)}>
+          <Sheet open={!!popup} title="Kurz gefragt" onClose={() => setPopup(null)}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginTop: -4 }}>
               <Mascot pose="head" size={64} />
               <div className="stack" style={{ gap: 4 }}>
@@ -460,7 +475,7 @@ export function Home({ anim, onOpenNode, onPopupTest }) {
               </div>
             </div>
             <div className="stack" style={{ gap: 10 }}>
-              <Button full icon="sparkles" onClick={() => { setPopup(null); onPopupTest(popup); }}>Kurzer Test</Button>
+              <Button full icon="sparkles" onClick={() => { setPopup(null); onPopupTest(popupShown); }}>Kurzer Test</Button>
               <Button variant="ghost" size="md" full onClick={() => setPopup(null)}>Nicht jetzt</Button>
             </div>
           </Sheet>

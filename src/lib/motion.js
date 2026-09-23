@@ -35,3 +35,20 @@ export const EASE = {
   sine: 'cubic-bezier(.37,0,.63,1)',
   jump: 'cubic-bezier(.34,1.3,.64,1)',
 };
+
+/**
+ * Hält ein Element nach dem Ausblenden noch kurz im DOM, damit es sanft verschwinden
+ * kann statt hart wegzuspringen. Gibt [aktueller oder zuletzt gezeigter Wert, verlässt gerade].
+ */
+export function usePresence(value, ms = 240) {
+  const [kept, setKept] = useState(value || null);
+  const [leaving, setLeaving] = useState(false);
+  useEffect(() => {
+    if (value) { setKept(value); setLeaving(false); return undefined; }
+    if (!kept) return undefined;
+    setLeaving(true);
+    const t = setTimeout(() => { setKept(null); setLeaving(false); }, prefersReducedMotion() ? 0 : ms);
+    return () => clearTimeout(t);
+  }, [value]); // eslint-disable-line react-hooks/exhaustive-deps
+  return [value || kept, !value && leaving];
+}

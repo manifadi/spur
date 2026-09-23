@@ -43,12 +43,11 @@ export function SettingsSheet({ open, onClose }) {
   const [permNote, setPermNote] = useState(null);
   useEffect(() => { if (open) { setView('main'); setGoal(s.dailyGoal); setPermNote(null); } }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (!open) return null;
   const back = () => setView('main');
 
   if (view === 'goal') {
     return (
-      <Sheet title="Tagesziel" onClose={back}>
+      <Sheet open={open} contentKey={view} title="Tagesziel" onClose={back}>
         <p style={{ font: 'var(--type-body)', color: 'var(--text-muted)', marginTop: -8 }}>Fällige Wiederholungen zählen immer mit — auch über dem Ziel.</p>
         <div className="stack" style={{ gap: 10 }} role="radiogroup">
           {GOALS.map((g) => <OptionTile key={g.v} icon="feather" title={g.title} description={g.description} badge={g.badge} selected={goal === g.v} onSelect={() => setGoal(g.v)} />)}
@@ -69,7 +68,7 @@ export function SettingsSheet({ open, onClose }) {
       setSettings({ reminder: v });
     };
     return (
-      <Sheet title="Erinnerungszeit" onClose={back}>
+      <Sheet open={open} contentKey={view} title="Erinnerungszeit" onClose={back}>
         <p style={{ font: 'var(--type-body)', color: 'var(--text-muted)', marginTop: -8 }}>Miro meldet sich einmal am Tag. Mehr nicht.</p>
         <div className="stack" role="radiogroup">
           {TIMES.map((t) => (
@@ -93,7 +92,7 @@ export function SettingsSheet({ open, onClose }) {
 
   if (view === 'track') {
     return (
-      <Sheet title="Training" onClose={back}>
+      <Sheet open={open} contentKey={view} title="Training" onClose={back}>
         <p style={{ font: 'var(--type-body)', color: 'var(--text-muted)', marginTop: -8 }}>Deine Karten und ihre Intervalle bleiben erhalten.</p>
         <div className="stack" style={{ gap: 10 }} role="radiogroup">
           {TRACKS.map((t) => <OptionTile key={t.v} icon={t.icon} tone={t.tone} title={t.title} description={t.description} selected={s.track === t.v} onSelect={() => setSettings({ track: t.v })} />)}
@@ -106,7 +105,7 @@ export function SettingsSheet({ open, onClose }) {
   if (view === 'reset') {
     const streak = state.progress.streak;
     return (
-      <Sheet title="Wirklich zurücksetzen?" onClose={back}>
+      <Sheet open={open} contentKey={view} title="Wirklich zurücksetzen?" onClose={back}>
         <p style={{ font: 'var(--type-body-l)', color: 'var(--text-ink)', marginTop: -8 }}>
           {streak > 1 ? `Alle Karten, ihre Intervalle und dein Streak von ${streak} Tagen verschwinden.` : 'Alle Karten und ihre Intervalle verschwinden.'} Der Pfad fängt wieder bei Kapitel 1 an.
         </p>
@@ -124,7 +123,7 @@ export function SettingsSheet({ open, onClose }) {
 
   const trackLabel = TRACKS.find((t) => t.v === s.track)?.title;
   return (
-    <Sheet title="Einstellungen" onClose={onClose}>
+    <Sheet open={open} contentKey={view} title="Einstellungen" onClose={onClose}>
       <div className="stack" style={{ marginTop: -4 }}>
         <button type="button" style={row} onClick={() => setView('track')}>
           <span style={rowLabel}>Training</span>

@@ -1,272 +1,396 @@
 {
-  "id": "lesen-5",
-  "order": 5,
-  "title": "Dichte Texte",
-  "track": "read",
-  "difficulty": 5,
-  "lessons": [
+ "id": "lesen-5",
+ "order": 5,
+ "title": "Dichte Texte",
+ "track": "read",
+ "difficulty": 5,
+ "lessons": [
+  {
+   "id": "l5-entdeckungen",
+   "title": "Große Entdeckungen",
+   "items": [
     {
-      "id": "l5-zugvoegel",
-      "title": "Zugvögel",
-      "items": [
-        {
-          "id": "l5-zugvoegel-t",
-          "type": "text",
-          "title": "Wie Zugvögel ihren Weg finden",
-          "topic": "Navigation der Zugvögel",
-          "paragraphs": [
-            "Jedes Jahr fliegen Milliarden Vögel Tausende Kilometer zwischen Brutgebiet und Winterquartier. Oft finden sie sogar denselben Garten wieder. Die Küstenseeschwalbe pendelt dabei zwischen Arktis und Antarktis und legt im Leben eine Strecke zurück, die mehreren Flügen zum Mond entspricht.",
-            "Dafür nutzen die Vögel mehrere Kompasse. Tagsüber orientieren sich viele am Stand der Sonne und gleichen ihn mit ihrer inneren Uhr ab. Nachtzieher lesen die Sterne: Als Jungvögel lernen sie, um welchen Punkt sich der Himmel dreht, nämlich um den Polarstern.",
-            "Außerdem spüren Vögel das Magnetfeld der Erde. Vermutlich spielt dabei ein Eiweiß im Auge eine Rolle, das Cryptochrom. Ganz geklärt ist das noch nicht.",
-            "Auf den letzten Kilometern helfen Landmarken wie Küsten, Flüsse und Gebirge. Manche Arten nutzen wohl auch Gerüche.",
-            "Erstaunlich ist der Kuckuck: Junge Kuckucke fliegen allein nach Afrika, ohne ihre Eltern je kennengelernt zu haben. Denn Kuckucke legen ihre Eier in fremde Nester und ziehen ihre Jungen nicht selbst auf. Die Route ist ihnen angeboren.",
-            "Viele Zugvögel fressen sich vor der Reise ein dickes Fettpolster an und verdoppeln dabei fast ihr Gewicht. Unterwegs machen sie an festen Rastplätzen halt, etwa im Wattenmeer, das für Millionen Vögel eine wichtige Tankstelle ist."
-          ],
-          "keyPoints": [
-            "Sonnenkompass, abgeglichen mit der inneren Uhr",
-            "Nachtzieher orientieren sich an den Sternen um den Polarstern",
-            "Sie spüren das Magnetfeld, vermutlich über Cryptochrom im Auge",
-            "Landmarken wie Küsten und Flüsse für die letzten Kilometer",
-            "Manche Arten nutzen Gerüche",
-            "Junge Kuckucke fliegen allein, die Route ist angeboren"
-          ],
-          "subExercises": [
-            {
-              "id": "retell",
-              "type": "recall_text"
-            },
-            {
-              "id": "s1",
-              "type": "sequence_events",
-              "prompt": "Welche Orientierung hilft wann? Vom Start bis zum Ziel.",
-              "events": [
-                "Sonne und Sterne für die Richtung",
-                "Magnetfeld unterwegs",
-                "Landmarken auf den letzten Kilometern"
-              ]
-            }
-          ]
-        }
-      ]
+     "id": "l5-antibiotika-t",
+     "type": "text",
+     "title": "Wenn Antibiotika nicht mehr wirken",
+     "topic": "Antibiotika-Resistenz",
+     "paragraphs": [
+      "1928 bemerkte Alexander Fleming, dass ein Schimmelpilz in einer seiner Bakterienkulturen die Bakterien abtötete. Er war aus dem Urlaub zurückgekommen und hatte die Schalen offen stehen lassen. Aus dieser Beobachtung entstand das Penicillin, das erste breit eingesetzte Antibiotikum.",
+      "Schon in seiner Nobelpreisrede 1945 warnte Fleming: Werden Antibiotika zu niedrig dosiert oder falsch genommen, können Bakterien resistent werden.",
+      "Das Prinzip ist Evolution im Zeitraffer. Unter Millionen Bakterien sind einige zufällig weniger empfindlich. Sie überleben die Behandlung und vermehren sich. Zudem können Bakterien Resistenzgene untereinander weitergeben, sogar zwischen verschiedenen Arten.",
+      "Besonders problematisch ist der massenhafte Einsatz, etwa bei Erkältungen, gegen die Antibiotika gar nicht helfen, weil meist Viren dahinterstecken. Auch in der Tierhaltung werden viele Antibiotika verbraucht.",
+      "Was jede und jeder tun kann: Antibiotika nur nehmen, wenn sie verordnet sind, und genau so, wie es verordnet wurde. Reste nicht aufheben, um sie später auf eigene Faust zu nehmen.",
+      "Weltweit sterben Schätzungen zufolge schon heute jedes Jahr über eine Million Menschen direkt an Infektionen mit resistenten Bakterien. Forschende suchen deshalb nach neuen Wirkstoffen, etwa in Bodenproben oder in Bakterien aus der Tiefsee."
+     ],
+     "keyPoints": [
+      "Fleming entdeckte 1928 das Penicillin durch einen Schimmelpilz",
+      "Er warnte schon 1945 vor Resistenzen",
+      "Weniger empfindliche Bakterien überleben und vermehren sich",
+      "Bakterien geben Resistenzgene weiter, auch an andere Arten",
+      "Gegen Erkältungen helfen Antibiotika nicht, meist sind es Viren",
+      "Nur nach Verordnung nehmen, keine Reste aufheben"
+     ],
+     "subExercises": [
+      {
+       "id": "retell",
+       "type": "recall_text"
+      },
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Warum helfen Antibiotika meist nicht gegen Erkältungen?",
+       "answers": [
+        [
+         "Viren",
+         "Virus",
+         "viral"
+        ]
+       ],
+       "solution": "Weil meist Viren dahinterstecken.",
+       "quote": "„… gegen die Antibiotika gar nicht helfen, weil meist Viren dahinterstecken.“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Wie entdeckte Fleming das Penicillin?",
+       "options": [
+        "Durch einen Schimmelpilz in einer Bakterienkultur",
+        "Durch einen Versuch mit Schimmel auf Brot",
+        "Bei einer Expedition in den Tropen",
+        "Durch einen Hinweis eines Kollegen"
+       ],
+       "correct": [
+        "Durch einen Schimmelpilz in einer Bakterienkultur"
+       ],
+       "quote": "„… dass ein Schimmelpilz in einer seiner Bakterienkulturen die Bakterien abtötete.“"
+      }
+     ]
     },
     {
-      "id": "l5-antibiotika",
-      "title": "Antibiotika",
-      "items": [
-        {
-          "id": "l5-antibiotika-t",
-          "type": "text",
-          "title": "Wenn Antibiotika nicht mehr wirken",
-          "topic": "Antibiotika-Resistenz",
-          "paragraphs": [
-            "1928 bemerkte Alexander Fleming, dass ein Schimmelpilz in einer seiner Bakterienkulturen die Bakterien abtötete. Er war aus dem Urlaub zurückgekommen und hatte die Schalen offen stehen lassen. Aus dieser Beobachtung entstand das Penicillin, das erste breit eingesetzte Antibiotikum.",
-            "Schon in seiner Nobelpreisrede 1945 warnte Fleming: Werden Antibiotika zu niedrig dosiert oder falsch genommen, können Bakterien resistent werden.",
-            "Das Prinzip ist Evolution im Zeitraffer. Unter Millionen Bakterien sind einige zufällig weniger empfindlich. Sie überleben die Behandlung und vermehren sich. Zudem können Bakterien Resistenzgene untereinander weitergeben, sogar zwischen verschiedenen Arten.",
-            "Besonders problematisch ist der massenhafte Einsatz, etwa bei Erkältungen, gegen die Antibiotika gar nicht helfen, weil meist Viren dahinterstecken. Auch in der Tierhaltung werden viele Antibiotika verbraucht.",
-            "Was jede und jeder tun kann: Antibiotika nur nehmen, wenn sie verordnet sind, und genau so, wie es verordnet wurde. Reste nicht aufheben, um sie später auf eigene Faust zu nehmen.",
-            "Weltweit sterben Schätzungen zufolge schon heute jedes Jahr über eine Million Menschen direkt an Infektionen mit resistenten Bakterien. Forschende suchen deshalb nach neuen Wirkstoffen, etwa in Bodenproben oder in Bakterien aus der Tiefsee."
-          ],
-          "keyPoints": [
-            "Fleming entdeckte 1928 das Penicillin durch einen Schimmelpilz",
-            "Er warnte schon 1945 vor Resistenzen",
-            "Weniger empfindliche Bakterien überleben und vermehren sich",
-            "Bakterien geben Resistenzgene weiter, auch an andere Arten",
-            "Gegen Erkältungen helfen Antibiotika nicht, meist sind es Viren",
-            "Nur nach Verordnung nehmen, keine Reste aufheben"
-          ],
-          "subExercises": [
-            {
-              "id": "retell",
-              "type": "recall_text"
-            },
-            {
-              "id": "q1",
-              "type": "recall_text",
-              "prompt": "Warum helfen Antibiotika meist nicht gegen Erkältungen?",
-              "answers": [
-                [
-                  "Viren",
-                  "Virus",
-                  "viral"
-                ]
-              ],
-              "solution": "Weil meist Viren dahinterstecken.",
-              "quote": "„… gegen die Antibiotika gar nicht helfen, weil meist Viren dahinterstecken.“"
-            },
-            {
-              "id": "m1",
-              "type": "detail_match",
-              "prompt": "Wie entdeckte Fleming das Penicillin?",
-              "options": [
-                "Durch einen Schimmelpilz in einer Bakterienkultur",
-                "Durch einen Versuch mit Schimmel auf Brot",
-                "Bei einer Expedition in den Tropen",
-                "Durch einen Hinweis eines Kollegen"
-              ],
-              "correct": [
-                "Durch einen Schimmelpilz in einer Bakterienkultur"
-              ],
-              "quote": "„… dass ein Schimmelpilz in einer seiner Bakterienkulturen die Bakterien abtötete.“"
-            }
-          ]
-        }
-      ]
+     "id": "l5-kontinente-t",
+     "type": "text",
+     "title": "Wandernde Kontinente",
+     "topic": "Kontinentaldrift",
+     "paragraphs": [
+      "1912 stellte der Meteorologe Alfred Wegener eine kühne These vor: Die Kontinente bildeten einst einen einzigen Urkontinent und sind seitdem auseinandergedriftet. Er nannte ihn Pangaea, griechisch für „ganze Erde“.",
+      "Seine Belege: Die Küsten von Südamerika und Afrika passen wie Puzzleteile zusammen, und auf beiden Seiten des Atlantiks finden sich die gleichen Fossilien und Gesteinsschichten.",
+      "Die meisten Geologen lehnten die Idee ab, denn Wegener konnte nicht erklären, welche Kraft ganze Kontinente bewegen sollte. Er starb 1930 auf einer Grönland-Expedition, ohne Anerkennung.",
+      "Die Wende kam in den 1960er-Jahren: Messungen am Meeresboden zeigten, dass an den mittelozeanischen Rücken ständig neuer Ozeanboden entsteht und die Platten auseinanderschiebt.",
+      "Heute ist die Plattentektonik Grundwissen. Die Platten bewegen sich wenige Zentimeter pro Jahr, etwa so schnell, wie Fingernägel wachsen. Wo sie aufeinandertreffen, entstehen Gebirge, Vulkane und Erdbeben.",
+      "Auch heute bewegen sich die Kontinente weiter. In etwa 250 Millionen Jahren könnten sie nach Berechnungen einiger Geologen wieder zu einem einzigen Superkontinent zusammengewachsen sein."
+     ],
+     "keyPoints": [
+      "Wegener 1912: ein Urkontinent, der auseinanderdriftete",
+      "Die Küsten von Südamerika und Afrika passen zusammen",
+      "Gleiche Fossilien und Gesteine auf beiden Seiten des Atlantiks",
+      "Abgelehnt, weil die antreibende Kraft fehlte",
+      "Bestätigt in den 1960ern: neuer Ozeanboden an den Rücken",
+      "Die Platten bewegen sich einige Zentimeter pro Jahr"
+     ],
+     "subExercises": [
+      {
+       "id": "retell",
+       "type": "recall_text"
+      },
+      {
+       "id": "s1",
+       "type": "sequence_events",
+       "prompt": "Bring die Geschichte der Theorie in die richtige Reihenfolge.",
+       "events": [
+        "Wegener stellt seine These vor",
+        "Die meisten Geologen lehnen sie ab",
+        "Wegener stirbt in Grönland",
+        "Messungen am Meeresboden bestätigen sie"
+       ]
+      },
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Wie nannte Wegener den Urkontinent?",
+       "answers": [
+        [
+         "Pangaea",
+         "Pangäa",
+         "Pangea",
+         "Pangaa"
+        ]
+       ],
+       "solution": "Pangaea.",
+       "quote": "„Er nannte ihn Pangaea, griechisch für „ganze Erde“.“"
+      }
+     ]
     },
     {
-      "id": "l5-kontinente",
-      "title": "Kontinente",
-      "items": [
-        {
-          "id": "l5-kontinente-t",
-          "type": "text",
-          "title": "Wandernde Kontinente",
-          "topic": "Kontinentaldrift",
-          "paragraphs": [
-            "1912 stellte der Meteorologe Alfred Wegener eine kühne These vor: Die Kontinente bildeten einst einen einzigen Urkontinent und sind seitdem auseinandergedriftet. Er nannte ihn Pangaea, griechisch für „ganze Erde“.",
-            "Seine Belege: Die Küsten von Südamerika und Afrika passen wie Puzzleteile zusammen, und auf beiden Seiten des Atlantiks finden sich die gleichen Fossilien und Gesteinsschichten.",
-            "Die meisten Geologen lehnten die Idee ab, denn Wegener konnte nicht erklären, welche Kraft ganze Kontinente bewegen sollte. Er starb 1930 auf einer Grönland-Expedition, ohne Anerkennung.",
-            "Die Wende kam in den 1960er-Jahren: Messungen am Meeresboden zeigten, dass an den mittelozeanischen Rücken ständig neuer Ozeanboden entsteht und die Platten auseinanderschiebt.",
-            "Heute ist die Plattentektonik Grundwissen. Die Platten bewegen sich wenige Zentimeter pro Jahr, etwa so schnell, wie Fingernägel wachsen. Wo sie aufeinandertreffen, entstehen Gebirge, Vulkane und Erdbeben.",
-            "Auch heute bewegen sich die Kontinente weiter. In etwa 250 Millionen Jahren könnten sie nach Berechnungen einiger Geologen wieder zu einem einzigen Superkontinent zusammengewachsen sein."
-          ],
-          "keyPoints": [
-            "Wegener 1912: ein Urkontinent, der auseinanderdriftete",
-            "Die Küsten von Südamerika und Afrika passen zusammen",
-            "Gleiche Fossilien und Gesteine auf beiden Seiten des Atlantiks",
-            "Abgelehnt, weil die antreibende Kraft fehlte",
-            "Bestätigt in den 1960ern: neuer Ozeanboden an den Rücken",
-            "Die Platten bewegen sich einige Zentimeter pro Jahr"
-          ],
-          "subExercises": [
-            {
-              "id": "retell",
-              "type": "recall_text"
-            },
-            {
-              "id": "s1",
-              "type": "sequence_events",
-              "prompt": "Bring die Geschichte der Theorie in die richtige Reihenfolge.",
-              "events": [
-                "Wegener stellt seine These vor",
-                "Die meisten Geologen lehnen sie ab",
-                "Wegener stirbt in Grönland",
-                "Messungen am Meeresboden bestätigen sie"
-              ]
-            },
-            {
-              "id": "q1",
-              "type": "recall_text",
-              "prompt": "Wie nannte Wegener den Urkontinent?",
-              "answers": [
-                [
-                  "Pangaea",
-                  "Pangäa",
-                  "Pangea",
-                  "Pangaa"
-                ]
-              ],
-              "solution": "Pangaea.",
-              "quote": "„Er nannte ihn Pangaea, griechisch für „ganze Erde“.“"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "l5-konserve",
-      "title": "Konservendose",
-      "items": [
-        {
-          "id": "l5-konserve-t",
-          "type": "text",
-          "title": "Die Erfindung der Konservendose",
-          "topic": "Die Konservendose",
-          "paragraphs": [
-            "Um 1800 hatte Frankreichs Armee ein Problem: Der Proviant verdarb auf langen Feldzügen. Die Regierung setzte einen Preis für eine bessere Methode aus, Lebensmittel haltbar zu machen.",
-            "Der Pariser Koch und Konditor Nicolas Appert fand sie. Er füllte Speisen in Glasflaschen, verschloss sie luftdicht und erhitzte sie in kochendem Wasser. Über Jahre probierte er Gemüse, Obst, Milch und Fleisch aus. 1810 bekam er dafür 12.000 Francs.",
-            "Warum das funktionierte, wusste er nicht: Dass Mikroben Lebensmittel verderben lassen, zeigte erst Louis Pasteur Jahrzehnte später.",
-            "Im selben Jahr ließ sich in England Peter Durand ein Patent auf Behälter aus Blech geben. Sie waren leichter und zerbrachen nicht, ideal für Soldaten und Seefahrer.",
-            "Seefahrer profitierten besonders: Auf langen Reisen drohte ohne frische Lebensmittel Skorbut. Konservierte Nahrung machte Expeditionen möglich, die vorher an Hunger und Krankheit gescheitert wären.",
-            "Nicht jede frühe Konserve war allerdings unbedenklich: Manche Dosen waren mit bleihaltigem Lot verschlossen, was bei längerer Lagerung ins Essen übergehen konnte."
-          ],
-          "keyPoints": [
-            "Frankreich suchte per Preis eine Methode, Proviant haltbar zu machen",
-            "Appert: luftdicht verschließen und in kochendem Wasser erhitzen",
-            "1810 bekam er 12.000 Francs",
-            "Den Grund, Mikroben, zeigte erst Pasteur",
-            "Durand ließ im selben Jahr Blechdosen patentieren"
-          ],
-          "subExercises": [
-            {
-              "id": "retell",
-              "type": "recall_text"
-            },
-            {
-              "id": "m1",
-              "type": "detail_match",
-              "prompt": "Worin füllte Appert die Speisen?",
-              "options": [
-                "In Glasflaschen",
-                "In Blechdosen",
-                "In Tonkrüge",
-                "In Holzfässer"
-              ],
-              "correct": [
-                "In Glasflaschen"
-              ],
-              "quote": "„Er füllte Speisen in Glasflaschen, verschloss sie luftdicht …“"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "l5-dosenoeffner",
-      "title": "Dosenöffner",
-      "items": [
-        {
-          "id": "l5-dosenoeffner-t",
-          "type": "text",
-          "title": "Fünfzig Jahre ohne Dosenöffner",
-          "topic": "Der Dosenöffner",
-          "paragraphs": [
-            "Die ersten Blechdosen waren schwer und dickwandig. Man musste sie mit Hammer und Meißel öffnen, manchmal auch mit einem Bajonett oder einem Stein. Auf manchen Dosen stand sogar diese Anleitung aufgedruckt.",
-            "Der erste Dosenöffner wurde erst 1858 in den USA patentiert, fast fünfzig Jahre nach der Dose. Möglich wurde er, weil die Dosen inzwischen aus dünnerem Stahl hergestellt wurden.",
-            "Das Prinzip der Konserve ist bis heute dasselbe: luftdicht verschließen, erhitzen, fertig.",
-            "Der erste Dosenöffner sah aus wie eine Mischung aus Messer und Haken und war nicht ganz ungefährlich. Ein Öffner mit Rad, das am Rand entlangläuft, folgte gut zehn Jahre später.",
-            "Seit einigen Jahrzehnten gibt es außerdem Dosen mit Aufreißlasche. Für viele Dosen braucht man den Öffner inzwischen gar nicht mehr, ganz verschwunden ist er aber nie.",
-            "In der Küche liegt er trotzdem in fast jeder Schublade, meist ganz hinten."
-          ],
-          "keyPoints": [
-            "Die ersten Dosen öffnete man mit Hammer und Meißel",
-            "Der Dosenöffner kam erst 1858",
-            "Möglich durch dünnere Dosen"
-          ],
-          "subExercises": [
-            {
-              "id": "retell",
-              "type": "recall_text"
-            },
-            {
-              "id": "q1",
-              "type": "recall_text",
-              "prompt": "In welchem Jahr wurde der erste Dosenöffner patentiert?",
-              "answers": [
-                [
-                  "1858"
-                ]
-              ],
-              "solution": "1858.",
-              "quote": "„Der erste Dosenöffner wurde erst 1858 in den USA patentiert …“"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "l5-checkpoint",
-      "type": "checkpoint",
-      "title": "Checkpoint"
+     "id": "l5-zugvoegel-t",
+     "type": "text",
+     "title": "Wie Zugvögel ihren Weg finden",
+     "topic": "Navigation der Zugvögel",
+     "paragraphs": [
+      "Jedes Jahr fliegen Milliarden Vögel Tausende Kilometer zwischen Brutgebiet und Winterquartier. Oft finden sie sogar denselben Garten wieder. Die Küstenseeschwalbe pendelt dabei zwischen Arktis und Antarktis und legt im Leben eine Strecke zurück, die mehreren Flügen zum Mond entspricht.",
+      "Dafür nutzen die Vögel mehrere Kompasse. Tagsüber orientieren sich viele am Stand der Sonne und gleichen ihn mit ihrer inneren Uhr ab. Nachtzieher lesen die Sterne: Als Jungvögel lernen sie, um welchen Punkt sich der Himmel dreht, nämlich um den Polarstern.",
+      "Außerdem spüren Vögel das Magnetfeld der Erde. Vermutlich spielt dabei ein Eiweiß im Auge eine Rolle, das Cryptochrom. Ganz geklärt ist das noch nicht.",
+      "Auf den letzten Kilometern helfen Landmarken wie Küsten, Flüsse und Gebirge. Manche Arten nutzen wohl auch Gerüche.",
+      "Erstaunlich ist der Kuckuck: Junge Kuckucke fliegen allein nach Afrika, ohne ihre Eltern je kennengelernt zu haben. Denn Kuckucke legen ihre Eier in fremde Nester und ziehen ihre Jungen nicht selbst auf. Die Route ist ihnen angeboren.",
+      "Viele Zugvögel fressen sich vor der Reise ein dickes Fettpolster an und verdoppeln dabei fast ihr Gewicht. Unterwegs machen sie an festen Rastplätzen halt, etwa im Wattenmeer, das für Millionen Vögel eine wichtige Tankstelle ist."
+     ],
+     "keyPoints": [
+      "Sonnenkompass, abgeglichen mit der inneren Uhr",
+      "Nachtzieher orientieren sich an den Sternen um den Polarstern",
+      "Sie spüren das Magnetfeld, vermutlich über Cryptochrom im Auge",
+      "Landmarken wie Küsten und Flüsse für die letzten Kilometer",
+      "Manche Arten nutzen Gerüche",
+      "Junge Kuckucke fliegen allein, die Route ist angeboren"
+     ],
+     "subExercises": [
+      {
+       "id": "retell",
+       "type": "recall_text"
+      },
+      {
+       "id": "s1",
+       "type": "sequence_events",
+       "prompt": "Welche Orientierung hilft wann? Vom Start bis zum Ziel.",
+       "events": [
+        "Sonne und Sterne für die Richtung",
+        "Magnetfeld unterwegs",
+        "Landmarken auf den letzten Kilometern"
+       ]
+      },
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Um welchen Stern dreht sich für Nachtzieher der Himmel?",
+       "answers": [
+        [
+         "Polarstern",
+         "Nordstern"
+        ]
+       ],
+       "solution": "Um den Polarstern.",
+       "quote": "„… nämlich um den Polarstern.“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Warum fliegen junge Kuckucke allein nach Afrika?",
+       "options": [
+        "Die Route ist ihnen angeboren",
+        "Die Eltern fliegen voraus",
+        "Sie folgen anderen Vogelarten",
+        "Sie orientieren sich am Geruch"
+       ],
+       "correct": [
+        "Die Route ist ihnen angeboren"
+       ],
+       "quote": "„Die Route ist ihnen angeboren.“"
+      }
+     ]
     }
-  ]
+   ]
+  },
+  {
+   "id": "l5-dose",
+   "title": "Die Konservendose",
+   "items": [
+    {
+     "id": "l5-konserve-t",
+     "type": "text",
+     "title": "Die Erfindung der Konservendose",
+     "topic": "Die Konservendose",
+     "paragraphs": [
+      "Um 1800 hatte Frankreichs Armee ein Problem: Der Proviant verdarb auf langen Feldzügen. Die Regierung setzte einen Preis für eine bessere Methode aus, Lebensmittel haltbar zu machen.",
+      "Der Pariser Koch und Konditor Nicolas Appert fand sie. Er füllte Speisen in Glasflaschen, verschloss sie luftdicht und erhitzte sie in kochendem Wasser. Über Jahre probierte er Gemüse, Obst, Milch und Fleisch aus. 1810 bekam er dafür 12.000 Francs.",
+      "Warum das funktionierte, wusste er nicht: Dass Mikroben Lebensmittel verderben lassen, zeigte erst Louis Pasteur Jahrzehnte später.",
+      "Im selben Jahr ließ sich in England Peter Durand ein Patent auf Behälter aus Blech geben. Sie waren leichter und zerbrachen nicht, ideal für Soldaten und Seefahrer.",
+      "Seefahrer profitierten besonders: Auf langen Reisen drohte ohne frische Lebensmittel Skorbut. Konservierte Nahrung machte Expeditionen möglich, die vorher an Hunger und Krankheit gescheitert wären.",
+      "Nicht jede frühe Konserve war allerdings unbedenklich: Manche Dosen waren mit bleihaltigem Lot verschlossen, was bei längerer Lagerung ins Essen übergehen konnte."
+     ],
+     "keyPoints": [
+      "Frankreich suchte per Preis eine Methode, Proviant haltbar zu machen",
+      "Appert: luftdicht verschließen und in kochendem Wasser erhitzen",
+      "1810 bekam er 12.000 Francs",
+      "Den Grund, Mikroben, zeigte erst Pasteur",
+      "Durand ließ im selben Jahr Blechdosen patentieren"
+     ],
+     "subExercises": [
+      {
+       "id": "retell",
+       "type": "recall_text"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Worin füllte Appert die Speisen?",
+       "options": [
+        "In Glasflaschen",
+        "In Blechdosen",
+        "In Tonkrüge",
+        "In Holzfässer"
+       ],
+       "correct": [
+        "In Glasflaschen"
+       ],
+       "quote": "„Er füllte Speisen in Glasflaschen, verschloss sie luftdicht …“"
+      },
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Wer fand die Methode, Lebensmittel haltbar zu machen?",
+       "answers": [
+        [
+         "Appert",
+         "Apert",
+         "Nicolas Appert"
+        ]
+       ],
+       "solution": "Nicolas Appert.",
+       "quote": "„Der Pariser Koch und Konditor Nicolas Appert fand sie.“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Wie viel Preisgeld bekam er 1810?",
+       "answers": [
+        [
+         "12000",
+         "12.000",
+         "12 000",
+         "zwölftausend",
+         "zwoelftausend"
+        ]
+       ],
+       "solution": "12.000 Francs.",
+       "quote": "„1810 bekam er dafür 12.000 Francs.“"
+      }
+     ]
+    },
+    {
+     "id": "l5-dosenoeffner-t",
+     "type": "text",
+     "title": "Fünfzig Jahre ohne Dosenöffner",
+     "topic": "Der Dosenöffner",
+     "paragraphs": [
+      "Die ersten Blechdosen waren schwer und dickwandig. Man musste sie mit Hammer und Meißel öffnen, manchmal auch mit einem Bajonett oder einem Stein. Auf manchen Dosen stand sogar diese Anleitung aufgedruckt.",
+      "Der erste Dosenöffner wurde erst 1858 in den USA patentiert, fast fünfzig Jahre nach der Dose. Möglich wurde er, weil die Dosen inzwischen aus dünnerem Stahl hergestellt wurden.",
+      "Das Prinzip der Konserve ist bis heute dasselbe: luftdicht verschließen, erhitzen, fertig.",
+      "Der erste Dosenöffner sah aus wie eine Mischung aus Messer und Haken und war nicht ganz ungefährlich. Ein Öffner mit Rad, das am Rand entlangläuft, folgte gut zehn Jahre später.",
+      "Seit einigen Jahrzehnten gibt es außerdem Dosen mit Aufreißlasche. Für viele Dosen braucht man den Öffner inzwischen gar nicht mehr, ganz verschwunden ist er aber nie.",
+      "In der Küche liegt er trotzdem in fast jeder Schublade, meist ganz hinten."
+     ],
+     "keyPoints": [
+      "Die ersten Dosen öffnete man mit Hammer und Meißel",
+      "Der Dosenöffner kam erst 1858",
+      "Möglich durch dünnere Dosen"
+     ],
+     "subExercises": [
+      {
+       "id": "retell",
+       "type": "recall_text"
+      },
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "In welchem Jahr wurde der erste Dosenöffner patentiert?",
+       "answers": [
+        [
+         "1858"
+        ]
+       ],
+       "solution": "1858.",
+       "quote": "„Der erste Dosenöffner wurde erst 1858 in den USA patentiert …“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Womit öffnete man die ersten Dosen? (Mehrere Antworten richtig)",
+       "options": [
+        "Hammer und Meißel",
+        "Bajonett",
+        "Aufreißlasche",
+        "Dosenöffner mit Rad"
+       ],
+       "correct": [
+        "Hammer und Meißel",
+        "Bajonett"
+       ],
+       "quote": "„Man musste sie mit Hammer und Meißel öffnen, manchmal auch mit einem Bajonett oder einem Stein.“"
+      }
+     ]
+    },
+    {
+     "id": "l5-alu-t",
+     "type": "text",
+     "title": "Die Dose und das Recycling",
+     "topic": "Dosen-Recycling",
+     "paragraphs": [
+      "Getränkedosen bestehen heute meist aus Aluminium, Konservendosen aus Weißblech, also Stahl mit einer dünnen Zinnschicht. Beide Metalle lassen sich fast beliebig oft einschmelzen, ohne an Qualität zu verlieren.",
+      "Besonders lohnend ist das beim Aluminium. Es neu aus dem Rohstoff Bauxit herzustellen, braucht enorme Mengen Strom. Beim Recycling spart man rund 95 Prozent dieser Energie.",
+      "In Deutschland gibt es seit 2003 ein Pfand auf Einwegdosen, heute 25 Cent. Seitdem landen fast alle Getränkedosen im Automaten und nicht im Park. Die Rücklaufquote liegt bei über 95 Prozent.",
+      "Aus einer zurückgegebenen Dose kann innerhalb von rund zwei Monaten wieder eine neue im Regal stehen.",
+      "Kritiker weisen aber darauf hin, dass Recycling nicht alles löst. Der Abbau von Bauxit zerstört vielerorts Regenwald, und die Herstellung neuer Dosen verbraucht trotzdem Energie. Am besten schneiden Mehrwegflaschen aus der Region ab."
+     ],
+     "keyPoints": [
+      "Getränkedosen aus Aluminium, Konserven aus Weißblech",
+      "Beide Metalle lassen sich ohne Qualitätsverlust recyceln",
+      "Recycling spart beim Aluminium rund 95 Prozent Energie",
+      "Seit 2003 gibt es Dosenpfand, heute 25 Cent, Rücklauf über 95 Prozent",
+      "Bauxit-Abbau schadet dem Regenwald, Mehrweg ist besser"
+     ],
+     "subExercises": [
+      {
+       "id": "retell",
+       "type": "recall_text"
+      },
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Aus welchem Rohstoff wird Aluminium hergestellt?",
+       "answers": [
+        [
+         "Bauxit",
+         "Bauxid"
+        ]
+       ],
+       "solution": "Aus Bauxit.",
+       "quote": "„… aus dem Rohstoff Bauxit herzustellen …“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Wie hoch ist das Pfand auf Einwegdosen?",
+       "answers": [
+        [
+         "25",
+         "fünfundzwanzig",
+         "fuenfundzwanzig"
+        ]
+       ],
+       "solution": "25 Cent.",
+       "quote": "„… heute 25 Cent.“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Was schneidet laut Text am besten ab?",
+       "options": [
+        "Mehrwegflaschen aus der Region",
+        "Aluminiumdosen mit Pfand",
+        "Konservendosen aus Weißblech",
+        "Getränkekartons"
+       ],
+       "correct": [
+        "Mehrwegflaschen aus der Region"
+       ],
+       "quote": "„Am besten schneiden Mehrwegflaschen aus der Region ab.“"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "l5-checkpoint",
+   "type": "checkpoint",
+   "title": "Checkpoint"
+  }
+ ]
 }

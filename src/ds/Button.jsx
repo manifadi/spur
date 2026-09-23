@@ -38,7 +38,7 @@ export function Button({ variant = 'primary', size = 'lg', full = false, icon, i
         boxShadow: depth ? `0 ${depth}px 0 ${t.edge}` : 'none',
         transform: `translateY(${flat ? 0 : (down ? 2 : 0)}px)`,
         cursor: disabled ? 'not-allowed' : 'pointer',
-        transition: 'transform var(--dur-instant) var(--ease-out-soft), box-shadow var(--dur-instant) var(--ease-out-soft), background var(--dur-fast) var(--ease-out-soft)',
+        transition: 'transform var(--dur-instant) var(--ease-out-soft), box-shadow var(--dur-fast) var(--ease-out-soft), background var(--dur-fast) var(--ease-out-soft), color var(--dur-fast) var(--ease-out-soft)',
         ...style,
       }} {...rest}>
       {icon && <Icon name={icon} size={s.icon} />}

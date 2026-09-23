@@ -3,6 +3,7 @@ import { Icon } from './Icon.jsx';
 import { IconButton } from './IconButton.jsx';
 import { Button } from './Button.jsx';
 import { Wordmark } from './core.jsx';
+import { usePresence } from '../lib/motion.js';
 
 /* ---- Mascot ------------------------------------------------------------ */
 const POSES = {
@@ -97,38 +98,48 @@ export function FeedbackPanel({ state = 'correct', title, detail, source, source
 }
 
 /* ---- Sheet --------------------------------------------------------------
-   Scrim blendet ein, Sheet fährt in 320 ms von unten. Schließen per Scrim,
-   ✕ oder Wisch nach unten. max-height 90dvh, Inhalt scrollt innen. */
-export function Sheet({ open = true, title, onClose, children, footer, closable = true }) {
+   Scrim blendet ein, Sheet fährt in 320 ms von unten und beim Schließen wieder
+   hinunter. Schließen per Scrim, ✕ oder Wisch nach unten. Inhalt scrollt innen.
+   Wechselt `contentKey` (Unterseiten), blendet der Inhalt weich über. */
+export function Sheet({ open = true, title, onClose, children, footer, closable = true, contentKey }) {
   const [drag, setDrag] = useState(0);
   const start = useRef(null);
+  const [shown, leaving] = usePresence(open, 260);
+  // Beim Rausfahren den zuletzt gezeigten Inhalt behalten.
+  const last = useRef(null);
+  if (open) last.current = { title, children, footer };
+  useEffect(() => { if (open) setDrag(0); }, [open]);
   useEffect(() => {
     if (!open || !onClose) return;
     const onKey = (e) => { if (e.key === 'Escape') onClose(); };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [open, onClose]);
-  if (!open) return null;
+  if (!shown) return null;
+  const view = last.current;
   const onDown = (e) => { start.current = e.clientY; };
   const onMove = (e) => { if (start.current != null) setDrag(Math.max(0, e.clientY - start.current)); };
-  const onUp = () => { if (drag > 90 && onClose) onClose(); start.current = null; setDrag(0); };
+  // Weggewischt: aus der aktuellen Position weiter nach unten fahren (drag bleibt stehen).
+  const onUp = () => { const close = drag > 90 && onClose; start.current = null; if (close) onClose(); else setDrag(0); };
   return (
-    <div onClick={closable ? onClose : undefined}
+    <div onClick={closable && !leaving ? onClose : undefined}
       style={{ position: 'absolute', inset: 0, background: 'var(--overlay-scrim)', display: 'flex', alignItems: 'flex-end',
-        justifyContent: 'center', zIndex: 40, animation: 'spur-scrim-in var(--dur-base) var(--ease-out-soft) both' }}>
-      <div role="dialog" aria-modal="true" aria-label={title} onClick={(e) => e.stopPropagation()}
+        justifyContent: 'center', zIndex: 40, pointerEvents: leaving ? 'none' : undefined,
+        animation: leaving ? 'spur-scrim-out 260ms var(--ease-out-soft) both' : 'spur-scrim-in var(--dur-base) var(--ease-out-soft) both' }}>
+      <div role="dialog" aria-modal="true" aria-label={view.title} onClick={(e) => e.stopPropagation()}
         style={{ width: '100%', maxWidth: 'var(--screen-max)', maxHeight: 'calc(100% - env(safe-area-inset-top) - 32px)', background: 'var(--surface-card)',
           borderTopLeftRadius: 'var(--radius-xl)', borderTopRightRadius: 'var(--radius-xl)', display: 'flex', flexDirection: 'column',
           boxShadow: 'var(--shadow-sheet)', transform: `translateY(${drag}px)`, transition: start.current == null ? 'transform var(--dur-fast) var(--ease-out-soft)' : 'none',
-          animation: 'spur-sheet-in var(--dur-base) var(--ease-out-soft) both' }}>
+          animation: leaving ? 'spur-sheet-out 260ms cubic-bezier(.5,0,.75,0) both' : 'spur-sheet-in var(--dur-base) var(--ease-out-soft) both' }}>
         <div onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} onPointerCancel={onUp}
           style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, padding: '18px var(--gutter-screen) 0', touchAction: 'none' }}>
-          <span style={{ font: 'var(--type-title)', fontSize: 'var(--text-title)' }}>{title}</span>
+          <span key={contentKey} className={contentKey ? 'a-fade' : undefined} style={{ font: 'var(--type-title)', fontSize: 'var(--text-title)' }}>{view.title}</span>
           {onClose && closable && <IconButton icon="x" label="Schließen" onClick={onClose} size={44} />}
         </div>
-        <div style={{ overflowY: 'auto', padding: '16px var(--gutter-screen) calc(24px + env(safe-area-inset-bottom))', display: 'flex', flexDirection: 'column', gap: 16 }}>
-          {children}
-          {footer}
+        <div key={contentKey} className={contentKey ? 'phase-in' : undefined}
+          style={{ overflowY: 'auto', padding: '16px var(--gutter-screen) calc(24px + env(safe-area-inset-bottom))', display: 'flex', flexDirection: 'column', gap: 16 }}>
+          {view.children}
+          {view.footer}
         </div>
       </div>
     </div>

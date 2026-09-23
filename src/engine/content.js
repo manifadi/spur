@@ -2,8 +2,11 @@
 //
 // Chapter  { id, order, title, track: 'listen'|'read'|'mixed', difficulty, lessons: Feld[] }
 // Feld     { id, title, items: Item[] }  |  { id, type: 'checkpoint', title }
-//          Ein Feld (Knoten im Pfad) hat 1–4 Teilübungen (subExercises über seine Items).
-// Item     Dialog { id, type: 'dialog', title, characterId, text | lines[{who,text}], subExercises[], worldRefs }
+//          Ein Feld (Knoten im Pfad, "Level") besteht aus 3–4 Teilen. Jeder Teil ist ein
+//          Item (ein Abschnitt der Geschichte bzw. ein Text) mit 3–4 Fragen und wird in
+//          einer eigenen Session gespielt. Ein Ringsegment am Knoten = ein Teil.
+// Item     Dialog { id, type: 'dialog', title, characterId, text | lines[{who,text,tone?}], tone?, subExercises[], worldRefs }
+//          tone: optionale Sprechanweisung ("seufzt, genervt"), für ausdrucksstärkere Vertonung.
 //          Text   { id, type: 'text', title, topic, paragraphs[], keyPoints[], subExercises[] }
 // Übung    recall_text     { id, type, prompt, answers[[..]], solution, quote }   Freitext, automatisch geprüft
 //          recall_text     { id: 'retell', type }                                 Text frei nacherzählen,
@@ -138,8 +141,12 @@ export function validateChapters(chapters) {
           }
         } else errors.push(`Item ${it.id}: unbekannter type "${it.type}"`);
       }
-      const n = (l.items || []).reduce((k, x) => k + (x.subExercises?.length || 0), 0);
-      if (n < 1 || n > 4) errors.push(`Feld ${l.id}: ${n} Teilübungen (erlaubt 1–4)`);
+      const parts = (l.items || []).length;
+      if (parts < 3 || parts > 4) errors.push(`Feld ${l.id}: ${parts} Teile (erlaubt 3–4)`);
+      for (const it of l.items || []) {
+        const n = it.subExercises?.length || 0;
+        if (n < 3 || n > 4) errors.push(`Teil ${it.id}: ${n} Fragen (erlaubt 3–4)`);
+      }
     }
   }
   return errors;

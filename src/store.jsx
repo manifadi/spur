@@ -7,8 +7,17 @@ import { checkReminder } from './lib/reminders.js';
 
 const Ctx = createContext(null);
 
+let themeFadeTimer = 0;
+
 function applyTheme(theme) {
   const dark = theme === 'dark' || (theme === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
+  const root = document.documentElement;
+  if (root.hasAttribute('data-theme') !== dark) {
+    // Farben gleiten beim Umschalten über, statt hart zu wechseln (nur beim echten Wechsel).
+    root.classList.add('theme-fade');
+    clearTimeout(themeFadeTimer);
+    themeFadeTimer = setTimeout(() => root.classList.remove('theme-fade'), 450);
+  }
   document.documentElement.toggleAttribute('data-theme', false);
   if (dark) document.documentElement.setAttribute('data-theme', 'dark');
   const meta = document.querySelector('meta[name="theme-color"]');

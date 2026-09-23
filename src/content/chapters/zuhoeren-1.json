@@ -1,323 +1,642 @@
 {
-  "id": "zuhoeren-1",
-  "order": 1,
-  "title": "Beiläufige Details",
-  "track": "listen",
-  "difficulty": 1,
-  "lessons": [
+ "id": "zuhoeren-1",
+ "order": 1,
+ "title": "Beiläufige Details",
+ "track": "listen",
+ "difficulty": 1,
+ "lessons": [
+  {
+   "id": "z1-buero",
+   "title": "Ein Tag im Büro",
+   "items": [
     {
-      "id": "z1-kaffeekueche",
-      "title": "Kaffeeküche",
-      "items": [
-        {
-          "id": "z1-kaffeekueche-d",
-          "type": "dialog",
-          "title": "Kaffeeküche",
-          "characterId": "thomas",
-          "text": "Morgen. Ich bin heute erst um zehn gekommen, mein Zug hatte schon wieder Verspätung. Zwanzig Minuten stand er einfach vor Fulda, ohne Durchsage. Egal. Falls du Tee suchst: Die Dose mit dem Pfefferminztee steht jetzt im oberen Fach, neben dem Zucker. Die Kaffeemaschine ist übrigens wieder kaputt, der Techniker kommt erst am Donnerstag. Bis dahin gibt es Filterkaffee aus der alten Kanne. Und die Milch mit dem gelben Zettel gehört Sandra. Da würde ich die Finger von lassen. Ach, und falls dich jemand sucht: Ich bin heute Nachmittag im Termin mit der Buchhaltung, bis mindestens vier. Wenn es brennt, schreib mir eine Nachricht, ans Telefon gehe ich da nicht.",
-          "subExercises": [
-            {
-              "id": "q1",
-              "type": "recall_text",
-              "prompt": "Um wie viel Uhr ist Thomas gekommen?",
-              "answers": [
-                [
-                  "10",
-                  "zehn"
-                ]
-              ],
-              "solution": "Um zehn.",
-              "quote": "„Ich bin heute erst um zehn gekommen …“"
-            },
-            {
-              "id": "q2",
-              "type": "recall_text",
-              "prompt": "Welcher Tee steht im oberen Fach?",
-              "answers": [
-                [
-                  "Pfefferminz",
-                  "Pfefferminztee",
-                  "Minze",
-                  "Minztee"
-                ]
-              ],
-              "solution": "Pfefferminztee.",
-              "quote": "„Die Dose mit dem Pfefferminztee steht jetzt im oberen Fach …“"
-            },
-            {
-              "id": "q3",
-              "type": "recall_text",
-              "prompt": "Was steht neben der Teedose?",
-              "answers": [
-                [
-                  "Zucker"
-                ]
-              ],
-              "solution": "Der Zucker.",
-              "quote": "„… im oberen Fach, neben dem Zucker.“"
-            },
-            {
-              "id": "m1",
-              "type": "detail_match",
-              "prompt": "Wann kommt der Techniker für die Kaffeemaschine?",
-              "options": [
-                "Am Montag",
-                "Am Donnerstag",
-                "Heute Nachmittag",
-                "Nächste Woche"
-              ],
-              "correct": [
-                "Am Donnerstag"
-              ],
-              "quote": "„… der Techniker kommt erst am Donnerstag.“"
-            }
-          ],
-          "worldRefs": {
-            "charactersReferenced": [
-              "sandra"
-            ],
-            "locationsReferenced": [
-              "kaffeekueche"
-            ]
-          }
-        }
+     "id": "z1-kaffeekueche-d",
+     "type": "dialog",
+     "title": "Morgens in der Kaffeeküche",
+     "characterId": "thomas",
+     "text": "Morgen. Ich bin heute erst um zehn gekommen, mein Zug hatte schon wieder Verspätung. Zwanzig Minuten stand er einfach vor Fulda, ohne Durchsage. Egal. Falls du Tee suchst: Die Dose mit dem Pfefferminztee steht jetzt im oberen Fach, neben dem Zucker. Die Kaffeemaschine ist übrigens wieder kaputt, der Techniker kommt erst am Donnerstag. Bis dahin gibt es Filterkaffee aus der alten Kanne. Und die Milch mit dem gelben Zettel gehört Sandra. Da würde ich die Finger von lassen. Ach, und falls dich jemand sucht: Ich bin heute Nachmittag im Termin mit der Buchhaltung, bis mindestens vier. Wenn es brennt, schreib mir eine Nachricht, ans Telefon gehe ich da nicht.",
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Um wie viel Uhr ist Thomas gekommen?",
+       "answers": [
+        [
+         "10",
+         "zehn"
+        ]
+       ],
+       "solution": "Um zehn.",
+       "quote": "„Ich bin heute erst um zehn gekommen …“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Welcher Tee steht im oberen Fach?",
+       "answers": [
+        [
+         "Pfefferminz",
+         "Pfefferminztee",
+         "Minze",
+         "Minztee"
+        ]
+       ],
+       "solution": "Pfefferminztee.",
+       "quote": "„Die Dose mit dem Pfefferminztee steht jetzt im oberen Fach …“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Was steht neben der Teedose?",
+       "answers": [
+        [
+         "Zucker"
+        ]
+       ],
+       "solution": "Der Zucker.",
+       "quote": "„… im oberen Fach, neben dem Zucker.“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Wann kommt der Techniker für die Kaffeemaschine?",
+       "options": [
+        "Am Montag",
+        "Am Donnerstag",
+        "Heute Nachmittag",
+        "Nächste Woche"
+       ],
+       "correct": [
+        "Am Donnerstag"
+       ],
+       "quote": "„… der Techniker kommt erst am Donnerstag.“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [
+       "sandra"
+      ],
+      "locationsReferenced": [
+       "kaffeekueche"
       ]
+     }
     },
     {
-      "id": "z1-umzug",
-      "title": "Umzug",
-      "items": [
-        {
-          "id": "z1-umzug-d",
-          "type": "dialog",
-          "title": "Umzug",
-          "characterId": "mia",
-          "text": "Nora ist am Samstag umgezogen! Endlich raus aus der Wohnung über der Pizzeria. Der Lieferwagen kam zwei Stunden zu spät, aber ihr Bruder Jonas hat fast alles alleine hochgetragen — der wird nächsten Monat 30. Die neue Wohnung liegt im vierten Stock, ohne Aufzug, stell dir das mal vor. Das Sofa hat nicht durchs Treppenhaus gepasst, das musste über den Balkon rein. Am Ende haben wir auf dem Boden Pizza gegessen, weil der Tisch noch in Einzelteilen war. Am Montag kommt noch der Techniker für das Internet, zwischen acht und zwölf, also den ganzen Vormittag. Nora hat sich extra freigenommen. Und die Einweihungsparty ist in zwei Wochen, aber erst, wenn der Tisch steht, sagt sie.",
-          "subExercises": [
-            {
-              "id": "q1",
-              "type": "recall_text",
-              "prompt": "Wer hat bei Noras Umzug geholfen?",
-              "answers": [
-                [
-                  "Jonas",
-                  "Bruder"
-                ]
-              ],
-              "solution": "Ihr Bruder Jonas.",
-              "quote": "„… aber ihr Bruder Jonas hat fast alles alleine hochgetragen — der wird nächsten Monat 30.“"
-            },
-            {
-              "id": "q2",
-              "type": "recall_text",
-              "prompt": "Wie alt wird Jonas nächsten Monat?",
-              "answers": [
-                [
-                  "30",
-                  "dreißig",
-                  "dreissig"
-                ]
-              ],
-              "solution": "30.",
-              "quote": "„… der wird nächsten Monat 30.“"
-            },
-            {
-              "id": "q3",
-              "type": "recall_text",
-              "prompt": "Wie viel zu spät kam der Lieferwagen?",
-              "answers": [
-                [
-                  "zwei Stunden",
-                  "2 Stunden",
-                  "2 Std",
-                  "zwei Std"
-                ]
-              ],
-              "solution": "Zwei Stunden.",
-              "quote": "„Der Lieferwagen kam zwei Stunden zu spät …“"
-            }
-          ],
-          "worldRefs": {
-            "charactersReferenced": [],
-            "locationsReferenced": []
-          }
-        }
+     "id": "z1-buero-d2",
+     "type": "dialog",
+     "title": "Mittagspause",
+     "characterId": "thomas",
+     "text": "Mahlzeit. Ich hab uns zwei Plätze in der Kantine freigehalten, am Fenster. Heute gibt es Linseneintopf oder Spinatlasagne. Ich nehme den Eintopf, die Lasagne war letzten Dienstag schon zu salzig. Übrigens: Der Termin mit der Buchhaltung ist vorgezogen, nicht mehr um zwei, sondern schon um halb zwei. Ich muss also gleich los. Die Unterlagen für das Quartal liegen im blauen Ordner auf meinem Schreibtisch, falls Jana danach fragt. Ach, und der Techniker war doch schon heute da, nicht erst Donnerstag. Die Kaffeemaschine läuft wieder. Er meinte, jemand hat den Wassertank mit Sprudel aufgefüllt. Ich sage nicht, wer. Ich sage nur: Sandra trinkt nur Sprudel.",
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Was isst Thomas in der Kantine?",
+       "answers": [
+        [
+         "Linseneintopf",
+         "Linsen",
+         "Eintopf"
+        ]
+       ],
+       "solution": "Den Linseneintopf.",
+       "quote": "„Ich nehme den Eintopf …“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Um wie viel Uhr ist der Termin mit der Buchhaltung jetzt?",
+       "answers": [
+        [
+         "halb zwei",
+         "13:30",
+         "13 30",
+         "1:30",
+         "halb 2"
+        ]
+       ],
+       "solution": "Um halb zwei.",
+       "quote": "„… nicht mehr um zwei, sondern schon um halb zwei.“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Wo liegen die Unterlagen für das Quartal?",
+       "options": [
+        "Im blauen Ordner auf seinem Schreibtisch",
+        "Im roten Ordner in der Kaffeeküche",
+        "Bei Jana im Büro",
+        "Im gemeinsamen Ordner am Computer"
+       ],
+       "correct": [
+        "Im blauen Ordner auf seinem Schreibtisch"
+       ],
+       "quote": "„… im blauen Ordner auf meinem Schreibtisch …“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Was war laut Techniker mit der Kaffeemaschine los?",
+       "answers": [
+        [
+         "Sprudel",
+         "Mineralwasser",
+         "Sprudelwasser"
+        ]
+       ],
+       "solution": "Jemand hat den Wassertank mit Sprudel aufgefüllt.",
+       "quote": "„… jemand hat den Wassertank mit Sprudel aufgefüllt.“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [
+       "sandra",
+       "jana"
+      ],
+      "locationsReferenced": [
+       "buero"
       ]
+     }
     },
     {
-      "id": "z1-paket",
-      "title": "Das Paket",
-      "items": [
-        {
-          "id": "z1-paket-d",
-          "type": "dialog",
-          "title": "Das Paket",
-          "characterId": "frau-berger",
-          "text": "Ach, gut, dass ich Sie treffe! Ihr Paket habe ich angenommen, der Bote wollte es schon wieder mitnehmen. Es steht bei mir im Flur, hinter dem Schirmständer. Ziemlich schwer übrigens, ich dachte schon, da sind Steine drin. Klingeln Sie einfach heute Abend, ich bin ab sechs zu Hause. Nur nicht während der Tagesschau, da gehe ich nicht an die Tür! Ach, und bevor ich es vergesse: Der Hausmeister kommt am Dienstag wegen der tropfenden Heizung im Flur. Er klingelt bei allen, so gegen zehn. Ich sag's Ihnen nur, damit Sie nicht erschrecken, wenn es morgens läutet. Und falls Sie wieder etwas bestellen: Bei mir können Sie es jederzeit hinschicken lassen. Ich bin ja fast immer da. Außer mittwochs, da ist Chor.",
-          "subExercises": [
-            {
-              "id": "q1",
-              "type": "recall_text",
-              "prompt": "Wo steht das Paket bei Frau Berger?",
-              "answers": [
-                [
-                  "Flur"
-                ],
-                [
-                  "Schirmständer",
-                  "Schirmstaender",
-                  "Schirm"
-                ]
-              ],
-              "solution": "Im Flur, hinter dem Schirmständer.",
-              "quote": "„Es steht bei mir im Flur, hinter dem Schirmständer.“"
-            }
-          ],
-          "worldRefs": {
-            "charactersReferenced": [],
-            "locationsReferenced": [
-              "treppenhaus"
-            ]
-          }
-        }
+     "id": "z1-feierabend-d",
+     "type": "dialog",
+     "title": "Feierabend",
+     "characterId": "sandra",
+     "text": "Ich geh heute direkt nach Hause. Nicht mal ein Feierabendbier, sorry. Meine Katze Pepper muss um sechs zum Tierarzt, sie frisst seit zwei Tagen kaum was. Wahrscheinlich wieder nur Zahnstein, das hatte sie letztes Jahr auch schon. Danach koche ich Kürbissuppe, das Rezept hab ich von meiner Oma. Mit Ingwer und einem Schuss Kokosmilch. Und dann lege ich mich aufs Sofa und mache heute gar nichts mehr. Morgen früh bin ich wieder da, aber erst um neun, ich muss vorher noch Pepper zu meiner Nachbarin bringen, die passt auf sie auf. Die hat drei Katzen, Pepper hasst sie alle.",
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Wie heißt die Katze?",
+       "answers": [
+        [
+         "Pepper",
+         "Peppa",
+         "Peper"
+        ]
+       ],
+       "solution": "Pepper.",
+       "quote": "„Meine Katze Pepper muss um sechs zum Tierarzt …“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Um wie viel Uhr ist der Tierarzttermin?",
+       "answers": [
+        [
+         "6",
+         "sechs",
+         "18"
+        ]
+       ],
+       "solution": "Um sechs.",
+       "quote": "„… muss um sechs zum Tierarzt …“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Was gibt es danach zu essen?",
+       "answers": [
+        [
+         "Kürbissuppe",
+         "Kürbis",
+         "Kuerbis"
+        ]
+       ],
+       "solution": "Kürbissuppe.",
+       "quote": "„Danach koche ich Kürbissuppe …“"
+      },
+      {
+       "id": "q4",
+       "type": "recall_text",
+       "prompt": "Von wem ist das Rezept?",
+       "answers": [
+        [
+         "Oma",
+         "Großmutter",
+         "Grossmutter"
+        ]
+       ],
+       "solution": "Von ihrer Oma.",
+       "quote": "„… das Rezept hab ich von meiner Oma.“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": [
+       "buero"
       ]
-    },
-    {
-      "id": "z1-feierabend",
-      "title": "Feierabend",
-      "items": [
-        {
-          "id": "z1-feierabend-d",
-          "type": "dialog",
-          "title": "Feierabend",
-          "characterId": "sandra",
-          "text": "Ich geh heute direkt nach Hause. Nicht mal ein Feierabendbier, sorry. Meine Katze Pepper muss um sechs zum Tierarzt, sie frisst seit zwei Tagen kaum was. Wahrscheinlich wieder nur Zahnstein, das hatte sie letztes Jahr auch schon. Danach koche ich Kürbissuppe, das Rezept hab ich von meiner Oma. Mit Ingwer und einem Schuss Kokosmilch. Und dann lege ich mich aufs Sofa und mache heute gar nichts mehr. Morgen früh bin ich wieder da, aber erst um neun, ich muss vorher noch Pepper zu meiner Nachbarin bringen, die passt auf sie auf. Die hat drei Katzen, Pepper hasst sie alle.",
-          "subExercises": [
-            {
-              "id": "q1",
-              "type": "recall_text",
-              "prompt": "Wie heißt die Katze?",
-              "answers": [
-                [
-                  "Pepper",
-                  "Peppa",
-                  "Peper"
-                ]
-              ],
-              "solution": "Pepper.",
-              "quote": "„Meine Katze Pepper muss um sechs zum Tierarzt …“"
-            },
-            {
-              "id": "q2",
-              "type": "recall_text",
-              "prompt": "Um wie viel Uhr ist der Tierarzttermin?",
-              "answers": [
-                [
-                  "6",
-                  "sechs",
-                  "18"
-                ]
-              ],
-              "solution": "Um sechs.",
-              "quote": "„… muss um sechs zum Tierarzt …“"
-            },
-            {
-              "id": "q3",
-              "type": "recall_text",
-              "prompt": "Was gibt es danach zu essen?",
-              "answers": [
-                [
-                  "Kürbissuppe",
-                  "Kürbis",
-                  "Kuerbis"
-                ]
-              ],
-              "solution": "Kürbissuppe.",
-              "quote": "„Danach koche ich Kürbissuppe …“"
-            },
-            {
-              "id": "q4",
-              "type": "recall_text",
-              "prompt": "Von wem ist das Rezept?",
-              "answers": [
-                [
-                  "Oma",
-                  "Großmutter",
-                  "Grossmutter"
-                ]
-              ],
-              "solution": "Von ihrer Oma.",
-              "quote": "„… das Rezept hab ich von meiner Oma.“"
-            }
-          ],
-          "worldRefs": {
-            "charactersReferenced": [],
-            "locationsReferenced": [
-              "buero"
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "id": "z1-wochenmarkt",
-      "title": "Wochenmarkt",
-      "items": [
-        {
-          "id": "z1-wochenmarkt-d",
-          "type": "dialog",
-          "title": "Wochenmarkt",
-          "characterId": "frau-berger",
-          "text": "Stellen Sie sich vor, am Käsestand gab's heute keinen Bergkäse mehr! Um halb neun schon! Also hab ich Ziegenkäse genommen, der war im Angebot. Der Verkäufer meinte, der Stand zieht nächste Woche um — dann steht er gegenüber vom Brunnen, neben dem Blumenstand. Und der Honig-Mann kommt ab jetzt nur noch jeden zweiten Samstag, der hat wohl Rücken. Ich sag's Ihnen, bald kann man da gar nichts mehr kaufen. Dafür gibt's jetzt einen neuen Stand mit Oliven, gleich am Eingang. Der Mann kommt aus Kreta und lässt einen alles probieren. Ich war eine halbe Stunde da und hab am Ende nur ein kleines Glas gekauft, ist mir ein bisschen peinlich.",
-          "subExercises": [
-            {
-              "id": "q1",
-              "type": "recall_text",
-              "prompt": "Welcher Käse war ausverkauft?",
-              "answers": [
-                [
-                  "Bergkäse",
-                  "Bergkaese"
-                ]
-              ],
-              "solution": "Bergkäse.",
-              "quote": "„… am Käsestand gab's heute keinen Bergkäse mehr!“"
-            },
-            {
-              "id": "q2",
-              "type": "recall_text",
-              "prompt": "Welchen Käse hat Frau Berger stattdessen genommen?",
-              "answers": [
-                [
-                  "Ziegenkäse",
-                  "Ziegenkaese",
-                  "Ziege"
-                ]
-              ],
-              "solution": "Ziegenkäse.",
-              "quote": "„Also hab ich Ziegenkäse genommen …“"
-            },
-            {
-              "id": "q3",
-              "type": "recall_text",
-              "prompt": "Wo steht der Stand ab nächster Woche?",
-              "answers": [
-                [
-                  "Brunnen"
-                ]
-              ],
-              "solution": "Gegenüber vom Brunnen.",
-              "quote": "„… dann steht er gegenüber vom Brunnen …“"
-            }
-          ],
-          "worldRefs": {
-            "charactersReferenced": [],
-            "locationsReferenced": [
-              "wochenmarkt"
-            ]
-          }
-        }
-      ]
+     }
     }
-  ]
+   ]
+  },
+  {
+   "id": "z1-umzug",
+   "title": "Noras Umzug",
+   "items": [
+    {
+     "id": "z1-umzug-d",
+     "type": "dialog",
+     "title": "Der Umzugstag",
+     "characterId": "mia",
+     "text": "Nora ist am Samstag umgezogen! Endlich raus aus der Wohnung über der Pizzeria. Der Lieferwagen kam zwei Stunden zu spät, aber ihr Bruder Jonas hat fast alles alleine hochgetragen — der wird nächsten Monat 30. Die neue Wohnung liegt im vierten Stock, ohne Aufzug, stell dir das mal vor. Das Sofa hat nicht durchs Treppenhaus gepasst, das musste über den Balkon rein. Am Ende haben wir auf dem Boden Pizza gegessen, weil der Tisch noch in Einzelteilen war. Am Montag kommt noch der Techniker für das Internet, zwischen acht und zwölf, also den ganzen Vormittag. Nora hat sich extra freigenommen. Und die Einweihungsparty ist in zwei Wochen, aber erst, wenn der Tisch steht, sagt sie.",
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Wer hat bei Noras Umzug geholfen?",
+       "answers": [
+        [
+         "Jonas",
+         "Bruder"
+        ]
+       ],
+       "solution": "Ihr Bruder Jonas.",
+       "quote": "„… aber ihr Bruder Jonas hat fast alles alleine hochgetragen — der wird nächsten Monat 30.“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Wie alt wird Jonas nächsten Monat?",
+       "answers": [
+        [
+         "30",
+         "dreißig",
+         "dreissig"
+        ]
+       ],
+       "solution": "30.",
+       "quote": "„… der wird nächsten Monat 30.“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Wie viel zu spät kam der Lieferwagen?",
+       "answers": [
+        [
+         "zwei Stunden",
+         "2 Stunden",
+         "2 Std",
+         "zwei Std"
+        ]
+       ],
+       "solution": "Zwei Stunden.",
+       "quote": "„Der Lieferwagen kam zwei Stunden zu spät …“"
+      },
+      {
+       "id": "q4",
+       "type": "recall_text",
+       "prompt": "Wie ist das Sofa in die neue Wohnung gekommen?",
+       "answers": [
+        [
+         "Balkon"
+        ]
+       ],
+       "solution": "Über den Balkon.",
+       "quote": "„Das Sofa hat nicht durchs Treppenhaus gepasst, das musste über den Balkon rein.“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": []
+     }
+    },
+    {
+     "id": "z1-umzug-d2",
+     "type": "dialog",
+     "title": "Der Tisch steht",
+     "characterId": "mia",
+     "text": "Neuigkeiten von Nora: Der Tisch steht! Jonas hat ihn am Mittwochabend aufgebaut, drei Stunden hat er gebraucht, weil eine Schraube gefehlt hat. Die hat er am Ende aus dem alten Regal genommen. Das Internet läuft auch, der Techniker kam sogar schon um halb neun. Also steht die Einweihungsparty: Samstag in einer Woche, ab sieben. Jeder soll etwas zu trinken mitbringen, Nora macht ihre berühmte Gemüselasagne. Und sie wünscht sich keine Geschenke, sondern Pflanzen für den Balkon. Am liebsten Kräuter, Basilikum oder Rosmarin. Klingeln bitte zweimal, die Klingel ist noch mit dem Namen vom Vormieter beschriftet. Da steht Kowalczyk drauf.",
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Wer hat den Tisch aufgebaut?",
+       "answers": [
+        [
+         "Jonas",
+         "Bruder"
+        ]
+       ],
+       "solution": "Jonas, Noras Bruder.",
+       "quote": "„Jonas hat ihn am Mittwochabend aufgebaut …“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Was kocht Nora für die Party?",
+       "answers": [
+        [
+         "Lasagne",
+         "Gemüselasagne"
+        ]
+       ],
+       "solution": "Ihre Gemüselasagne.",
+       "quote": "„Nora macht ihre berühmte Gemüselasagne.“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Was wünscht sich Nora statt Geschenken?",
+       "options": [
+        "Pflanzen für den Balkon",
+        "Wein",
+        "Bücher",
+        "Gutscheine für den Baumarkt"
+       ],
+       "correct": [
+        "Pflanzen für den Balkon"
+       ],
+       "quote": "„… sondern Pflanzen für den Balkon.“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Welcher Name steht noch an der Klingel?",
+       "answers": [
+        [
+         "Kowalczyk",
+         "Kowalzyk",
+         "Kowalschik"
+        ]
+       ],
+       "solution": "Kowalczyk, der Name vom Vormieter.",
+       "quote": "„Da steht Kowalczyk drauf.“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": []
+     }
+    },
+    {
+     "id": "z1-umzug-d3",
+     "type": "dialog",
+     "title": "Die Einweihungsparty",
+     "characterId": "mia",
+     "text": "Die Party bei Nora war so schön! Wir waren am Ende fast zwanzig Leute, auf sechzig Quadratmetern. Der Tisch hat gehalten, zum Glück. Jonas hat eine Rede gehalten, obwohl ihn keiner darum gebeten hat, und sich dabei beim Sofa verheddert. Um elf hat die Nachbarin von unten geklingelt, eine ältere Dame, Frau Sievers. Wir dachten, jetzt gibt es Ärger. Stattdessen hat sie eine Flasche Eierlikör mitgebracht und bis eins mitgefeiert. Nora hat jetzt übrigens sieben Töpfe Basilikum. Sieben. Offenbar haben alle dieselbe Idee gehabt. Nächste Woche macht sie Pesto für das ganze Haus.",
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Wie viele Leute waren ungefähr auf der Party?",
+       "answers": [
+        [
+         "zwanzig",
+         "20"
+        ]
+       ],
+       "solution": "Fast zwanzig.",
+       "quote": "„Wir waren am Ende fast zwanzig Leute …“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Wie heißt die Nachbarin von unten?",
+       "answers": [
+        [
+         "Sievers",
+         "Siewers"
+        ]
+       ],
+       "solution": "Frau Sievers.",
+       "quote": "„… eine ältere Dame, Frau Sievers.“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Was hat die Nachbarin mitgebracht?",
+       "options": [
+        "Eierlikör",
+        "Eine Beschwerde",
+        "Kuchen",
+        "Basilikum"
+       ],
+       "correct": [
+        "Eierlikör"
+       ],
+       "quote": "„… hat sie eine Flasche Eierlikör mitgebracht …“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Wie viele Töpfe Basilikum hat Nora bekommen?",
+       "answers": [
+        [
+         "sieben",
+         "7"
+        ]
+       ],
+       "solution": "Sieben.",
+       "quote": "„Nora hat jetzt übrigens sieben Töpfe Basilikum.“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": []
+     }
+    }
+   ]
+  },
+  {
+   "id": "z1-berger",
+   "title": "Frau Berger von nebenan",
+   "items": [
+    {
+     "id": "z1-paket-d",
+     "type": "dialog",
+     "title": "Das Paket",
+     "characterId": "frau-berger",
+     "text": "Ach, gut, dass ich Sie treffe! Ihr Paket habe ich angenommen, der Bote wollte es schon wieder mitnehmen. Es steht bei mir im Flur, hinter dem Schirmständer. Ziemlich schwer übrigens, ich dachte schon, da sind Steine drin. Klingeln Sie einfach heute Abend, ich bin ab sechs zu Hause. Nur nicht während der Tagesschau, da gehe ich nicht an die Tür! Ach, und bevor ich es vergesse: Der Hausmeister kommt am Dienstag wegen der tropfenden Heizung im Flur. Er klingelt bei allen, so gegen zehn. Ich sag's Ihnen nur, damit Sie nicht erschrecken, wenn es morgens läutet. Und falls Sie wieder etwas bestellen: Bei mir können Sie es jederzeit hinschicken lassen. Ich bin ja fast immer da. Außer mittwochs, da ist Chor.",
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Wo steht das Paket bei Frau Berger?",
+       "answers": [
+        [
+         "Flur"
+        ],
+        [
+         "Schirmständer",
+         "Schirmstaender",
+         "Schirm"
+        ]
+       ],
+       "solution": "Im Flur, hinter dem Schirmständer.",
+       "quote": "„Es steht bei mir im Flur, hinter dem Schirmständer.“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Wann ist Frau Berger nicht an der Tür?",
+       "answers": [
+        [
+         "Tagesschau"
+        ]
+       ],
+       "solution": "Während der Tagesschau.",
+       "quote": "„Nur nicht während der Tagesschau, da gehe ich nicht an die Tür!“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "An welchem Tag ist Frau Berger nicht da?",
+       "options": [
+        "Mittwochs",
+        "Dienstags",
+        "Freitags",
+        "Sonntags"
+       ],
+       "correct": [
+        "Mittwochs"
+       ],
+       "quote": "„Außer mittwochs, da ist Chor.“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": [
+       "treppenhaus"
+      ]
+     }
+    },
+    {
+     "id": "z1-wochenmarkt-d",
+     "type": "dialog",
+     "title": "Auf dem Wochenmarkt",
+     "characterId": "frau-berger",
+     "text": "Stellen Sie sich vor, am Käsestand gab's heute keinen Bergkäse mehr! Um halb neun schon! Also hab ich Ziegenkäse genommen, der war im Angebot. Der Verkäufer meinte, der Stand zieht nächste Woche um — dann steht er gegenüber vom Brunnen, neben dem Blumenstand. Und der Honig-Mann kommt ab jetzt nur noch jeden zweiten Samstag, der hat wohl Rücken. Ich sag's Ihnen, bald kann man da gar nichts mehr kaufen. Dafür gibt's jetzt einen neuen Stand mit Oliven, gleich am Eingang. Der Mann kommt aus Kreta und lässt einen alles probieren. Ich war eine halbe Stunde da und hab am Ende nur ein kleines Glas gekauft, ist mir ein bisschen peinlich.",
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Welcher Käse war ausverkauft?",
+       "answers": [
+        [
+         "Bergkäse",
+         "Bergkaese"
+        ]
+       ],
+       "solution": "Bergkäse.",
+       "quote": "„… am Käsestand gab's heute keinen Bergkäse mehr!“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Welchen Käse hat Frau Berger stattdessen genommen?",
+       "answers": [
+        [
+         "Ziegenkäse",
+         "Ziegenkaese",
+         "Ziege"
+        ]
+       ],
+       "solution": "Ziegenkäse.",
+       "quote": "„Also hab ich Ziegenkäse genommen …“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Wo steht der Stand ab nächster Woche?",
+       "answers": [
+        [
+         "Brunnen"
+        ]
+       ],
+       "solution": "Gegenüber vom Brunnen.",
+       "quote": "„… dann steht er gegenüber vom Brunnen …“"
+      },
+      {
+       "id": "q4",
+       "type": "recall_text",
+       "prompt": "Woher kommt der Mann mit dem Olivenstand?",
+       "answers": [
+        [
+         "Kreta"
+        ]
+       ],
+       "solution": "Aus Kreta.",
+       "quote": "„Der Mann kommt aus Kreta …“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": [
+       "wochenmarkt"
+      ]
+     }
+    },
+    {
+     "id": "z1-berger-d3",
+     "type": "dialog",
+     "title": "Das Chorkonzert",
+     "characterId": "frau-berger",
+     "text": "Haben Sie am Sonntag schon was vor? Unser Chor singt in der Markuskirche, um fünf! Wir proben seit März dafür. Ich singe im Alt, ganz hinten links, Sie erkennen mich an dem roten Schal. Den hat mir meine Schwester gestrickt. Der Eintritt ist frei, aber am Ausgang steht ein Korb für Spenden, das Geld geht an die neue Orgel. Und danach gibt es Kuchen im Gemeindehaus, den backen wir alle selbst. Ich mache Käsekuchen, natürlich mit Rosinen. Ach, und wenn Sie kommen: Setzen Sie sich nicht in die erste Reihe. Unser Dirigent, Herr Pohl, schwitzt immer so, wenn er dirigiert.",
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Wo singt der Chor?",
+       "answers": [
+        [
+         "Markuskirche",
+         "Markus"
+        ]
+       ],
+       "solution": "In der Markuskirche.",
+       "quote": "„Unser Chor singt in der Markuskirche, um fünf!“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Woran erkennt man Frau Berger im Chor?",
+       "answers": [
+        [
+         "Schal",
+         "roten Schal",
+         "rot"
+        ]
+       ],
+       "solution": "An ihrem roten Schal.",
+       "quote": "„Sie erkennen mich an dem roten Schal.“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Wofür sind die Spenden?",
+       "options": [
+        "Für die neue Orgel",
+        "Für den Chor-Ausflug",
+        "Für neue Noten",
+        "Für das Gemeindehaus"
+       ],
+       "correct": [
+        "Für die neue Orgel"
+       ],
+       "quote": "„… das Geld geht an die neue Orgel.“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Welchen Kuchen backt Frau Berger?",
+       "answers": [
+        [
+         "Käsekuchen",
+         "Kaesekuchen"
+        ]
+       ],
+       "solution": "Käsekuchen mit Rosinen.",
+       "quote": "„Ich mache Käsekuchen, natürlich mit Rosinen.“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": []
+     }
+    }
+   ]
+  }
+ ]
 }

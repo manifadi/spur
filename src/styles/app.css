@@ -13,7 +13,7 @@ img{-webkit-user-drag:none}
 
 /* App-Spalte: 320–430 px fluid, darüber zentriert. */
 .app{position:relative;width:100%;max-width:var(--screen-max);height:var(--app-h,100dvh);overflow:hidden;background:var(--surface-page);
-  transform:translateY(var(--app-y,0px))}
+  transform:translateY(var(--app-y,0px));transition:height 240ms var(--ease-out-soft)}
 .screen-wrap{position:absolute;inset:0;animation:spur-fadein 200ms var(--ease-out-soft) both}
 
 /* Jeder Screen: Header fix, Inhalt scrollt, CTA bleibt sichtbar. */
@@ -22,13 +22,25 @@ img{-webkit-user-drag:none}
 .screen-body{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .screen-body::-webkit-scrollbar{width:0}
 .screen-cta{flex:0 0 auto;padding:0 var(--gutter-screen) calc(24px + env(safe-area-inset-bottom))}
-.lesson-cta{flex:0 0 auto;padding:8px var(--gutter-screen) calc(24px + env(safe-area-inset-bottom))}
+.lesson-cta{flex:0 0 auto;padding:8px var(--gutter-screen) calc(24px + env(safe-area-inset-bottom));
+  transition:padding var(--dur-base) var(--ease-out-soft)}
+.screen-cta{transition:padding var(--dur-base) var(--ease-out-soft)}
 
-/* Tastatur offen (data-kb, siehe App.jsx): Home-Indikator-Abstand entfällt, der Button
-   sitzt knapp über der Tastatur, Nebensächliches macht Platz fürs Textfeld. */
+/* Tastatur offen (data-kb, siehe App.jsx). Nichts springt: Miro und die Frage schrumpfen
+   weich auf 75 %, der Hinweiskasten klappt zu, der Button rückt an die Tastatur. */
 [data-kb] .screen-cta,[data-kb] .lesson-cta{padding-bottom:10px}
 [data-kb] .lesson-cta{padding-top:6px}
-[data-kb] .kb-hide{display:none !important}
+.kb-shrink .kb-mascot img,.kb-shrink .kb-mascot [role=img]{transition:width var(--dur-base) var(--ease-out-soft),height var(--dur-base) var(--ease-out-soft)}
+.kb-shrink h2,.kb-shrink p{transition:font-size var(--dur-base) var(--ease-out-soft)}
+[data-kb] .kb-shrink .kb-mascot img,[data-kb] .kb-shrink .kb-mascot [role=img]{width:48px !important;height:48px !important}
+[data-kb] .kb-shrink h2{font-size:18px !important}
+[data-kb] .kb-shrink p{font-size:12px !important}
+/* Zuklappen über grid-template-rows (0fr ↔ 1fr), damit auch die Höhe weich animiert. */
+.collapsible{display:grid;grid-template-rows:1fr;
+  transition:grid-template-rows var(--dur-base) var(--ease-out-soft),opacity var(--dur-fast) var(--ease-out-soft),margin var(--dur-base) var(--ease-out-soft)}
+.collapsible>*{min-height:0;overflow:hidden}
+.collapsible.is-collapsed{grid-template-rows:0fr;opacity:0}
+[data-kb] .kb-collapse{grid-template-rows:0fr;opacity:0;margin-bottom:-18px}
 [data-kb] textarea{max-height:calc(var(--app-h,100dvh) * .34)}
 @media (max-height:600px){ .lesson-cta{padding-bottom:calc(14px + env(safe-area-inset-bottom))} }
 
@@ -64,6 +76,10 @@ img{-webkit-user-drag:none}
   display:flex;align-items:center;gap:12px;padding:14px 16px;background:#1F2130;color:#fff;border-radius:var(--radius-md);
   box-shadow:var(--shadow-raised);z-index:30;font:var(--type-body);font-weight:700}
 
+/* Dark-Mode-Wechsel: kurz alle Farben überblenden (Klasse setzt store.jsx für 450 ms). */
+.theme-fade,.theme-fade *,.theme-fade *::before,.theme-fade *::after{
+  transition:background-color 400ms var(--ease-out-soft),color 400ms var(--ease-out-soft),border-color 400ms var(--ease-out-soft),fill 400ms,stroke 400ms !important}
+
 /* ---- Keyframes (README §8, 1:1) ------------------------------------- */
 @keyframes spur-rise{from{transform:translateY(10px);opacity:0}to{transform:translateY(0);opacity:1}}
 @keyframes spur-popin{0%{transform:scale(0);opacity:0}60%{transform:scale(1.15);opacity:1}100%{transform:scale(1);opacity:1}}
@@ -94,7 +110,13 @@ img{-webkit-user-drag:none}
 @keyframes spur-ring-breathe{from{transform:translate(-50%,-50%) scale(1);filter:drop-shadow(0 0 2px color-mix(in srgb,currentColor 20%,transparent))}to{transform:translate(-50%,-50%) scale(1.06);filter:drop-shadow(0 0 7px color-mix(in srgb,currentColor 38%,transparent))}}
 @keyframes spur-ring-stroke{from{stroke-width:3px}to{stroke-width:5px}}
 @keyframes spur-speak{from{transform:scale(1);opacity:.55}to{transform:scale(1.08);opacity:1}}
+@keyframes spur-seg-fill{0%{opacity:.28;stroke-width:5px}55%{opacity:1;stroke-width:9px}100%{opacity:1;stroke-width:5px}}
 @keyframes spur-scrim-in{from{opacity:0}to{opacity:1}}
+
+@keyframes spur-leave{to{transform:translateY(8px);opacity:0}}
+@keyframes spur-sheet-out{to{transform:translateY(100%)}}
+@keyframes spur-scrim-out{to{opacity:0}}
+@keyframes spur-phase-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 
 /* Animations-Helfer: immer fill-mode both, damit vor dem Start nichts aufblitzt. */
 .a-rise{animation:spur-rise 320ms var(--ease-out-soft) both}
@@ -102,10 +124,15 @@ img{-webkit-user-drag:none}
 .a-pop{animation:spur-pop 600ms cubic-bezier(.34,1.56,.64,1)}
 .a-shake{animation:spur-shake 400ms var(--ease-out-soft)}
 .a-bob{animation:spur-bob 2600ms ease-in-out infinite}
+/* Sanftes Verschwinden (zusammen mit usePresence) und Wechsel zwischen Schritten. */
+.a-leave{animation:spur-leave 220ms var(--ease-out-soft) both !important;pointer-events:none}
+.a-fade{animation:spur-fadein 240ms var(--ease-out-soft) both}
+.phase-in{animation:spur-phase-in 280ms var(--ease-out-soft) both}
 
 /* Bewegung reduzieren: große Bewegungen werden zu einfachem Einblenden (120 ms). */
 @media (prefers-reduced-motion:reduce){
   .rm-fade{animation:spur-fadein 120ms linear both !important}
   .rm-hide{display:none !important}
   .rm-static{animation:none !important}
+  .phase-in,.a-fade{animation:spur-fadein 120ms linear both !important}
 }

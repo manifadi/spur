@@ -1,207 +1,361 @@
 {
-  "id": "lesen-1",
-  "order": 1,
-  "title": "Texte wiedergeben",
-  "track": "read",
-  "difficulty": 1,
-  "lessons": [
+ "id": "lesen-1",
+ "order": 1,
+ "title": "Texte wiedergeben",
+ "track": "read",
+ "difficulty": 1,
+ "lessons": [
+  {
+   "id": "l1-tiere",
+   "title": "Kluge Tiere",
+   "items": [
     {
-      "id": "l1-kraehen",
-      "title": "Krähen",
-      "items": [
-        {
-          "id": "l1-kraehen-t",
-          "type": "text",
-          "title": "Warum Krähen sich Gesichter merken",
-          "topic": "Krähen & Gesichter",
-          "paragraphs": [
-            "Krähen erkennen einzelne Menschen an ihren Gesichtern und behalten sie über Jahre.",
-            "Forscher in Seattle fingen mehrere Vögel, während sie eine auffällige Maske trugen. Die Tiere wurden beringt und kurz darauf wieder freigelassen, ohne dass ihnen etwas geschah. Wer danach dieselbe Maske aufsetzte und über den Campus ging, wurde lautstark angeschimpft — auch von Tieren, die nie gefangen worden waren.",
-            "Die Warnung wurde also weitergegeben, nicht nur selbst erlebt. Junge Krähen lernten sie offenbar von ihren Eltern. Wer dagegen eine neutrale Maske trug, wurde in Ruhe gelassen.",
-            "Fünf Jahre später reagierten die Vögel immer noch. Die Zahl der schimpfenden Krähen war sogar gestiegen.",
-            "Krähen gehören ohnehin zu den klügsten Vögeln. Sie benutzen Stöckchen als Werkzeug, legen Nüsse auf die Straße, damit Autos sie knacken, und verstecken Futter an Hunderten Stellen, die sie später wiederfinden.",
-            "Die Forscher empfehlen übrigens nicht, das Experiment nachzumachen: Wer einmal auf der schwarzen Liste steht, kommt so schnell nicht wieder herunter."
-          ],
-          "keyPoints": [
-            "Krähen erkennen einzelne Gesichter",
-            "Die Warnung wird weitergegeben",
-            "Der Versuch fand in Seattle statt, mit Masken",
-            "Die Erinnerung hält noch nach fünf Jahren"
-          ],
-          "subExercises": [
-            {
-              "id": "retell",
-              "type": "recall_text"
-            },
-            {
-              "id": "m1",
-              "type": "detail_match",
-              "prompt": "Wie reagierten die Krähen auf eine neutrale Maske?",
-              "options": [
-                "Sie schimpften noch lauter",
-                "Sie ließen die Person in Ruhe",
-                "Sie flogen davon",
-                "Sie griffen an"
-              ],
-              "correct": [
-                "Sie ließen die Person in Ruhe"
-              ],
-              "quote": "„Wer dagegen eine neutrale Maske trug, wurde in Ruhe gelassen.“"
-            }
-          ]
-        }
-      ]
+     "id": "l1-kraehen-t",
+     "type": "text",
+     "title": "Warum Krähen sich Gesichter merken",
+     "topic": "Krähen & Gesichter",
+     "paragraphs": [
+      "Krähen erkennen einzelne Menschen an ihren Gesichtern und behalten sie über Jahre.",
+      "Forscher in Seattle fingen mehrere Vögel, während sie eine auffällige Maske trugen. Die Tiere wurden beringt und kurz darauf wieder freigelassen, ohne dass ihnen etwas geschah. Wer danach dieselbe Maske aufsetzte und über den Campus ging, wurde lautstark angeschimpft — auch von Tieren, die nie gefangen worden waren.",
+      "Die Warnung wurde also weitergegeben, nicht nur selbst erlebt. Junge Krähen lernten sie offenbar von ihren Eltern. Wer dagegen eine neutrale Maske trug, wurde in Ruhe gelassen.",
+      "Fünf Jahre später reagierten die Vögel immer noch. Die Zahl der schimpfenden Krähen war sogar gestiegen.",
+      "Krähen gehören ohnehin zu den klügsten Vögeln. Sie benutzen Stöckchen als Werkzeug, legen Nüsse auf die Straße, damit Autos sie knacken, und verstecken Futter an Hunderten Stellen, die sie später wiederfinden.",
+      "Die Forscher empfehlen übrigens nicht, das Experiment nachzumachen: Wer einmal auf der schwarzen Liste steht, kommt so schnell nicht wieder herunter."
+     ],
+     "keyPoints": [
+      "Krähen erkennen einzelne Gesichter",
+      "Die Warnung wird weitergegeben",
+      "Der Versuch fand in Seattle statt, mit Masken",
+      "Die Erinnerung hält noch nach fünf Jahren"
+     ],
+     "subExercises": [
+      {
+       "id": "retell",
+       "type": "recall_text"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Wie reagierten die Krähen auf eine neutrale Maske?",
+       "options": [
+        "Sie schimpften noch lauter",
+        "Sie ließen die Person in Ruhe",
+        "Sie flogen davon",
+        "Sie griffen an"
+       ],
+       "correct": [
+        "Sie ließen die Person in Ruhe"
+       ],
+       "quote": "„Wer dagegen eine neutrale Maske trug, wurde in Ruhe gelassen.“"
+      },
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "In welcher Stadt fand das Krähen-Experiment statt?",
+       "answers": [
+        [
+         "Seattle",
+         "Seatle"
+        ]
+       ],
+       "solution": "In Seattle.",
+       "quote": "„Forscher in Seattle fingen mehrere Vögel …“"
+      }
+     ]
     },
     {
-      "id": "l1-bienen",
-      "title": "Bienentanz",
-      "items": [
-        {
-          "id": "l1-bienen-t",
-          "type": "text",
-          "title": "Wie Bienen den Weg beschreiben",
-          "topic": "Der Tanz der Bienen",
-          "paragraphs": [
-            "Hat eine Honigbiene eine gute Futterquelle gefunden, kehrt sie zum Stock zurück und tanzt. Die anderen Bienen drängen sich um sie und folgen ihren Bewegungen im Dunkeln mit den Fühlern.",
-            "Beim Schwänzeltanz läuft sie eine gerade Strecke und wackelt dabei mit dem Hinterleib. Dann läuft sie in einem Bogen zurück und beginnt von vorn. Der Winkel der geraden Strecke zeigt die Richtung zur Futterquelle, gemessen am Stand der Sonne. Wie lange sie wackelt, verrät die Entfernung.",
-            "Liegt das Futter ganz nah am Stock, tanzt die Biene stattdessen einen einfachen Rundtanz. Der sagt nur: Sucht in der Nähe.",
-            "Entschlüsselt hat das der Forscher Karl von Frisch. Er bekam dafür 1973 den Nobelpreis.",
-            "Eine einzelne Biene fliegt für ihr Volk oft mehrere Kilometer weit. Je besser die Futterquelle, desto länger und begeisterter tanzt sie, und desto mehr Bienen machen sich auf den Weg.",
-            "Auch bei der Suche nach einer neuen Wohnung für den ganzen Schwarm wird getanzt: Kundschafterinnen werben so lange für ihren Fund, bis sich die meisten auf einen Ort geeinigt haben."
-          ],
-          "keyPoints": [
-            "Bienen tanzen, um anderen eine Futterquelle zu zeigen",
-            "Der Winkel zeigt die Richtung, bezogen auf die Sonne",
-            "Die Dauer des Wackelns zeigt die Entfernung",
-            "Karl von Frisch entschlüsselte es, Nobelpreis 1973"
-          ],
-          "subExercises": [
-            {
-              "id": "retell",
-              "type": "recall_text"
-            },
-            {
-              "id": "s1",
-              "type": "sequence_events",
-              "prompt": "In welcher Reihenfolge läuft ein Schwänzeltanz ab?",
-              "events": [
-                "Futterquelle finden",
-                "Zum Stock zurückkehren",
-                "Gerade Strecke mit Wackeln",
-                "Im Bogen zurücklaufen"
-              ]
-            },
-            {
-              "id": "q1",
-              "type": "recall_text",
-              "prompt": "Welchen Tanz macht die Biene, wenn das Futter ganz nah ist?",
-              "answers": [
-                [
-                  "Rundtanz",
-                  "Rund"
-                ]
-              ],
-              "solution": "Einen Rundtanz.",
-              "quote": "„… tanzt die Biene stattdessen einen einfachen Rundtanz.“"
-            }
-          ]
-        }
-      ]
+     "id": "l1-bienen-t",
+     "type": "text",
+     "title": "Wie Bienen den Weg beschreiben",
+     "topic": "Der Tanz der Bienen",
+     "paragraphs": [
+      "Hat eine Honigbiene eine gute Futterquelle gefunden, kehrt sie zum Stock zurück und tanzt. Die anderen Bienen drängen sich um sie und folgen ihren Bewegungen im Dunkeln mit den Fühlern.",
+      "Beim Schwänzeltanz läuft sie eine gerade Strecke und wackelt dabei mit dem Hinterleib. Dann läuft sie in einem Bogen zurück und beginnt von vorn. Der Winkel der geraden Strecke zeigt die Richtung zur Futterquelle, gemessen am Stand der Sonne. Wie lange sie wackelt, verrät die Entfernung.",
+      "Liegt das Futter ganz nah am Stock, tanzt die Biene stattdessen einen einfachen Rundtanz. Der sagt nur: Sucht in der Nähe.",
+      "Entschlüsselt hat das der Forscher Karl von Frisch. Er bekam dafür 1973 den Nobelpreis.",
+      "Eine einzelne Biene fliegt für ihr Volk oft mehrere Kilometer weit. Je besser die Futterquelle, desto länger und begeisterter tanzt sie, und desto mehr Bienen machen sich auf den Weg.",
+      "Auch bei der Suche nach einer neuen Wohnung für den ganzen Schwarm wird getanzt: Kundschafterinnen werben so lange für ihren Fund, bis sich die meisten auf einen Ort geeinigt haben."
+     ],
+     "keyPoints": [
+      "Bienen tanzen, um anderen eine Futterquelle zu zeigen",
+      "Der Winkel zeigt die Richtung, bezogen auf die Sonne",
+      "Die Dauer des Wackelns zeigt die Entfernung",
+      "Karl von Frisch entschlüsselte es, Nobelpreis 1973"
+     ],
+     "subExercises": [
+      {
+       "id": "retell",
+       "type": "recall_text"
+      },
+      {
+       "id": "s1",
+       "type": "sequence_events",
+       "prompt": "In welcher Reihenfolge läuft ein Schwänzeltanz ab?",
+       "events": [
+        "Futterquelle finden",
+        "Zum Stock zurückkehren",
+        "Gerade Strecke mit Wackeln",
+        "Im Bogen zurücklaufen"
+       ]
+      },
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Welchen Tanz macht die Biene, wenn das Futter ganz nah ist?",
+       "answers": [
+        [
+         "Rundtanz",
+         "Rund"
+        ]
+       ],
+       "solution": "Einen Rundtanz.",
+       "quote": "„… tanzt die Biene stattdessen einen einfachen Rundtanz.“"
+      }
+     ]
     },
     {
-      "id": "l1-brot",
-      "title": "Altes Brot",
-      "items": [
-        {
-          "id": "l1-brot-t",
-          "type": "text",
-          "title": "Warum Brot altbacken wird",
-          "topic": "Altbackenes Brot",
-          "paragraphs": [
-            "Altes Brot ist nicht einfach ausgetrocknet. Der Grund liegt in der Stärke.",
-            "Beim Backen nimmt die Stärke Wasser auf und wird weich. Beim Abkühlen ordnen sich ihre Moleküle langsam wieder zu festen Strukturen. Das Brot wird hart, obwohl noch Wasser darin steckt. Die Rinde dagegen zieht Feuchtigkeit aus der Krume und wird zäh statt knusprig.",
-            "Im Kühlschrank passiert das sogar schneller, weil die Stärke bei kühlen Temperaturen besonders gern fest wird. Besser ist ein Brotkasten bei Zimmertemperatur. Wer Brot länger aufheben will, friert es ein.",
-            "Kurzes Aufbacken im Ofen macht den Vorgang für eine Weile rückgängig. Nach dem Abkühlen wird das Brot dann aber umso schneller wieder hart.",
-            "Wie schnell ein Brot altbacken wird, hängt auch von seinen Zutaten ab. Roggenbrot und Sauerteigbrot bleiben länger frisch als helles Weizenbrot, Brote mit viel Fett oder Körnern ebenfalls.",
-            "Wer altes Brot trotzdem nicht wegwerfen will, macht daraus Semmelbrösel, Croûtons oder Arme Ritter."
-          ],
-          "keyPoints": [
-            "Altbacken heißt nicht ausgetrocknet",
-            "Die Stärke ordnet sich beim Abkühlen neu und wird fest",
-            "Im Kühlschrank wird Brot schneller altbacken",
-            "Aufbacken macht es vorübergehend wieder weich"
-          ],
-          "subExercises": [
-            {
-              "id": "retell",
-              "type": "recall_text"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "l1-oktopus",
-      "title": "Oktopus",
-      "items": [
-        {
-          "id": "l1-oktopus-t",
-          "type": "text",
-          "title": "Die klugen Arme des Oktopus",
-          "topic": "Oktopus-Arme",
-          "paragraphs": [
-            "Ein Oktopus hat rund 500 Millionen Nervenzellen. Etwa zwei Drittel davon sitzen nicht im Kopf, sondern in den acht Armen.",
-            "Deshalb erledigen die Arme vieles selbst: Sie tasten, greifen und schmecken sogar mit ihren Saugnäpfen, ohne dass das Gehirn jeden Schritt steuert. In Versuchen griff ein abgetrennter Arm noch nach Futter.",
-            "Oktopusse können außerdem blitzschnell Farbe und Muster ihrer Haut ändern, um sich zu tarnen. Manche öffnen im Aquarium Schraubgläser oder klettern nachts in andere Becken.",
-            "Dazu hat der Oktopus drei Herzen und blaues Blut.",
-            "Ein Oktopus lebt meist nur ein bis zwei Jahre. Umso erstaunlicher ist, wie schnell er lernt: In Versuchen fanden Tiere den Weg durch kleine Labyrinthe und merkten sich, welche Deckel sich öffnen ließen.",
-            "Manche Forscher sehen im Oktopus deshalb eine Art zweite, ganz andere Form von Intelligenz, die sich völlig unabhängig von unserer entwickelt hat."
-          ],
-          "keyPoints": [
-            "Rund zwei Drittel der Nervenzellen stecken in den Armen",
-            "Die Arme tasten und greifen weitgehend selbstständig",
-            "Mit den Saugnäpfen kann er schmecken",
-            "Drei Herzen und blaues Blut"
-          ],
-          "subExercises": [
-            {
-              "id": "retell",
-              "type": "recall_text"
-            },
-            {
-              "id": "q1",
-              "type": "recall_text",
-              "prompt": "Womit schmeckt ein Oktopus?",
-              "answers": [
-                [
-                  "Saugnäpfe",
-                  "Saugnäpfen",
-                  "Saugnapf",
-                  "Saugnaepfe"
-                ]
-              ],
-              "solution": "Mit seinen Saugnäpfen.",
-              "quote": "„… und schmecken sogar mit ihren Saugnäpfen …“"
-            },
-            {
-              "id": "m1",
-              "type": "detail_match",
-              "prompt": "Was stimmt? (Mehrere Antworten richtig)",
-              "options": [
-                "Er hat drei Herzen",
-                "Sein Blut ist blau",
-                "Er hat zwei Gehirne",
-                "Er hat zehn Arme"
-              ],
-              "correct": [
-                "Er hat drei Herzen",
-                "Sein Blut ist blau"
-              ],
-              "quote": "„Dazu hat der Oktopus drei Herzen und blaues Blut.“"
-            }
-          ]
-        }
-      ]
+     "id": "l1-oktopus-t",
+     "type": "text",
+     "title": "Die klugen Arme des Oktopus",
+     "topic": "Oktopus-Arme",
+     "paragraphs": [
+      "Ein Oktopus hat rund 500 Millionen Nervenzellen. Etwa zwei Drittel davon sitzen nicht im Kopf, sondern in den acht Armen.",
+      "Deshalb erledigen die Arme vieles selbst: Sie tasten, greifen und schmecken sogar mit ihren Saugnäpfen, ohne dass das Gehirn jeden Schritt steuert. In Versuchen griff ein abgetrennter Arm noch nach Futter.",
+      "Oktopusse können außerdem blitzschnell Farbe und Muster ihrer Haut ändern, um sich zu tarnen. Manche öffnen im Aquarium Schraubgläser oder klettern nachts in andere Becken.",
+      "Dazu hat der Oktopus drei Herzen und blaues Blut.",
+      "Ein Oktopus lebt meist nur ein bis zwei Jahre. Umso erstaunlicher ist, wie schnell er lernt: In Versuchen fanden Tiere den Weg durch kleine Labyrinthe und merkten sich, welche Deckel sich öffnen ließen.",
+      "Manche Forscher sehen im Oktopus deshalb eine Art zweite, ganz andere Form von Intelligenz, die sich völlig unabhängig von unserer entwickelt hat."
+     ],
+     "keyPoints": [
+      "Rund zwei Drittel der Nervenzellen stecken in den Armen",
+      "Die Arme tasten und greifen weitgehend selbstständig",
+      "Mit den Saugnäpfen kann er schmecken",
+      "Drei Herzen und blaues Blut"
+     ],
+     "subExercises": [
+      {
+       "id": "retell",
+       "type": "recall_text"
+      },
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Womit schmeckt ein Oktopus?",
+       "answers": [
+        [
+         "Saugnäpfe",
+         "Saugnäpfen",
+         "Saugnapf",
+         "Saugnaepfe"
+        ]
+       ],
+       "solution": "Mit seinen Saugnäpfen.",
+       "quote": "„… und schmecken sogar mit ihren Saugnäpfen …“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Was stimmt? (Mehrere Antworten richtig)",
+       "options": [
+        "Er hat drei Herzen",
+        "Sein Blut ist blau",
+        "Er hat zwei Gehirne",
+        "Er hat zehn Arme"
+       ],
+       "correct": [
+        "Er hat drei Herzen",
+        "Sein Blut ist blau"
+       ],
+       "quote": "„Dazu hat der Oktopus drei Herzen und blaues Blut.“"
+      }
+     ]
     }
-  ]
+   ]
+  },
+  {
+   "id": "l1-kueche",
+   "title": "Küchenwissen",
+   "items": [
+    {
+     "id": "l1-brot-t",
+     "type": "text",
+     "title": "Warum Brot altbacken wird",
+     "topic": "Altbackenes Brot",
+     "paragraphs": [
+      "Altes Brot ist nicht einfach ausgetrocknet. Der Grund liegt in der Stärke.",
+      "Beim Backen nimmt die Stärke Wasser auf und wird weich. Beim Abkühlen ordnen sich ihre Moleküle langsam wieder zu festen Strukturen. Das Brot wird hart, obwohl noch Wasser darin steckt. Die Rinde dagegen zieht Feuchtigkeit aus der Krume und wird zäh statt knusprig.",
+      "Im Kühlschrank passiert das sogar schneller, weil die Stärke bei kühlen Temperaturen besonders gern fest wird. Besser ist ein Brotkasten bei Zimmertemperatur. Wer Brot länger aufheben will, friert es ein.",
+      "Kurzes Aufbacken im Ofen macht den Vorgang für eine Weile rückgängig. Nach dem Abkühlen wird das Brot dann aber umso schneller wieder hart.",
+      "Wie schnell ein Brot altbacken wird, hängt auch von seinen Zutaten ab. Roggenbrot und Sauerteigbrot bleiben länger frisch als helles Weizenbrot, Brote mit viel Fett oder Körnern ebenfalls.",
+      "Wer altes Brot trotzdem nicht wegwerfen will, macht daraus Semmelbrösel, Croûtons oder Arme Ritter."
+     ],
+     "keyPoints": [
+      "Altbacken heißt nicht ausgetrocknet",
+      "Die Stärke ordnet sich beim Abkühlen neu und wird fest",
+      "Im Kühlschrank wird Brot schneller altbacken",
+      "Aufbacken macht es vorübergehend wieder weich"
+     ],
+     "subExercises": [
+      {
+       "id": "retell",
+       "type": "recall_text"
+      },
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Wo wird Brot besonders schnell altbacken?",
+       "answers": [
+        [
+         "Kühlschrank",
+         "Kuehlschrank"
+        ]
+       ],
+       "solution": "Im Kühlschrank.",
+       "quote": "„Im Kühlschrank passiert das sogar schneller …“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Welche Brote bleiben laut Text länger frisch? (Mehrere Antworten richtig)",
+       "options": [
+        "Roggenbrot",
+        "Sauerteigbrot",
+        "Helles Weizenbrot",
+        "Toastbrot"
+       ],
+       "correct": [
+        "Roggenbrot",
+        "Sauerteigbrot"
+       ],
+       "quote": "„Roggenbrot und Sauerteigbrot bleiben länger frisch als helles Weizenbrot …“"
+      }
+     ]
+    },
+    {
+     "id": "l1-zwiebel-t",
+     "type": "text",
+     "title": "Warum Zwiebeln zum Weinen bringen",
+     "topic": "Tränen beim Zwiebelschneiden",
+     "paragraphs": [
+      "Beim Schneiden einer Zwiebel werden ihre Zellen zerstört. Dabei kommen Stoffe zusammen, die in der unverletzten Zwiebel getrennt gelagert sind: schwefelhaltige Verbindungen und ein Enzym.",
+      "Aus dieser Mischung entsteht innerhalb von Sekunden ein flüchtiges Gas. Es steigt nach oben, erreicht die Augen und reizt dort die Nerven der Hornhaut. Das Auge reagiert, wie es bei jedem Fremdkörper reagiert: Es produziert Tränen, um den Reizstoff wegzuspülen.",
+      "Für die Zwiebel ist das eine Verteidigung. Tiere, die an ihr knabbern, sollen den Appetit verlieren.",
+      "Gegen die Tränen helfen einige einfache Tricks. Ein scharfes Messer zerstört weniger Zellen als ein stumpfes. Eine Zwiebel aus dem Kühlschrank setzt weniger Gas frei, weil Kälte die Reaktion verlangsamt. Und wer die Wurzel zuletzt abschneidet, ist im Vorteil, denn dort sitzen besonders viele der Stoffe.",
+      "In Japan wurde sogar eine Zwiebel gezüchtet, bei der das Enzym fehlt. Sie bringt niemanden zum Weinen, schmeckt aber auch etwas milder."
+     ],
+     "keyPoints": [
+      "Beim Schneiden mischen sich Schwefelverbindungen und ein Enzym",
+      "Dabei entsteht ein Gas, das die Augen reizt",
+      "Die Tränen sollen den Reizstoff wegspülen",
+      "Scharfes Messer, kalte Zwiebel und Wurzel zuletzt helfen"
+     ],
+     "subExercises": [
+      {
+       "id": "retell",
+       "type": "recall_text"
+      },
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Was reizt die Augen beim Zwiebelschneiden?",
+       "answers": [
+        [
+         "Gas"
+        ]
+       ],
+       "solution": "Ein flüchtiges Gas.",
+       "quote": "„Aus dieser Mischung entsteht innerhalb von Sekunden ein flüchtiges Gas.“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Was hilft gegen die Tränen? (Mehrere Antworten richtig)",
+       "options": [
+        "Ein scharfes Messer",
+        "Eine kalte Zwiebel",
+        "Die Wurzel zuerst abschneiden",
+        "Die Zwiebel vorher kurz erwärmen"
+       ],
+       "correct": [
+        "Ein scharfes Messer",
+        "Eine kalte Zwiebel"
+       ],
+       "quote": "„Ein scharfes Messer zerstört weniger Zellen … Eine Zwiebel aus dem Kühlschrank setzt weniger Gas frei …“"
+      }
+     ]
+    },
+    {
+     "id": "l1-honig-t",
+     "type": "text",
+     "title": "Warum Honig nicht schlecht wird",
+     "topic": "Der haltbare Honig",
+     "paragraphs": [
+      "In ägyptischen Gräbern fanden Forscher Honig, der mehrere tausend Jahre alt war und noch immer genießbar gewesen sein soll. Kaum ein Lebensmittel hält so lange.",
+      "Der wichtigste Grund ist der Zucker. Honig besteht zu rund achtzig Prozent aus Zucker und enthält nur wenig Wasser. Bakterien und Schimmelpilze, die hineingeraten, wird das Wasser regelrecht entzogen. Sie trocknen aus, bevor sie sich vermehren können.",
+      "Dazu kommt, dass Honig leicht sauer ist. Außerdem geben die Bienen ein Enzym hinzu, aus dem nach und nach geringe Mengen Wasserstoffperoxid entstehen. Auch das hemmt Keime.",
+      "Wird Honig mit der Zeit fest und trüb, ist er nicht verdorben. Der Zucker bildet dann Kristalle. Ein warmes Wasserbad macht ihn wieder flüssig, allerdings nicht über etwa vierzig Grad, sonst gehen Aromen verloren.",
+      "Nur eines verträgt Honig schlecht: Feuchtigkeit. Ein offenes Glas in einer feuchten Küche kann Wasser aufnehmen und dann doch zu gären beginnen."
+     ],
+     "keyPoints": [
+      "Honig kann Jahrtausende halten",
+      "Viel Zucker und wenig Wasser lassen Keime austrocknen",
+      "Säure und ein Enzym der Bienen hemmen Keime zusätzlich",
+      "Kristallisierter Honig ist nicht verdorben",
+      "Feuchtigkeit kann Honig gären lassen"
+     ],
+     "subExercises": [
+      {
+       "id": "retell",
+       "type": "recall_text"
+      },
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Wo fanden Forscher jahrtausendealten Honig?",
+       "answers": [
+        [
+         "Gräbern",
+         "Graebern",
+         "Grab",
+         "Ägypten",
+         "Aegypten",
+         "Pyramiden"
+        ]
+       ],
+       "solution": "In ägyptischen Gräbern.",
+       "quote": "„In ägyptischen Gräbern fanden Forscher Honig …“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Wie viel Prozent von Honig sind ungefähr Zucker?",
+       "answers": [
+        [
+         "80",
+         "achtzig"
+        ]
+       ],
+       "solution": "Rund achtzig Prozent.",
+       "quote": "„Honig besteht zu rund achtzig Prozent aus Zucker …“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Was bedeutet es, wenn Honig fest und trüb wird?",
+       "options": [
+        "Der Zucker bildet Kristalle",
+        "Der Honig ist verdorben",
+        "Es ist Wasser hineingekommen",
+        "Er wurde zu warm gelagert"
+       ],
+       "correct": [
+        "Der Zucker bildet Kristalle"
+       ],
+       "quote": "„Der Zucker bildet dann Kristalle.“"
+      }
+     ]
+    }
+   ]
+  }
+ ]
 }

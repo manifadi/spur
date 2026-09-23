@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { StoreProvider, useStore } from './store.jsx';
+import { prefersReducedMotion } from './lib/motion.js';
 import { Splash } from './screens/Splash.jsx';
 import { Onboarding } from './screens/Onboarding.jsx';
 import { Home } from './screens/Home.jsx';
@@ -30,8 +31,10 @@ function revealField(el) {
   const b = box.getBoundingClientRect();
   const r = target.getBoundingClientRect();
   const pad = 12;
-  if (r.bottom > b.bottom - pad) box.scrollTop += Math.min(r.bottom - b.bottom + pad, r.top - b.top - pad);
-  else if (r.top < b.top + pad) box.scrollTop -= b.top + pad - r.top;
+  let dy = 0;
+  if (r.bottom > b.bottom - pad) dy = Math.min(r.bottom - b.bottom + pad, r.top - b.top - pad);
+  else if (r.top < b.top + pad) dy = -(b.top + pad - r.top);
+  if (Math.abs(dy) > 1) box.scrollBy({ top: dy, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
 }
 
 /**
@@ -56,7 +59,11 @@ function useVisualViewport() {
       const el = document.activeElement;
       const typing = isTextField(el) && matchMedia('(pointer: coarse)').matches;
       root.toggleAttribute('data-kb', typing);
-      if (typing) revealField(el);
+      if (typing) {
+        revealField(el);
+        // Die App-Höhe gleitet 240 ms (app.css); danach mit der endgültigen Höhe nachziehen.
+        setTimeout(() => { if (document.activeElement === el) revealField(el); }, 260);
+      }
     };
     const schedule = () => { if (!raf) raf = requestAnimationFrame(apply); };
     const onFocusIn = (e) => {
@@ -159,7 +166,7 @@ function Main() {
     if (!head) return home();
     if (head.name === 'end') {
       const r = head.result;
-      const anim = { lessonDone: r.lessonDone, chapterDone: r.chapterDone, xpFrom: r.xpBefore, streakBump: r.streakUp, key: Date.now() };
+      const anim = { lessonDone: r.lessonDone, chapterDone: r.chapterDone, partDone: r.partDone, xpFrom: r.xpBefore, streakBump: r.streakUp, key: Date.now() };
       if (r.goalReached && isAllDone(index, state)) return setRoute({ name: 'allDone', anim });
       return home({ anim });
     }

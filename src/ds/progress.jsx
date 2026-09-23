@@ -22,7 +22,7 @@ function arcPath(cx, cy, r, a0, a1) {
  * Mehrsegment-Ring: ein Bogen pro Teilübung. Gemeisterte Segmente voll in der
  * Spurfarbe, offene mit ~28 % Deckkraft. Bei nur einer Teilübung kein Ring.
  */
-function SegmentRing({ total, done, color, size }) {
+function SegmentRing({ total, done, color, size, fresh }) {
   if (!total || total < 2) return null;
   const box = size + 26;
   const c = box / 2;
@@ -34,7 +34,9 @@ function SegmentRing({ total, done, color, size }) {
       style={{ position: 'absolute', left: '50%', top: size / 2 + 3, transform: 'translate(-50%, -50%)', overflow: 'visible', pointerEvents: 'none' }}>
       {Array.from({ length: total }, (_, i) => (
         <path key={i} d={arcPath(c, c, r, i * seg + gap / 2, (i + 1) * seg - gap / 2)} fill="none" stroke={color} strokeWidth={5} strokeLinecap="round"
-          opacity={i < done ? 1 : 0.28} style={{ transition: 'opacity var(--dur-base) var(--ease-out-soft)' }} />
+          opacity={i < done ? 1 : 0.28}
+          // Gerade geschaffter Teil: Segment füllt sich nach der Rückkehr zum Pfad sichtbar.
+          style={i + 1 === fresh ? { animation: 'spur-seg-fill 700ms var(--ease-out-soft) 500ms both' } : { transition: 'opacity var(--dur-base) var(--ease-out-soft)' }} />
       ))}
     </svg>
   );
@@ -55,7 +57,7 @@ export function PathNode({ state = 'locked', track = 'listen', icon, label, aria
   return (
     <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: 8, ...style }}>
       <span style={{ position: 'relative', display: 'inline-flex', marginBottom: state === 'current' ? (segmented ? 18 : 12) : segmented ? 8 : 0 }}>
-      {segmented && <SegmentRing total={segments.total} done={state === 'done' || state === 'due' ? segments.total : segments.done} size={size}
+      {segmented && <SegmentRing total={segments.total} done={state === 'done' || state === 'due' ? segments.total : segments.done} size={size} fresh={segments.fresh}
         color={state === 'locked' ? 'var(--spur-locked)' : t.bg} />}
       {state === 'current' && (
         // Auswahlring als eigener Kreis, zentriert auf Knoten + 6-px-Unterkante,
@@ -71,7 +73,7 @@ export function PathNode({ state = 'locked', track = 'listen', icon, label, aria
         </svg>
       )}
       <button type="button" disabled={!interactive} onClick={onClick}
-        aria-label={(ariaLabel || label || state) + (segmented ? `, ${state === 'done' || state === 'due' ? segments.total : segments.done} von ${segments.total} Teilübungen` : '')}
+        aria-label={(ariaLabel || label || state) + (segmented ? `, ${state === 'done' || state === 'due' ? segments.total : segments.done} von ${segments.total} Teilen geschafft` : '')}
         onPointerDown={() => setDown(true)} onPointerUp={() => setDown(false)} onPointerLeave={() => setDown(false)} onPointerCancel={() => setDown(false)}
         className={state === 'due' ? 'rm-static' : undefined}
         style={{

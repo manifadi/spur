@@ -133,11 +133,31 @@ export function isLessonComplete(index, state, lessonId) {
   return l.cardIds.every((id) => isMastered(state.cards[id]));
 }
 
-/** Segmente für den Ring am Knoten: gemeisterte von allen Teilübungen. */
+/**
+ * Teile eines Feldes: Jedes Item (ein Gesprächsabschnitt oder Text) ist ein Teil mit
+ * eigenen 3–4 Fragen. Ein Teil wird in einer eigenen Session gespielt.
+ */
+export function lessonParts(index, lessonId) {
+  const l = index.lessons.get(lessonId);
+  if (!l || l.lesson.type === 'checkpoint') return [];
+  return (l.lesson.items || []).map((item, i) => ({ n: i + 1, item, cardIds: cardIdsOfItemIn(l, item) }));
+}
+
+/** Ein Teil ist geschafft, wenn alle seine Fragen gemeistert sind. */
+export function isPartDone(state, part) {
+  return part.cardIds.every((id) => isMastered(state.cards[id]));
+}
+
+export function nextOpenPart(index, state, lessonId) {
+  return lessonParts(index, lessonId).find((p) => !isPartDone(state, p)) || null;
+}
+
+/** Segmente für den Ring am Knoten: ein Segment pro Teil, gefüllt = Teil geschafft. */
 export function lessonSegments(index, state, lessonId) {
   const l = index.lessons.get(lessonId);
   if (!l || l.lesson.type === 'checkpoint') return { total: 1, done: state.progress.lessonsDone[lessonId] ? 1 : 0 };
-  return { total: l.cardIds.length, done: l.cardIds.filter((id) => isMastered(state.cards[id])).length };
+  const parts = lessonParts(index, lessonId);
+  return { total: parts.length, done: parts.filter((p) => isPartDone(state, p)).length };
 }
 
 /**
@@ -214,28 +234,38 @@ function reviewEntry(state, id, today) {
 }
 
 /**
- * Feld-Session: alle noch nicht gemeisterten Teilübungen des Feldes, der Reihe nach.
- * Das Original (Gespräch hören / Text lesen) kommt nur vor der ersten Übung eines
- * Items, das noch nie präsentiert wurde. Danach folgen bis zu 3 fällige Wiederholungen
- * (bevorzugt aus der anderen Spur — Interleaving, ohne Einfluss aufs Scheduling).
- * Jede Feld-Übung trägt { feld: { n, of } } für die Anzeige "Frage X von Y".
+ * Feld-Session für genau einen Teil: erst das Original (Gespräch hören / Text lesen),
+ * dann alle Fragen dieses Teils. Gespielt wird der erste noch offene Teil; wer einen
+ * Teil nicht schafft, macht ihn beim nächsten Mal komplett neu (bereits gemeisterte
+ * Fragen laufen dann als "practice" mit, ohne die Intervalle zu verschieben).
+ * Danach folgen bis zu 3 fällige Wiederholungen (bevorzugt aus der anderen Spur).
+ * Jede Feld-Übung trägt { feld: { n, of, part, parts } } für "Teil 2 von 4 · Frage 1 von 3".
  */
-export function buildLessonSession(index, state, lessonId, now = new Date(), mode = 'new') {
+export function buildLessonSession(index, state, lessonId, now = new Date(), mode = 'new', partN = null) {
   const info = index.lessons.get(lessonId);
   const today = dayKey(now);
-  const feld = [];
-  for (const item of info.lesson.items) {
-    const ids = cardIdsOfItemIn(info, item);
-    const open = mode === 'replay' ? ids : ids.filter((id) => !isMastered(state.cards[id]));
-    const presented = ids.some((id) => state.cards[id]);
-    open.forEach((id, i) => feld.push({ cardId: id, mode, showSource: i === 0 && (mode === 'replay' || !presented) }));
-  }
-  feld.forEach((e, i) => { e.feld = { n: i + 1, of: feld.length }; });
+  const parts = lessonParts(index, lessonId);
+  const replay = mode === 'replay';
+  const part = (partN && parts.find((p) => p.n === partN))
+    || (replay ? leastRecentPart(state, parts) : nextOpenPart(index, state, lessonId))
+    || parts[0];
+  const feld = part.cardIds.map((id, i) => ({
+    cardId: id,
+    mode: replay ? 'replay' : isMastered(state.cards[id]) ? 'practice' : 'new',
+    showSource: i === 0,
+    feld: { n: i + 1, of: part.cardIds.length, part: part.n, parts: parts.length },
+  }));
   const otherTrack = info.track === 'listen' ? 'read' : 'listen';
-  const due = mode === 'replay' ? [] : dueCardIds(index, state, now).filter((id) => !info.cardIds.includes(id));
+  const due = replay ? [] : dueCardIds(index, state, now).filter((id) => !info.cardIds.includes(id));
   const reviews = [...due.filter((id) => index.cards.get(id).track === otherTrack), ...due.filter((id) => index.cards.get(id).track !== otherTrack)]
     .slice(0, REVIEWS_PER_LESSON).map((id) => reviewEntry(state, id, today));
-  return { kind: mode === 'replay' ? 'replay' : 'lesson', lessonId, entries: [...feld, ...reviews] };
+  return { kind: replay ? 'replay' : 'lesson', lessonId, part: part.n, parts: parts.length, entries: [...feld, ...reviews] };
+}
+
+/** Für "Nochmal hören/lesen": der Teil, der am längsten nicht mehr dran war. */
+function leastRecentPart(state, parts) {
+  const last = (p) => p.cardIds.map((id) => state.cards[id]?.last || '').sort().pop() || '';
+  return [...parts].sort((a, b) => (last(a) < last(b) ? -1 : last(a) > last(b) ? 1 : a.n - b.n))[0];
 }
 
 function cardIdsOfItemIn(info, item) {

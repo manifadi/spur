@@ -73,7 +73,7 @@ export function Onboarding({ onDone }) {
   return (
     <div className="screen">
       {step === 0 && (
-        <div style={page}>
+        <div className="phase-in" style={page}>
           <Dots step={0} />
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 14 }}>
             <Mascot pose="head" size={64} />
@@ -92,7 +92,7 @@ export function Onboarding({ onDone }) {
       )}
 
       {step === 1 && (
-        <div style={page}>
+        <div className="phase-in" style={page}>
           <Dots step={1} />
           <h1 style={h1}>Wie oft willst du üben?</h1>
           <p style={sub}>Danach richtet sich, wie viele Karten pro Tag fällig werden.</p>
@@ -110,7 +110,7 @@ export function Onboarding({ onDone }) {
       )}
 
       {step === 2 && (
-        <div style={page}>
+        <div className="phase-in" style={page}>
           <Dots step={2} />
           <div style={{ display: 'flex', justifyContent: 'center', margin: '8px 0 20px' }}>
             <Mascot pose="sleepy" size={96} />
@@ -135,7 +135,7 @@ export function Onboarding({ onDone }) {
       )}
 
       {step === 3 && (
-        <div style={{ ...page, alignItems: 'center', justifyContent: 'safe center', textAlign: 'center', gap: 4 }}>
+        <div className="phase-in" style={{ ...page, alignItems: 'center', justifyContent: 'safe center', textAlign: 'center', gap: 4 }}>
           <img src="assets/illustrations/miro-sorting-cards.png" alt="Miro sortiert Karten" width={210} height={210}
             onError={(e) => { e.currentTarget.style.visibility = 'hidden'; }}
             className="a-bob rm-static" style={{ width: 210, height: 210, objectFit: 'contain' }} />

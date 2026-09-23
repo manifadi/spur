@@ -36,6 +36,8 @@ export function SessionEnd({ result, onNext }) {
   const xp = useCountUp(result.xp, { delay: perfect ? 500 : 300, duration: perfect ? 1000 : 900 });
   useEffect(() => { if (state.settings.sounds) sounds.done(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const pd = result.partDone;
+  const headline = result.lessonDone ? 'Level geschafft' : pd && pd.of > 1 ? `Teil ${pd.n} von ${pd.of} geschafft` : 'Lektion geschafft';
   const streakLabel = p.streak > 1 && p.streak >= p.longestStreak ? 'Streak — dein längster' : 'Streak';
   let line;
   if (result.good === result.total) line = result.total === 1 ? 'Die Karte saß.' : `Alle ${result.total} Karten saßen.`;
@@ -56,7 +58,7 @@ export function SessionEnd({ result, onNext }) {
               <Mascot pose="cheering" size={130} />
             </span>
           </div>
-          <span className="overline" style={{ color: 'var(--text-muted)', marginBottom: 8, ...rise(400, 300) }}>Lektion geschafft</span>
+          <span className="overline" style={{ color: 'var(--text-muted)', marginBottom: 8, ...rise(400, 300) }}>{headline}</span>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, ...popin(450) }} aria-label={`plus ${result.xp} Federn`}>
             <span style={{ font: 'var(--type-stat)', color: 'var(--spur-amber)', letterSpacing: 'var(--tracking-tight)' }}>+{xp}</span>
             <span style={{ font: 'var(--type-headline)', color: 'var(--text-muted)' }}>Federn</span>
@@ -77,7 +79,7 @@ export function SessionEnd({ result, onNext }) {
         <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', width: 190, height: 190, flex: '0 0 auto', marginBottom: 10 }}>
           <Mascot pose="proud" size={130} />
         </div>
-        <span className="overline" style={{ color: 'var(--text-muted)', marginBottom: 8 }}>{result.kind === 'popup' ? 'Kurzer Test' : 'Session beendet'}</span>
+        <span className="overline" style={{ color: 'var(--text-muted)', marginBottom: 8 }}>{result.kind === 'popup' ? 'Kurzer Test' : result.partDone ? headline : 'Session beendet'}</span>
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }} aria-label={`plus ${result.xp} Federn`}>
           <span style={{ font: 'var(--type-stat)', color: 'var(--spur-amber)', letterSpacing: 'var(--tracking-tight)' }}>+{xp}</span>
           <span style={{ font: 'var(--type-headline)', color: 'var(--text-muted)' }}>Federn</span>

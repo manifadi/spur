@@ -1,568 +1,1224 @@
 {
-  "id": "zuhoeren-4",
-  "order": 4,
-  "title": "Viele Stimmen",
-  "track": "listen",
-  "difficulty": 4,
-  "lessons": [
+ "id": "zuhoeren-4",
+ "order": 4,
+ "title": "Viele Stimmen",
+ "track": "listen",
+ "difficulty": 4,
+ "lessons": [
+  {
+   "id": "z4-abendessen",
+   "title": "Abendessen bei Marta",
+   "items": [
     {
-      "id": "z4-abendessen",
-      "title": "Abendessen",
-      "items": [
-        {
-          "id": "z4-abendessen-d",
-          "type": "dialog",
-          "title": "Abendessen",
-          "characterId": "marta",
-          "lines": [
-            {
-              "who": "Marta",
-              "text": "Setzt euch, es ist gleich fertig. Ich hab Linsencurry gemacht, diesmal ohne Koriander, weil Ben ihn nicht verträgt."
-            },
-            {
-              "who": "Ben",
-              "text": "Danke! Für mich schmeckt Koriander nach Seife, ehrlich. Ich hab dafür Nachtisch mitgebracht: Tiramisu, aber ohne Alkohol, wegen Yusuf."
-            },
-            {
-              "who": "Yusuf",
-              "text": "Sehr aufmerksam. Ich hab übrigens den Wein vergessen, der steht noch bei mir im Flur."
-            },
-            {
-              "who": "Marta",
-              "text": "Macht nichts, es gibt Rhabarberschorle. Erst essen wir, dann wird der Tisch abgeräumt, und dann zeigt uns Ben endlich seine Fotos aus Norwegen."
-            },
-            {
-              "who": "Ben",
-              "text": "Zweihundert Fotos. Von Fjorden. Ihr werdet es lieben."
-            },
-            {
-              "who": "Yusuf",
-              "text": "Fotos sind okay. Aber nur, wenn es danach noch Tiramisu gibt."
-            },
-            {
-              "who": "Marta",
-              "text": "Das Tiramisu gibt es zwischendurch. Nach hundert Fjorden braucht jeder eine Pause."
-            }
-          ],
-          "subExercises": [
-            {
-              "id": "q1",
-              "type": "recall_text",
-              "prompt": "Was hat Marta gekocht?",
-              "answers": [
-                [
-                  "Linsencurry",
-                  "Linsen",
-                  "Curry"
-                ]
-              ],
-              "solution": "Linsencurry.",
-              "quote": "„Ich hab Linsencurry gemacht …“"
-            },
-            {
-              "id": "q2",
-              "type": "recall_text",
-              "prompt": "Welche Zutat hat Marta weggelassen?",
-              "answers": [
-                [
-                  "Koriander"
-                ]
-              ],
-              "solution": "Koriander.",
-              "quote": "„… diesmal ohne Koriander, weil Ben ihn nicht verträgt.“"
-            },
-            {
-              "id": "q3",
-              "type": "recall_text",
-              "prompt": "Welchen Nachtisch hat Ben mitgebracht?",
-              "answers": [
-                [
-                  "Tiramisu"
-                ]
-              ],
-              "solution": "Tiramisu ohne Alkohol.",
-              "quote": "„Tiramisu, aber ohne Alkohol, wegen Yusuf.“"
-            },
-            {
-              "id": "s1",
-              "type": "sequence_events",
-              "prompt": "Was ist für den Abend in welcher Reihenfolge geplant?",
-              "events": [
-                "Essen",
-                "Tisch abräumen",
-                "Bens Fotos aus Norwegen"
-              ]
-            }
-          ],
-          "worldRefs": {
-            "charactersReferenced": [],
-            "locationsReferenced": []
-          }
-        }
-      ]
+     "id": "z4-abendessen-d",
+     "type": "dialog",
+     "title": "Zu Tisch",
+     "characterId": "marta",
+     "lines": [
+      {
+       "who": "Marta",
+       "text": "Setzt euch, es ist gleich fertig. Ich hab Linsencurry gemacht, diesmal ohne Koriander, weil Ben ihn nicht verträgt."
+      },
+      {
+       "who": "Ben",
+       "text": "Danke! Für mich schmeckt Koriander nach Seife, ehrlich. Ich hab dafür Nachtisch mitgebracht: Tiramisu, aber ohne Alkohol, wegen Yusuf."
+      },
+      {
+       "who": "Yusuf",
+       "text": "Sehr aufmerksam. Ich hab übrigens den Wein vergessen, der steht noch bei mir im Flur."
+      },
+      {
+       "who": "Marta",
+       "text": "Macht nichts, es gibt Rhabarberschorle. Erst essen wir, dann wird der Tisch abgeräumt, und dann zeigt uns Ben endlich seine Fotos aus Norwegen."
+      },
+      {
+       "who": "Ben",
+       "text": "Zweihundert Fotos. Von Fjorden. Ihr werdet es lieben."
+      },
+      {
+       "who": "Yusuf",
+       "text": "Fotos sind okay. Aber nur, wenn es danach noch Tiramisu gibt."
+      },
+      {
+       "who": "Marta",
+       "text": "Das Tiramisu gibt es zwischendurch. Nach hundert Fjorden braucht jeder eine Pause."
+      }
+     ],
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Was hat Marta gekocht?",
+       "answers": [
+        [
+         "Linsencurry",
+         "Linsen",
+         "Curry"
+        ]
+       ],
+       "solution": "Linsencurry.",
+       "quote": "„Ich hab Linsencurry gemacht …“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Welche Zutat hat Marta weggelassen?",
+       "answers": [
+        [
+         "Koriander"
+        ]
+       ],
+       "solution": "Koriander.",
+       "quote": "„… diesmal ohne Koriander, weil Ben ihn nicht verträgt.“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Welchen Nachtisch hat Ben mitgebracht?",
+       "answers": [
+        [
+         "Tiramisu"
+        ]
+       ],
+       "solution": "Tiramisu ohne Alkohol.",
+       "quote": "„Tiramisu, aber ohne Alkohol, wegen Yusuf.“"
+      },
+      {
+       "id": "s1",
+       "type": "sequence_events",
+       "prompt": "Was ist für den Abend in welcher Reihenfolge geplant?",
+       "events": [
+        "Essen",
+        "Tisch abräumen",
+        "Bens Fotos aus Norwegen"
+       ]
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": []
+     }
     },
     {
-      "id": "z4-abendessen-2",
-      "title": "Abendessen, Teil 2",
-      "items": [
-        {
-          "id": "z4-abendessen-d2",
-          "type": "dialog",
-          "title": "Abendessen, Teil 2",
-          "characterId": "yusuf",
-          "lines": [
-            {
-              "who": "Yusuf",
-              "text": "Bevor die Fjorde kommen, hab ich noch eine Neuigkeit: Ich fange im Mai bei einer Baumschule in Pinneberg an. Endlich raus aus dem Büro."
-            },
-            {
-              "who": "Marta",
-              "text": "Pinneberg? Dann fährst du ja jeden Tag über eine Stunde."
-            },
-            {
-              "who": "Yusuf",
-              "text": "Fünfzig Minuten mit der S-Bahn. Und mein Fahrrad kann ich mitnehmen, die Baumschule liegt nochmal zehn Minuten vom Bahnhof weg."
-            },
-            {
-              "who": "Ben",
-              "text": "Und was machst du da genau?"
-            },
-            {
-              "who": "Yusuf",
-              "text": "Erst mal Obstbäume veredeln. Im Herbst dann Verkauf. Und ich darf mir jedes Jahr einen Baum aussuchen, das steht sogar im Vertrag."
-            },
-            {
-              "who": "Marta",
-              "text": "Einen Baum im Jahr? Dann will ich einen Kirschbaum für den Hof."
-            },
-            {
-              "who": "Yusuf",
-              "text": "Abgemacht. Aber du musst ihn selber gießen, ich komme nicht jeden Tag mit der S-Bahn vorbei."
-            }
-          ],
-          "subExercises": [
-            {
-              "id": "q4",
-              "type": "recall_text",
-              "prompt": "Wo fängt Yusuf im Mai an?",
-              "answers": [
-                [
-                  "Baumschule"
-                ],
-                [
-                  "Pinneberg"
-                ]
-              ],
-              "solution": "Bei einer Baumschule in Pinneberg.",
-              "quote": "„Ich fange im Mai bei einer Baumschule in Pinneberg an.“"
-            },
-            {
-              "id": "q5",
-              "type": "recall_text",
-              "prompt": "Wie lange fährt Yusuf mit der S-Bahn?",
-              "answers": [
-                [
-                  "50",
-                  "fünfzig",
-                  "fuenfzig"
-                ]
-              ],
-              "solution": "Fünfzig Minuten.",
-              "quote": "„Fünfzig Minuten mit der S-Bahn.“"
-            }
-          ],
-          "worldRefs": {
-            "charactersReferenced": [],
-            "locationsReferenced": []
-          }
-        }
-      ]
+     "id": "z4-abendessen-d2",
+     "type": "dialog",
+     "title": "Yusufs Neuigkeit",
+     "characterId": "yusuf",
+     "lines": [
+      {
+       "who": "Yusuf",
+       "text": "Bevor die Fjorde kommen, hab ich noch eine Neuigkeit: Ich fange im Mai bei einer Baumschule in Pinneberg an. Endlich raus aus dem Büro."
+      },
+      {
+       "who": "Marta",
+       "text": "Pinneberg? Dann fährst du ja jeden Tag über eine Stunde."
+      },
+      {
+       "who": "Yusuf",
+       "text": "Fünfzig Minuten mit der S-Bahn. Und mein Fahrrad kann ich mitnehmen, die Baumschule liegt nochmal zehn Minuten vom Bahnhof weg."
+      },
+      {
+       "who": "Ben",
+       "text": "Und was machst du da genau?"
+      },
+      {
+       "who": "Yusuf",
+       "text": "Erst mal Obstbäume veredeln. Im Herbst dann Verkauf. Und ich darf mir jedes Jahr einen Baum aussuchen, das steht sogar im Vertrag."
+      },
+      {
+       "who": "Marta",
+       "text": "Einen Baum im Jahr? Dann will ich einen Kirschbaum für den Hof."
+      },
+      {
+       "who": "Yusuf",
+       "text": "Abgemacht. Aber du musst ihn selber gießen, ich komme nicht jeden Tag mit der S-Bahn vorbei."
+      }
+     ],
+     "subExercises": [
+      {
+       "id": "q4",
+       "type": "recall_text",
+       "prompt": "Wo fängt Yusuf im Mai an?",
+       "answers": [
+        [
+         "Baumschule"
+        ],
+        [
+         "Pinneberg"
+        ]
+       ],
+       "solution": "Bei einer Baumschule in Pinneberg.",
+       "quote": "„Ich fange im Mai bei einer Baumschule in Pinneberg an.“"
+      },
+      {
+       "id": "q5",
+       "type": "recall_text",
+       "prompt": "Wie lange fährt Yusuf mit der S-Bahn?",
+       "answers": [
+        [
+         "50",
+         "fünfzig",
+         "fuenfzig"
+        ]
+       ],
+       "solution": "Fünfzig Minuten.",
+       "quote": "„Fünfzig Minuten mit der S-Bahn.“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Was darf sich Yusuf jedes Jahr aussuchen?",
+       "options": [
+        "Einen Baum",
+        "Einen Urlaubstag extra",
+        "Ein neues Fahrrad",
+        "Eine Fortbildung"
+       ],
+       "correct": [
+        "Einen Baum"
+       ],
+       "quote": "„… ich darf mir jedes Jahr einen Baum aussuchen …“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": []
+     }
     },
     {
-      "id": "z4-elternabend",
-      "title": "Elternabend",
-      "items": [
-        {
-          "id": "z4-elternabend-d",
-          "type": "dialog",
-          "title": "Elternabend",
-          "characterId": "frau-demir",
-          "lines": [
-            {
-              "who": "Frau Demir",
-              "text": "Guten Abend zusammen. Die Klassenfahrt geht dieses Jahr nach Rügen, vom 12. bis 16. Mai. Wir wohnen in einer Jugendherberge direkt am Strand. Kosten: 240 Euro pro Kind, inklusive Vollpension."
-            },
-            {
-              "who": "Herr Lindqvist",
-              "text": "Gibt es dafür einen Zuschuss?"
-            },
-            {
-              "who": "Frau Demir",
-              "text": "Ja, über den Förderverein. Den Antrag bitte bis Ende März bei Herrn Oswald im Sekretariat abgeben. Das Formular gibt es auch auf der Schulwebsite."
-            },
-            {
-              "who": "Frau Petrović",
-              "text": "Und wer begleitet die Fahrt?"
-            },
-            {
-              "who": "Frau Demir",
-              "text": "Ich und Herr Brandt, der Sportlehrer. Außerdem suchen wir noch einen Elternteil mit Erste-Hilfe-Kenntnissen. Wer Lust hat, meldet sich bitte bis zu den Osterferien bei mir."
-            },
-            {
-              "who": "Herr Lindqvist",
-              "text": "Müssen die Kinder Bettwäsche mitbringen?"
-            },
-            {
-              "who": "Frau Demir",
-              "text": "Nein, die gibt es in der Jugendherberge. Aber bitte feste Schuhe und eine Regenjacke, wir machen eine Wanderung zu den Kreidefelsen. Handys sammeln wir abends ein, das haben die Kinder selbst so abgestimmt."
-            }
-          ],
-          "subExercises": [
-            {
-              "id": "q1",
-              "type": "recall_text",
-              "prompt": "Wohin geht die Klassenfahrt?",
-              "answers": [
-                [
-                  "Rügen",
-                  "Ruegen"
-                ]
-              ],
-              "solution": "Nach Rügen.",
-              "quote": "„Die Klassenfahrt geht dieses Jahr nach Rügen …“"
-            },
-            {
-              "id": "q2",
-              "type": "recall_text",
-              "prompt": "Was kostet die Fahrt pro Kind?",
-              "answers": [
-                [
-                  "240"
-                ]
-              ],
-              "solution": "240 Euro.",
-              "quote": "„Kosten: 240 Euro pro Kind …“"
-            },
-            {
-              "id": "q4",
-              "type": "recall_text",
-              "prompt": "Wer begleitet außer Frau Demir die Fahrt?",
-              "answers": [
-                [
-                  "Brandt",
-                  "Sportlehrer"
-                ]
-              ],
-              "solution": "Herr Brandt, der Sportlehrer.",
-              "quote": "„Ich und Herr Brandt, der Sportlehrer.“"
-            },
-            {
-              "id": "m1",
-              "type": "detail_match",
-              "prompt": "Was stimmt? (Mehrere Antworten richtig)",
-              "options": [
-                "Der Antrag geht an Herrn Oswald",
-                "Gesucht wird ein Elternteil mit Erste-Hilfe-Kenntnissen",
-                "Die Jugendherberge liegt im Wald",
-                "Der Zuschuss kommt von der Stadt"
-              ],
-              "correct": [
-                "Der Antrag geht an Herrn Oswald",
-                "Gesucht wird ein Elternteil mit Erste-Hilfe-Kenntnissen"
-              ],
-              "quote": "„… bei Herrn Oswald im Sekretariat abgeben. … einen Elternteil mit Erste-Hilfe-Kenntnissen.“"
-            }
-          ],
-          "worldRefs": {
-            "charactersReferenced": [],
-            "locationsReferenced": [
-              "schule"
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "id": "z4-werkstatt",
-      "title": "Werkstatt",
-      "items": [
-        {
-          "id": "z4-werkstatt-d",
-          "type": "dialog",
-          "title": "Werkstatt",
-          "characterId": "meister-kowalski",
-          "lines": [
-            {
-              "who": "Meister Kowalski",
-              "text": "Also. Die Bremsbeläge vorne sind runter, die tauschen wir. Das Klappern hinten kam vom Hitzeschutzblech, das haben wir nur festgeschraubt. Hat nichts gekostet."
-            },
-            {
-              "who": "Frau Heller",
-              "text": "Immerhin. Und was kostet der Rest?"
-            },
-            {
-              "who": "Meister Kowalski",
-              "text": "Mit Belägen und Arbeit rund 280 Euro. Morgen ab 16 Uhr ist der Wagen fertig."
-            },
-            {
-              "who": "Azubi Timo",
-              "text": "Chef, beim Reifenwechsel hab ich gesehen: Der linke Scheinwerfer ist auch kaputt."
-            },
-            {
-              "who": "Meister Kowalski",
-              "text": "Stimmt. Den machen wir gleich mit, das Birnchen kostet nur acht Euro. Und Frau Heller: Die Winterreifen haben noch zwei Winter, dann müssen neue her."
-            },
-            {
-              "who": "Frau Heller",
-              "text": "Zwei Winter. Ich schreib's mir auf. Irgendwann."
-            },
-            {
-              "who": "Azubi Timo",
-              "text": "Soll ich den Wagen noch waschen, Chef?"
-            },
-            {
-              "who": "Meister Kowalski",
-              "text": "Nein, Timo. Wir sind eine Werkstatt, keine Waschanlage."
-            }
-          ],
-          "subExercises": [
-            {
-              "id": "q1",
-              "type": "recall_text",
-              "prompt": "Was muss getauscht werden?",
-              "answers": [
-                [
-                  "Bremsbeläge",
-                  "Bremsbelaege",
-                  "Bremsen",
-                  "Bremse",
-                  "Beläge"
-                ]
-              ],
-              "solution": "Die vorderen Bremsbeläge.",
-              "quote": "„Die Bremsbeläge vorne sind runter, die tauschen wir.“"
-            },
-            {
-              "id": "q3",
-              "type": "recall_text",
-              "prompt": "Was kostet die Reparatur ungefähr?",
-              "answers": [
-                [
-                  "280"
-                ]
-              ],
-              "solution": "Rund 280 Euro.",
-              "quote": "„Mit Belägen und Arbeit rund 280 Euro.“"
-            },
-            {
-              "id": "q4",
-              "type": "recall_text",
-              "prompt": "Wann ist der Wagen fertig?",
-              "answers": [
-                [
-                  "morgen"
-                ],
-                [
-                  "16",
-                  "vier"
-                ]
-              ],
-              "solution": "Morgen ab 16 Uhr.",
-              "quote": "„Morgen ab 16 Uhr ist der Wagen fertig.“"
-            },
-            {
-              "id": "m1",
-              "type": "detail_match",
-              "prompt": "Was wird am Auto gemacht? (Mehrere Antworten richtig)",
-              "options": [
-                "Hitzeschutzblech festschrauben",
-                "Scheinwerferbirne tauschen",
-                "Neue Winterreifen",
-                "Ölwechsel",
-                "Bremsbeläge tauschen"
-              ],
-              "correct": [
-                "Hitzeschutzblech festschrauben",
-                "Scheinwerferbirne tauschen",
-                "Bremsbeläge tauschen"
-              ],
-              "quote": "„Das Klappern hinten kam vom Hitzeschutzblech … Den machen wir gleich mit, das Birnchen kostet nur acht Euro.“"
-            }
-          ],
-          "worldRefs": {
-            "charactersReferenced": [],
-            "locationsReferenced": [
-              "werkstatt"
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "id": "z4-besichtigung",
-      "title": "Besichtigung",
-      "items": [
-        {
-          "id": "z4-besichtigung-d",
-          "type": "dialog",
-          "title": "Wohnungsbesichtigung",
-          "characterId": "frau-sommer",
-          "lines": [
-            {
-              "who": "Frau Sommer",
-              "text": "Kommen Sie rein. Die Wohnung hat 68 Quadratmeter, drei Zimmer und einen Balkon nach Westen — also Abendsonne."
-            },
-            {
-              "who": "Jonte",
-              "text": "Und wie wird geheizt?"
-            },
-            {
-              "who": "Frau Sommer",
-              "text": "Fernwärme. Die Nebenkosten liegen bei 190 Euro im Monat. Der Keller gehört dazu, der Stellplatz kostet extra."
-            },
-            {
-              "who": "Lea",
-              "text": "Sind Haustiere erlaubt? Wir haben zwei Kaninchen, Fritz und Frieda."
-            },
-            {
-              "who": "Frau Sommer",
-              "text": "Kleintiere ja. Hunde nur nach Absprache mit dem Eigentümer, aber Kaninchen sind kein Problem."
-            },
-            {
-              "who": "Jonte",
-              "text": "Wie ist es mit dem Lärm? Die Straße vorne wirkt ziemlich belebt."
-            },
-            {
-              "who": "Frau Sommer",
-              "text": "Die Schlafzimmer gehen nach hinten in den Hof, da ist es ruhig. Vorne ist nur die Küche. Und die Fenster sind vor zwei Jahren erneuert worden."
-            }
-          ],
-          "subExercises": [
-            {
-              "id": "q1",
-              "type": "recall_text",
-              "prompt": "Wie groß ist die Wohnung?",
-              "answers": [
-                [
-                  "68"
-                ]
-              ],
-              "solution": "68 Quadratmeter.",
-              "quote": "„Die Wohnung hat 68 Quadratmeter …“"
-            },
-            {
-              "id": "q2",
-              "type": "recall_text",
-              "prompt": "In welche Richtung zeigt der Balkon?",
-              "answers": [
-                [
-                  "Westen",
-                  "West",
-                  "Abendsonne"
-                ]
-              ],
-              "solution": "Nach Westen.",
-              "quote": "„… einen Balkon nach Westen — also Abendsonne.“"
-            },
-            {
-              "id": "q3",
-              "type": "recall_text",
-              "prompt": "Wie hoch sind die Nebenkosten?",
-              "answers": [
-                [
-                  "190"
-                ]
-              ],
-              "solution": "190 Euro im Monat.",
-              "quote": "„Die Nebenkosten liegen bei 190 Euro im Monat.“"
-            },
-            {
-              "id": "q4",
-              "type": "recall_text",
-              "prompt": "Welche Haustiere haben Jonte und Lea?",
-              "answers": [
-                [
-                  "Kaninchen",
-                  "Hasen"
-                ]
-              ],
-              "solution": "Zwei Kaninchen.",
-              "quote": "„Wir haben zwei Kaninchen, Fritz und Frieda.“"
-            }
-          ],
-          "worldRefs": {
-            "charactersReferenced": [],
-            "locationsReferenced": []
-          }
-        }
-      ]
-    },
-    {
-      "id": "z4-besichtigung-2",
-      "title": "Besichtigung, Teil 2",
-      "items": [
-        {
-          "id": "z4-besichtigung-d2",
-          "type": "dialog",
-          "title": "Besichtigung, Teil 2",
-          "characterId": "frau-sommer",
-          "lines": [
-            {
-              "who": "Lea",
-              "text": "Die Küche ist ja schön. Bleibt die drin?"
-            },
-            {
-              "who": "Frau Sommer",
-              "text": "Falls Sie möchten: Die Vormieterin lässt die Einbauküche für 1.500 Euro da. Die Geräte sind drei Jahre alt, der Backofen ist noch gar nicht benutzt worden."
-            },
-            {
-              "who": "Jonte",
-              "text": "Noch nie benutzt? Das sagt ja auch etwas über die Vormieterin."
-            },
-            {
-              "who": "Frau Sommer",
-              "text": "Sie hat viel auswärts gegessen, sagt sie. Überlegen Sie es sich in Ruhe, ich brauche Ihre Antwort bis Freitag."
-            },
-            {
-              "who": "Lea",
-              "text": "Und ab wann wäre die Wohnung frei?"
-            },
-            {
-              "who": "Frau Sommer",
-              "text": "Ab dem ersten Dezember. Die Kaution beträgt drei Kaltmieten. Wenn Sie wollen, schicke ich Ihnen heute Abend noch die Unterlagen per E-Mail."
-            },
-            {
-              "who": "Jonte",
-              "text": "Gern. Und wir überlegen uns das mit der Küche. Fünfzehnhundert sind viel Geld für einen Backofen, der nie an war."
-            }
-          ],
-          "subExercises": [
-            {
-              "id": "q5",
-              "type": "recall_text",
-              "prompt": "Was kostet die Einbauküche?",
-              "answers": [
-                [
-                  "1500",
-                  "1 500",
-                  "tausendfünfhundert"
-                ]
-              ],
-              "solution": "1.500 Euro.",
-              "quote": "„Die Vormieterin lässt die Einbauküche für 1.500 Euro da.“"
-            }
-          ],
-          "worldRefs": {
-            "charactersReferenced": [],
-            "locationsReferenced": []
-          }
-        }
-      ]
-    },
-    {
-      "id": "z4-checkpoint",
-      "type": "checkpoint",
-      "title": "Checkpoint"
+     "id": "z4-abendessen-d3",
+     "type": "dialog",
+     "title": "Die Fjorde",
+     "characterId": "ben",
+     "lines": [
+      {
+       "who": "Ben",
+       "text": "So, Foto Nummer eins: der Geirangerfjord. Wir waren um sechs Uhr morgens da, noch bevor die Kreuzfahrtschiffe kamen."
+      },
+      {
+       "who": "Marta",
+       "text": "Sehr schön. Und wer ist die Person mit dem gelben Regenmantel?"
+      },
+      {
+       "who": "Ben",
+       "text": "Das ist Ingrid, unsere Vermieterin in Ålesund. Sie hat uns jeden Abend Waffeln mit braunem Käse gemacht."
+      },
+      {
+       "who": "Yusuf",
+       "text": "Brauner Käse? Das klingt wie etwas, das man wegwirft."
+      },
+      {
+       "who": "Ben",
+       "text": "Der heißt Brunost und schmeckt süß, fast wie Karamell. Ich hab euch ein Stück mitgebracht, es liegt im Kühlschrank."
+      },
+      {
+       "who": "Marta",
+       "text": "Neben dem Tiramisu. Ben, wie viele Fotos kommen noch?"
+      },
+      {
+       "who": "Ben",
+       "text": "Nur noch hundertachtzig. Aber ab Foto vierzig kommen Elche."
+      },
+      {
+       "who": "Yusuf",
+       "text": "Dann machen wir bei Foto vierzig die Tiramisu-Pause. Das ist mein letztes Angebot."
+      }
+     ],
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Um wie viel Uhr waren Ben und seine Begleitung am Geirangerfjord?",
+       "answers": [
+        [
+         "sechs",
+         "6"
+        ]
+       ],
+       "solution": "Um sechs Uhr morgens.",
+       "quote": "„Wir waren um sechs Uhr morgens da …“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Wie heißt die Vermieterin in Ålesund?",
+       "answers": [
+        [
+         "Ingrid"
+        ]
+       ],
+       "solution": "Ingrid.",
+       "quote": "„Das ist Ingrid, unsere Vermieterin in Ålesund.“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Wie schmeckt Brunost laut Ben?",
+       "options": [
+        "Süß, fast wie Karamell",
+        "Salzig und scharf",
+        "Wie Frischkäse",
+        "Sehr bitter"
+       ],
+       "correct": [
+        "Süß, fast wie Karamell"
+       ],
+       "quote": "„… schmeckt süß, fast wie Karamell.“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Ab welchem Foto kommen Elche?",
+       "answers": [
+        [
+         "40",
+         "vierzig"
+        ]
+       ],
+       "solution": "Ab Foto vierzig.",
+       "quote": "„Aber ab Foto vierzig kommen Elche.“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": []
+     }
     }
-  ]
+   ]
+  },
+  {
+   "id": "z4-klassenfahrt",
+   "title": "Die Klassenfahrt",
+   "items": [
+    {
+     "id": "z4-elternabend-d",
+     "type": "dialog",
+     "title": "Der Elternabend",
+     "characterId": "frau-demir",
+     "lines": [
+      {
+       "who": "Frau Demir",
+       "text": "Guten Abend zusammen. Die Klassenfahrt geht dieses Jahr nach Rügen, vom 12. bis 16. Mai. Wir wohnen in einer Jugendherberge direkt am Strand. Kosten: 240 Euro pro Kind, inklusive Vollpension."
+      },
+      {
+       "who": "Herr Lindqvist",
+       "text": "Gibt es dafür einen Zuschuss?"
+      },
+      {
+       "who": "Frau Demir",
+       "text": "Ja, über den Förderverein. Den Antrag bitte bis Ende März bei Herrn Oswald im Sekretariat abgeben. Das Formular gibt es auch auf der Schulwebsite."
+      },
+      {
+       "who": "Frau Petrović",
+       "text": "Und wer begleitet die Fahrt?"
+      },
+      {
+       "who": "Frau Demir",
+       "text": "Ich und Herr Brandt, der Sportlehrer. Außerdem suchen wir noch einen Elternteil mit Erste-Hilfe-Kenntnissen. Wer Lust hat, meldet sich bitte bis zu den Osterferien bei mir."
+      },
+      {
+       "who": "Herr Lindqvist",
+       "text": "Müssen die Kinder Bettwäsche mitbringen?"
+      },
+      {
+       "who": "Frau Demir",
+       "text": "Nein, die gibt es in der Jugendherberge. Aber bitte feste Schuhe und eine Regenjacke, wir machen eine Wanderung zu den Kreidefelsen. Handys sammeln wir abends ein, das haben die Kinder selbst so abgestimmt."
+      }
+     ],
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Wohin geht die Klassenfahrt?",
+       "answers": [
+        [
+         "Rügen",
+         "Ruegen"
+        ]
+       ],
+       "solution": "Nach Rügen.",
+       "quote": "„Die Klassenfahrt geht dieses Jahr nach Rügen …“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Was kostet die Fahrt pro Kind?",
+       "answers": [
+        [
+         "240"
+        ]
+       ],
+       "solution": "240 Euro.",
+       "quote": "„Kosten: 240 Euro pro Kind …“"
+      },
+      {
+       "id": "q4",
+       "type": "recall_text",
+       "prompt": "Wer begleitet außer Frau Demir die Fahrt?",
+       "answers": [
+        [
+         "Brandt",
+         "Sportlehrer"
+        ]
+       ],
+       "solution": "Herr Brandt, der Sportlehrer.",
+       "quote": "„Ich und Herr Brandt, der Sportlehrer.“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Was stimmt? (Mehrere Antworten richtig)",
+       "options": [
+        "Der Antrag geht an Herrn Oswald",
+        "Gesucht wird ein Elternteil mit Erste-Hilfe-Kenntnissen",
+        "Die Jugendherberge liegt im Wald",
+        "Der Zuschuss kommt von der Stadt"
+       ],
+       "correct": [
+        "Der Antrag geht an Herrn Oswald",
+        "Gesucht wird ein Elternteil mit Erste-Hilfe-Kenntnissen"
+       ],
+       "quote": "„… bei Herrn Oswald im Sekretariat abgeben. … einen Elternteil mit Erste-Hilfe-Kenntnissen.“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": [
+       "schule"
+      ]
+     }
+    },
+    {
+     "id": "z4-klassenfahrt-d2",
+     "type": "dialog",
+     "title": "Die Packliste",
+     "characterId": "frau-demir",
+     "lines": [
+      {
+       "who": "Frau Demir",
+       "text": "Kurze Nachricht an alle Eltern: Wir haben eine Begleitperson mit Erste-Hilfe-Kurs. Frau Petrović fährt mit."
+      },
+      {
+       "who": "Frau Petrović",
+       "text": "Ich bin Krankenschwester, das passt ja. Ich bringe die Reiseapotheke mit."
+      },
+      {
+       "who": "Herr Lindqvist",
+       "text": "Sehr gut. Und wie viel Taschengeld sollen die Kinder mitnehmen?"
+      },
+      {
+       "who": "Frau Demir",
+       "text": "Höchstens dreißig Euro. Mehr brauchen sie nicht, die Eintritte sind schon bezahlt, auch der für das Nationalpark-Zentrum."
+      },
+      {
+       "who": "Herr Lindqvist",
+       "text": "Mein Sohn fragt, ob er seine Angel mitnehmen darf."
+      },
+      {
+       "who": "Frau Demir",
+       "text": "Leider nein. Angeln ist im Nationalpark verboten. Aber wir machen einen Ausflug mit einem Fischer, der zeigt den Kindern seine Netze."
+      },
+      {
+       "who": "Frau Petrović",
+       "text": "Und die Abfahrt?"
+      },
+      {
+       "who": "Frau Demir",
+       "text": "Am 12. Mai um halb acht, auf dem Parkplatz hinter der Turnhalle. Bitte pünktlich, der Bus wartet nicht."
+      }
+     ],
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Wer fährt als Begleitperson mit Erste-Hilfe-Kurs mit?",
+       "answers": [
+        [
+         "Petrović",
+         "Petrovic",
+         "Petrowitsch"
+        ]
+       ],
+       "solution": "Frau Petrović.",
+       "quote": "„Frau Petrović fährt mit.“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Wie viel Taschengeld sollen die Kinder höchstens mitnehmen?",
+       "answers": [
+        [
+         "30",
+         "dreißig",
+         "dreissig"
+        ]
+       ],
+       "solution": "Höchstens dreißig Euro.",
+       "quote": "„Höchstens dreißig Euro.“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Warum darf die Angel nicht mit?",
+       "options": [
+        "Angeln ist im Nationalpark verboten",
+        "Im Bus ist kein Platz",
+        "Die Herberge erlaubt es nicht",
+        "Es ist keine Angelsaison"
+       ],
+       "correct": [
+        "Angeln ist im Nationalpark verboten"
+       ],
+       "quote": "„Angeln ist im Nationalpark verboten.“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Wo ist die Abfahrt?",
+       "answers": [
+        [
+         "Turnhalle",
+         "Parkplatz hinter der Turnhalle"
+        ]
+       ],
+       "solution": "Auf dem Parkplatz hinter der Turnhalle.",
+       "quote": "„… auf dem Parkplatz hinter der Turnhalle.“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": [
+       "schule"
+      ]
+     }
+    },
+    {
+     "id": "z4-klassenfahrt-d3",
+     "type": "dialog",
+     "title": "Zurück von Rügen",
+     "characterId": "frau-demir",
+     "lines": [
+      {
+       "who": "Frau Demir",
+       "text": "Wir sind zurück, alle Kinder gesund, nur ein verstauchter Knöchel. Beim Fußball am Strand, natürlich."
+      },
+      {
+       "who": "Herr Lindqvist",
+       "text": "Mein Sohn erzählt nur vom Fischer. Wie hieß der noch mal?"
+      },
+      {
+       "who": "Frau Demir",
+       "text": "Herr Bruhn. Er hat den Kindern gezeigt, wie man einen Knoten macht, der im Sturm hält. Seitdem ist jeder Schnürsenkel in der Klasse ein Palstek."
+      },
+      {
+       "who": "Frau Petrović",
+       "text": "Und die Wanderung zu den Kreidefelsen? Hat es geregnet?"
+      },
+      {
+       "who": "Frau Demir",
+       "text": "Nur am letzten Tag. Die Regenjacken haben sich also gelohnt. Und in der Jugendherberge gab es jeden Abend Nudeln, die Kinder fanden das großartig."
+      },
+      {
+       "who": "Herr Lindqvist",
+       "text": "Und die Handys abends einsammeln, hat das geklappt?"
+      },
+      {
+       "who": "Frau Demir",
+       "text": "Erstaunlich gut. Am zweiten Abend haben sie stattdessen Werwolf gespielt, bis elf. Das war mir allerdings zu spät."
+      }
+     ],
+     "subExercises": [
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Was ist beim Fußball am Strand passiert?",
+       "options": [
+        "Ein Kind hat sich den Knöchel verstaucht",
+        "Der Ball ist ins Meer gefallen",
+        "Ein Fenster ging kaputt",
+        "Nichts, alles blieb ruhig"
+       ],
+       "correct": [
+        "Ein Kind hat sich den Knöchel verstaucht"
+       ],
+       "quote": "„… nur ein verstauchter Knöchel. Beim Fußball am Strand …“"
+      },
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Wie hieß der Fischer?",
+       "answers": [
+        [
+         "Bruhn",
+         "Brun"
+        ]
+       ],
+       "solution": "Herr Bruhn.",
+       "quote": "„Herr Bruhn.“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Was gab es jeden Abend zu essen?",
+       "answers": [
+        [
+         "Nudeln",
+         "Pasta"
+        ]
+       ],
+       "solution": "Nudeln.",
+       "quote": "„… gab es jeden Abend Nudeln …“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Welches Spiel haben die Kinder am zweiten Abend gespielt?",
+       "answers": [
+        [
+         "Werwolf",
+         "Werwölfe"
+        ]
+       ],
+       "solution": "Werwolf.",
+       "quote": "„… haben sie stattdessen Werwolf gespielt …“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": [
+       "schule"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "z4-werkstatt",
+   "title": "In der Werkstatt",
+   "items": [
+    {
+     "id": "z4-werkstatt-d",
+     "type": "dialog",
+     "title": "Die Diagnose",
+     "characterId": "meister-kowalski",
+     "lines": [
+      {
+       "who": "Meister Kowalski",
+       "text": "Also. Die Bremsbeläge vorne sind runter, die tauschen wir. Das Klappern hinten kam vom Hitzeschutzblech, das haben wir nur festgeschraubt. Hat nichts gekostet."
+      },
+      {
+       "who": "Frau Heller",
+       "text": "Immerhin. Und was kostet der Rest?"
+      },
+      {
+       "who": "Meister Kowalski",
+       "text": "Mit Belägen und Arbeit rund 280 Euro. Morgen ab 16 Uhr ist der Wagen fertig."
+      },
+      {
+       "who": "Azubi Timo",
+       "text": "Chef, beim Reifenwechsel hab ich gesehen: Der linke Scheinwerfer ist auch kaputt."
+      },
+      {
+       "who": "Meister Kowalski",
+       "text": "Stimmt. Den machen wir gleich mit, das Birnchen kostet nur acht Euro. Und Frau Heller: Die Winterreifen haben noch zwei Winter, dann müssen neue her."
+      },
+      {
+       "who": "Frau Heller",
+       "text": "Zwei Winter. Ich schreib's mir auf. Irgendwann."
+      },
+      {
+       "who": "Azubi Timo",
+       "text": "Soll ich den Wagen noch waschen, Chef?"
+      },
+      {
+       "who": "Meister Kowalski",
+       "text": "Nein, Timo. Wir sind eine Werkstatt, keine Waschanlage."
+      }
+     ],
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Was muss getauscht werden?",
+       "answers": [
+        [
+         "Bremsbeläge",
+         "Bremsbelaege",
+         "Bremsen",
+         "Bremse",
+         "Beläge"
+        ]
+       ],
+       "solution": "Die vorderen Bremsbeläge.",
+       "quote": "„Die Bremsbeläge vorne sind runter, die tauschen wir.“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Was kostet die Reparatur ungefähr?",
+       "answers": [
+        [
+         "280"
+        ]
+       ],
+       "solution": "Rund 280 Euro.",
+       "quote": "„Mit Belägen und Arbeit rund 280 Euro.“"
+      },
+      {
+       "id": "q4",
+       "type": "recall_text",
+       "prompt": "Wann ist der Wagen fertig?",
+       "answers": [
+        [
+         "morgen"
+        ],
+        [
+         "16",
+         "vier"
+        ]
+       ],
+       "solution": "Morgen ab 16 Uhr.",
+       "quote": "„Morgen ab 16 Uhr ist der Wagen fertig.“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Was wird am Auto gemacht? (Mehrere Antworten richtig)",
+       "options": [
+        "Hitzeschutzblech festschrauben",
+        "Scheinwerferbirne tauschen",
+        "Neue Winterreifen",
+        "Ölwechsel",
+        "Bremsbeläge tauschen"
+       ],
+       "correct": [
+        "Hitzeschutzblech festschrauben",
+        "Scheinwerferbirne tauschen",
+        "Bremsbeläge tauschen"
+       ],
+       "quote": "„Das Klappern hinten kam vom Hitzeschutzblech … Den machen wir gleich mit, das Birnchen kostet nur acht Euro.“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": [
+       "werkstatt"
+      ]
+     }
+    },
+    {
+     "id": "z4-werkstatt-d2",
+     "type": "dialog",
+     "title": "Die Abholung",
+     "characterId": "meister-kowalski",
+     "lines": [
+      {
+       "who": "Frau Heller",
+       "text": "Guten Tag, ich wollte meinen Wagen abholen. Heller, der blaue Kombi."
+      },
+      {
+       "who": "Meister Kowalski",
+       "text": "Steht draußen, Platz drei. Bremsen sind neu, Scheinwerfer auch. Macht zusammen 288 Euro."
+      },
+      {
+       "who": "Frau Heller",
+       "text": "Achtundachtzig? Sie hatten doch rund zweihundertachtzig gesagt."
+      },
+      {
+       "who": "Meister Kowalski",
+       "text": "Die acht Euro sind das Birnchen. Hatten wir so besprochen."
+      },
+      {
+       "who": "Azubi Timo",
+       "text": "Und ich hab noch das Wischwasser aufgefüllt, Frau Heller. Kostenlos. Mit Zitronenduft."
+      },
+      {
+       "who": "Frau Heller",
+       "text": "Danke, Timo. Kann ich mit Karte zahlen?"
+      },
+      {
+       "who": "Meister Kowalski",
+       "text": "Heute leider nicht, das Gerät ist kaputt. Bar oder Überweisung, die Rechnung schicke ich Ihnen per Post."
+      },
+      {
+       "who": "Frau Heller",
+       "text": "Dann überweise ich. Und die Winterreifen: zwei Winter noch, ich weiß. Diesmal hab ich es wirklich aufgeschrieben."
+      }
+     ],
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Was für ein Auto hat Frau Heller?",
+       "answers": [
+        [
+         "Kombi"
+        ],
+        [
+         "blau",
+         "blauen",
+         "blauer"
+        ]
+       ],
+       "solution": "Einen blauen Kombi.",
+       "quote": "„Heller, der blaue Kombi.“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Was kostet die Reparatur am Ende?",
+       "answers": [
+        [
+         "288",
+         "zweihundertachtundachtzig"
+        ]
+       ],
+       "solution": "288 Euro.",
+       "quote": "„Macht zusammen 288 Euro.“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Was hat Timo aufgefüllt?",
+       "answers": [
+        [
+         "Wischwasser",
+         "Scheibenwischwasser",
+         "Wischwasser"
+        ]
+       ],
+       "solution": "Das Wischwasser, mit Zitronenduft.",
+       "quote": "„… ich hab noch das Wischwasser aufgefüllt …“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Warum kann Frau Heller nicht mit Karte zahlen?",
+       "options": [
+        "Das Kartengerät ist kaputt",
+        "Die Werkstatt nimmt nie Karten",
+        "Ihre Karte ist abgelaufen",
+        "Der Betrag ist zu klein"
+       ],
+       "correct": [
+        "Das Kartengerät ist kaputt"
+       ],
+       "quote": "„Heute leider nicht, das Gerät ist kaputt.“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": [
+       "werkstatt"
+      ]
+     }
+    },
+    {
+     "id": "z4-werkstatt-d3",
+     "type": "dialog",
+     "title": "Timos Prüfung",
+     "characterId": "meister-kowalski",
+     "lines": [
+      {
+       "who": "Azubi Timo",
+       "text": "Chef, ich hab es geschafft! Zwischenprüfung bestanden, mit 84 Punkten."
+      },
+      {
+       "who": "Meister Kowalski",
+       "text": "Na also. Welcher Teil war der schwerste?"
+      },
+      {
+       "who": "Azubi Timo",
+       "text": "Die Elektrik. Wir mussten einen Fehler im Lichtschalter finden, und ich hab zuerst am falschen Kabel gesucht. Zwanzig Minuten."
+      },
+      {
+       "who": "Frau Heller",
+       "text": "Gratuliere, Timo! Ich war gerade zum Reifendruck prüfen da und hab es mitbekommen."
+      },
+      {
+       "who": "Meister Kowalski",
+       "text": "Timo, ab Montag machst du die Inspektionen selbst. Unter Aufsicht, aber selbst."
+      },
+      {
+       "who": "Azubi Timo",
+       "text": "Wirklich? Dann darf ich auch den Oldtimer von Herrn Brandt machen? Den roten Käfer?"
+      },
+      {
+       "who": "Meister Kowalski",
+       "text": "Den Käfer mache ich. Du darfst ihn waschen."
+      },
+      {
+       "who": "Azubi Timo",
+       "text": "Also doch Waschanlage, Chef."
+      }
+     ],
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Mit wie vielen Punkten hat Timo bestanden?",
+       "answers": [
+        [
+         "84",
+         "vierundachtzig"
+        ]
+       ],
+       "solution": "Mit 84 Punkten.",
+       "quote": "„… mit 84 Punkten.“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Welcher Prüfungsteil war am schwersten?",
+       "answers": [
+        [
+         "Elektrik"
+        ]
+       ],
+       "solution": "Die Elektrik.",
+       "quote": "„Die Elektrik.“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Was darf Timo ab Montag machen?",
+       "options": [
+        "Inspektionen unter Aufsicht",
+        "Den Oldtimer reparieren",
+        "Die Kasse führen",
+        "Allein Bremsen tauschen"
+       ],
+       "correct": [
+        "Inspektionen unter Aufsicht"
+       ],
+       "quote": "„… ab Montag machst du die Inspektionen selbst. Unter Aufsicht …“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Welches Auto hat Herr Brandt?",
+       "answers": [
+        [
+         "Käfer",
+         "Kaefer"
+        ]
+       ],
+       "solution": "Einen roten Käfer, einen Oldtimer.",
+       "quote": "„Den roten Käfer?“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": [
+       "werkstatt"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "z4-wohnung",
+   "title": "Die Wohnungssuche",
+   "items": [
+    {
+     "id": "z4-besichtigung-d",
+     "type": "dialog",
+     "title": "Die Besichtigung",
+     "characterId": "frau-sommer",
+     "lines": [
+      {
+       "who": "Frau Sommer",
+       "text": "Kommen Sie rein. Die Wohnung hat 68 Quadratmeter, drei Zimmer und einen Balkon nach Westen — also Abendsonne."
+      },
+      {
+       "who": "Jonte",
+       "text": "Und wie wird geheizt?"
+      },
+      {
+       "who": "Frau Sommer",
+       "text": "Fernwärme. Die Nebenkosten liegen bei 190 Euro im Monat. Der Keller gehört dazu, der Stellplatz kostet extra."
+      },
+      {
+       "who": "Lea",
+       "text": "Sind Haustiere erlaubt? Wir haben zwei Kaninchen, Fritz und Frieda."
+      },
+      {
+       "who": "Frau Sommer",
+       "text": "Kleintiere ja. Hunde nur nach Absprache mit dem Eigentümer, aber Kaninchen sind kein Problem."
+      },
+      {
+       "who": "Jonte",
+       "text": "Wie ist es mit dem Lärm? Die Straße vorne wirkt ziemlich belebt."
+      },
+      {
+       "who": "Frau Sommer",
+       "text": "Die Schlafzimmer gehen nach hinten in den Hof, da ist es ruhig. Vorne ist nur die Küche. Und die Fenster sind vor zwei Jahren erneuert worden."
+      }
+     ],
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Wie groß ist die Wohnung?",
+       "answers": [
+        [
+         "68"
+        ]
+       ],
+       "solution": "68 Quadratmeter.",
+       "quote": "„Die Wohnung hat 68 Quadratmeter …“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "In welche Richtung zeigt der Balkon?",
+       "answers": [
+        [
+         "Westen",
+         "West",
+         "Abendsonne"
+        ]
+       ],
+       "solution": "Nach Westen.",
+       "quote": "„… einen Balkon nach Westen — also Abendsonne.“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Wie hoch sind die Nebenkosten?",
+       "answers": [
+        [
+         "190"
+        ]
+       ],
+       "solution": "190 Euro im Monat.",
+       "quote": "„Die Nebenkosten liegen bei 190 Euro im Monat.“"
+      },
+      {
+       "id": "q4",
+       "type": "recall_text",
+       "prompt": "Welche Haustiere haben Jonte und Lea?",
+       "answers": [
+        [
+         "Kaninchen",
+         "Hasen"
+        ]
+       ],
+       "solution": "Zwei Kaninchen.",
+       "quote": "„Wir haben zwei Kaninchen, Fritz und Frieda.“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": []
+     }
+    },
+    {
+     "id": "z4-besichtigung-d2",
+     "type": "dialog",
+     "title": "Die Küche",
+     "characterId": "frau-sommer",
+     "lines": [
+      {
+       "who": "Lea",
+       "text": "Die Küche ist ja schön. Bleibt die drin?"
+      },
+      {
+       "who": "Frau Sommer",
+       "text": "Falls Sie möchten: Die Vormieterin lässt die Einbauküche für 1.500 Euro da. Die Geräte sind drei Jahre alt, der Backofen ist noch gar nicht benutzt worden."
+      },
+      {
+       "who": "Jonte",
+       "text": "Noch nie benutzt? Das sagt ja auch etwas über die Vormieterin."
+      },
+      {
+       "who": "Frau Sommer",
+       "text": "Sie hat viel auswärts gegessen, sagt sie. Überlegen Sie es sich in Ruhe, ich brauche Ihre Antwort bis Freitag."
+      },
+      {
+       "who": "Lea",
+       "text": "Und ab wann wäre die Wohnung frei?"
+      },
+      {
+       "who": "Frau Sommer",
+       "text": "Ab dem ersten Dezember. Die Kaution beträgt drei Kaltmieten. Wenn Sie wollen, schicke ich Ihnen heute Abend noch die Unterlagen per E-Mail."
+      },
+      {
+       "who": "Jonte",
+       "text": "Gern. Und wir überlegen uns das mit der Küche. Fünfzehnhundert sind viel Geld für einen Backofen, der nie an war."
+      }
+     ],
+     "subExercises": [
+      {
+       "id": "q5",
+       "type": "recall_text",
+       "prompt": "Was kostet die Einbauküche?",
+       "answers": [
+        [
+         "1500",
+         "1 500",
+         "tausendfünfhundert"
+        ]
+       ],
+       "solution": "1.500 Euro.",
+       "quote": "„Die Vormieterin lässt die Einbauküche für 1.500 Euro da.“"
+      },
+      {
+       "id": "q6",
+       "type": "recall_text",
+       "prompt": "Ab wann ist die Wohnung frei?",
+       "answers": [
+        [
+         "ersten Dezember",
+         "1. Dezember",
+         "1 Dezember",
+         "Dezember"
+        ]
+       ],
+       "solution": "Ab dem ersten Dezember.",
+       "quote": "„Ab dem ersten Dezember.“"
+      },
+      {
+       "id": "q7",
+       "type": "recall_text",
+       "prompt": "Wie hoch ist die Kaution?",
+       "answers": [
+        [
+         "drei",
+         "3"
+        ],
+        [
+         "Kaltmieten",
+         "Kaltmiete",
+         "Mieten",
+         "Monatsmieten"
+        ]
+       ],
+       "solution": "Drei Kaltmieten.",
+       "quote": "„Die Kaution beträgt drei Kaltmieten.“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": []
+     }
+    },
+    {
+     "id": "z4-wohnung-d3",
+     "type": "dialog",
+     "title": "Die Zusage",
+     "characterId": "frau-sommer",
+     "lines": [
+      {
+       "who": "Frau Sommer",
+       "text": "Lea, Jonte? Hier ist Frau Sommer. Ich habe gute Nachrichten: Der Eigentümer hat sich für Sie entschieden."
+      },
+      {
+       "who": "Lea",
+       "text": "Wirklich? Jonte, wir haben die Wohnung!"
+      },
+      {
+       "who": "Jonte",
+       "text": "Und das mit der Küche? Wir nehmen sie, aber nur für zwölfhundert."
+      },
+      {
+       "who": "Frau Sommer",
+       "text": "Die Vormieterin sagt dreizehnhundert, dafür lässt sie auch die Waschmaschine da."
+      },
+      {
+       "who": "Lea",
+       "text": "Abgemacht. Und die Kaninchen? Fritz und Frieda sollen auf den Balkon, in ein Gehege."
+      },
+      {
+       "who": "Frau Sommer",
+       "text": "Solange nichts nach unten fällt. Die Schlüsselübergabe ist am 30. November um vier Uhr. Bringen Sie bitte Ihre Ausweise mit."
+      },
+      {
+       "who": "Jonte",
+       "text": "Um vier. Und dann streichen wir am Wochenende. Lea will das Schlafzimmer in Salbeigrün."
+      },
+      {
+       "who": "Lea",
+       "text": "Und du wolltest Orange. Deshalb entscheide ich."
+      }
+     ],
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Für wie viel nehmen sie die Küche am Ende?",
+       "answers": [
+        [
+         "1300",
+         "dreizehnhundert",
+         "1.300"
+        ]
+       ],
+       "solution": "Für dreizehnhundert Euro.",
+       "quote": "„Die Vormieterin sagt dreizehnhundert …“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Was lässt die Vormieterin zusätzlich da?",
+       "options": [
+        "Die Waschmaschine",
+        "Den Kühlschrank",
+        "Die Lampen",
+        "Den Kleiderschrank"
+       ],
+       "correct": [
+        "Die Waschmaschine"
+       ],
+       "quote": "„… dafür lässt sie auch die Waschmaschine da.“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Wann ist die Schlüsselübergabe?",
+       "answers": [
+        [
+         "30",
+         "dreißigsten",
+         "dreissigsten"
+        ],
+        [
+         "vier",
+         "16",
+         "4"
+        ]
+       ],
+       "solution": "Am 30. November um vier Uhr.",
+       "quote": "„Die Schlüsselübergabe ist am 30. November um vier Uhr.“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "In welcher Farbe soll das Schlafzimmer gestrichen werden?",
+       "answers": [
+        [
+         "Salbeigrün",
+         "Salbeigruen",
+         "Salbei",
+         "grün",
+         "gruen"
+        ]
+       ],
+       "solution": "In Salbeigrün.",
+       "quote": "„Lea will das Schlafzimmer in Salbeigrün.“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": []
+     }
+    }
+   ]
+  },
+  {
+   "id": "z4-checkpoint",
+   "type": "checkpoint",
+   "title": "Checkpoint"
+  }
+ ]
 }

@@ -27,10 +27,12 @@ for (const { item } of index.items.values()) {
 const count = (f) => [...index.cards.values()].filter(f).length;
 const felder = [...index.lessons.values()].filter((l) => l.lesson.type !== 'checkpoint');
 const words = (it) => (it.type === 'text' ? it.paragraphs.join(' ') : it.text || it.lines.map((l) => l.text).join(' ')).split(/\s+/).length;
-const perFeld = felder.map((l) => l.cardIds.length).reduce((m, n) => ({ ...m, [n]: (m[n] || 0) + 1 }), {});
-console.log(`${chapters.length} Kapitel · ${felder.length} Felder · ${index.cards.size} Teilübungen`);
+const tally = (list) => list.reduce((m, n) => ({ ...m, [n]: (m[n] || 0) + 1 }), {});
+const perFeld = tally(felder.map((l) => l.lesson.items.length));
+const perTeil = tally(felder.flatMap((l) => l.lesson.items.map((it) => it.subExercises.length)));
+console.log(`${chapters.length} Kapitel · ${felder.length} Level · ${index.items.size} Teile · ${index.cards.size} Fragen`);
 console.log(`  Typen: ${count((c) => c.kind === 'recall')} Freitext · ${count((c) => c.kind === 'retell')} Nacherzählen · ${count((c) => c.kind === 'sequence')} Reihenfolge · ${count((c) => c.kind === 'match')} Auswahl`);
-console.log(`  Teilübungen pro Feld: ${Object.entries(perFeld).map(([k, v]) => `${k}×${v}`).join(', ')}`);
+console.log(`  Teile pro Level: ${Object.entries(perFeld).map(([k, v]) => `${k}×${v}`).join(', ')} · Fragen pro Teil: ${Object.entries(perTeil).map(([k, v]) => `${k}×${v}`).join(', ')}`);
 const w = [...index.items.values()].map(({ item }) => words(item));
 console.log(`  Wörter pro Dialog/Text: ${Math.min(...w)}–${Math.max(...w)} (Schnitt ${Math.round(w.reduce((a, b) => a + b) / w.length)})`);
 // Jede Musterreihenfolge/Auswahl muss konsistent sein

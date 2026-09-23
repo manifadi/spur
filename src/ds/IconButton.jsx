@@ -8,12 +8,12 @@ const LOOK = {
   outline: { bg: 'var(--surface-card)', fg: 'var(--text-brand)', edge: 'var(--border-strong)', border: '2px solid var(--border-default)' },
 };
 
-export function IconButton({ icon, label, variant = 'ghost', size = 44, shape = 'circle', onClick, disabled, style, ...rest }) {
+export function IconButton({ icon, label, variant = 'ghost', size = 44, shape = 'circle', onClick, disabled, style, className, ...rest }) {
   const [down, setDown] = useState(false);
   const l = LOOK[variant] || LOOK.ghost;
   const depth = l.edge === 'transparent' ? 0 : (down ? 2 : 4);
   return (
-    <button type="button" aria-label={label} disabled={disabled} onClick={onClick} className="spur-press"
+    <button type="button" aria-label={label} disabled={disabled} onClick={onClick} className={className ? `spur-press ${className}` : 'spur-press'}
       onPointerDown={() => setDown(true)} onPointerUp={() => setDown(false)} onPointerLeave={() => setDown(false)} onPointerCancel={() => setDown(false)}
       style={{
         display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flex: '0 0 auto',
@@ -32,9 +32,9 @@ export function IconButton({ icon, label, variant = 'ghost', size = 44, shape = 
 
 /** Vorlese-Knopf: Lautsprecher, während der Wiedergabe vier Equalizer-Balken. */
 export function SpeakButton({ playing, onClick, size = 48, label = 'Vorlesen' }) {
-  if (!playing) return <IconButton icon="volume-2" label={label} variant="soft" size={size} onClick={onClick} />;
+  if (!playing) return <IconButton icon="volume-2" label={label} variant="soft" size={size} onClick={onClick} className="a-fade" />;
   return (
-    <button type="button" onClick={onClick} aria-label="Vorlesen stoppen"
+    <button type="button" onClick={onClick} aria-label="Vorlesen stoppen" className="a-fade"
       style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center', gap: 4, width: size, height: size, flex: '0 0 auto',
         borderRadius: '50%', border: 'none', background: 'var(--spur-lavender)', cursor: 'pointer', paddingBottom: Math.round(size * 0.27) }}>
       {[0, 140, 280, 420].map((d) => (

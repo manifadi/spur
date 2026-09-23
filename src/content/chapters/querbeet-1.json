@@ -1,370 +1,769 @@
 {
-  "id": "querbeet-1",
-  "order": 1,
-  "title": "Querbeet",
-  "track": "mixed",
-  "difficulty": 3,
-  "lessons": [
+ "id": "querbeet-1",
+ "order": 1,
+ "title": "Querbeet",
+ "track": "mixed",
+ "difficulty": 3,
+ "lessons": [
+  {
+   "id": "q1-flohmarkt",
+   "title": "Flohmarktfunde",
+   "items": [
     {
-      "id": "q1-flohmarkt",
-      "title": "Flohmarkt",
-      "items": [
-        {
-          "id": "q1-flohmarkt-d",
-          "type": "dialog",
-          "title": "Flohmarkt",
-          "characterId": "emre",
-          "lines": [
-            {
-              "who": "Emre",
-              "text": "Guck mal, ich hab einen Plattenspieler von 1974 gefunden. Der Verkäufer wollte 40 Euro, ich hab ihn auf 25 runtergehandelt."
-            },
-            {
-              "who": "Sophie",
-              "text": "Funktioniert der überhaupt?"
-            },
-            {
-              "who": "Emre",
-              "text": "Die Nadel fehlt, die bestelle ich nach. Erst hab ich die Kisten mit den Platten durchwühlt, dann den Plattenspieler gesehen, und am Ende hab ich noch was für dich entdeckt: eine alte Stempeluhr aus einer Fabrik in Wuppertal."
-            },
-            {
-              "who": "Sophie",
-              "text": "Du hast dir gemerkt, dass ich Uhren sammle? Wahnsinn."
-            },
-            {
-              "who": "Emre",
-              "text": "Ich hab dir ja zugehört. Sie tickt sogar noch, nur die Glocke klemmt."
-            },
-            {
-              "who": "Sophie",
-              "text": "Und was hast du noch gekauft? Da ist doch noch was in der Tüte."
-            },
-            {
-              "who": "Emre",
-              "text": "Drei Platten von Udo Jürgens. Für meine Mutter. Und eine für mich, aber das bleibt unter uns."
-            }
-          ],
-          "subExercises": [
-            {
-              "id": "q1",
-              "type": "recall_text",
-              "prompt": "Aus welchem Jahr ist der Plattenspieler?",
-              "answers": [
-                [
-                  "1974"
-                ]
-              ],
-              "solution": "1974.",
-              "quote": "„… einen Plattenspieler von 1974 gefunden.“"
-            },
-            {
-              "id": "q2",
-              "type": "recall_text",
-              "prompt": "Wie viel hat Emre am Ende bezahlt?",
-              "answers": [
-                [
-                  "25",
-                  "fünfundzwanzig"
-                ]
-              ],
-              "solution": "25 Euro.",
-              "quote": "„Der Verkäufer wollte 40 Euro, ich hab ihn auf 25 runtergehandelt.“"
-            },
-            {
-              "id": "q3",
-              "type": "recall_text",
-              "prompt": "Was fehlt am Plattenspieler?",
-              "answers": [
-                [
-                  "Nadel"
-                ]
-              ],
-              "solution": "Die Nadel.",
-              "quote": "„Die Nadel fehlt, die bestelle ich nach.“"
-            },
-            {
-              "id": "s1",
-              "type": "sequence_events",
-              "prompt": "Was hat Emre auf dem Flohmarkt in welcher Reihenfolge gemacht?",
-              "events": [
-                "Plattenkisten durchwühlt",
-                "Plattenspieler entdeckt",
-                "Stempeluhr für Sophie gefunden"
-              ]
-            }
-          ],
-          "worldRefs": {
-            "charactersReferenced": [],
-            "locationsReferenced": [
-              "flohmarkt"
-            ]
-          }
-        }
+     "id": "q1-flohmarkt-d",
+     "type": "dialog",
+     "title": "Flohmarkt",
+     "characterId": "emre",
+     "lines": [
+      {
+       "who": "Emre",
+       "text": "Guck mal, ich hab einen Plattenspieler von 1974 gefunden. Der Verkäufer wollte 40 Euro, ich hab ihn auf 25 runtergehandelt."
+      },
+      {
+       "who": "Sophie",
+       "text": "Funktioniert der überhaupt?"
+      },
+      {
+       "who": "Emre",
+       "text": "Die Nadel fehlt, die bestelle ich nach. Erst hab ich die Kisten mit den Platten durchwühlt, dann den Plattenspieler gesehen, und am Ende hab ich noch was für dich entdeckt: eine alte Stempeluhr aus einer Fabrik in Wuppertal."
+      },
+      {
+       "who": "Sophie",
+       "text": "Du hast dir gemerkt, dass ich Uhren sammle? Wahnsinn."
+      },
+      {
+       "who": "Emre",
+       "text": "Ich hab dir ja zugehört. Sie tickt sogar noch, nur die Glocke klemmt."
+      },
+      {
+       "who": "Sophie",
+       "text": "Und was hast du noch gekauft? Da ist doch noch was in der Tüte."
+      },
+      {
+       "who": "Emre",
+       "text": "Drei Platten von Udo Jürgens. Für meine Mutter. Und eine für mich, aber das bleibt unter uns."
+      }
+     ],
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Aus welchem Jahr ist der Plattenspieler?",
+       "answers": [
+        [
+         "1974"
+        ]
+       ],
+       "solution": "1974.",
+       "quote": "„… einen Plattenspieler von 1974 gefunden.“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Wie viel hat Emre am Ende bezahlt?",
+       "answers": [
+        [
+         "25",
+         "fünfundzwanzig"
+        ]
+       ],
+       "solution": "25 Euro.",
+       "quote": "„Der Verkäufer wollte 40 Euro, ich hab ihn auf 25 runtergehandelt.“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Was fehlt am Plattenspieler?",
+       "answers": [
+        [
+         "Nadel"
+        ]
+       ],
+       "solution": "Die Nadel.",
+       "quote": "„Die Nadel fehlt, die bestelle ich nach.“"
+      },
+      {
+       "id": "s1",
+       "type": "sequence_events",
+       "prompt": "Was hat Emre auf dem Flohmarkt in welcher Reihenfolge gemacht?",
+       "events": [
+        "Plattenkisten durchwühlt",
+        "Plattenspieler entdeckt",
+        "Stempeluhr für Sophie gefunden"
+       ]
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": [
+       "flohmarkt"
       ]
+     }
     },
     {
-      "id": "q1-flohmarkt-2",
-      "title": "Die Stempeluhr",
-      "items": [
-        {
-          "id": "q1-flohmarkt-d2",
-          "type": "dialog",
-          "title": "Die Stempeluhr",
-          "characterId": "sophie",
-          "lines": [
-            {
-              "who": "Sophie",
-              "text": "Warte, wo kommt die Stempeluhr her, hast du gesagt?"
-            },
-            {
-              "who": "Emre",
-              "text": "Aus einer Fabrik in Wuppertal. Da hat man früher morgens seine Karte reingesteckt, und sie hat die Uhrzeit draufgestempelt. Der Verkäufer meinte, die Fabrik hat Regenschirme hergestellt."
-            },
-            {
-              "who": "Sophie",
-              "text": "Regenschirme aus Wuppertal. Das passt ja, da regnet es ständig."
-            },
-            {
-              "who": "Emre",
-              "text": "Wenn die Glocke wieder geht, kannst du sie ja morgens als Wecker benutzen."
-            },
-            {
-              "who": "Sophie",
-              "text": "Eine Stempeluhr als Wecker. Dann stempele ich jeden Morgen, wann ich aufgestanden bin. Das wäre ehrlich gesagt sehr aufschlussreich."
-            },
-            {
-              "who": "Emre",
-              "text": "Ich schätze, die meisten Karten würden „zu spät“ sagen."
-            }
-          ],
-          "subExercises": [
-            {
-              "id": "q4",
-              "type": "recall_text",
-              "prompt": "Woher stammt die Stempeluhr?",
-              "answers": [
-                [
-                  "Wuppertal"
-                ]
-              ],
-              "solution": "Aus einer Fabrik in Wuppertal.",
-              "quote": "„Aus einer Fabrik in Wuppertal.“"
-            },
-            {
-              "id": "m1",
-              "type": "detail_match",
-              "prompt": "Was hat die Fabrik hergestellt?",
-              "options": [
-                "Uhren",
-                "Regenschirme",
-                "Schallplatten",
-                "Fahrräder"
-              ],
-              "correct": [
-                "Regenschirme"
-              ],
-              "quote": "„… die Fabrik hat Regenschirme hergestellt.“"
-            }
-          ],
-          "worldRefs": {
-            "charactersReferenced": [
-              "emre"
-            ],
-            "locationsReferenced": [
-              "flohmarkt"
-            ]
-          }
-        }
+     "id": "q1-flohmarkt-d2",
+     "type": "dialog",
+     "title": "Die Stempeluhr",
+     "characterId": "sophie",
+     "lines": [
+      {
+       "who": "Sophie",
+       "text": "Warte, wo kommt die Stempeluhr her, hast du gesagt?"
+      },
+      {
+       "who": "Emre",
+       "text": "Aus einer Fabrik in Wuppertal. Da hat man früher morgens seine Karte reingesteckt, und sie hat die Uhrzeit draufgestempelt. Der Verkäufer meinte, die Fabrik hat Regenschirme hergestellt."
+      },
+      {
+       "who": "Sophie",
+       "text": "Regenschirme aus Wuppertal. Das passt ja, da regnet es ständig."
+      },
+      {
+       "who": "Emre",
+       "text": "Wenn die Glocke wieder geht, kannst du sie ja morgens als Wecker benutzen."
+      },
+      {
+       "who": "Sophie",
+       "text": "Eine Stempeluhr als Wecker. Dann stempele ich jeden Morgen, wann ich aufgestanden bin. Das wäre ehrlich gesagt sehr aufschlussreich."
+      },
+      {
+       "who": "Emre",
+       "text": "Ich schätze, die meisten Karten würden „zu spät“ sagen."
+      }
+     ],
+     "subExercises": [
+      {
+       "id": "q4",
+       "type": "recall_text",
+       "prompt": "Woher stammt die Stempeluhr?",
+       "answers": [
+        [
+         "Wuppertal"
+        ]
+       ],
+       "solution": "Aus einer Fabrik in Wuppertal.",
+       "quote": "„Aus einer Fabrik in Wuppertal.“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Was hat die Fabrik hergestellt?",
+       "options": [
+        "Uhren",
+        "Regenschirme",
+        "Schallplatten",
+        "Fahrräder"
+       ],
+       "correct": [
+        "Regenschirme"
+       ],
+       "quote": "„… die Fabrik hat Regenschirme hergestellt.“"
+      },
+      {
+       "id": "q5",
+       "type": "recall_text",
+       "prompt": "Wofür will Sophie die Stempeluhr benutzen?",
+       "answers": [
+        [
+         "Wecker"
+        ]
+       ],
+       "solution": "Als Wecker.",
+       "quote": "„Eine Stempeluhr als Wecker.“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [
+       "emre"
+      ],
+      "locationsReferenced": [
+       "flohmarkt"
       ]
+     }
     },
     {
-      "id": "q1-gaehnen",
-      "title": "Gähnen",
-      "items": [
-        {
-          "id": "q1-gaehnen-t",
-          "type": "text",
-          "title": "Warum Gähnen ansteckt",
-          "topic": "Ansteckendes Gähnen",
-          "paragraphs": [
-            "Sieht man jemanden gähnen, gähnt man oft selbst. Manchmal reicht es schon, über Gähnen zu lesen. Das gibt es nicht nur bei Menschen, sondern auch bei Schimpansen und bei Hunden, die ihre Menschen gähnen sehen.",
-            "Eine verbreitete Erklärung verbindet ansteckendes Gähnen mit sozialer Nähe: Bei Familie und Freunden steckt es häufiger an als bei Fremden.",
-            "Kleine Kinder lassen sich übrigens kaum anstecken. Das beginnt meist erst mit etwa vier oder fünf Jahren, ungefähr dann, wenn Kinder lernen, sich in andere hineinzuversetzen.",
-            "Warum wir überhaupt gähnen, ist übrigens nicht endgültig geklärt. Eine Vermutung: Es kühlt das Gehirn ein wenig ab.",
-            "Ein Gähnen dauert im Schnitt etwa sechs Sekunden. Und wer versucht, es zu unterdrücken, gähnt oft trotzdem, nur mit geschlossenem Mund."
-          ],
-          "keyPoints": [
-            "Gähnen steckt Menschen, Schimpansen und Hunde an",
-            "Bei Nahestehenden steckt es häufiger an",
-            "Kinder werden erst mit etwa 4 bis 5 Jahren angesteckt"
-          ],
-          "subExercises": [
-            {
-              "id": "retell",
-              "type": "recall_text"
-            },
-            {
-              "id": "m1",
-              "type": "detail_match",
-              "prompt": "Welche Tiere lassen sich laut Text anstecken? (Mehrere Antworten richtig)",
-              "options": [
-                "Schimpansen",
-                "Hunde",
-                "Katzen",
-                "Pferde"
-              ],
-              "correct": [
-                "Schimpansen",
-                "Hunde"
-              ],
-              "quote": "„… auch bei Schimpansen und bei Hunden, die ihre Menschen gähnen sehen.“"
-            }
-          ]
-        }
+     "id": "q1-flohmarkt-d3",
+     "type": "dialog",
+     "title": "Die Glocke läutet",
+     "characterId": "sophie",
+     "lines": [
+      {
+       "who": "Sophie",
+       "text": "Emre, hör mal! Die Glocke der Stempeluhr geht wieder. Ein Uhrmacher in der Altstadt hat sie repariert."
+      },
+      {
+       "who": "Emre",
+       "text": "Was hat es gekostet?"
+      },
+      {
+       "who": "Sophie",
+       "text": "Fünfzehn Euro. Und er hat mir erzählt, dass die Fabrik bis 1968 Schirme gemacht hat. Mit Griffen aus Kirschholz."
+      },
+      {
+       "who": "Emre",
+       "text": "Und mein Plattenspieler läuft auch. Die neue Nadel kam gestern, die erste Platte war natürlich Udo Jürgens."
+      },
+      {
+       "who": "Sophie",
+       "text": "Für deine Mutter oder für dich?"
+      },
+      {
+       "who": "Emre",
+       "text": "Ich sag nur so viel: Ich kann jetzt „Griechischer Wein“ auswendig."
+      },
+      {
+       "who": "Sophie",
+       "text": "Nächsten Sonntag ist wieder Flohmarkt am Kanal. Diesmal suchen wir eine Stempelkarte für die Uhr."
+      }
+     ],
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Wer hat die Glocke repariert?",
+       "answers": [
+        [
+         "Uhrmacher"
+        ]
+       ],
+       "solution": "Ein Uhrmacher in der Altstadt.",
+       "quote": "„Ein Uhrmacher in der Altstadt hat sie repariert.“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Was hat die Reparatur gekostet?",
+       "answers": [
+        [
+         "15",
+         "fünfzehn",
+         "fuenfzehn"
+        ]
+       ],
+       "solution": "Fünfzehn Euro.",
+       "quote": "„Fünfzehn Euro.“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Woraus waren die Griffe der Schirme?",
+       "options": [
+        "Kirschholz",
+        "Eiche",
+        "Metall",
+        "Horn"
+       ],
+       "correct": [
+        "Kirschholz"
+       ],
+       "quote": "„Mit Griffen aus Kirschholz.“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Welches Lied kann Emre jetzt auswendig?",
+       "answers": [
+        [
+         "Griechischer Wein"
+        ]
+       ],
+       "solution": "„Griechischer Wein“.",
+       "quote": "„Ich kann jetzt ‚Griechischer Wein‘ auswendig.“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": [
+       "flohmarkt"
       ]
-    },
-    {
-      "id": "q1-arbeitsweg",
-      "title": "Arbeitsweg",
-      "items": [
-        {
-          "id": "q1-arbeitsweg-d",
-          "type": "dialog",
-          "title": "Arbeitsweg",
-          "characterId": "kolja",
-          "lines": [
-            {
-              "who": "Kolja",
-              "text": "Seit ich mit dem Rad fahre, bin ich zwölf Minuten schneller als mit dem Bus. Außer bei Regen. Und ich spare im Monat fast fünfzig Euro für das Ticket."
-            },
-            {
-              "who": "Ida",
-              "text": "Und wo stellst du es ab?"
-            },
-            {
-              "who": "Kolja",
-              "text": "Im Hof hinter der Bäckerei Stein. Der Chef hat mir erlaubt, es an den Zaun zu schließen, wenn ich morgens ein Croissant kaufe."
-            },
-            {
-              "who": "Ida",
-              "text": "Fairer Deal."
-            },
-            {
-              "who": "Kolja",
-              "text": "Nur donnerstags nicht, da ist Markt und der Hof ist voller Lieferwagen. Dann stelle ich es am Kino ab."
-            },
-            {
-              "who": "Ida",
-              "text": "Und wenn es regnet?"
-            },
-            {
-              "who": "Kolja",
-              "text": "Dann nehme ich doch den Bus. Oder ich komme nass an. Kommt drauf an, wie spät ich dran bin."
-            }
-          ],
-          "subExercises": [
-            {
-              "id": "q1",
-              "type": "recall_text",
-              "prompt": "Wie viel schneller ist Kolja mit dem Rad?",
-              "answers": [
-                [
-                  "12",
-                  "zwölf",
-                  "zwoelf"
-                ]
-              ],
-              "solution": "Zwölf Minuten.",
-              "quote": "„… bin ich zwölf Minuten schneller als mit dem Bus.“"
-            },
-            {
-              "id": "q2",
-              "type": "recall_text",
-              "prompt": "Wo stellt er sein Rad ab?",
-              "answers": [
-                [
-                  "Bäckerei",
-                  "Baeckerei",
-                  "Stein"
-                ]
-              ],
-              "solution": "Im Hof hinter der Bäckerei Stein.",
-              "quote": "„Im Hof hinter der Bäckerei Stein.“"
-            },
-            {
-              "id": "q3",
-              "type": "recall_text",
-              "prompt": "Was ist sein Deal mit dem Chef?",
-              "answers": [
-                [
-                  "Croissant"
-                ]
-              ],
-              "solution": "Er kauft morgens ein Croissant.",
-              "quote": "„… wenn ich morgens ein Croissant kaufe.“"
-            },
-            {
-              "id": "q4",
-              "type": "recall_text",
-              "prompt": "An welchem Tag klappt das nicht?",
-              "answers": [
-                [
-                  "Donnerstag",
-                  "donnerstags"
-                ]
-              ],
-              "solution": "Donnerstags, wegen des Markts.",
-              "quote": "„Nur donnerstags nicht, da ist Markt …“"
-            }
-          ],
-          "worldRefs": {
-            "charactersReferenced": [],
-            "locationsReferenced": [
-              "baeckerei-stein"
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "id": "q1-wale",
-      "title": "Walgesang",
-      "items": [
-        {
-          "id": "q1-wale-t",
-          "type": "text",
-          "title": "Der Gesang der Buckelwale",
-          "topic": "Buckelwale",
-          "paragraphs": [
-            "Männliche Buckelwale singen lange, komplexe Lieder aus wiederkehrenden Motiven. Ein Lied kann über zwanzig Minuten dauern und wird stundenlang wiederholt. Unter Wasser ist es noch in vielen Kilometern Entfernung zu hören.",
-            "Alle Männchen einer Region singen ungefähr dasselbe Lied. Es verändert sich aber nach und nach, jedes Jahr ein bisschen. Manchmal wird es sogar von einem ganz neuen Lied abgelöst, das sich von Population zu Population über den Pazifik ausbreitet, wie ein Hit.",
-            "Warum die Wale singen, ist noch nicht ganz geklärt. Vermutlich hat es mit der Fortpflanzung zu tun.",
-            "Buckelwale werden bis zu fünfzehn Meter lang und wandern jedes Jahr Tausende Kilometer zwischen kalten Futtergründen und warmen Gewässern, in denen die Jungen zur Welt kommen. Ihr Gesang ist vor allem in den warmen Gewässern zu hören."
-          ],
-          "keyPoints": [
-            "Männchen singen lange Lieder aus Motiven",
-            "Alle Männchen einer Region singen fast dasselbe",
-            "Neue Lieder verbreiten sich über den Pazifik wie ein Hit",
-            "Der Grund ist unklar, vermutlich Fortpflanzung"
-          ],
-          "subExercises": [
-            {
-              "id": "retell",
-              "type": "recall_text"
-            },
-            {
-              "id": "s1",
-              "type": "sequence_events",
-              "prompt": "Wie verändert sich ein Walgesang über die Zeit?",
-              "events": [
-                "Alle Männchen singen dasselbe Lied",
-                "Das Lied verändert sich nach und nach",
-                "Ein neues Lied löst es ab"
-              ]
-            }
-          ]
-        }
-      ]
+     }
     }
-  ]
+   ]
+  },
+  {
+   "id": "q1-ansteckend",
+   "title": "Einfach ansteckend",
+   "items": [
+    {
+     "id": "q1-gaehnen-t",
+     "type": "text",
+     "title": "Warum Gähnen ansteckt",
+     "topic": "Ansteckendes Gähnen",
+     "paragraphs": [
+      "Sieht man jemanden gähnen, gähnt man oft selbst. Manchmal reicht es schon, über Gähnen zu lesen. Das gibt es nicht nur bei Menschen, sondern auch bei Schimpansen und bei Hunden, die ihre Menschen gähnen sehen.",
+      "Eine verbreitete Erklärung verbindet ansteckendes Gähnen mit sozialer Nähe: Bei Familie und Freunden steckt es häufiger an als bei Fremden.",
+      "Kleine Kinder lassen sich übrigens kaum anstecken. Das beginnt meist erst mit etwa vier oder fünf Jahren, ungefähr dann, wenn Kinder lernen, sich in andere hineinzuversetzen.",
+      "Warum wir überhaupt gähnen, ist übrigens nicht endgültig geklärt. Eine Vermutung: Es kühlt das Gehirn ein wenig ab.",
+      "Ein Gähnen dauert im Schnitt etwa sechs Sekunden. Und wer versucht, es zu unterdrücken, gähnt oft trotzdem, nur mit geschlossenem Mund."
+     ],
+     "keyPoints": [
+      "Gähnen steckt Menschen, Schimpansen und Hunde an",
+      "Bei Nahestehenden steckt es häufiger an",
+      "Kinder werden erst mit etwa 4 bis 5 Jahren angesteckt"
+     ],
+     "subExercises": [
+      {
+       "id": "retell",
+       "type": "recall_text"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Welche Tiere lassen sich laut Text anstecken? (Mehrere Antworten richtig)",
+       "options": [
+        "Schimpansen",
+        "Hunde",
+        "Katzen",
+        "Pferde"
+       ],
+       "correct": [
+        "Schimpansen",
+        "Hunde"
+       ],
+       "quote": "„… auch bei Schimpansen und bei Hunden, die ihre Menschen gähnen sehen.“"
+      },
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Ab welchem Alter lassen sich Kinder meist anstecken?",
+       "answers": [
+        [
+         "4",
+         "vier"
+        ],
+        [
+         "5",
+         "fünf",
+         "fuenf"
+        ]
+       ],
+       "solution": "Mit etwa vier oder fünf Jahren.",
+       "quote": "„… meist erst mit etwa vier oder fünf Jahren …“"
+      }
+     ]
+    },
+    {
+     "id": "q1-wale-t",
+     "type": "text",
+     "title": "Der Gesang der Buckelwale",
+     "topic": "Buckelwale",
+     "paragraphs": [
+      "Männliche Buckelwale singen lange, komplexe Lieder aus wiederkehrenden Motiven. Ein Lied kann über zwanzig Minuten dauern und wird stundenlang wiederholt. Unter Wasser ist es noch in vielen Kilometern Entfernung zu hören.",
+      "Alle Männchen einer Region singen ungefähr dasselbe Lied. Es verändert sich aber nach und nach, jedes Jahr ein bisschen. Manchmal wird es sogar von einem ganz neuen Lied abgelöst, das sich von Population zu Population über den Pazifik ausbreitet, wie ein Hit.",
+      "Warum die Wale singen, ist noch nicht ganz geklärt. Vermutlich hat es mit der Fortpflanzung zu tun.",
+      "Buckelwale werden bis zu fünfzehn Meter lang und wandern jedes Jahr Tausende Kilometer zwischen kalten Futtergründen und warmen Gewässern, in denen die Jungen zur Welt kommen. Ihr Gesang ist vor allem in den warmen Gewässern zu hören."
+     ],
+     "keyPoints": [
+      "Männchen singen lange Lieder aus Motiven",
+      "Alle Männchen einer Region singen fast dasselbe",
+      "Neue Lieder verbreiten sich über den Pazifik wie ein Hit",
+      "Der Grund ist unklar, vermutlich Fortpflanzung"
+     ],
+     "subExercises": [
+      {
+       "id": "retell",
+       "type": "recall_text"
+      },
+      {
+       "id": "s1",
+       "type": "sequence_events",
+       "prompt": "Wie verändert sich ein Walgesang über die Zeit?",
+       "events": [
+        "Alle Männchen singen dasselbe Lied",
+        "Das Lied verändert sich nach und nach",
+        "Ein neues Lied löst es ab"
+       ]
+      },
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Wie lange kann ein Walgesang dauern?",
+       "answers": [
+        [
+         "zwanzig",
+         "20"
+        ]
+       ],
+       "solution": "Über zwanzig Minuten.",
+       "quote": "„Ein Lied kann über zwanzig Minuten dauern …“"
+      }
+     ]
+    },
+    {
+     "id": "q1-lachen-t",
+     "type": "text",
+     "title": "Warum Lachen ansteckt",
+     "topic": "Ansteckendes Lachen",
+     "paragraphs": [
+      "Lachen ist ansteckend, und zwar mehr, als uns bewusst ist. Wer einem Lachen zuhört, bei dem regen sich im Gehirn Bereiche, die auch Gesichtsmuskeln steuern. Das Gehirn bereitet das Mitlachen gewissermaßen schon vor.",
+      "Gelacht wird vor allem in Gesellschaft. Menschen lachen Studien zufolge etwa dreißigmal häufiger, wenn andere dabei sind, als wenn sie allein sind. Oft ist der Anlass gar nicht besonders lustig. Lachen zeigt vor allem: Wir gehören zusammen.",
+      "Deshalb setzen Fernsehsendungen seit den 1950er-Jahren eingespielte Lacher ein. Die Zuschauer lachen dann nachweislich mehr, auch wenn sie die Lacher albern finden.",
+      "Auch Tiere lachen. Schimpansen keuchen beim Spielen, und Ratten stoßen beim Kitzeln hohe Laute aus, die für Menschen unhörbar sind.",
+      "Ein bekanntes Beispiel für die Ansteckung: 1962 breitete sich in einer Schule in Tansania eine Lachepidemie aus. Sie erfasste Hunderte Menschen, und mehrere Schulen mussten für Wochen schließen."
+     ],
+     "keyPoints": [
+      "Beim Zuhören bereitet das Gehirn das Mitlachen vor",
+      "In Gesellschaft lachen wir rund dreißigmal häufiger",
+      "Lachen zeigt Zusammengehörigkeit",
+      "Auch Schimpansen und Ratten lachen",
+      "1962 gab es in Tansania eine Lachepidemie"
+     ],
+     "subExercises": [
+      {
+       "id": "retell",
+       "type": "recall_text"
+      },
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Wie viel häufiger lachen Menschen in Gesellschaft?",
+       "answers": [
+        [
+         "dreißigmal",
+         "dreissigmal",
+         "30"
+        ]
+       ],
+       "solution": "Etwa dreißigmal häufiger.",
+       "quote": "„… etwa dreißigmal häufiger, wenn andere dabei sind …“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Welche Tiere lachen laut Text? (Mehrere Antworten richtig)",
+       "options": [
+        "Schimpansen",
+        "Ratten",
+        "Hunde",
+        "Delfine"
+       ],
+       "correct": [
+        "Schimpansen",
+        "Ratten"
+       ],
+       "quote": "„Schimpansen keuchen beim Spielen, und Ratten stoßen beim Kitzeln hohe Laute aus …“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "In welchem Land gab es 1962 eine Lachepidemie?",
+       "answers": [
+        [
+         "Tansania",
+         "Tanzania"
+        ]
+       ],
+       "solution": "In Tansania.",
+       "quote": "„1962 breitete sich in einer Schule in Tansania eine Lachepidemie aus.“"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "q1-arbeitsweg",
+   "title": "Koljas Arbeitsweg",
+   "items": [
+    {
+     "id": "q1-arbeitsweg-d",
+     "type": "dialog",
+     "title": "Mit dem Rad",
+     "characterId": "kolja",
+     "lines": [
+      {
+       "who": "Kolja",
+       "text": "Seit ich mit dem Rad fahre, bin ich zwölf Minuten schneller als mit dem Bus. Außer bei Regen. Und ich spare im Monat fast fünfzig Euro für das Ticket."
+      },
+      {
+       "who": "Ida",
+       "text": "Und wo stellst du es ab?"
+      },
+      {
+       "who": "Kolja",
+       "text": "Im Hof hinter der Bäckerei Stein. Der Chef hat mir erlaubt, es an den Zaun zu schließen, wenn ich morgens ein Croissant kaufe."
+      },
+      {
+       "who": "Ida",
+       "text": "Fairer Deal."
+      },
+      {
+       "who": "Kolja",
+       "text": "Nur donnerstags nicht, da ist Markt und der Hof ist voller Lieferwagen. Dann stelle ich es am Kino ab."
+      },
+      {
+       "who": "Ida",
+       "text": "Und wenn es regnet?"
+      },
+      {
+       "who": "Kolja",
+       "text": "Dann nehme ich doch den Bus. Oder ich komme nass an. Kommt drauf an, wie spät ich dran bin."
+      }
+     ],
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Wie viel schneller ist Kolja mit dem Rad?",
+       "answers": [
+        [
+         "12",
+         "zwölf",
+         "zwoelf"
+        ]
+       ],
+       "solution": "Zwölf Minuten.",
+       "quote": "„… bin ich zwölf Minuten schneller als mit dem Bus.“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Wo stellt er sein Rad ab?",
+       "answers": [
+        [
+         "Bäckerei",
+         "Baeckerei",
+         "Stein"
+        ]
+       ],
+       "solution": "Im Hof hinter der Bäckerei Stein.",
+       "quote": "„Im Hof hinter der Bäckerei Stein.“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Was ist sein Deal mit dem Chef?",
+       "answers": [
+        [
+         "Croissant"
+        ]
+       ],
+       "solution": "Er kauft morgens ein Croissant.",
+       "quote": "„… wenn ich morgens ein Croissant kaufe.“"
+      },
+      {
+       "id": "q4",
+       "type": "recall_text",
+       "prompt": "An welchem Tag klappt das nicht?",
+       "answers": [
+        [
+         "Donnerstag",
+         "donnerstags"
+        ]
+       ],
+       "solution": "Donnerstags, wegen des Markts.",
+       "quote": "„Nur donnerstags nicht, da ist Markt …“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": [
+       "baeckerei-stein"
+      ]
+     }
+    },
+    {
+     "id": "q1-arbeitsweg-d2",
+     "type": "dialog",
+     "title": "Der Platten",
+     "characterId": "kolja",
+     "lines": [
+      {
+       "who": "Ida",
+       "text": "Kolja, du bist ja ganz nass. Hast du den Bus verpasst?"
+      },
+      {
+       "who": "Kolja",
+       "text": "Schlimmer. Platten am Vorderrad, mitten auf der Brücke. Ich musste das Rad zwanzig Minuten schieben."
+      },
+      {
+       "who": "Ida",
+       "text": "Und das Croissant?"
+      },
+      {
+       "who": "Kolja",
+       "text": "Hab ich trotzdem gekauft, der Deal gilt. Herr Stein hat mir sogar Flickzeug geliehen. Er fährt selbst jeden Sonntag Rennrad, achtzig Kilometer."
+      },
+      {
+       "who": "Ida",
+       "text": "Der Bäcker fährt Rennrad? Das erklärt die Waden."
+      },
+      {
+       "who": "Kolja",
+       "text": "Heute Abend flicke ich den Reifen in der Garage. Und morgen nehme ich ausnahmsweise die Linie 7."
+      },
+      {
+       "who": "Ida",
+       "text": "Die Linie 7 fährt ab morgen eine Umleitung, wegen der Baustelle am Kino. Nimm lieber die 12."
+      }
+     ],
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Wo hatte Kolja den Platten?",
+       "answers": [
+        [
+         "Brücke",
+         "Bruecke"
+        ]
+       ],
+       "solution": "Mitten auf der Brücke.",
+       "quote": "„Platten am Vorderrad, mitten auf der Brücke.“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Was hat der Bäcker Kolja geliehen?",
+       "answers": [
+        [
+         "Flickzeug",
+         "Flicken"
+        ]
+       ],
+       "solution": "Flickzeug.",
+       "quote": "„Herr Stein hat mir sogar Flickzeug geliehen.“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Wie weit fährt der Bäcker sonntags Rennrad?",
+       "options": [
+        "Achtzig Kilometer",
+        "Zwanzig Kilometer",
+        "Hundert Kilometer",
+        "Fünfzig Kilometer"
+       ],
+       "correct": [
+        "Achtzig Kilometer"
+       ],
+       "quote": "„Er fährt selbst jeden Sonntag Rennrad, achtzig Kilometer.“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Welche Buslinie soll Kolja morgen nehmen?",
+       "answers": [
+        [
+         "12",
+         "zwölf",
+         "zwoelf"
+        ]
+       ],
+       "solution": "Die Linie 12.",
+       "quote": "„Nimm lieber die 12.“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": [
+       "baeckerei-stein"
+      ]
+     }
+    },
+    {
+     "id": "q1-arbeitsweg-d3",
+     "type": "dialog",
+     "title": "Das neue Rad",
+     "characterId": "kolja",
+     "lines": [
+      {
+       "who": "Kolja",
+       "text": "Ida, komm mal ans Fenster. Das da unten ist mein neues Rad."
+      },
+      {
+       "who": "Ida",
+       "text": "Das grüne? Das hat ja einen Korb vorne."
+      },
+      {
+       "who": "Kolja",
+       "text": "Für die Croissants. Und es hat Nabendynamo und pannensichere Reifen. Nach drei Platten in einem Monat hatte ich genug."
+      },
+      {
+       "who": "Ida",
+       "text": "Und das alte Rad?"
+      },
+      {
+       "who": "Kolja",
+       "text": "Hab ich Herrn Steins Tochter geschenkt, die ist vierzehn und fährt damit jetzt zur Schule."
+      },
+      {
+       "who": "Ida",
+       "text": "Wie viel hat das neue gekostet?"
+      },
+      {
+       "who": "Kolja",
+       "text": "Sechshundert Euro, gebraucht. Das sind nach meiner Rechnung genau zwölf Monate Busticket."
+      },
+      {
+       "who": "Ida",
+       "text": "Also fährt es sich ab nächstem Sommer von selbst. Solange es nicht regnet."
+      }
+     ],
+     "subExercises": [
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Welche Farbe hat das neue Rad?",
+       "options": [
+        "Grün",
+        "Rot",
+        "Blau",
+        "Schwarz"
+       ],
+       "correct": [
+        "Grün"
+       ],
+       "quote": "„Das grüne?“"
+      },
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Wem hat Kolja das alte Rad geschenkt?",
+       "answers": [
+        [
+         "Tochter",
+         "Steins Tochter"
+        ]
+       ],
+       "solution": "Der Tochter vom Bäcker Stein.",
+       "quote": "„Hab ich Herrn Steins Tochter geschenkt …“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Was hat das neue Rad gekostet?",
+       "answers": [
+        [
+         "600",
+         "sechshundert"
+        ]
+       ],
+       "solution": "Sechshundert Euro, gebraucht.",
+       "quote": "„Sechshundert Euro, gebraucht.“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Wie viele Monate Busticket entspricht das?",
+       "answers": [
+        [
+         "zwölf",
+         "zwoelf",
+         "12"
+        ]
+       ],
+       "solution": "Zwölf Monate.",
+       "quote": "„… genau zwölf Monate Busticket.“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": [
+       "baeckerei-stein"
+      ]
+     }
+    }
+   ]
+  }
+ ]
 }
