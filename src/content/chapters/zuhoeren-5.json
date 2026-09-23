@@ -1,0 +1,121 @@
+{
+  "id": "zuhoeren-5",
+  "order": 5,
+  "title": "Lange Gespräche",
+  "track": "listen",
+  "difficulty": 5,
+  "lessons": [
+    {
+      "id": "z5-familienfest",
+      "title": "Familienfest",
+      "items": [
+        {
+          "id": "z5-familienfest-d",
+          "type": "dialog",
+          "title": "Familienfest",
+          "lines": [
+            { "who": "Tante Vera", "text": "Zum Siebzigsten von Opa kommen alle: Wir sind 23 Leute, der Saal im Gasthof Krone ist ab 18 Uhr gebucht." },
+            { "who": "Ole", "text": "Wer hält die Rede?" },
+            { "who": "Tante Vera", "text": "Onkel Rüdiger — aber nur fünf Minuten, hab ich ihm gesagt. Letztes Mal hat er zwanzig geredet." },
+            { "who": "Ole", "text": "Und das Geschenk?" },
+            { "who": "Tante Vera", "text": "Eine Ballonfahrt über den Chiemsee. Das wollte Opa schon immer. Die Gutscheine liegen bei mir, die Überraschung gibt's beim Nachtisch." },
+            { "who": "Pia", "text": "Ich bringe die Fotowand mit. Ich hab alte Bilder eingescannt, sogar das von der Hochzeit 1978." },
+            { "who": "Tante Vera", "text": "Wunderbar. Ach, und Oma möchte keine Blumen, sondern lieber Samen für ihren Kräutergarten." }
+          ],
+          "questions": [
+            { "id": "q1", "prompt": "Wie viele Leute kommen zum Fest?", "answers": [["23", "dreiundzwanzig"]], "solution": "23.", "quote": "„Wir sind 23 Leute …“" },
+            { "id": "q2", "prompt": "Wo ist der Saal gebucht?", "answers": [["Krone"]], "solution": "Im Gasthof Krone.", "quote": "„… der Saal im Gasthof Krone ist ab 18 Uhr gebucht.“" },
+            { "id": "q3", "prompt": "Wer hält die Rede?", "answers": [["Rüdiger", "Ruediger", "Onkel"]], "solution": "Onkel Rüdiger.", "quote": "„Onkel Rüdiger — aber nur fünf Minuten …“" },
+            { "id": "q4", "prompt": "Was bekommt Opa geschenkt?", "answers": [["Ballon", "Ballonfahrt", "Heißluftballon"], ["Chiemsee"]], "solution": "Eine Ballonfahrt über den Chiemsee.", "quote": "„Eine Ballonfahrt über den Chiemsee.“" },
+            { "id": "q5", "prompt": "Aus welchem Jahr stammt das Hochzeitsfoto?", "answers": [["1978"]], "solution": "1978.", "quote": "„… sogar das von der Hochzeit 1978.“" },
+            { "id": "q6", "prompt": "Was wünscht sich Oma statt Blumen?", "answers": [["Samen", "Saatgut", "Kräutersamen"]], "solution": "Samen für ihren Kräutergarten.", "quote": "„… sondern lieber Samen für ihren Kräutergarten.“" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "z5-jobwechsel",
+      "title": "Jobwechsel",
+      "items": [
+        {
+          "id": "z5-jobwechsel-d",
+          "type": "dialog",
+          "title": "Jobwechsel",
+          "lines": [
+            { "who": "Deniz", "text": "Ich hab gekündigt. Ab dem ersten Oktober arbeite ich bei einer Stiftung, die Leseförderung an Grundschulen macht." },
+            { "who": "Carla", "text": "Wow! Und dein Chef?" },
+            { "who": "Deniz", "text": "Herr Wendt war erst sauer, dann hat er mir zehn Prozent mehr Gehalt angeboten. Aber es geht mir nicht ums Geld." },
+            { "who": "Carla", "text": "Wo sitzt die Stiftung?" },
+            { "who": "Deniz", "text": "In Potsdam, in einer alten Villa am Heiligen See. Zwei Tage die Woche Homeoffice, sonst pendle ich mit dem Regionalexpress." },
+            { "who": "Carla", "text": "Und dein Team hier?" },
+            { "who": "Deniz", "text": "Meine Nachfolgerin ist Aysel, die arbeite ich noch drei Wochen ein. Am letzten Tag gibt's Waffeln — das ist bei uns Tradition." }
+          ],
+          "questions": [
+            { "id": "q1", "prompt": "Ab wann arbeitet Deniz bei der Stiftung?", "answers": [["1", "ersten", "erste", "erster"], ["Oktober"]], "solution": "Ab dem 1. Oktober.", "quote": "„Ab dem ersten Oktober arbeite ich bei einer Stiftung …“" },
+            { "id": "q2", "prompt": "Womit beschäftigt sich die Stiftung?", "answers": [["Leseförderung", "Lesefoerderung", "Lesen", "Lese"]], "solution": "Mit Leseförderung an Grundschulen.", "quote": "„… eine Stiftung, die Leseförderung an Grundschulen macht.“" },
+            { "id": "q3", "prompt": "Was hat Herr Wendt angeboten?", "answers": [["10", "zehn"]], "solution": "Zehn Prozent mehr Gehalt.", "quote": "„… dann hat er mir zehn Prozent mehr Gehalt angeboten.“" },
+            { "id": "q4", "prompt": "In welcher Stadt sitzt die Stiftung?", "answers": [["Potsdam"]], "solution": "In Potsdam.", "quote": "„In Potsdam, in einer alten Villa am Heiligen See.“" },
+            { "id": "q5", "prompt": "Wie heißt die Nachfolgerin?", "answers": [["Aysel", "Aysl"]], "solution": "Aysel.", "quote": "„Meine Nachfolgerin ist Aysel …“" },
+            { "id": "q6", "prompt": "Was gibt es am letzten Tag?", "answers": [["Waffeln", "Waffel"]], "solution": "Waffeln.", "quote": "„Am letzten Tag gibt's Waffeln — das ist bei uns Tradition.“" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "z5-reise",
+      "title": "Reisebericht",
+      "items": [
+        {
+          "id": "z5-reise-d",
+          "type": "dialog",
+          "title": "Reisebericht",
+          "lines": [
+            { "who": "Jakob", "text": "Die Wanderung auf Madeira war der Wahnsinn. Wir sind die Levadas entlang, das sind alte Bewässerungskanäle, teilweise über 200 Jahre alt." },
+            { "who": "Nele", "text": "Und das Wetter?" },
+            { "who": "Jakob", "text": "Oben am Pico Ruivo war dichter Nebel, man hat keine drei Meter weit gesehen. Unten in Funchal hatte es 24 Grad." },
+            { "who": "Nele", "text": "Habt ihr euch verlaufen?" },
+            { "who": "Jakob", "text": "Einmal. Ein Schäfer namens Afonso hat uns dann den Weg gezeigt und uns Käse von seinen Ziegen geschenkt." },
+            { "who": "Nele", "text": "Klingt kitschig schön." },
+            { "who": "Jakob", "text": "War es auch. Nur mein Rucksack ist beim Rückflug in Lissabon hängen geblieben. Der kam drei Tage später." }
+          ],
+          "questions": [
+            { "id": "q1", "prompt": "Auf welcher Insel war Jakob wandern?", "answers": [["Madeira"]], "solution": "Auf Madeira.", "quote": "„Die Wanderung auf Madeira war der Wahnsinn.“" },
+            { "id": "q2", "prompt": "Was sind Levadas?", "answers": [["Bewässerung", "Bewässerungskanäle", "Kanal", "Kanäle", "Wasserkanal"]], "solution": "Alte Bewässerungskanäle.", "quote": "„… das sind alte Bewässerungskanäle, teilweise über 200 Jahre alt.“" },
+            { "id": "q3", "prompt": "Wie war das Wetter am Pico Ruivo?", "answers": [["Nebel", "neblig"]], "solution": "Dichter Nebel.", "quote": "„Oben am Pico Ruivo war dichter Nebel …“" },
+            { "id": "q4", "prompt": "Wie warm war es in Funchal?", "answers": [["24", "vierundzwanzig"]], "solution": "24 Grad.", "quote": "„Unten in Funchal hatte es 24 Grad.“" },
+            { "id": "q5", "prompt": "Wie hieß der Schäfer?", "answers": [["Afonso", "Alfonso", "Afonzo"]], "solution": "Afonso.", "quote": "„Ein Schäfer namens Afonso hat uns dann den Weg gezeigt …“" },
+            { "id": "q6", "prompt": "Wo ist der Rucksack hängen geblieben?", "answers": [["Lissabon", "Lisboa"]], "solution": "In Lissabon.", "quote": "„… mein Rucksack ist beim Rückflug in Lissabon hängen geblieben.“" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "z5-verein",
+      "title": "Vereinssitzung",
+      "items": [
+        {
+          "id": "z5-verein-d",
+          "type": "dialog",
+          "title": "Vereinssitzung",
+          "lines": [
+            { "who": "Frau Albrecht", "text": "Punkt eins: Der Mitgliedsbeitrag steigt ab Januar von 60 auf 72 Euro im Jahr, wegen der neuen Hallenmiete." },
+            { "who": "Herr Özdemir", "text": "Der Jugendbeitrag bleibt dafür bei 30 Euro." },
+            { "who": "Frau Albrecht", "text": "Punkt zwei: das Sommerfest. Es ist am 5. Juli auf dem Sportplatz. Frau Nowak organisiert die Tombola, Hauptpreis ist ein Fahrrad vom Radhaus Meyer." },
+            { "who": "Herr Kraus", "text": "Und wer macht den Grill?" },
+            { "who": "Frau Albrecht", "text": "Die Handballabteilung. Punkt drei: Wir brauchen einen neuen Platzwart. Herr Vogel hört nach 22 Jahren auf." },
+            { "who": "Herr Özdemir", "text": "Er bekommt zum Abschied die Ehrenmitgliedschaft." }
+          ],
+          "questions": [
+            { "id": "q1", "prompt": "Wie hoch ist der neue Jahresbeitrag?", "answers": [["72", "zweiundsiebzig"]], "solution": "72 Euro.", "quote": "„Der Mitgliedsbeitrag steigt ab Januar von 60 auf 72 Euro im Jahr …“" },
+            { "id": "q2", "prompt": "Warum steigt der Beitrag?", "answers": [["Hallenmiete", "Halle", "Miete"]], "solution": "Wegen der neuen Hallenmiete.", "quote": "„… wegen der neuen Hallenmiete.“" },
+            { "id": "q3", "prompt": "Wann ist das Sommerfest?", "answers": [["5", "fünften", "fuenften"], ["Juli"]], "solution": "Am 5. Juli.", "quote": "„Es ist am 5. Juli auf dem Sportplatz.“" },
+            { "id": "q4", "prompt": "Wer organisiert die Tombola?", "answers": [["Nowak"]], "solution": "Frau Nowak.", "quote": "„Frau Nowak organisiert die Tombola …“" },
+            { "id": "q5", "prompt": "Was ist der Hauptpreis?", "answers": [["Fahrrad", "Rad"]], "solution": "Ein Fahrrad vom Radhaus Meyer.", "quote": "„… Hauptpreis ist ein Fahrrad vom Radhaus Meyer.“" },
+            { "id": "q6", "prompt": "Wie lange war Herr Vogel Platzwart?", "answers": [["22", "zweiundzwanzig"]], "solution": "22 Jahre.", "quote": "„Herr Vogel hört nach 22 Jahren auf.“" }
+          ]
+        }
+      ]
+    },
+    { "id": "z5-checkpoint", "type": "checkpoint", "title": "Checkpoint" }
+  ]
+}

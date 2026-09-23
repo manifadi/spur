@@ -1,0 +1,113 @@
+{
+  "id": "lesen-4",
+  "order": 4,
+  "title": "Argumenten folgen",
+  "track": "read",
+  "difficulty": 4,
+  "lessons": [
+    {
+      "id": "l4-stadtbaeume",
+      "title": "Stadtbäume",
+      "items": [
+        {
+          "id": "l4-stadtbaeume-t",
+          "type": "text",
+          "title": "Bäume gegen die Hitze in der Stadt",
+          "topic": "Stadtbäume & Hitze",
+          "paragraphs": [
+            "In Städten ist es im Sommer oft deutlich heißer als im Umland. Asphalt und Beton speichern tagsüber Wärme und geben sie nachts wieder ab. Man spricht von der städtischen Wärmeinsel.",
+            "Bäume wirken auf zwei Arten dagegen. Ihr Schatten verhindert, dass sich Straßen und Fassaden aufheizen. Und über ihre Blätter verdunsten sie Wasser, was die Umgebung kühlt, ähnlich wie Schweiß auf der Haut.",
+            "Ein großer Stadtbaum kann an einem heißen Tag mehrere hundert Liter Wasser verdunsten. Unter Baumkronen sind Oberflächen oft um zehn Grad und mehr kühler als in der prallen Sonne.",
+            "Allerdings leiden auch Bäume unter Hitze und Trockenheit. Viele Städte pflanzen deshalb inzwischen Arten, die mit wärmerem Klima besser zurechtkommen, etwa aus Südosteuropa.",
+            "Fachleute betonen: Ein einzelner Baum hilft wenig. Erst viele Bäume, verteilt über ganze Straßenzüge, senken die Temperatur spürbar."
+          ],
+          "keyPoints": [
+            "Asphalt und Beton speichern Wärme (Wärmeinsel)",
+            "Schatten verhindert das Aufheizen",
+            "Verdunstung über die Blätter kühlt wie Schweiß",
+            "Städte pflanzen hitzefestere Arten",
+            "Erst viele Bäume senken die Temperatur spürbar"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "l4-viertagewoche",
+      "title": "Vier-Tage-Woche",
+      "items": [
+        {
+          "id": "l4-viertagewoche-t",
+          "type": "text",
+          "title": "Die Vier-Tage-Woche",
+          "topic": "Vier-Tage-Woche",
+          "paragraphs": [
+            "Vier Tage arbeiten bei vollem Lohn: Das klingt nach einem Traum. In Großbritannien testeten 2022 rund 60 Unternehmen genau das, ein halbes Jahr lang.",
+            "Die meisten Firmen wollten danach dabei bleiben. Die Beschäftigten berichteten von weniger Stress und besserem Schlaf, die Umsätze blieben im Schnitt stabil. Voraussetzung war allerdings, dass Abläufe gestrafft wurden, etwa durch kürzere Meetings.",
+            "Kritiker wenden ein, dass sich die Ergebnisse nicht auf alle Branchen übertragen lassen. In Pflege, Handel oder Produktion lässt sich Arbeit nicht einfach verdichten. Dort bräuchte man mehr Personal.",
+            "Außerdem nahmen an solchen Tests vor allem Firmen teil, die ohnehin offen für das Modell waren. Das kann die Ergebnisse besser aussehen lassen, als sie im Durchschnitt wären.",
+            "Ein Fazit vieler Forschender: Die Vier-Tage-Woche kann funktionieren, aber nicht überall und nicht ohne Umbau der Arbeit."
+          ],
+          "keyPoints": [
+            "2022 testeten rund 60 britische Firmen die Vier-Tage-Woche",
+            "Die meisten blieben dabei: weniger Stress, Umsatz stabil",
+            "Voraussetzung: Abläufe straffen, etwa kürzere Meetings",
+            "Pflege, Handel und Produktion bräuchten mehr Personal",
+            "Teilnehmende Firmen waren schon offen dafür (Verzerrung)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "l4-sprachen",
+      "title": "Zwei Sprachen",
+      "items": [
+        {
+          "id": "l4-sprachen-t",
+          "type": "text",
+          "title": "Zwei Sprachen im Kopf",
+          "topic": "Mehrsprachigkeit",
+          "paragraphs": [
+            "Lange glaubte man, Kinder kämen durcheinander, wenn sie zwei Sprachen gleichzeitig lernen. Heute weiß man: Mehrsprachig aufwachsende Kinder erreichen die üblichen Meilensteine der Sprachentwicklung im gleichen Zeitraum.",
+            "Zwar kennen sie in jeder einzelnen Sprache manchmal weniger Wörter als einsprachige Kinder. Zählt man beide Sprachen zusammen, ist ihr Wortschatz aber meist genauso groß.",
+            "Dass sie Sprachen mischen, ist kein Zeichen von Verwirrung. Auch mehrsprachige Erwachsene wechseln oft mitten im Satz, wenn ein Wort in der anderen Sprache besser passt.",
+            "Ob Mehrsprachigkeit darüber hinaus das Denken schult, etwa die Fähigkeit, Aufmerksamkeit zu steuern, ist umstritten. Frühe Studien fanden Vorteile, neuere und größere Studien oft nicht."
+          ],
+          "keyPoints": [
+            "Früher glaubte man, zwei Sprachen verwirren Kinder",
+            "Mehrsprachige Kinder entwickeln Sprache im gleichen Zeitraum",
+            "Pro Sprache teils weniger Wörter, zusammen gleich viele",
+            "Sprachen mischen ist kein Zeichen von Verwirrung",
+            "Denkvorteile sind umstritten, große Studien fanden oft keine"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "l4-laerm",
+      "title": "Lärm",
+      "items": [
+        {
+          "id": "l4-laerm-t",
+          "type": "text",
+          "title": "Wie Lärm krank macht",
+          "topic": "Lärm & Gesundheit",
+          "paragraphs": [
+            "Lärm nervt nicht nur. Er setzt den Körper unter Stress, auch dann, wenn wir ihn gar nicht mehr bewusst wahrnehmen.",
+            "Das Gehör bleibt im Schlaf aktiv. Verkehrslärm in der Nacht lässt den Puls steigen und Stresshormone ausschütten, selbst wenn wir nicht aufwachen.",
+            "Wer über Jahre an einer lauten Straße lebt, hat laut großen Studien ein höheres Risiko für Bluthochdruck und Herz-Kreislauf-Erkrankungen.",
+            "Die Weltgesundheitsorganisation empfiehlt deshalb, dass Straßenverkehrslärm im Tagesmittel unter 53 Dezibel bleibt, nachts unter 45. Zum Vergleich: Ein normales Gespräch hat etwa 60 Dezibel.",
+            "Helfen können Schallschutzfenster, leisere Straßenbeläge, Tempo 30 und ein Schlafzimmer auf der ruhigen Seite der Wohnung."
+          ],
+          "keyPoints": [
+            "Lärm stresst auch, wenn wir ihn nicht bewusst hören",
+            "Im Schlaf steigen Puls und Stresshormone",
+            "Dauerlärm erhöht das Risiko für Bluthochdruck und Herzkrankheiten",
+            "WHO: unter 53 Dezibel am Tag, nachts unter 45",
+            "Hilfe: Schallschutz, leise Beläge, Tempo 30, ruhiges Schlafzimmer"
+          ]
+        }
+      ]
+    },
+    { "id": "l4-checkpoint", "type": "checkpoint", "title": "Checkpoint" }
+  ]
+}

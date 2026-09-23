@@ -1,0 +1,78 @@
+{
+  "id": "zuhoeren-1",
+  "order": 1,
+  "title": "Beiläufige Details",
+  "track": "listen",
+  "difficulty": 1,
+  "lessons": [
+    {
+      "id": "z1-kaffeekueche",
+      "title": "Kaffeeküche",
+      "items": [
+        {
+          "id": "z1-kaffeekueche-d",
+          "type": "dialog",
+          "title": "Kaffeeküche",
+          "text": "Morgen! Ich bin heute erst um zehn gekommen, mein Zug hatte schon wieder Verspätung. Ach, und falls du Tee suchst: Die Dose mit dem Pfefferminztee steht jetzt im oberen Fach, neben dem Zucker.",
+          "questions": [
+            { "id": "q1", "prompt": "Um wie viel Uhr ist die Kollegin gekommen?", "answers": [["10", "zehn"]], "solution": "Um zehn.", "quote": "„Ich bin heute erst um zehn gekommen …“" },
+            { "id": "q2", "prompt": "Welcher Tee steht im oberen Fach?", "answers": [["Pfefferminz", "Pfefferminztee", "Minze", "Minztee"]], "solution": "Pfefferminztee.", "quote": "„Die Dose mit dem Pfefferminztee steht jetzt im oberen Fach …“" },
+            { "id": "q3", "prompt": "Was steht neben der Teedose?", "answers": [["Zucker"]], "solution": "Der Zucker.", "quote": "„… im oberen Fach, neben dem Zucker.“" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "z1-umzug",
+      "title": "Umzug",
+      "items": [
+        {
+          "id": "z1-umzug-d",
+          "type": "dialog",
+          "title": "Umzug",
+          "text": "Nora ist am Samstag umgezogen. Der Lieferwagen kam zwei Stunden zu spät, aber ihr Bruder Jonas hat fast alles alleine hochgetragen — der wird nächsten Monat 30.",
+          "questions": [
+            { "id": "q1", "prompt": "Wer hat bei Noras Umzug geholfen?", "answers": [["Jonas", "Bruder"]], "solution": "Ihr Bruder Jonas.", "quote": "„… aber ihr Bruder Jonas hat fast alles alleine hochgetragen — der wird nächsten Monat 30.“" },
+            { "id": "q2", "prompt": "Wie alt wird Jonas nächsten Monat?", "answers": [["30", "dreißig", "dreissig"]], "solution": "30.", "quote": "„… der wird nächsten Monat 30.“" },
+            { "id": "q3", "prompt": "Wie viel zu spät kam der Lieferwagen?", "answers": [["zwei Stunden", "2 Stunden", "2 Std", "zwei Std"]], "solution": "Zwei Stunden.", "quote": "„Der Lieferwagen kam zwei Stunden zu spät …“" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "z1-feierabend",
+      "title": "Feierabend",
+      "items": [
+        {
+          "id": "z1-feierabend-d",
+          "type": "dialog",
+          "title": "Feierabend",
+          "text": "Ich geh heute direkt nach Hause — meine Katze Pepper muss um sechs zum Tierarzt. Danach koche ich Kürbissuppe, das Rezept hab ich von meiner Oma.",
+          "questions": [
+            { "id": "q1", "prompt": "Wie heißt die Katze?", "answers": [["Pepper", "Peppa", "Peper"]], "solution": "Pepper.", "quote": "„… meine Katze Pepper muss um sechs zum Tierarzt.“" },
+            { "id": "q2", "prompt": "Um wie viel Uhr ist der Tierarzttermin?", "answers": [["6", "sechs", "18"]], "solution": "Um sechs.", "quote": "„… muss um sechs zum Tierarzt.“" },
+            { "id": "q3", "prompt": "Was gibt es danach zu essen?", "answers": [["Kürbissuppe", "Kürbis", "Kuerbis"]], "solution": "Kürbissuppe.", "quote": "„Danach koche ich Kürbissuppe …“" },
+            { "id": "q4", "prompt": "Von wem ist das Rezept?", "answers": [["Oma", "Großmutter", "Grossmutter"]], "solution": "Von ihrer Oma.", "quote": "„… das Rezept hab ich von meiner Oma.“" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "z1-wochenmarkt",
+      "title": "Wochenmarkt",
+      "items": [
+        {
+          "id": "z1-wochenmarkt-d",
+          "type": "dialog",
+          "title": "Wochenmarkt",
+          "text": "Am Käsestand gab's heute keinen Bergkäse mehr, also hab ich Ziegenkäse genommen. Der Verkäufer meinte, der Stand zieht nächste Woche um — dann steht er gegenüber vom Brunnen.",
+          "questions": [
+            { "id": "q1", "prompt": "Welcher Käse war ausverkauft?", "answers": [["Bergkäse", "Bergkaese"]], "solution": "Bergkäse.", "quote": "„Am Käsestand gab's heute keinen Bergkäse mehr …“" },
+            { "id": "q2", "prompt": "Welchen Käse hat sie stattdessen genommen?", "answers": [["Ziegenkäse", "Ziegenkaese", "Ziege"]], "solution": "Ziegenkäse.", "quote": "„… also hab ich Ziegenkäse genommen.“" },
+            { "id": "q3", "prompt": "Wo steht der Stand ab nächster Woche?", "answers": [["Brunnen"]], "solution": "Gegenüber vom Brunnen.", "quote": "„… dann steht er gegenüber vom Brunnen.“" }
+          ]
+        }
+      ]
+    }
+  ]
+}

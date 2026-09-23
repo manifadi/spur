@@ -1,0 +1,101 @@
+{
+  "id": "querbeet-1",
+  "order": 1,
+  "title": "Querbeet",
+  "track": "mixed",
+  "difficulty": 3,
+  "lessons": [
+    {
+      "id": "q1-flohmarkt",
+      "title": "Flohmarkt",
+      "items": [
+        {
+          "id": "q1-flohmarkt-d",
+          "type": "dialog",
+          "title": "Flohmarkt",
+          "lines": [
+            { "who": "Emre", "text": "Guck mal, ich hab einen Plattenspieler von 1974 gefunden. Der Verkäufer wollte 40 Euro, ich hab ihn auf 25 runtergehandelt." },
+            { "who": "Sophie", "text": "Funktioniert der überhaupt?" },
+            { "who": "Emre", "text": "Die Nadel fehlt, die bestelle ich nach. Und für dich hab ich auch was: eine alte Stempeluhr aus einer Fabrik in Wuppertal." },
+            { "who": "Sophie", "text": "Du hast dir gemerkt, dass ich Uhren sammle? Wahnsinn." }
+          ],
+          "questions": [
+            { "id": "q1", "prompt": "Aus welchem Jahr ist der Plattenspieler?", "answers": [["1974"]], "solution": "1974.", "quote": "„… einen Plattenspieler von 1974 gefunden.“" },
+            { "id": "q2", "prompt": "Wie viel hat Emre am Ende bezahlt?", "answers": [["25", "fünfundzwanzig"]], "solution": "25 Euro.", "quote": "„Der Verkäufer wollte 40 Euro, ich hab ihn auf 25 runtergehandelt.“" },
+            { "id": "q3", "prompt": "Was fehlt am Plattenspieler?", "answers": [["Nadel"]], "solution": "Die Nadel.", "quote": "„Die Nadel fehlt, die bestelle ich nach.“" },
+            { "id": "q4", "prompt": "Woher stammt die Stempeluhr?", "answers": [["Wuppertal"]], "solution": "Aus einer Fabrik in Wuppertal.", "quote": "„… eine alte Stempeluhr aus einer Fabrik in Wuppertal.“" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q1-gaehnen",
+      "title": "Gähnen",
+      "items": [
+        {
+          "id": "q1-gaehnen-t",
+          "type": "text",
+          "title": "Warum Gähnen ansteckt",
+          "topic": "Ansteckendes Gähnen",
+          "paragraphs": [
+            "Sieht man jemanden gähnen, gähnt man oft selbst. Das gibt es nicht nur bei Menschen, sondern auch bei Schimpansen und bei Hunden, die ihre Menschen gähnen sehen.",
+            "Eine verbreitete Erklärung verbindet ansteckendes Gähnen mit sozialer Nähe: Bei Familie und Freunden steckt es häufiger an als bei Fremden.",
+            "Kleine Kinder lassen sich übrigens kaum anstecken. Das beginnt meist erst mit etwa vier oder fünf Jahren."
+          ],
+          "keyPoints": [
+            "Gähnen steckt Menschen, Schimpansen und Hunde an",
+            "Bei Nahestehenden steckt es häufiger an",
+            "Kinder werden erst mit etwa 4 bis 5 Jahren angesteckt"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q1-arbeitsweg",
+      "title": "Arbeitsweg",
+      "items": [
+        {
+          "id": "q1-arbeitsweg-d",
+          "type": "dialog",
+          "title": "Arbeitsweg",
+          "lines": [
+            { "who": "Kolja", "text": "Seit ich mit dem Rad fahre, bin ich zwölf Minuten schneller als mit dem Bus. Außer bei Regen." },
+            { "who": "Ida", "text": "Und wo stellst du es ab?" },
+            { "who": "Kolja", "text": "Im Hof hinter der Bäckerei Stein. Der Chef hat mir erlaubt, es an den Zaun zu schließen, wenn ich morgens ein Croissant kaufe." },
+            { "who": "Ida", "text": "Fairer Deal." },
+            { "who": "Kolja", "text": "Nur donnerstags nicht, da ist Markt und der Hof ist voller Lieferwagen." }
+          ],
+          "questions": [
+            { "id": "q1", "prompt": "Wie viel schneller ist Kolja mit dem Rad?", "answers": [["12", "zwölf", "zwoelf"]], "solution": "Zwölf Minuten.", "quote": "„… bin ich zwölf Minuten schneller als mit dem Bus.“" },
+            { "id": "q2", "prompt": "Wo stellt er sein Rad ab?", "answers": [["Bäckerei", "Baeckerei", "Stein"]], "solution": "Im Hof hinter der Bäckerei Stein.", "quote": "„Im Hof hinter der Bäckerei Stein.“" },
+            { "id": "q3", "prompt": "Was ist sein Deal mit dem Chef?", "answers": [["Croissant"]], "solution": "Er kauft morgens ein Croissant.", "quote": "„… wenn ich morgens ein Croissant kaufe.“" },
+            { "id": "q4", "prompt": "An welchem Tag klappt das nicht?", "answers": [["Donnerstag", "donnerstags"]], "solution": "Donnerstags, wegen des Markts.", "quote": "„Nur donnerstags nicht, da ist Markt …“" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q1-wale",
+      "title": "Walgesang",
+      "items": [
+        {
+          "id": "q1-wale-t",
+          "type": "text",
+          "title": "Der Gesang der Buckelwale",
+          "topic": "Buckelwale",
+          "paragraphs": [
+            "Männliche Buckelwale singen lange, komplexe Lieder aus wiederkehrenden Motiven. Ein Lied kann über zwanzig Minuten dauern und wird stundenlang wiederholt.",
+            "Alle Männchen einer Region singen ungefähr dasselbe Lied. Es verändert sich aber nach und nach. Manchmal wird es sogar von einem ganz neuen Lied abgelöst, das sich von Population zu Population über den Pazifik ausbreitet, wie ein Hit.",
+            "Warum die Wale singen, ist noch nicht ganz geklärt. Vermutlich hat es mit der Fortpflanzung zu tun."
+          ],
+          "keyPoints": [
+            "Männchen singen lange Lieder aus Motiven",
+            "Alle Männchen einer Region singen fast dasselbe",
+            "Neue Lieder verbreiten sich über den Pazifik wie ein Hit",
+            "Der Grund ist unklar, vermutlich Fortpflanzung"
+          ]
+        }
+      ]
+    }
+  ]
+}

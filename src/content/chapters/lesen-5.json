@@ -1,0 +1,118 @@
+{
+  "id": "lesen-5",
+  "order": 5,
+  "title": "Dichte Texte",
+  "track": "read",
+  "difficulty": 5,
+  "lessons": [
+    {
+      "id": "l5-zugvoegel",
+      "title": "Zugvögel",
+      "items": [
+        {
+          "id": "l5-zugvoegel-t",
+          "type": "text",
+          "title": "Wie Zugvögel ihren Weg finden",
+          "topic": "Navigation der Zugvögel",
+          "paragraphs": [
+            "Jedes Jahr fliegen Milliarden Vögel Tausende Kilometer zwischen Brutgebiet und Winterquartier. Oft finden sie sogar denselben Garten wieder.",
+            "Dafür nutzen sie mehrere Kompasse. Tagsüber orientieren sich viele am Stand der Sonne und gleichen ihn mit ihrer inneren Uhr ab. Nachtzieher lesen die Sterne: Als Jungvögel lernen sie, um welchen Punkt sich der Himmel dreht, nämlich um den Polarstern.",
+            "Außerdem spüren Vögel das Magnetfeld der Erde. Vermutlich spielt dabei ein Eiweiß im Auge eine Rolle, das Cryptochrom. Ganz geklärt ist das noch nicht.",
+            "Auf den letzten Kilometern helfen Landmarken wie Küsten, Flüsse und Gebirge. Manche Arten nutzen wohl auch Gerüche.",
+            "Erstaunlich ist der Kuckuck: Junge Kuckucke fliegen allein nach Afrika, ohne ihre Eltern je kennengelernt zu haben. Die Route ist ihnen angeboren."
+          ],
+          "keyPoints": [
+            "Sonnenkompass, abgeglichen mit der inneren Uhr",
+            "Nachtzieher orientieren sich an den Sternen um den Polarstern",
+            "Sie spüren das Magnetfeld, vermutlich über Cryptochrom im Auge",
+            "Landmarken wie Küsten und Flüsse für die letzten Kilometer",
+            "Manche Arten nutzen Gerüche",
+            "Junge Kuckucke fliegen allein, die Route ist angeboren"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "l5-antibiotika",
+      "title": "Antibiotika",
+      "items": [
+        {
+          "id": "l5-antibiotika-t",
+          "type": "text",
+          "title": "Wenn Antibiotika nicht mehr wirken",
+          "topic": "Antibiotika-Resistenz",
+          "paragraphs": [
+            "1928 bemerkte Alexander Fleming, dass ein Schimmelpilz in einer seiner Bakterienkulturen die Bakterien abtötete. Aus dieser Beobachtung entstand das Penicillin, das erste breit eingesetzte Antibiotikum.",
+            "Schon in seiner Nobelpreisrede 1945 warnte Fleming: Werden Antibiotika zu niedrig dosiert oder falsch genommen, können Bakterien resistent werden.",
+            "Das Prinzip ist Evolution im Zeitraffer. Unter Millionen Bakterien sind einige zufällig weniger empfindlich. Sie überleben die Behandlung und vermehren sich. Zudem können Bakterien Resistenzgene untereinander weitergeben, sogar zwischen verschiedenen Arten.",
+            "Besonders problematisch ist der massenhafte Einsatz, etwa bei Erkältungen, gegen die Antibiotika gar nicht helfen, weil meist Viren dahinterstecken. Auch in der Tierhaltung werden viele Antibiotika verbraucht.",
+            "Was jede und jeder tun kann: Antibiotika nur nehmen, wenn sie verordnet sind, und genau so, wie es verordnet wurde. Reste nicht aufheben, um sie später auf eigene Faust zu nehmen."
+          ],
+          "keyPoints": [
+            "Fleming entdeckte 1928 das Penicillin durch einen Schimmelpilz",
+            "Er warnte schon 1945 vor Resistenzen",
+            "Weniger empfindliche Bakterien überleben und vermehren sich",
+            "Bakterien geben Resistenzgene weiter, auch an andere Arten",
+            "Gegen Erkältungen helfen Antibiotika nicht, meist sind es Viren",
+            "Nur nach Verordnung nehmen, keine Reste aufheben"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "l5-kontinente",
+      "title": "Kontinente",
+      "items": [
+        {
+          "id": "l5-kontinente-t",
+          "type": "text",
+          "title": "Wandernde Kontinente",
+          "topic": "Kontinentaldrift",
+          "paragraphs": [
+            "1912 stellte der Meteorologe Alfred Wegener eine kühne These vor: Die Kontinente bildeten einst einen einzigen Urkontinent und sind seitdem auseinandergedriftet.",
+            "Seine Belege: Die Küsten von Südamerika und Afrika passen wie Puzzleteile zusammen, und auf beiden Seiten des Atlantiks finden sich die gleichen Fossilien und Gesteinsschichten.",
+            "Die meisten Geologen lehnten die Idee ab, denn Wegener konnte nicht erklären, welche Kraft ganze Kontinente bewegen sollte. Er starb 1930 auf einer Grönland-Expedition, ohne Anerkennung.",
+            "Die Wende kam in den 1960er-Jahren: Messungen am Meeresboden zeigten, dass an den mittelozeanischen Rücken ständig neuer Ozeanboden entsteht und die Platten auseinanderschiebt.",
+            "Heute ist die Plattentektonik Grundwissen. Die Platten bewegen sich wenige Zentimeter pro Jahr, etwa so schnell, wie Fingernägel wachsen."
+          ],
+          "keyPoints": [
+            "Wegener 1912: ein Urkontinent, der auseinanderdriftete",
+            "Die Küsten von Südamerika und Afrika passen zusammen",
+            "Gleiche Fossilien und Gesteine auf beiden Seiten des Atlantiks",
+            "Abgelehnt, weil die antreibende Kraft fehlte",
+            "Bestätigt in den 1960ern: neuer Ozeanboden an den Rücken",
+            "Die Platten bewegen sich einige Zentimeter pro Jahr"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "l5-konserve",
+      "title": "Konservendose",
+      "items": [
+        {
+          "id": "l5-konserve-t",
+          "type": "text",
+          "title": "Die Erfindung der Konservendose",
+          "topic": "Die Konservendose",
+          "paragraphs": [
+            "Um 1800 hatte Frankreichs Armee ein Problem: Der Proviant verdarb auf langen Feldzügen. Die Regierung setzte einen Preis für eine bessere Methode aus, Lebensmittel haltbar zu machen.",
+            "Der Pariser Koch und Konditor Nicolas Appert fand sie. Er füllte Speisen in Glasflaschen, verschloss sie luftdicht und erhitzte sie in kochendem Wasser. 1810 bekam er dafür 12.000 Francs. Warum das funktionierte, wusste er nicht: Dass Mikroben Lebensmittel verderben lassen, zeigte erst Louis Pasteur Jahrzehnte später.",
+            "Im selben Jahr ließ sich in England Peter Durand ein Patent auf Behälter aus Blech geben. Sie waren leichter und zerbrachen nicht.",
+            "Die ersten Dosen musste man allerdings mit Hammer und Meißel öffnen. Der erste Dosenöffner wurde erst 1858 patentiert, fast fünfzig Jahre nach der Dose.",
+            "Das Prinzip ist bis heute dasselbe: luftdicht verschließen, erhitzen, fertig."
+          ],
+          "keyPoints": [
+            "Frankreich suchte per Preis eine Methode, Proviant haltbar zu machen",
+            "Appert: luftdicht verschließen und in kochendem Wasser erhitzen",
+            "1810 bekam er 12.000 Francs",
+            "Den Grund, Mikroben, zeigte erst Pasteur",
+            "Durand ließ im selben Jahr Blechdosen patentieren",
+            "Der Dosenöffner kam erst 1858"
+          ]
+        }
+      ]
+    },
+    { "id": "l5-checkpoint", "type": "checkpoint", "title": "Checkpoint" }
+  ]
+}

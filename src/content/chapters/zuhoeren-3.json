@@ -1,0 +1,107 @@
+{
+  "id": "zuhoeren-3",
+  "order": 3,
+  "title": "Nebenbei erwähnt",
+  "track": "listen",
+  "difficulty": 3,
+  "lessons": [
+    {
+      "id": "z3-oma",
+      "title": "Anruf bei Oma",
+      "items": [
+        {
+          "id": "z3-oma-d",
+          "type": "dialog",
+          "title": "Anruf bei Oma",
+          "lines": [
+            { "who": "Oma Ilse", "text": "Schön, dass du anrufst! Stell dir vor, der Apfelbaum trägt dieses Jahr so viel, ich hab schon vier Gläser Apfelmus eingekocht." },
+            { "who": "Leon", "text": "Wahnsinn. Und wie geht's deinem Knie?" },
+            { "who": "Oma Ilse", "text": "Besser. Dienstags geh ich jetzt zur Wassergymnastik, mit Frau Brenner von nebenan. Die fährt uns hin, sie hat ja jetzt so ein kleines rotes Elektroauto." },
+            { "who": "Leon", "text": "Kommt ihr an Ostern zu uns?" },
+            { "who": "Oma Ilse", "text": "Wenn Opa Günter seinen Zahnarzttermin bis dahin hinter sich hat, gerne." }
+          ],
+          "questions": [
+            { "id": "q1", "prompt": "Wie viele Gläser Apfelmus hat Oma eingekocht?", "answers": [["4", "vier"]], "solution": "Vier.", "quote": "„… ich hab schon vier Gläser Apfelmus eingekocht.“" },
+            { "id": "q2", "prompt": "An welchem Tag geht Oma zur Wassergymnastik?", "answers": [["Dienstag", "dienstags"]], "solution": "Dienstags.", "quote": "„Dienstags geh ich jetzt zur Wassergymnastik …“" },
+            { "id": "q3", "prompt": "Was für ein Auto hat Frau Brenner?", "answers": [["rot", "rotes", "roten", "rotem"], ["Elektroauto", "Elektro", "E Auto", "elektrisch"]], "solution": "Ein kleines rotes Elektroauto.", "quote": "„… sie hat ja jetzt so ein kleines rotes Elektroauto.“" },
+            { "id": "q4", "prompt": "Was muss Opa Günter vor Ostern erledigen?", "answers": [["Zahnarzt", "Zahnarzttermin", "Zähne"]], "solution": "Seinen Zahnarzttermin.", "quote": "„Wenn Opa Günter seinen Zahnarzttermin bis dahin hinter sich hat …“" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "z3-meeting",
+      "title": "Teammeeting",
+      "items": [
+        {
+          "id": "z3-meeting-d",
+          "type": "dialog",
+          "title": "Teammeeting",
+          "lines": [
+            { "who": "Jana", "text": "Kurz zum Stand: Der Launch verschiebt sich auf den 14. März, weil die Druckerei die Verpackungen noch nicht liefern kann." },
+            { "who": "Tobias", "text": "Und die Präsentation für den Kunden?" },
+            { "who": "Jana", "text": "Die macht Selin, sie war ja schon beim Termin in Hamburg dabei. Ich übernehme dafür ihre Budgetplanung." },
+            { "who": "Tobias", "text": "Okay. Und das Teamessen?" },
+            { "who": "Jana", "text": "Freitag, beim Griechen am Bahnhof. Ich hab für elf Leute reserviert." }
+          ],
+          "questions": [
+            { "id": "q1", "prompt": "Auf welches Datum verschiebt sich der Launch?", "answers": [["14", "vierzehnten"], ["März", "Maerz"]], "solution": "Auf den 14. März.", "quote": "„Der Launch verschiebt sich auf den 14. März …“" },
+            { "id": "q2", "prompt": "Warum verschiebt er sich?", "answers": [["Druckerei", "Verpackung", "Verpackungen"]], "solution": "Die Druckerei kann die Verpackungen noch nicht liefern.", "quote": "„… weil die Druckerei die Verpackungen noch nicht liefern kann.“" },
+            { "id": "q3", "prompt": "Wer macht die Präsentation für den Kunden?", "answers": [["Selin"]], "solution": "Selin.", "quote": "„Die macht Selin, sie war ja schon beim Termin in Hamburg dabei.“" },
+            { "id": "q4", "prompt": "Für wie viele Leute ist das Teamessen reserviert?", "answers": [["11", "elf"]], "solution": "Für elf.", "quote": "„Ich hab für elf Leute reserviert.“" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "z3-urlaub",
+      "title": "Urlaubsplanung",
+      "items": [
+        {
+          "id": "z3-urlaub-d",
+          "type": "dialog",
+          "title": "Urlaubsplanung",
+          "lines": [
+            { "who": "Paul", "text": "Wir fliegen am 2. August nach Porto, aber nur mit Handgepäck. Also nimm bitte nicht wieder drei Paar Schuhe mit." },
+            { "who": "Aylin", "text": "Zwei Paar. Mindestens. Und wo wohnen wir?" },
+            { "who": "Paul", "text": "In einer kleinen Wohnung im Viertel Ribeira, direkt am Fluss. Die Vermieterin heißt Dona Rosa und bringt angeblich jeden Morgen frisches Brot vorbei." },
+            { "who": "Aylin", "text": "Und der Tagesausflug?" },
+            { "who": "Paul", "text": "Ins Douro-Tal, mit dem Zug. Da gibt's Weingüter, und du wolltest ja unbedingt mal Portwein direkt beim Winzer probieren." }
+          ],
+          "questions": [
+            { "id": "q1", "prompt": "Wohin geht die Reise?", "answers": [["Porto"]], "solution": "Nach Porto.", "quote": "„Wir fliegen am 2. August nach Porto …“" },
+            { "id": "q2", "prompt": "Wann fliegen die beiden?", "answers": [["2", "zweiten", "zwei"], ["August"]], "solution": "Am 2. August.", "quote": "„Wir fliegen am 2. August nach Porto …“" },
+            { "id": "q3", "prompt": "Wie heißt die Vermieterin?", "answers": [["Rosa"]], "solution": "Dona Rosa.", "quote": "„Die Vermieterin heißt Dona Rosa …“" },
+            { "id": "q4", "prompt": "Womit geht es ins Douro-Tal?", "answers": [["Zug", "Bahn"]], "solution": "Mit dem Zug.", "quote": "„Ins Douro-Tal, mit dem Zug.“" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "z3-hochzeit",
+      "title": "Hochzeit",
+      "items": [
+        {
+          "id": "z3-hochzeit-d",
+          "type": "dialog",
+          "title": "Hochzeit",
+          "lines": [
+            { "who": "Kim", "text": "Die Hochzeit von Sarah und Malte ist jetzt doch nicht im September, sondern am 21. Juni, auf einem Hof bei Lüneburg." },
+            { "who": "Deniz", "text": "Draußen? Hoffentlich regnet es nicht." },
+            { "who": "Kim", "text": "Es gibt eine Scheune als Plan B. Dresscode ist Sommerfest, also bitte kein Anzug. Sarahs Schwester Hanna hält die Rede — die war ja früher Radiomoderatorin." },
+            { "who": "Deniz", "text": "Und was schenken wir?" },
+            { "who": "Kim", "text": "Die beiden wünschen sich einen Zuschuss für die Hochzeitsreise nach Island." }
+          ],
+          "questions": [
+            { "id": "q1", "prompt": "Wann ist die Hochzeit?", "answers": [["21", "einundzwanzigsten"], ["Juni"]], "solution": "Am 21. Juni.", "quote": "„… sondern am 21. Juni, auf einem Hof bei Lüneburg.“" },
+            { "id": "q2", "prompt": "In der Nähe welcher Stadt liegt der Hof?", "answers": [["Lüneburg", "Lueneburg"]], "solution": "Lüneburg.", "quote": "„… auf einem Hof bei Lüneburg.“" },
+            { "id": "q3", "prompt": "Was ist der Plan B bei Regen?", "answers": [["Scheune"]], "solution": "Eine Scheune.", "quote": "„Es gibt eine Scheune als Plan B.“" },
+            { "id": "q4", "prompt": "Wer hält die Rede?", "answers": [["Hanna", "Hannah", "Schwester"]], "solution": "Sarahs Schwester Hanna.", "quote": "„Sarahs Schwester Hanna hält die Rede …“" },
+            { "id": "q5", "prompt": "Wohin geht die Hochzeitsreise?", "answers": [["Island"]], "solution": "Nach Island.", "quote": "„… einen Zuschuss für die Hochzeitsreise nach Island.“" }
+          ]
+        }
+      ]
+    },
+    { "id": "z3-checkpoint", "type": "checkpoint", "title": "Checkpoint" }
+  ]
+}

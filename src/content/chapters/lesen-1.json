@@ -1,0 +1,101 @@
+{
+  "id": "lesen-1",
+  "order": 1,
+  "title": "Texte wiedergeben",
+  "track": "read",
+  "difficulty": 1,
+  "lessons": [
+    {
+      "id": "l1-kraehen",
+      "title": "Krähen",
+      "items": [
+        {
+          "id": "l1-kraehen-t",
+          "type": "text",
+          "title": "Warum Krähen sich Gesichter merken",
+          "topic": "Krähen & Gesichter",
+          "paragraphs": [
+            "Krähen erkennen einzelne Menschen an ihren Gesichtern und behalten sie über Jahre.",
+            "Forscher in Seattle fingen mehrere Vögel, während sie eine auffällige Maske trugen. Wer danach dieselbe Maske aufsetzte, wurde lautstark angeschimpft — auch von Tieren, die nie gefangen worden waren.",
+            "Die Warnung wurde also weitergegeben, nicht nur selbst erlebt. Fünf Jahre später reagierten die Vögel immer noch."
+          ],
+          "keyPoints": [
+            "Krähen erkennen einzelne Gesichter",
+            "Die Warnung wird weitergegeben",
+            "Der Versuch fand in Seattle statt, mit Masken",
+            "Die Erinnerung hält noch nach fünf Jahren"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "l1-bienen",
+      "title": "Bienentanz",
+      "items": [
+        {
+          "id": "l1-bienen-t",
+          "type": "text",
+          "title": "Wie Bienen den Weg beschreiben",
+          "topic": "Der Tanz der Bienen",
+          "paragraphs": [
+            "Hat eine Honigbiene eine gute Futterquelle gefunden, kehrt sie zum Stock zurück und tanzt.",
+            "Beim Schwänzeltanz läuft sie eine gerade Strecke und wackelt dabei mit dem Hinterleib. Der Winkel dieser Strecke zeigt die Richtung zur Futterquelle, gemessen am Stand der Sonne. Wie lange sie wackelt, verrät die Entfernung.",
+            "Entschlüsselt hat das der Forscher Karl von Frisch. Er bekam dafür 1973 den Nobelpreis."
+          ],
+          "keyPoints": [
+            "Bienen tanzen, um anderen eine Futterquelle zu zeigen",
+            "Der Winkel zeigt die Richtung, bezogen auf die Sonne",
+            "Die Dauer des Wackelns zeigt die Entfernung",
+            "Karl von Frisch entschlüsselte es, Nobelpreis 1973"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "l1-brot",
+      "title": "Altes Brot",
+      "items": [
+        {
+          "id": "l1-brot-t",
+          "type": "text",
+          "title": "Warum Brot altbacken wird",
+          "topic": "Altbackenes Brot",
+          "paragraphs": [
+            "Altes Brot ist nicht einfach ausgetrocknet. Der Grund liegt in der Stärke.",
+            "Beim Backen nimmt die Stärke Wasser auf und wird weich. Beim Abkühlen ordnen sich ihre Moleküle langsam wieder zu festen Strukturen. Das Brot wird hart, obwohl noch Wasser darin steckt.",
+            "Im Kühlschrank passiert das sogar schneller. Kurzes Aufbacken im Ofen macht den Vorgang für eine Weile rückgängig."
+          ],
+          "keyPoints": [
+            "Altbacken heißt nicht ausgetrocknet",
+            "Die Stärke ordnet sich beim Abkühlen neu und wird fest",
+            "Im Kühlschrank wird Brot schneller altbacken",
+            "Aufbacken macht es vorübergehend wieder weich"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "l1-oktopus",
+      "title": "Oktopus",
+      "items": [
+        {
+          "id": "l1-oktopus-t",
+          "type": "text",
+          "title": "Die klugen Arme des Oktopus",
+          "topic": "Oktopus-Arme",
+          "paragraphs": [
+            "Ein Oktopus hat rund 500 Millionen Nervenzellen. Etwa zwei Drittel davon sitzen nicht im Kopf, sondern in den acht Armen.",
+            "Deshalb erledigen die Arme vieles selbst: Sie tasten, greifen und schmecken sogar mit ihren Saugnäpfen, ohne dass das Gehirn jeden Schritt steuert.",
+            "Dazu hat der Oktopus drei Herzen und blaues Blut."
+          ],
+          "keyPoints": [
+            "Rund zwei Drittel der Nervenzellen stecken in den Armen",
+            "Die Arme tasten und greifen weitgehend selbstständig",
+            "Mit den Saugnäpfen kann er schmecken",
+            "Drei Herzen und blaues Blut"
+          ]
+        }
+      ]
+    }
+  ]
+}

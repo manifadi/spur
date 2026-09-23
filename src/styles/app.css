@@ -1,0 +1,85 @@
+/* Layout, Keyframes und Bewegungsregeln aus dem Handoff (README §4, §7, §8). */
+
+html,body,#root{height:100%}
+body{background:var(--surface-page);overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
+#root{display:flex;justify-content:center}
+button{-webkit-user-select:none;user-select:none;touch-action:manipulation}
+img{-webkit-user-drag:none}
+.app *{scrollbar-width:none}
+.app *::-webkit-scrollbar{width:0;height:0}
+
+/* App-Spalte: 320–430 px fluid, darüber zentriert. */
+.app{position:relative;width:100%;max-width:var(--screen-max);height:var(--app-h,100dvh);overflow:hidden;background:var(--surface-page)}
+.screen-wrap{position:absolute;inset:0;animation:spur-fadein 200ms var(--ease-out-soft) both}
+
+/* Jeder Screen: Header fix, Inhalt scrollt, CTA bleibt sichtbar. */
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;background:var(--surface-page);overflow:hidden}
+.screen-head{flex:0 0 auto;padding-top:env(safe-area-inset-top)}
+.screen-body{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.screen-body::-webkit-scrollbar{width:0}
+.screen-cta{flex:0 0 auto;padding:0 var(--gutter-screen) calc(24px + env(safe-area-inset-bottom))}
+.screen-center{flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;align-items:center;justify-content:safe center;text-align:center;padding:24px var(--gutter-screen) 0}
+.screen-center::-webkit-scrollbar{width:0}
+.stack{display:flex;flex-direction:column}
+.self-start{align-self:flex-start}
+
+.overline{font:var(--type-overline);text-transform:uppercase;letter-spacing:var(--tracking-wide)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* Hover nur auf Zeigergeräten: 4 % dunkler, keine Bewegung. */
+@media (hover:hover) and (pointer:fine){
+  .spur-press:not(:disabled):hover{filter:brightness(.96)}
+}
+
+/* Pfad-Header */
+.path-header{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px;
+  padding:calc(10px + env(safe-area-inset-top)) var(--gutter-screen) 10px;background:var(--surface-page);
+  border-bottom:2px solid var(--border-default);flex:0 0 auto;position:relative;z-index:5}
+
+/* Toast / Tooltip */
+.toast{position:absolute;left:var(--gutter-screen);right:var(--gutter-screen);bottom:calc(24px + env(safe-area-inset-bottom));
+  display:flex;align-items:center;gap:12px;padding:14px 16px;background:#1F2130;color:#fff;border-radius:var(--radius-md);
+  box-shadow:var(--shadow-raised);z-index:30;font:var(--type-body);font-weight:700}
+
+/* ---- Keyframes (README §8, 1:1) ------------------------------------- */
+@keyframes spur-rise{from{transform:translateY(10px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes spur-popin{0%{transform:scale(0);opacity:0}60%{transform:scale(1.15);opacity:1}100%{transform:scale(1);opacity:1}}
+@keyframes spur-softin{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
+@keyframes spur-fadeout{to{opacity:0}}
+@keyframes spur-fadein{from{opacity:0}to{opacity:1}}
+@keyframes spur-burst{0%{transform:scale(.6);opacity:0}15%{opacity:.9}100%{transform:scale(2.1);opacity:0}}
+@keyframes spur-pop{0%{transform:scale(1)}40%{transform:scale(1.28)}100%{transform:scale(1)}}
+@keyframes spur-shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-5px)}40%{transform:translateX(5px)}60%{transform:translateX(-3px)}80%{transform:translateX(3px)}}
+@keyframes spur-eq{0%,100%{height:8px}50%{height:22px}}
+@keyframes spur-dots{0%,100%{opacity:.25;transform:translateY(0)}50%{opacity:1;transform:translateY(-4px)}}
+@keyframes spur-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes spur-jump{0%,100%{transform:translateY(0) scale(1,1)}18%{transform:translateY(0) scale(1.08,.9)}45%{transform:translateY(-44px) scale(.95,1.06)}72%{transform:translateY(0) scale(1.06,.94)}86%{transform:translateY(0) scale(.98,1.02)}}
+@keyframes spur-drop{0%{transform:translateY(-60px);opacity:0}8%{opacity:1}88%{opacity:1}100%{transform:translateY(calc(100dvh + 60px));opacity:0}}
+@keyframes spur-sway{0%{transform:translateX(-34px) rotate(-28deg)}100%{transform:translateX(34px) rotate(24deg)}}
+@keyframes spur-draw{to{stroke-dashoffset:0}}
+@keyframes spur-glide{from{transform:translate(var(--glide-x,0),var(--glide-y,0))}to{transform:translate(0,0)}}
+@keyframes spur-squeeze{0%{transform:scaleX(1);opacity:1}70%{opacity:1}100%{transform:scaleX(0);opacity:0}}
+@keyframes spur-flip{to{transform:rotateY(180deg)}}
+@keyframes spur-file{0%{transform:translate(0,0) scale(1);opacity:1}85%{opacity:1}100%{transform:translate(var(--file-x,0px),var(--file-y,233px)) scale(.16);opacity:0}}
+@keyframes spur-outup{to{transform:translateY(-100%);opacity:0}}
+@keyframes spur-inup{from{transform:translateY(100%);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes spur-flicker{0%,100%{transform:scale(1,1)}50%{transform:scale(.97,1.05)}}
+@keyframes spur-glow{0%,100%{filter:drop-shadow(0 0 10px rgba(232,163,61,.45))}50%{filter:drop-shadow(0 0 26px rgba(232,163,61,.75))}}
+@keyframes spur-shimmer{from{background-position:-160% 0}to{background-position:260% 0}}
+@keyframes spur-pulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.08)}}
+@keyframes spur-sheet-in{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes spur-scrim-in{from{opacity:0}to{opacity:1}}
+
+/* Animations-Helfer: immer fill-mode both, damit vor dem Start nichts aufblitzt. */
+.a-rise{animation:spur-rise 320ms var(--ease-out-soft) both}
+.a-popin{animation:spur-popin 420ms cubic-bezier(.34,1.56,.64,1) both}
+.a-pop{animation:spur-pop 600ms cubic-bezier(.34,1.56,.64,1)}
+.a-shake{animation:spur-shake 400ms var(--ease-out-soft)}
+.a-bob{animation:spur-bob 2600ms ease-in-out infinite}
+
+/* Bewegung reduzieren: große Bewegungen werden zu einfachem Einblenden (120 ms). */
+@media (prefers-reduced-motion:reduce){
+  .rm-fade{animation:spur-fadein 120ms linear both !important}
+  .rm-hide{display:none !important}
+  .rm-static{animation:none !important}
+}

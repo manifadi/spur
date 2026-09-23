@@ -1,0 +1,110 @@
+{
+  "id": "lesen-3",
+  "order": 3,
+  "title": "Längere Texte",
+  "track": "read",
+  "difficulty": 3,
+  "lessons": [
+    {
+      "id": "l3-ebbinghaus",
+      "title": "Vergessen",
+      "items": [
+        {
+          "id": "l3-ebbinghaus-t",
+          "type": "text",
+          "title": "Ebbinghaus und das Vergessen",
+          "topic": "Die Vergessenskurve",
+          "paragraphs": [
+            "1885 veröffentlichte der Psychologe Hermann Ebbinghaus ein ungewöhnliches Selbstexperiment. Er lernte Listen aus sinnlosen Silben wie „DAX“ oder „BOK“, damit ihm kein Vorwissen half.",
+            "Dann prüfte er, wie viel er nach Minuten, Stunden und Tagen noch wusste. Das Ergebnis ist die Vergessenskurve: Am Anfang vergessen wir sehr schnell, danach immer langsamer.",
+            "Er stellte auch fest, dass sich verteiltes Wiederholen lohnt. Wer über mehrere Tage verteilt übt, behält mehr als jemand, der alles an einem Stück paukt.",
+            "Genau darauf beruht Spaced Repetition, und auch diese App: Jede Wiederholung kommt ungefähr dann, wenn du etwas sonst vergessen würdest."
+          ],
+          "keyPoints": [
+            "Ebbinghaus machte 1885 ein Selbstexperiment",
+            "Er lernte sinnlose Silben, damit Vorwissen nicht hilft",
+            "Vergessenskurve: erst schnell, dann langsamer",
+            "Verteiltes Wiederholen wirkt besser als Pauken am Stück",
+            "Spaced Repetition beruht darauf"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "l3-gezeiten",
+      "title": "Ebbe & Flut",
+      "items": [
+        {
+          "id": "l3-gezeiten-t",
+          "type": "text",
+          "title": "Ebbe und Flut",
+          "topic": "Die Gezeiten",
+          "paragraphs": [
+            "An vielen Küsten steigt und fällt das Meer zweimal am Tag. Der Hauptgrund ist der Mond: Seine Anziehungskraft zieht das Wasser auf der ihm zugewandten Seite der Erde zu einem Wellenberg.",
+            "Ein zweiter Wellenberg entsteht auf der gegenüberliegenden Seite. Weil sich die Erde unter beiden hindurchdreht, gibt es meist zwei Hochwasser am Tag, etwa alle zwölf Stunden und 25 Minuten.",
+            "Auch die Sonne wirkt mit. Stehen Sonne, Mond und Erde in einer Linie, also bei Vollmond und Neumond, addieren sich die Kräfte. Dann gibt es eine besonders hohe Springflut.",
+            "Im Wattenmeer der Nordsee beträgt der Unterschied zwischen Ebbe und Flut an manchen Stellen über drei Meter."
+          ],
+          "keyPoints": [
+            "Der Mond zieht das Wasser an",
+            "Auf der Gegenseite entsteht ein zweiter Wellenberg",
+            "Zwei Hochwasser am Tag, etwa alle 12 Stunden und 25 Minuten",
+            "Bei Vollmond und Neumond gibt es Springflut",
+            "Im Wattenmeer teils über drei Meter Unterschied"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "l3-pilze",
+      "title": "Pilzgeflecht",
+      "items": [
+        {
+          "id": "l3-pilze-t",
+          "type": "text",
+          "title": "Das unterirdische Netz der Pilze",
+          "topic": "Pilze & Bäume",
+          "paragraphs": [
+            "Was wir im Wald als Pilz sammeln, ist nur der Fruchtkörper. Der eigentliche Pilz lebt im Boden: ein Geflecht aus feinen Fäden, das Myzel.",
+            "Viele Pilze gehen mit Bäumen eine Partnerschaft ein, die Mykorrhiza. Die Pilzfäden umhüllen die Wurzeln und liefern Wasser und Nährstoffe wie Phosphor. Im Gegenzug bekommen sie Zucker, den der Baum durch Photosynthese herstellt.",
+            "Über dieses Netz können sogar Stoffe zwischen verschiedenen Bäumen wandern. Wie viel das den Bäumen tatsächlich nützt, ist unter Forschenden allerdings umstritten.",
+            "Manche Myzelien werden riesig: Ein Hallimasch in Oregon erstreckt sich über fast zehn Quadratkilometer und gilt als eines der größten Lebewesen der Erde."
+          ],
+          "keyPoints": [
+            "Der sichtbare Pilz ist nur der Fruchtkörper",
+            "Das Myzel lebt als Fadengeflecht im Boden",
+            "Mykorrhiza: Wasser und Nährstoffe gegen Zucker",
+            "Stoffe wandern zwischen Bäumen, der Nutzen ist umstritten",
+            "Ein Hallimasch in Oregon ist fast zehn Quadratkilometer groß"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "l3-gutenberg",
+      "title": "Buchdruck",
+      "items": [
+        {
+          "id": "l3-gutenberg-t",
+          "type": "text",
+          "title": "Gutenbergs Erfindung",
+          "topic": "Der Buchdruck",
+          "paragraphs": [
+            "Um 1450 entwickelte Johannes Gutenberg in Mainz ein Verfahren, das die Welt verändern sollte: den Buchdruck mit beweglichen Lettern aus Metall.",
+            "Jeder Buchstabe war ein einzelner Metallkörper. Die Setzer fügten die Lettern zu Zeilen und Seiten zusammen und konnten sie nach dem Druck wiederverwenden. Dazu entwickelte Gutenberg ein Handgießinstrument, mit dem sich Lettern schnell und gleichmäßig gießen ließen.",
+            "Sein bekanntestes Werk ist die Gutenberg-Bibel. Rund 180 Exemplare wurden gedruckt, 49 sind bis heute erhalten, manche nur teilweise.",
+            "Bücher ließen sich nun viel billiger und schneller herstellen. Wissen verbreitete sich rascher, eine Voraussetzung für Reformation und moderne Wissenschaft."
+          ],
+          "keyPoints": [
+            "Gutenberg, Mainz, um 1450",
+            "Bewegliche Lettern aus Metall, wiederverwendbar",
+            "Ein Handgießinstrument für gleichmäßige Lettern",
+            "Gutenberg-Bibel: rund 180 gedruckt, 49 erhalten",
+            "Bücher wurden billiger, Wissen verbreitete sich schneller"
+          ]
+        }
+      ]
+    },
+    { "id": "l3-checkpoint", "type": "checkpoint", "title": "Checkpoint" }
+  ]
+}

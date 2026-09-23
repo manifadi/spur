@@ -1,0 +1,103 @@
+{
+  "id": "lesen-2",
+  "order": 2,
+  "title": "Zusammenhänge",
+  "track": "read",
+  "difficulty": 2,
+  "lessons": [
+    {
+      "id": "l2-placebo",
+      "title": "Placebo",
+      "items": [
+        {
+          "id": "l2-placebo-t",
+          "type": "text",
+          "title": "Der Placebo-Effekt",
+          "topic": "Placebos",
+          "paragraphs": [
+            "Ein Placebo ist ein Scheinmedikament ohne Wirkstoff, zum Beispiel eine Tablette aus Zucker. Trotzdem fühlen sich viele Menschen danach besser.",
+            "Der Grund ist die Erwartung. Wer glaubt, behandelt zu werden, dessen Körper reagiert messbar: Bei Schmerzen kann das Gehirn eigene schmerzlindernde Stoffe ausschütten.",
+            "Auch die Verpackung spielt eine Rolle. In einer Studie wirkten teure Scheinpillen stärker als billige. Und selbst Menschen, die wussten, dass sie ein Placebo bekamen, berichteten teilweise von Besserung."
+          ],
+          "keyPoints": [
+            "Ein Placebo enthält keinen Wirkstoff",
+            "Die Wirkung entsteht durch Erwartung",
+            "Das Gehirn kann eigene Schmerzmittel ausschütten",
+            "Teure Scheinpillen wirkten stärker als billige",
+            "Auch offen gegebene Placebos halfen manchen"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "l2-schlaf",
+      "title": "Schlaf",
+      "items": [
+        {
+          "id": "l2-schlaf-t",
+          "type": "text",
+          "title": "Schlaf sortiert das Gedächtnis",
+          "topic": "Schlaf & Gedächtnis",
+          "paragraphs": [
+            "Was wir tagsüber lernen, landet zuerst im Hippocampus, einer Art Zwischenspeicher im Gehirn.",
+            "Im Tiefschlaf werden diese Erinnerungen noch einmal abgespielt und nach und nach in die Großhirnrinde übertragen, wo sie länger halten. Forschende nennen das Konsolidierung.",
+            "Wer nach dem Lernen schläft, behält deshalb mehr als jemand, der gleich lange wach bleibt. Eine durchgemachte Nacht vor der Prüfung ist also ein schlechter Plan."
+          ],
+          "keyPoints": [
+            "Neues landet zuerst im Hippocampus",
+            "Im Tiefschlaf werden Erinnerungen wieder abgespielt",
+            "Sie wandern in die Großhirnrinde (Konsolidierung)",
+            "Schlaf nach dem Lernen verbessert das Behalten"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "l2-ampel",
+      "title": "Ampel",
+      "items": [
+        {
+          "id": "l2-ampel-t",
+          "type": "text",
+          "title": "Wie die Ampel nach Deutschland kam",
+          "topic": "Geschichte der Ampel",
+          "paragraphs": [
+            "Die erste elektrische Verkehrsampel ging 1914 in Cleveland in den USA in Betrieb. Sie hatte nur Rot und Grün.",
+            "Nach Deutschland kam die Ampel 1924: Am Potsdamer Platz in Berlin stand ein fünfeckiger Turm, in dem ein Polizist die Lichter von Hand schaltete.",
+            "Das berühmte Ampelmännchen mit Hut entwarf der Verkehrspsychologe Karl Peglau 1961 für Ost-Berlin. Nach der Wende sollte es verschwinden, doch Proteste retteten es."
+          ],
+          "keyPoints": [
+            "Die erste elektrische Ampel stand 1914 in Cleveland",
+            "Sie hatte nur Rot und Grün",
+            "1924 kam ein Ampelturm an den Potsdamer Platz, von Hand geschaltet",
+            "Karl Peglau entwarf 1961 das Ampelmännchen",
+            "Proteste retteten es nach der Wende"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "l2-kaffee",
+      "title": "Kaffee",
+      "items": [
+        {
+          "id": "l2-kaffee-t",
+          "type": "text",
+          "title": "Warum Kaffee wach macht",
+          "topic": "Koffein",
+          "paragraphs": [
+            "Während wir wach sind, sammelt sich im Gehirn ein Stoff namens Adenosin. Je mehr davon an bestimmte Rezeptoren andockt, desto müder werden wir.",
+            "Koffein ähnelt Adenosin und besetzt dieselben Rezeptoren, ohne sie zu aktivieren. Die Müdigkeit kommt dann nicht an. Weg ist sie aber nicht.",
+            "Im Körper wird Koffein nur langsam abgebaut: Nach etwa fünf Stunden ist noch rund die Hälfte da. Ein Kaffee am Nachmittag kann also den Schlaf stören."
+          ],
+          "keyPoints": [
+            "Adenosin sammelt sich an und macht müde",
+            "Koffein blockiert die Adenosin-Rezeptoren",
+            "Die Müdigkeit wird nur verdeckt",
+            "Nach etwa fünf Stunden ist noch die Hälfte da"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,241 @@
+/* SPUR Design System — Tokens 1:1 aus _ds/spur-design-system/tokens/*.css übernommen.
+   Einzige Abweichung: fonts.css lädt Quicksand nicht von Google Fonts, sondern aus
+   dem Bundle (@fontsource/quicksand, siehe main.jsx), damit die App offline läuft
+   und keine Drittanbieter-Requests macht. */
+
+/* ---- colors.css ------------------------------------------------------ */
+:root{
+--spur-indigo:#3730A5;
+--spur-indigo-shade:#2A2480;
+--spur-indigo-deep:#1C1856;
+--spur-violet-night:#4B2E83;
+--spur-lavender:#EDECF9;
+--spur-lavender-deep:#D9D6F1;
+
+--spur-amber:#E8A33D;
+--spur-amber-shade:#C9862A;
+--spur-amber-soft:#FBEEDA;
+
+--spur-green:#3F9D6C;
+--spur-green-shade:#2F7B53;
+--spur-green-soft:#E3F3EB;
+
+--spur-coral:#E5615A;
+--spur-coral-shade:#C44B45;
+--spur-coral-soft:#FBE7E5;
+
+--spur-dove:#4A7FB5;
+--spur-dove-shade:#3A6693;
+--spur-dove-soft:#E4EDF6;
+
+--spur-terracotta:#B5674A;
+--spur-terracotta-shade:#95523A;
+--spur-terracotta-soft:#F6E9E4;
+
+--spur-warmwhite:#FAF8F5;
+--spur-white:#FFFFFF;
+--spur-ink:#1F2130;
+--spur-ink-muted:#5C5E70;
+--spur-ink-subtle:#8A8C9C;
+--spur-line:#E8E3DB;
+--spur-line-strong:#D6D0C6;
+--spur-locked:#CFCBC3;
+
+--surface-page:var(--spur-warmwhite);
+--surface-card:var(--spur-white);
+--surface-sunken:var(--spur-lavender);
+--surface-brand:var(--spur-indigo);
+--surface-brand-deep:var(--spur-indigo-deep);
+--surface-locked:#EFECE6;
+
+--text-ink:var(--spur-ink); /* Farbe; --text-body ist in den Tokens doppelt belegt (Farbe und 15px) */
+--text-muted:var(--spur-ink-muted);
+--text-subtle:var(--spur-ink-subtle);
+--text-inverse:#FFFFFF;
+--text-brand:var(--spur-indigo);
+--text-link:var(--spur-indigo);
+--text-link-hover:var(--spur-indigo-shade);
+
+--border-default:var(--spur-line);
+--border-strong:var(--spur-line-strong);
+--border-brand:var(--spur-lavender-deep);
+
+--accent-xp:var(--spur-amber);
+--accent-xp-soft:var(--spur-amber-soft);
+--state-correct:var(--spur-green);
+--state-correct-soft:var(--spur-green-soft);
+--state-wrong:var(--spur-coral);
+--state-wrong-soft:var(--spur-coral-soft);
+--state-heart:var(--spur-coral);
+--state-streak:var(--spur-amber);
+
+--track-listen:var(--spur-dove);
+--track-listen-shade:var(--spur-dove-shade);
+--track-listen-soft:var(--spur-dove-soft);
+--track-read:var(--spur-terracotta);
+--track-read-shade:var(--spur-terracotta-shade);
+--track-read-soft:var(--spur-terracotta-soft);
+
+--focus-ring:var(--spur-indigo);
+--overlay-scrim:rgba(31,33,48,.55);
+}
+
+[data-theme="dark"]{
+--spur-warmwhite:#14151F;
+--spur-white:#1E2030;
+--spur-ink:#F2F1F7;
+--spur-ink-muted:#A9AABC;
+--spur-ink-subtle:#7A7B8E;
+--spur-line:#2C2E40;
+--spur-line-strong:#3A3C52;
+--spur-lavender:#242641;
+--spur-lavender-deep:#343869;
+--spur-locked:#3A3C52;
+
+--spur-indigo:#7C74E0;
+--spur-indigo-shade:#5B53BE;
+--spur-amber:#F0B45C;
+--spur-green:#57B885;
+--spur-coral:#F0796F;
+--spur-dove:#6C9FD1;
+--spur-terracotta:#CF8064;
+
+/* Soft-Flächen im Dark Mode: die Token-Datei lässt sie hell. Für lesbare
+   Kontraste werden sie hier aus den dunklen Grundflächen abgeleitet. */
+--spur-amber-soft:#3A2F1E;
+--spur-green-soft:#1D3328;
+--spur-coral-soft:#3A2224;
+--spur-dove-soft:#1E2A3A;
+--spur-terracotta-soft:#35251F;
+--spur-amber-shade:#B98331;
+--spur-green-shade:#3C8C62;
+--spur-coral-shade:#C9584F;
+--spur-dove-shade:#4F7EAD;
+--spur-terracotta-shade:#A7634A;
+
+--surface-page:var(--spur-warmwhite);
+--surface-card:var(--spur-white);
+--surface-sunken:var(--spur-lavender);
+--surface-locked:#232537;
+--text-inverse:#14151F;
+--overlay-scrim:rgba(5,6,12,.7);
+--badge-amber-fg:#F0B45C;
+}
+
+/* ---- typography.css -------------------------------------------------- */
+:root{
+--font-display:"Quicksand",system-ui,sans-serif;
+--font-ui:"Quicksand",system-ui,-apple-system,sans-serif;
+--font-mono:ui-monospace,"SFMono-Regular",Menlo,monospace;
+
+--text-stat:64px;
+--text-display-l:40px;
+--text-display-m:32px;
+--text-title:24px;
+--text-headline:20px;
+--text-body-l:17px;
+--text-body:15px;
+--text-label:13px;
+--text-caption:12px;
+
+--weight-regular:500;
+--weight-medium:600;
+--weight-semibold:700;
+--weight-bold:700;
+--weight-black:700;
+
+--leading-tight:1.05;
+--leading-snug:1.2;
+--leading-normal:1.45;
+--leading-relaxed:1.6;
+
+--tracking-tight:-0.015em;
+--tracking-normal:0;
+--tracking-wide:0.04em;
+
+--type-stat:var(--weight-bold) var(--text-stat)/var(--leading-tight) var(--font-display);
+--type-display-l:var(--weight-semibold) var(--text-display-l)/var(--leading-snug) var(--font-display);
+--type-title:var(--weight-semibold) var(--text-title)/var(--leading-snug) var(--font-display);
+--type-headline:var(--weight-semibold) var(--text-headline)/1.35 var(--font-display);
+--type-body-l:var(--weight-regular) var(--text-body-l)/var(--leading-relaxed) var(--font-ui);
+--type-body:var(--weight-regular) var(--text-body)/var(--leading-normal) var(--font-ui);
+--type-button:var(--weight-bold) var(--text-body-l)/1 var(--font-display);
+--type-label:var(--weight-semibold) var(--text-label)/1.3 var(--font-ui);
+--type-overline:var(--weight-bold) var(--text-caption)/1.2 var(--font-ui);
+}
+
+/* ---- spacing.css ----------------------------------------------------- */
+:root{
+--space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-5:20px;
+--space-6:24px; --space-8:32px; --space-10:40px; --space-12:48px; --space-16:64px;
+--gutter-screen:20px;
+--gap-stack:12px;
+--gap-section:32px;
+--radius-xs:6px;
+--radius-sm:10px;
+--radius-md:14px;
+--radius-lg:20px;
+--radius-xl:28px;
+--radius-pill:999px;
+--radius-icon-app:22.5%;
+--hit-min:44px;
+--control-h-sm:36px;
+--control-h-md:48px;
+--control-h-lg:56px;
+--node-size:68px;
+--node-gap:26px;
+--topbar-h:56px;
+--screen-max:430px;
+--content-max:680px;
+}
+
+/* ---- elevation.css --------------------------------------------------- */
+:root{
+--edge-depth:4px;
+--edge-depth-lg:6px;
+--shadow-edge-indigo:0 var(--edge-depth) 0 var(--spur-indigo-shade);
+--shadow-edge-amber:0 var(--edge-depth) 0 var(--spur-amber-shade);
+--shadow-edge-green:0 var(--edge-depth) 0 var(--spur-green-shade);
+--shadow-edge-coral:0 var(--edge-depth) 0 var(--spur-coral-shade);
+--shadow-edge-neutral:0 var(--edge-depth) 0 var(--spur-line-strong);
+--shadow-card:0 1px 0 rgba(31,33,48,.04), 0 10px 24px -18px rgba(31,33,48,.45);
+--shadow-raised:0 2px 0 rgba(31,33,48,.05), 0 18px 32px -20px rgba(31,33,48,.5);
+--shadow-sheet:0 -8px 32px -20px rgba(31,33,48,.45);
+--glow-due:0 0 0 6px rgba(232,163,61,.22);
+--ring-focus:0 0 0 3px var(--surface-page), 0 0 0 6px var(--focus-ring);
+--border-hair:1px solid var(--border-default);
+--border-card:2px solid var(--border-default);
+}
+
+/* ---- motion.css ------------------------------------------------------ */
+:root{
+--dur-instant:120ms;
+--dur-fast:200ms;
+--dur-base:320ms;
+--dur-slow:600ms;
+--dur-count:900ms;
+--ease-out-soft:cubic-bezier(.22,.8,.3,1);
+--ease-in-out-soft:cubic-bezier(.5,0,.3,1);
+--ease-bounce:cubic-bezier(.34,1.56,.64,1);
+--ease-sine:cubic-bezier(.37,0,.63,1);
+--press-scale:.97;
+--press-shift:2px;
+--pulse-due:2.4s;
+}
+@media (prefers-reduced-motion:reduce){
+  :root{--dur-instant:1ms; --dur-fast:120ms; --dur-base:120ms; --dur-slow:120ms; --dur-count:120ms;
+        --ease-bounce:linear; --press-scale:1; --press-shift:0px;}
+}
+
+/* ---- base.css -------------------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--surface-page);color:var(--text-ink);font:var(--type-body);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:var(--weight-semibold);line-height:var(--leading-snug);margin:0;color:var(--text-ink)}
+h1{font-size:var(--text-display-m)}h2{font-size:var(--text-title)}h3{font-size:var(--text-headline)}h4{font-size:var(--text-body-l)}
+p{margin:0;text-wrap:pretty}
+a{color:var(--text-link);text-decoration-thickness:2px;text-underline-offset:3px;transition:color var(--dur-fast) var(--ease-out-soft)}
+a:hover{color:var(--text-link-hover)}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:none;box-shadow:var(--ring-focus)}
+button{font-family:var(--font-display)}
+input,textarea{font-family:var(--font-ui)}
+::selection{background:var(--spur-lavender-deep);color:var(--spur-ink)}

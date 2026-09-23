@@ -1,0 +1,81 @@
+{
+  "id": "zuhoeren-2",
+  "order": 2,
+  "title": "Namen & Zahlen",
+  "track": "listen",
+  "difficulty": 2,
+  "lessons": [
+    {
+      "id": "z2-geburtstag",
+      "title": "Geburtstag",
+      "items": [
+        {
+          "id": "z2-geburtstag-d",
+          "type": "dialog",
+          "title": "Geburtstag",
+          "text": "Samstag feiert Mira ihren Geburtstag im Garten ihrer Eltern, Lindenweg 14. Bring bitte keine Blumen mit, sie hat Heuschnupfen. Ab acht spielt ihr Cousin Felix Gitarre — der ist eigentlich Zahnarzt.",
+          "questions": [
+            { "id": "q1", "prompt": "Wie lautet die Adresse von Miras Eltern?", "answers": [["Lindenweg", "Linden"], ["14", "vierzehn"]], "solution": "Lindenweg 14.", "quote": "„… im Garten ihrer Eltern, Lindenweg 14.“" },
+            { "id": "q2", "prompt": "Warum soll man keine Blumen mitbringen?", "answers": [["Heuschnupfen", "Allergie", "allergisch", "Pollen"]], "solution": "Mira hat Heuschnupfen.", "quote": "„Bring bitte keine Blumen mit, sie hat Heuschnupfen.“" },
+            { "id": "q3", "prompt": "Wer spielt ab acht Gitarre?", "answers": [["Felix", "Cousin"]], "solution": "Ihr Cousin Felix.", "quote": "„Ab acht spielt ihr Cousin Felix Gitarre …“" },
+            { "id": "q4", "prompt": "Was ist Felix von Beruf?", "answers": [["Zahnarzt", "Zahnärztin"]], "solution": "Zahnarzt.", "quote": "„… der ist eigentlich Zahnarzt.“" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "z2-arztpraxis",
+      "title": "Arztpraxis",
+      "items": [
+        {
+          "id": "z2-arztpraxis-d",
+          "type": "dialog",
+          "title": "Arztpraxis",
+          "text": "Die Praxis hat meinen Termin auf Donnerstag, 9:40 Uhr, verschoben. Dr. Albers ist im Urlaub, ich komme zu ihrer Vertretung, Frau Dr. Kaya. Mitbringen soll ich die Versichertenkarte und den Impfpass.",
+          "questions": [
+            { "id": "q1", "prompt": "Wann ist der neue Termin?", "answers": [["Donnerstag"], ["9 40", "940", "neun uhr vierzig"]], "solution": "Donnerstag, 9:40 Uhr.", "quote": "„… meinen Termin auf Donnerstag, 9:40 Uhr, verschoben.“" },
+            { "id": "q2", "prompt": "Warum ist Dr. Albers nicht da?", "answers": [["Urlaub", "Ferien"]], "solution": "Sie ist im Urlaub.", "quote": "„Dr. Albers ist im Urlaub …“" },
+            { "id": "q3", "prompt": "Wie heißt die Vertretung?", "answers": [["Kaya", "Kaja"]], "solution": "Frau Dr. Kaya.", "quote": "„… ich komme zu ihrer Vertretung, Frau Dr. Kaya.“" },
+            { "id": "q4", "prompt": "Was soll zum Termin mit?", "answers": [["Versichertenkarte", "Krankenkassenkarte", "Gesundheitskarte", "Karte"], ["Impfpass", "Impfausweis", "Impfbuch"]], "solution": "Versichertenkarte und Impfpass.", "quote": "„Mitbringen soll ich die Versichertenkarte und den Impfpass.“" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "z2-nachbarn",
+      "title": "Neue Nachbarn",
+      "items": [
+        {
+          "id": "z2-nachbarn-d",
+          "type": "dialog",
+          "title": "Neue Nachbarn",
+          "text": "Die neuen Nachbarn im dritten Stock heißen Okafor. Er arbeitet bei der Feuerwehr, sie ist Hebamme. Und die beiden haben einen Hund namens Bruno, der Angst vor dem Aufzug hat.",
+          "questions": [
+            { "id": "q1", "prompt": "Wie heißen die neuen Nachbarn mit Nachnamen?", "answers": [["Okafor", "Okafur", "Okafo"]], "solution": "Okafor.", "quote": "„Die neuen Nachbarn im dritten Stock heißen Okafor.“" },
+            { "id": "q2", "prompt": "In welchem Stock wohnen sie?", "answers": [["3", "drei", "dritten", "dritte", "dritter"]], "solution": "Im dritten Stock.", "quote": "„Die neuen Nachbarn im dritten Stock …“" },
+            { "id": "q3", "prompt": "Was ist sie von Beruf?", "answers": [["Hebamme"]], "solution": "Hebamme.", "quote": "„Er arbeitet bei der Feuerwehr, sie ist Hebamme.“" },
+            { "id": "q4", "prompt": "Wovor hat der Hund Angst?", "answers": [["Aufzug", "Fahrstuhl", "Lift"]], "solution": "Vor dem Aufzug.", "quote": "„… einen Hund namens Bruno, der Angst vor dem Aufzug hat.“" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "z2-zugfahrt",
+      "title": "Zugfahrt",
+      "items": [
+        {
+          "id": "z2-zugfahrt-d",
+          "type": "dialog",
+          "title": "Zugfahrt",
+          "text": "Mein Zug nach Leipzig fährt um 7:12 von Gleis 5. Ich hab Platz 63 in Wagen 8 reserviert, am Fenster. Umsteigen muss ich nur einmal, in Erfurt.",
+          "questions": [
+            { "id": "q1", "prompt": "Wohin fährt der Zug?", "answers": [["Leipzig"]], "solution": "Nach Leipzig.", "quote": "„Mein Zug nach Leipzig fährt um 7:12 …“" },
+            { "id": "q2", "prompt": "Von welchem Gleis fährt er?", "answers": [["5", "fünf", "fuenf"]], "solution": "Gleis 5.", "quote": "„… fährt um 7:12 von Gleis 5.“" },
+            { "id": "q3", "prompt": "Welcher Platz in welchem Wagen?", "answers": [["63", "dreiundsechzig"], ["8", "acht"]], "solution": "Platz 63 in Wagen 8.", "quote": "„Ich hab Platz 63 in Wagen 8 reserviert …“" },
+            { "id": "q4", "prompt": "Wo muss umgestiegen werden?", "answers": [["Erfurt"]], "solution": "In Erfurt.", "quote": "„Umsteigen muss ich nur einmal, in Erfurt.“" }
+          ]
+        }
+      ]
+    }
+  ]
+}
