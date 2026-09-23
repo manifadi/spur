@@ -22,13 +22,20 @@ export function PathNode({ state = 'locked', track = 'listen', icon, label, aria
   const interactive = state !== 'locked';
   return (
     <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: 8, ...style }}>
+      <span style={{ position: 'relative', display: 'inline-flex', marginBottom: state === 'current' ? 12 : 0 }}>
+      {state === 'current' && (
+        // Auswahlring als eigener Kreis, zentriert auf Knoten + 6-px-Unterkante,
+        // damit der Knoten mittig sitzt und nicht unten am Ring aufliegt.
+        <span aria-hidden="true" style={{ position: 'absolute', left: '50%', top: size / 2 + 3, width: size + 22, height: size + 22,
+          transform: 'translate(-50%, -50%)', borderRadius: '50%', border: `3px solid ${t.bg}`, pointerEvents: 'none' }} />
+      )}
       <button type="button" disabled={!interactive} onClick={onClick} aria-label={ariaLabel || label || state}
         onPointerDown={() => setDown(true)} onPointerUp={() => setDown(false)} onPointerLeave={() => setDown(false)} onPointerCancel={() => setDown(false)}
         className={state === 'due' ? 'rm-static' : undefined}
         style={{
           position: 'relative', width: size, height: size, borderRadius: '50%', border: 'none', padding: 0,
           background: look.bg, color: look.fg,
-          boxShadow: `0 ${down ? 2 : 6}px 0 ${look.edge}` + (state === 'due' ? ', var(--glow-due)' : '') + (state === 'current' ? ', 0 0 0 4px var(--surface-page), 0 0 0 7px ' + t.bg : ''),
+          boxShadow: `0 ${down ? 2 : 6}px 0 ${look.edge}` + (state === 'due' ? ', var(--glow-due)' : ''),
           transform: `translateY(${down ? 3 : 0}px)`, cursor: interactive ? 'pointer' : 'not-allowed',
           display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
           animation: state === 'due' ? 'spur-pulse var(--pulse-due) var(--ease-in-out-soft) infinite' : 'none',
@@ -36,6 +43,7 @@ export function PathNode({ state = 'locked', track = 'listen', icon, label, aria
         }} {...rest}>
         <Icon name={look.icon} size={Math.round(size * 0.42)} strokeWidth={2.4} />
       </button>
+      </span>
       {label && <span style={{ font: 'var(--type-label)', fontWeight: 700, color: state === 'locked' ? 'var(--text-subtle)' : 'var(--text-muted)', maxWidth: 120, textAlign: 'center', background: 'var(--surface-page)', padding: '1px 6px', borderRadius: 6, position: 'relative' }}>{label}</span>}
     </span>
   );
