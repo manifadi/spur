@@ -26,8 +26,10 @@ export function PathNode({ state = 'locked', track = 'listen', icon, label, aria
       {state === 'current' && (
         // Auswahlring als eigener Kreis, zentriert auf Knoten + 6-px-Unterkante,
         // damit der Knoten mittig sitzt und nicht unten am Ring aufliegt.
-        <span aria-hidden="true" style={{ position: 'absolute', left: '50%', top: size / 2 + 3, width: size + 22, height: size + 22,
-          transform: 'translate(-50%, -50%)', borderRadius: '50%', border: `3px solid ${t.bg}`, pointerEvents: 'none' }} />
+        // Ruhiges "Atmen": leicht größer und kräftiger, dauerhaft im Loop.
+        <span aria-hidden="true" className="rm-static" style={{ position: 'absolute', left: '50%', top: size / 2 + 3, width: size + 22, height: size + 22,
+          transform: 'translate(-50%, -50%)', borderRadius: '50%', border: `3px solid ${t.bg}`, pointerEvents: 'none',
+          animation: 'spur-ring-breathe 3200ms var(--ease-sine) infinite alternate' }} />
       )}
       <button type="button" disabled={!interactive} onClick={onClick} aria-label={ariaLabel || label || state}
         onPointerDown={() => setDown(true)} onPointerUp={() => setDown(false)} onPointerLeave={() => setDown(false)} onPointerCancel={() => setDown(false)}
