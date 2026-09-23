@@ -25,16 +25,29 @@
             },
             {
               "who": "Emre",
-              "text": "Die Nadel fehlt, die bestelle ich nach. Und für dich hab ich auch was: eine alte Stempeluhr aus einer Fabrik in Wuppertal."
+              "text": "Die Nadel fehlt, die bestelle ich nach. Erst hab ich die Kisten mit den Platten durchwühlt, dann den Plattenspieler gesehen, und am Ende hab ich noch was für dich entdeckt: eine alte Stempeluhr aus einer Fabrik in Wuppertal."
             },
             {
               "who": "Sophie",
               "text": "Du hast dir gemerkt, dass ich Uhren sammle? Wahnsinn."
+            },
+            {
+              "who": "Emre",
+              "text": "Ich hab dir ja zugehört. Sie tickt sogar noch, nur die Glocke klemmt."
+            },
+            {
+              "who": "Sophie",
+              "text": "Und was hast du noch gekauft? Da ist doch noch was in der Tüte."
+            },
+            {
+              "who": "Emre",
+              "text": "Drei Platten von Udo Jürgens. Für meine Mutter. Und eine für mich, aber das bleibt unter uns."
             }
           ],
-          "questions": [
+          "subExercises": [
             {
               "id": "q1",
+              "type": "recall_text",
               "prompt": "Aus welchem Jahr ist der Plattenspieler?",
               "answers": [
                 [
@@ -46,6 +59,7 @@
             },
             {
               "id": "q2",
+              "type": "recall_text",
               "prompt": "Wie viel hat Emre am Ende bezahlt?",
               "answers": [
                 [
@@ -58,6 +72,7 @@
             },
             {
               "id": "q3",
+              "type": "recall_text",
               "prompt": "Was fehlt am Plattenspieler?",
               "answers": [
                 [
@@ -68,7 +83,64 @@
               "quote": "„Die Nadel fehlt, die bestelle ich nach.“"
             },
             {
+              "id": "s1",
+              "type": "sequence_events",
+              "prompt": "Was hat Emre auf dem Flohmarkt in welcher Reihenfolge gemacht?",
+              "events": [
+                "Plattenkisten durchwühlt",
+                "Plattenspieler entdeckt",
+                "Stempeluhr für Sophie gefunden"
+              ]
+            }
+          ],
+          "worldRefs": {
+            "charactersReferenced": [],
+            "locationsReferenced": [
+              "flohmarkt"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "q1-flohmarkt-2",
+      "title": "Die Stempeluhr",
+      "items": [
+        {
+          "id": "q1-flohmarkt-d2",
+          "type": "dialog",
+          "title": "Die Stempeluhr",
+          "characterId": "sophie",
+          "lines": [
+            {
+              "who": "Sophie",
+              "text": "Warte, wo kommt die Stempeluhr her, hast du gesagt?"
+            },
+            {
+              "who": "Emre",
+              "text": "Aus einer Fabrik in Wuppertal. Da hat man früher morgens seine Karte reingesteckt, und sie hat die Uhrzeit draufgestempelt. Der Verkäufer meinte, die Fabrik hat Regenschirme hergestellt."
+            },
+            {
+              "who": "Sophie",
+              "text": "Regenschirme aus Wuppertal. Das passt ja, da regnet es ständig."
+            },
+            {
+              "who": "Emre",
+              "text": "Wenn die Glocke wieder geht, kannst du sie ja morgens als Wecker benutzen."
+            },
+            {
+              "who": "Sophie",
+              "text": "Eine Stempeluhr als Wecker. Dann stempele ich jeden Morgen, wann ich aufgestanden bin. Das wäre ehrlich gesagt sehr aufschlussreich."
+            },
+            {
+              "who": "Emre",
+              "text": "Ich schätze, die meisten Karten würden „zu spät“ sagen."
+            }
+          ],
+          "subExercises": [
+            {
               "id": "q4",
+              "type": "recall_text",
               "prompt": "Woher stammt die Stempeluhr?",
               "answers": [
                 [
@@ -76,11 +148,28 @@
                 ]
               ],
               "solution": "Aus einer Fabrik in Wuppertal.",
-              "quote": "„… eine alte Stempeluhr aus einer Fabrik in Wuppertal.“"
+              "quote": "„Aus einer Fabrik in Wuppertal.“"
+            },
+            {
+              "id": "m1",
+              "type": "detail_match",
+              "prompt": "Was hat die Fabrik hergestellt?",
+              "options": [
+                "Uhren",
+                "Regenschirme",
+                "Schallplatten",
+                "Fahrräder"
+              ],
+              "correct": [
+                "Regenschirme"
+              ],
+              "quote": "„… die Fabrik hat Regenschirme hergestellt.“"
             }
           ],
           "worldRefs": {
-            "charactersReferenced": [],
+            "charactersReferenced": [
+              "emre"
+            ],
             "locationsReferenced": [
               "flohmarkt"
             ]
@@ -98,14 +187,38 @@
           "title": "Warum Gähnen ansteckt",
           "topic": "Ansteckendes Gähnen",
           "paragraphs": [
-            "Sieht man jemanden gähnen, gähnt man oft selbst. Das gibt es nicht nur bei Menschen, sondern auch bei Schimpansen und bei Hunden, die ihre Menschen gähnen sehen.",
+            "Sieht man jemanden gähnen, gähnt man oft selbst. Manchmal reicht es schon, über Gähnen zu lesen. Das gibt es nicht nur bei Menschen, sondern auch bei Schimpansen und bei Hunden, die ihre Menschen gähnen sehen.",
             "Eine verbreitete Erklärung verbindet ansteckendes Gähnen mit sozialer Nähe: Bei Familie und Freunden steckt es häufiger an als bei Fremden.",
-            "Kleine Kinder lassen sich übrigens kaum anstecken. Das beginnt meist erst mit etwa vier oder fünf Jahren."
+            "Kleine Kinder lassen sich übrigens kaum anstecken. Das beginnt meist erst mit etwa vier oder fünf Jahren, ungefähr dann, wenn Kinder lernen, sich in andere hineinzuversetzen.",
+            "Warum wir überhaupt gähnen, ist übrigens nicht endgültig geklärt. Eine Vermutung: Es kühlt das Gehirn ein wenig ab.",
+            "Ein Gähnen dauert im Schnitt etwa sechs Sekunden. Und wer versucht, es zu unterdrücken, gähnt oft trotzdem, nur mit geschlossenem Mund."
           ],
           "keyPoints": [
             "Gähnen steckt Menschen, Schimpansen und Hunde an",
             "Bei Nahestehenden steckt es häufiger an",
             "Kinder werden erst mit etwa 4 bis 5 Jahren angesteckt"
+          ],
+          "subExercises": [
+            {
+              "id": "retell",
+              "type": "recall_text"
+            },
+            {
+              "id": "m1",
+              "type": "detail_match",
+              "prompt": "Welche Tiere lassen sich laut Text anstecken? (Mehrere Antworten richtig)",
+              "options": [
+                "Schimpansen",
+                "Hunde",
+                "Katzen",
+                "Pferde"
+              ],
+              "correct": [
+                "Schimpansen",
+                "Hunde"
+              ],
+              "quote": "„… auch bei Schimpansen und bei Hunden, die ihre Menschen gähnen sehen.“"
+            }
           ]
         }
       ]
@@ -122,7 +235,7 @@
           "lines": [
             {
               "who": "Kolja",
-              "text": "Seit ich mit dem Rad fahre, bin ich zwölf Minuten schneller als mit dem Bus. Außer bei Regen."
+              "text": "Seit ich mit dem Rad fahre, bin ich zwölf Minuten schneller als mit dem Bus. Außer bei Regen. Und ich spare im Monat fast fünfzig Euro für das Ticket."
             },
             {
               "who": "Ida",
@@ -138,12 +251,21 @@
             },
             {
               "who": "Kolja",
-              "text": "Nur donnerstags nicht, da ist Markt und der Hof ist voller Lieferwagen."
+              "text": "Nur donnerstags nicht, da ist Markt und der Hof ist voller Lieferwagen. Dann stelle ich es am Kino ab."
+            },
+            {
+              "who": "Ida",
+              "text": "Und wenn es regnet?"
+            },
+            {
+              "who": "Kolja",
+              "text": "Dann nehme ich doch den Bus. Oder ich komme nass an. Kommt drauf an, wie spät ich dran bin."
             }
           ],
-          "questions": [
+          "subExercises": [
             {
               "id": "q1",
+              "type": "recall_text",
               "prompt": "Wie viel schneller ist Kolja mit dem Rad?",
               "answers": [
                 [
@@ -157,6 +279,7 @@
             },
             {
               "id": "q2",
+              "type": "recall_text",
               "prompt": "Wo stellt er sein Rad ab?",
               "answers": [
                 [
@@ -170,6 +293,7 @@
             },
             {
               "id": "q3",
+              "type": "recall_text",
               "prompt": "Was ist sein Deal mit dem Chef?",
               "answers": [
                 [
@@ -181,6 +305,7 @@
             },
             {
               "id": "q4",
+              "type": "recall_text",
               "prompt": "An welchem Tag klappt das nicht?",
               "answers": [
                 [
@@ -211,15 +336,32 @@
           "title": "Der Gesang der Buckelwale",
           "topic": "Buckelwale",
           "paragraphs": [
-            "Männliche Buckelwale singen lange, komplexe Lieder aus wiederkehrenden Motiven. Ein Lied kann über zwanzig Minuten dauern und wird stundenlang wiederholt.",
-            "Alle Männchen einer Region singen ungefähr dasselbe Lied. Es verändert sich aber nach und nach. Manchmal wird es sogar von einem ganz neuen Lied abgelöst, das sich von Population zu Population über den Pazifik ausbreitet, wie ein Hit.",
-            "Warum die Wale singen, ist noch nicht ganz geklärt. Vermutlich hat es mit der Fortpflanzung zu tun."
+            "Männliche Buckelwale singen lange, komplexe Lieder aus wiederkehrenden Motiven. Ein Lied kann über zwanzig Minuten dauern und wird stundenlang wiederholt. Unter Wasser ist es noch in vielen Kilometern Entfernung zu hören.",
+            "Alle Männchen einer Region singen ungefähr dasselbe Lied. Es verändert sich aber nach und nach, jedes Jahr ein bisschen. Manchmal wird es sogar von einem ganz neuen Lied abgelöst, das sich von Population zu Population über den Pazifik ausbreitet, wie ein Hit.",
+            "Warum die Wale singen, ist noch nicht ganz geklärt. Vermutlich hat es mit der Fortpflanzung zu tun.",
+            "Buckelwale werden bis zu fünfzehn Meter lang und wandern jedes Jahr Tausende Kilometer zwischen kalten Futtergründen und warmen Gewässern, in denen die Jungen zur Welt kommen. Ihr Gesang ist vor allem in den warmen Gewässern zu hören."
           ],
           "keyPoints": [
             "Männchen singen lange Lieder aus Motiven",
             "Alle Männchen einer Region singen fast dasselbe",
             "Neue Lieder verbreiten sich über den Pazifik wie ein Hit",
             "Der Grund ist unklar, vermutlich Fortpflanzung"
+          ],
+          "subExercises": [
+            {
+              "id": "retell",
+              "type": "recall_text"
+            },
+            {
+              "id": "s1",
+              "type": "sequence_events",
+              "prompt": "Wie verändert sich ein Walgesang über die Zeit?",
+              "events": [
+                "Alle Männchen singen dasselbe Lied",
+                "Das Lied verändert sich nach und nach",
+                "Ein neues Lied löst es ab"
+              ]
+            }
           ]
         }
       ]

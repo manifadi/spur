@@ -1,15 +1,29 @@
 // Content-Schema (erweiterbar: neues Kapitel = neue JSON-Datei in src/content/chapters/).
 //
-// Chapter  { id, order, title, track: 'listen'|'read'|'mixed', difficulty, lessons: Lesson[] }
-// Lesson   { id, title, items: Item[] }  |  { id, type: 'checkpoint', title }
-// Item     Dialog { id, type: 'dialog', title, text | lines[{who,text}], questions[{id, prompt, answers[[..]], solution, quote}] }
-//          Text   { id, type: 'text', title, topic, paragraphs[], keyPoints[] }
+// Chapter  { id, order, title, track: 'listen'|'read'|'mixed', difficulty, lessons: Feld[] }
+// Feld     { id, title, items: Item[] }  |  { id, type: 'checkpoint', title }
+//          Ein Feld (Knoten im Pfad) hat 1–4 Teilübungen (subExercises über seine Items).
+// Item     Dialog { id, type: 'dialog', title, characterId, text | lines[{who,text}], subExercises[], worldRefs }
+//          Text   { id, type: 'text', title, topic, paragraphs[], keyPoints[], subExercises[] }
+// Übung    recall_text     { id, type, prompt, answers[[..]], solution, quote }   Freitext, automatisch geprüft
+//          recall_text     { id: 'retell', type }                                 Text frei nacherzählen,
+//                                                                                   Selbstbewertung über keyPoints
+//          sequence_events { id, type, prompt, events[] (richtige Reihenfolge) }
+//          detail_match    { id, type, prompt, options[], correct[], quote }
 //
-// Jede Frage eines Dialogs ist eine eigene Karte (id "item:frage"), jeder Text eine Karte.
+// Jede Teilübung ist eine eigene Karte (id "item:übung") mit eigenem Spaced-Repetition-Verlauf.
+
+export const EXERCISE_TYPES = ['recall_text', 'sequence_events', 'detail_match'];
+
+/** UI-Art einer Teilübung: recall (Freitext) · retell (Nacherzählen + Kernpunkte) · sequence · match */
+export function exerciseKind(ex) {
+  if (ex.type === 'sequence_events') return 'sequence';
+  if (ex.type === 'detail_match') return 'match';
+  return ex.answers ? 'recall' : 'retell';
+}
 
 export function cardIdsOfItem(item) {
-  if (item.type === 'dialog') return item.questions.map((q) => `${item.id}:${q.id}`);
-  return [item.id];
+  return (item.subExercises || []).map((ex) => `${item.id}:${ex.id}`);
 }
 
 export function itemTrack(item) {
@@ -34,16 +48,13 @@ export function buildIndex(chapters) {
       const cardIds = [];
       for (const item of lesson.items || []) {
         items.set(item.id, { item, lesson, chapter });
-        if (item.type === 'dialog') {
-          item.questions.forEach((q, qi) => {
-            const id = `${item.id}:${q.id}`;
-            cards.set(id, { id, track: 'listen', item, question: q, qIndex: qi, lesson, chapter });
-            cardIds.push(id);
-          });
-        } else {
-          cards.set(item.id, { id: item.id, track: 'read', item, lesson, chapter });
-          cardIds.push(item.id);
-        }
+        const track = itemTrack(item);
+        (item.subExercises || []).forEach((ex, qi) => {
+          const id = `${item.id}:${ex.id}`;
+          // "question" bleibt als Alias für die Übung (prompt/answers/solution/quote).
+          cards.set(id, { id, track, item, ex, question: ex, kind: exerciseKind(ex), qIndex: qi, lesson, chapter });
+          cardIds.push(id);
+        });
       }
       lessons.set(lesson.id, { lesson, chapter, cardIds, track: lessonTrack(lesson, chapter) });
     }
@@ -111,14 +122,24 @@ export function validateChapters(chapters) {
         seen(it.id, `Item in ${l.id}`);
         if (it.type === 'dialog') {
           if (!it.text && !it.lines?.length) errors.push(`Dialog ${it.id}: text oder lines fehlt`);
-          if (!it.questions?.length) errors.push(`Dialog ${it.id}: keine Fragen`);
-          for (const q of it.questions || []) {
-            if (!q.id || !q.prompt || !q.answers?.length || !q.solution) errors.push(`Frage ${it.id}:${q.id}: prompt/answers/solution fehlt`);
-          }
         } else if (it.type === 'text') {
-          if (!it.paragraphs?.length || !it.keyPoints?.length || !it.topic) errors.push(`Text ${it.id}: paragraphs/keyPoints/topic fehlt`);
+          if (!it.paragraphs?.length || !it.topic) errors.push(`Text ${it.id}: paragraphs/topic fehlt`);
+        }
+        if (it.type === 'dialog' || it.type === 'text') {
+          if (!it.subExercises?.length) errors.push(`Item ${it.id}: keine subExercises`);
+          for (const ex of it.subExercises || []) {
+            const where = `Übung ${it.id}:${ex.id}`;
+            if (!EXERCISE_TYPES.includes(ex.type)) errors.push(`${where}: unbekannter type "${ex.type}"`);
+            const kind = exerciseKind(ex);
+            if (kind === 'recall' && (!ex.prompt || !ex.solution)) errors.push(`${where}: prompt/solution fehlt`);
+            if (kind === 'retell' && !it.keyPoints?.length) errors.push(`${where}: Nacherzählen braucht keyPoints am Text`);
+            if (kind === 'sequence' && (!ex.prompt || !(ex.events?.length >= 3 && ex.events.length <= 4))) errors.push(`${where}: sequence_events braucht prompt und 3–4 events`);
+            if (kind === 'match' && (!ex.prompt || !ex.options?.length || !ex.correct?.length || ex.correct.some((c) => !ex.options.includes(c)))) errors.push(`${where}: detail_match braucht options und correct ⊆ options`);
+          }
         } else errors.push(`Item ${it.id}: unbekannter type "${it.type}"`);
       }
+      const n = (l.items || []).reduce((k, x) => k + (x.subExercises?.length || 0), 0);
+      if (n < 1 || n > 4) errors.push(`Feld ${l.id}: ${n} Teilübungen (erlaubt 1–4)`);
     }
   }
   return errors;

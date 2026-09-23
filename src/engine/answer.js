@@ -74,3 +74,20 @@ export function gradeFromRatio(hits, total) {
   if (r >= 0.4) return 'partial';
   return 'poor';
 }
+
+/** detail_match: alle richtigen Chips gewählt und kein falscher → gut; halbwegs → teilweise. */
+export function gradeMatch(selected, correct) {
+  const sel = new Set(selected);
+  const hits = correct.filter((c) => sel.has(c)).length;
+  const wrong = [...sel].filter((s) => !correct.includes(s)).length;
+  if (hits === correct.length && wrong === 0) return { grade: 'good', hits, total: correct.length };
+  const score = (hits - wrong) / correct.length;
+  return { grade: score >= 0.4 ? 'partial' : 'poor', hits, total: correct.length };
+}
+
+/** sequence_events: Anteil der Ereignisse an der richtigen Stelle. Gut nur bei ganz richtiger Reihenfolge. */
+export function gradeSequence(order, correctOrder) {
+  const hits = order.filter((e, i) => e === correctOrder[i]).length;
+  const total = correctOrder.length;
+  return { grade: hits === total ? 'good' : hits / total >= 0.5 ? 'partial' : 'poor', hits, total };
+}

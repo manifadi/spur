@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useRef, useState } f
 import { loadState, saveState, clearState, requestPersistence } from './engine/storage.js';
 import { hydrate, tick, initialState, freshProgress } from './engine/game.js';
 import { INDEX } from './content/index.js';
+import MIGRATIONS from './content/migrations.json';
 import { checkReminder } from './lib/reminders.js';
 
 const Ctx = createContext(null);
@@ -22,7 +23,7 @@ export function StoreProvider({ children }) {
 
   useEffect(() => {
     let alive = true;
-    loadState().then((saved) => { if (alive) setState(hydrate(saved)); });
+    loadState().then((saved) => { if (alive) setState(hydrate(saved, new Date(), MIGRATIONS.renames)); });
     requestPersistence();
     return () => { alive = false; };
   }, []);

@@ -17,28 +17,37 @@
           "lines": [
             {
               "who": "Marta",
-              "text": "Ich hab Linsencurry gemacht, diesmal ohne Koriander, weil Ben ihn nicht verträgt."
+              "text": "Setzt euch, es ist gleich fertig. Ich hab Linsencurry gemacht, diesmal ohne Koriander, weil Ben ihn nicht verträgt."
             },
             {
               "who": "Ben",
-              "text": "Danke! Ich hab dafür Nachtisch mitgebracht: Tiramisu, aber ohne Alkohol, wegen Yusuf."
+              "text": "Danke! Für mich schmeckt Koriander nach Seife, ehrlich. Ich hab dafür Nachtisch mitgebracht: Tiramisu, aber ohne Alkohol, wegen Yusuf."
             },
             {
               "who": "Yusuf",
-              "text": "Sehr aufmerksam. Übrigens: Ich fange im Mai bei einer Baumschule in Pinneberg an. Endlich raus aus dem Büro."
+              "text": "Sehr aufmerksam. Ich hab übrigens den Wein vergessen, der steht noch bei mir im Flur."
             },
             {
               "who": "Marta",
-              "text": "Pinneberg? Dann fährst du ja jeden Tag über eine Stunde."
+              "text": "Macht nichts, es gibt Rhabarberschorle. Erst essen wir, dann wird der Tisch abgeräumt, und dann zeigt uns Ben endlich seine Fotos aus Norwegen."
+            },
+            {
+              "who": "Ben",
+              "text": "Zweihundert Fotos. Von Fjorden. Ihr werdet es lieben."
             },
             {
               "who": "Yusuf",
-              "text": "Fünfzig Minuten mit der S-Bahn. Und mein Fahrrad kann ich mitnehmen."
+              "text": "Fotos sind okay. Aber nur, wenn es danach noch Tiramisu gibt."
+            },
+            {
+              "who": "Marta",
+              "text": "Das Tiramisu gibt es zwischendurch. Nach hundert Fjorden braucht jeder eine Pause."
             }
           ],
-          "questions": [
+          "subExercises": [
             {
               "id": "q1",
+              "type": "recall_text",
               "prompt": "Was hat Marta gekocht?",
               "answers": [
                 [
@@ -52,6 +61,7 @@
             },
             {
               "id": "q2",
+              "type": "recall_text",
               "prompt": "Welche Zutat hat Marta weggelassen?",
               "answers": [
                 [
@@ -63,6 +73,7 @@
             },
             {
               "id": "q3",
+              "type": "recall_text",
               "prompt": "Welchen Nachtisch hat Ben mitgebracht?",
               "answers": [
                 [
@@ -73,7 +84,66 @@
               "quote": "„Tiramisu, aber ohne Alkohol, wegen Yusuf.“"
             },
             {
+              "id": "s1",
+              "type": "sequence_events",
+              "prompt": "Was ist für den Abend in welcher Reihenfolge geplant?",
+              "events": [
+                "Essen",
+                "Tisch abräumen",
+                "Bens Fotos aus Norwegen"
+              ]
+            }
+          ],
+          "worldRefs": {
+            "charactersReferenced": [],
+            "locationsReferenced": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "z4-abendessen-2",
+      "title": "Abendessen, Teil 2",
+      "items": [
+        {
+          "id": "z4-abendessen-d2",
+          "type": "dialog",
+          "title": "Abendessen, Teil 2",
+          "characterId": "yusuf",
+          "lines": [
+            {
+              "who": "Yusuf",
+              "text": "Bevor die Fjorde kommen, hab ich noch eine Neuigkeit: Ich fange im Mai bei einer Baumschule in Pinneberg an. Endlich raus aus dem Büro."
+            },
+            {
+              "who": "Marta",
+              "text": "Pinneberg? Dann fährst du ja jeden Tag über eine Stunde."
+            },
+            {
+              "who": "Yusuf",
+              "text": "Fünfzig Minuten mit der S-Bahn. Und mein Fahrrad kann ich mitnehmen, die Baumschule liegt nochmal zehn Minuten vom Bahnhof weg."
+            },
+            {
+              "who": "Ben",
+              "text": "Und was machst du da genau?"
+            },
+            {
+              "who": "Yusuf",
+              "text": "Erst mal Obstbäume veredeln. Im Herbst dann Verkauf. Und ich darf mir jedes Jahr einen Baum aussuchen, das steht sogar im Vertrag."
+            },
+            {
+              "who": "Marta",
+              "text": "Einen Baum im Jahr? Dann will ich einen Kirschbaum für den Hof."
+            },
+            {
+              "who": "Yusuf",
+              "text": "Abgemacht. Aber du musst ihn selber gießen, ich komme nicht jeden Tag mit der S-Bahn vorbei."
+            }
+          ],
+          "subExercises": [
+            {
               "id": "q4",
+              "type": "recall_text",
               "prompt": "Wo fängt Yusuf im Mai an?",
               "answers": [
                 [
@@ -88,6 +158,7 @@
             },
             {
               "id": "q5",
+              "type": "recall_text",
               "prompt": "Wie lange fährt Yusuf mit der S-Bahn?",
               "answers": [
                 [
@@ -119,7 +190,7 @@
           "lines": [
             {
               "who": "Frau Demir",
-              "text": "Die Klassenfahrt geht dieses Jahr nach Rügen, vom 12. bis 16. Mai. Kosten: 240 Euro pro Kind."
+              "text": "Guten Abend zusammen. Die Klassenfahrt geht dieses Jahr nach Rügen, vom 12. bis 16. Mai. Wir wohnen in einer Jugendherberge direkt am Strand. Kosten: 240 Euro pro Kind, inklusive Vollpension."
             },
             {
               "who": "Herr Lindqvist",
@@ -127,7 +198,7 @@
             },
             {
               "who": "Frau Demir",
-              "text": "Ja, über den Förderverein. Den Antrag bitte bis Ende März bei Herrn Oswald im Sekretariat abgeben."
+              "text": "Ja, über den Förderverein. Den Antrag bitte bis Ende März bei Herrn Oswald im Sekretariat abgeben. Das Formular gibt es auch auf der Schulwebsite."
             },
             {
               "who": "Frau Petrović",
@@ -135,12 +206,21 @@
             },
             {
               "who": "Frau Demir",
-              "text": "Ich und Herr Brandt, der Sportlehrer. Außerdem suchen wir noch einen Elternteil mit Erste-Hilfe-Kenntnissen."
+              "text": "Ich und Herr Brandt, der Sportlehrer. Außerdem suchen wir noch einen Elternteil mit Erste-Hilfe-Kenntnissen. Wer Lust hat, meldet sich bitte bis zu den Osterferien bei mir."
+            },
+            {
+              "who": "Herr Lindqvist",
+              "text": "Müssen die Kinder Bettwäsche mitbringen?"
+            },
+            {
+              "who": "Frau Demir",
+              "text": "Nein, die gibt es in der Jugendherberge. Aber bitte feste Schuhe und eine Regenjacke, wir machen eine Wanderung zu den Kreidefelsen. Handys sammeln wir abends ein, das haben die Kinder selbst so abgestimmt."
             }
           ],
-          "questions": [
+          "subExercises": [
             {
               "id": "q1",
+              "type": "recall_text",
               "prompt": "Wohin geht die Klassenfahrt?",
               "answers": [
                 [
@@ -153,6 +233,7 @@
             },
             {
               "id": "q2",
+              "type": "recall_text",
               "prompt": "Was kostet die Fahrt pro Kind?",
               "answers": [
                 [
@@ -160,21 +241,11 @@
                 ]
               ],
               "solution": "240 Euro.",
-              "quote": "„Kosten: 240 Euro pro Kind.“"
-            },
-            {
-              "id": "q3",
-              "prompt": "Bei wem wird der Antrag abgegeben?",
-              "answers": [
-                [
-                  "Oswald"
-                ]
-              ],
-              "solution": "Bei Herrn Oswald im Sekretariat.",
-              "quote": "„… bei Herrn Oswald im Sekretariat abgeben.“"
+              "quote": "„Kosten: 240 Euro pro Kind …“"
             },
             {
               "id": "q4",
+              "type": "recall_text",
               "prompt": "Wer begleitet außer Frau Demir die Fahrt?",
               "answers": [
                 [
@@ -186,17 +257,20 @@
               "quote": "„Ich und Herr Brandt, der Sportlehrer.“"
             },
             {
-              "id": "q5",
-              "prompt": "Was soll der gesuchte Elternteil können?",
-              "answers": [
-                [
-                  "Erste Hilfe",
-                  "Ersthelfer",
-                  "Erste-Hilfe"
-                ]
+              "id": "m1",
+              "type": "detail_match",
+              "prompt": "Was stimmt? (Mehrere Antworten richtig)",
+              "options": [
+                "Der Antrag geht an Herrn Oswald",
+                "Gesucht wird ein Elternteil mit Erste-Hilfe-Kenntnissen",
+                "Die Jugendherberge liegt im Wald",
+                "Der Zuschuss kommt von der Stadt"
               ],
-              "solution": "Erste Hilfe.",
-              "quote": "„… einen Elternteil mit Erste-Hilfe-Kenntnissen.“"
+              "correct": [
+                "Der Antrag geht an Herrn Oswald",
+                "Gesucht wird ein Elternteil mit Erste-Hilfe-Kenntnissen"
+              ],
+              "quote": "„… bei Herrn Oswald im Sekretariat abgeben. … einen Elternteil mit Erste-Hilfe-Kenntnissen.“"
             }
           ],
           "worldRefs": {
@@ -220,11 +294,11 @@
           "lines": [
             {
               "who": "Meister Kowalski",
-              "text": "Also: Die Bremsbeläge vorne sind runter, die tauschen wir. Das Klappern hinten kam vom Hitzeschutzblech, das haben wir nur festgeschraubt."
+              "text": "Also. Die Bremsbeläge vorne sind runter, die tauschen wir. Das Klappern hinten kam vom Hitzeschutzblech, das haben wir nur festgeschraubt. Hat nichts gekostet."
             },
             {
               "who": "Frau Heller",
-              "text": "Und was kostet das?"
+              "text": "Immerhin. Und was kostet der Rest?"
             },
             {
               "who": "Meister Kowalski",
@@ -236,12 +310,25 @@
             },
             {
               "who": "Meister Kowalski",
-              "text": "Stimmt. Den machen wir gleich mit, das Birnchen kostet nur acht Euro."
+              "text": "Stimmt. Den machen wir gleich mit, das Birnchen kostet nur acht Euro. Und Frau Heller: Die Winterreifen haben noch zwei Winter, dann müssen neue her."
+            },
+            {
+              "who": "Frau Heller",
+              "text": "Zwei Winter. Ich schreib's mir auf. Irgendwann."
+            },
+            {
+              "who": "Azubi Timo",
+              "text": "Soll ich den Wagen noch waschen, Chef?"
+            },
+            {
+              "who": "Meister Kowalski",
+              "text": "Nein, Timo. Wir sind eine Werkstatt, keine Waschanlage."
             }
           ],
-          "questions": [
+          "subExercises": [
             {
               "id": "q1",
+              "type": "recall_text",
               "prompt": "Was muss getauscht werden?",
               "answers": [
                 [
@@ -256,20 +343,8 @@
               "quote": "„Die Bremsbeläge vorne sind runter, die tauschen wir.“"
             },
             {
-              "id": "q2",
-              "prompt": "Woher kam das Klappern?",
-              "answers": [
-                [
-                  "Hitzeschutzblech",
-                  "Hitzeschutz",
-                  "Blech"
-                ]
-              ],
-              "solution": "Vom Hitzeschutzblech.",
-              "quote": "„Das Klappern hinten kam vom Hitzeschutzblech …“"
-            },
-            {
               "id": "q3",
+              "type": "recall_text",
               "prompt": "Was kostet die Reparatur ungefähr?",
               "answers": [
                 [
@@ -281,6 +356,7 @@
             },
             {
               "id": "q4",
+              "type": "recall_text",
               "prompt": "Wann ist der Wagen fertig?",
               "answers": [
                 [
@@ -295,18 +371,22 @@
               "quote": "„Morgen ab 16 Uhr ist der Wagen fertig.“"
             },
             {
-              "id": "q5",
-              "prompt": "Was ist außerdem kaputt?",
-              "answers": [
-                [
-                  "Scheinwerfer",
-                  "Licht",
-                  "Lampe",
-                  "Birne"
-                ]
+              "id": "m1",
+              "type": "detail_match",
+              "prompt": "Was wird am Auto gemacht? (Mehrere Antworten richtig)",
+              "options": [
+                "Hitzeschutzblech festschrauben",
+                "Scheinwerferbirne tauschen",
+                "Neue Winterreifen",
+                "Ölwechsel",
+                "Bremsbeläge tauschen"
               ],
-              "solution": "Der linke Scheinwerfer.",
-              "quote": "„Der linke Scheinwerfer ist auch kaputt.“"
+              "correct": [
+                "Hitzeschutzblech festschrauben",
+                "Scheinwerferbirne tauschen",
+                "Bremsbeläge tauschen"
+              ],
+              "quote": "„Das Klappern hinten kam vom Hitzeschutzblech … Den machen wir gleich mit, das Birnchen kostet nur acht Euro.“"
             }
           ],
           "worldRefs": {
@@ -330,7 +410,7 @@
           "lines": [
             {
               "who": "Frau Sommer",
-              "text": "Die Wohnung hat 68 Quadratmeter, drei Zimmer und einen Balkon nach Westen — also Abendsonne."
+              "text": "Kommen Sie rein. Die Wohnung hat 68 Quadratmeter, drei Zimmer und einen Balkon nach Westen — also Abendsonne."
             },
             {
               "who": "Jonte",
@@ -342,16 +422,25 @@
             },
             {
               "who": "Lea",
-              "text": "Sind Haustiere erlaubt? Wir haben zwei Kaninchen."
+              "text": "Sind Haustiere erlaubt? Wir haben zwei Kaninchen, Fritz und Frieda."
             },
             {
               "who": "Frau Sommer",
-              "text": "Kleintiere ja. Und falls Sie möchten: Die Vormieterin lässt die Einbauküche für 1.500 Euro da."
+              "text": "Kleintiere ja. Hunde nur nach Absprache mit dem Eigentümer, aber Kaninchen sind kein Problem."
+            },
+            {
+              "who": "Jonte",
+              "text": "Wie ist es mit dem Lärm? Die Straße vorne wirkt ziemlich belebt."
+            },
+            {
+              "who": "Frau Sommer",
+              "text": "Die Schlafzimmer gehen nach hinten in den Hof, da ist es ruhig. Vorne ist nur die Küche. Und die Fenster sind vor zwei Jahren erneuert worden."
             }
           ],
-          "questions": [
+          "subExercises": [
             {
               "id": "q1",
+              "type": "recall_text",
               "prompt": "Wie groß ist die Wohnung?",
               "answers": [
                 [
@@ -363,6 +452,7 @@
             },
             {
               "id": "q2",
+              "type": "recall_text",
               "prompt": "In welche Richtung zeigt der Balkon?",
               "answers": [
                 [
@@ -376,6 +466,7 @@
             },
             {
               "id": "q3",
+              "type": "recall_text",
               "prompt": "Wie hoch sind die Nebenkosten?",
               "answers": [
                 [
@@ -387,6 +478,7 @@
             },
             {
               "id": "q4",
+              "type": "recall_text",
               "prompt": "Welche Haustiere haben Jonte und Lea?",
               "answers": [
                 [
@@ -395,10 +487,59 @@
                 ]
               ],
               "solution": "Zwei Kaninchen.",
-              "quote": "„Wir haben zwei Kaninchen.“"
+              "quote": "„Wir haben zwei Kaninchen, Fritz und Frieda.“"
+            }
+          ],
+          "worldRefs": {
+            "charactersReferenced": [],
+            "locationsReferenced": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "z4-besichtigung-2",
+      "title": "Besichtigung, Teil 2",
+      "items": [
+        {
+          "id": "z4-besichtigung-d2",
+          "type": "dialog",
+          "title": "Besichtigung, Teil 2",
+          "characterId": "frau-sommer",
+          "lines": [
+            {
+              "who": "Lea",
+              "text": "Die Küche ist ja schön. Bleibt die drin?"
             },
             {
+              "who": "Frau Sommer",
+              "text": "Falls Sie möchten: Die Vormieterin lässt die Einbauküche für 1.500 Euro da. Die Geräte sind drei Jahre alt, der Backofen ist noch gar nicht benutzt worden."
+            },
+            {
+              "who": "Jonte",
+              "text": "Noch nie benutzt? Das sagt ja auch etwas über die Vormieterin."
+            },
+            {
+              "who": "Frau Sommer",
+              "text": "Sie hat viel auswärts gegessen, sagt sie. Überlegen Sie es sich in Ruhe, ich brauche Ihre Antwort bis Freitag."
+            },
+            {
+              "who": "Lea",
+              "text": "Und ab wann wäre die Wohnung frei?"
+            },
+            {
+              "who": "Frau Sommer",
+              "text": "Ab dem ersten Dezember. Die Kaution beträgt drei Kaltmieten. Wenn Sie wollen, schicke ich Ihnen heute Abend noch die Unterlagen per E-Mail."
+            },
+            {
+              "who": "Jonte",
+              "text": "Gern. Und wir überlegen uns das mit der Küche. Fünfzehnhundert sind viel Geld für einen Backofen, der nie an war."
+            }
+          ],
+          "subExercises": [
+            {
               "id": "q5",
+              "type": "recall_text",
               "prompt": "Was kostet die Einbauküche?",
               "answers": [
                 [

@@ -32,7 +32,7 @@ export function SessionEnd({ result, onNext }) {
   const { state } = useStore();
   const p = state.progress;
   const acc = result.total ? Math.round(((result.good + result.partial * 0.5) / result.total) * 100) : 0;
-  const perfect = acc === 100 && !prefersReducedMotion();
+  const perfect = acc === 100 && !prefersReducedMotion() && result.kind !== 'popup';
   const xp = useCountUp(result.xp, { delay: perfect ? 500 : 300, duration: perfect ? 1000 : 900 });
   useEffect(() => { if (state.settings.sounds) sounds.done(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -77,7 +77,7 @@ export function SessionEnd({ result, onNext }) {
         <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', width: 190, height: 190, flex: '0 0 auto', marginBottom: 10 }}>
           <Mascot pose="proud" size={130} />
         </div>
-        <span className="overline" style={{ color: 'var(--text-muted)', marginBottom: 8 }}>Session beendet</span>
+        <span className="overline" style={{ color: 'var(--text-muted)', marginBottom: 8 }}>{result.kind === 'popup' ? 'Kurzer Test' : 'Session beendet'}</span>
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }} aria-label={`plus ${result.xp} Federn`}>
           <span style={{ font: 'var(--type-stat)', color: 'var(--spur-amber)', letterSpacing: 'var(--tracking-tight)' }}>+{xp}</span>
           <span style={{ font: 'var(--type-headline)', color: 'var(--text-muted)' }}>Federn</span>

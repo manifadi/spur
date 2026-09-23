@@ -16,14 +16,38 @@
           "topic": "Krähen & Gesichter",
           "paragraphs": [
             "Krähen erkennen einzelne Menschen an ihren Gesichtern und behalten sie über Jahre.",
-            "Forscher in Seattle fingen mehrere Vögel, während sie eine auffällige Maske trugen. Wer danach dieselbe Maske aufsetzte, wurde lautstark angeschimpft — auch von Tieren, die nie gefangen worden waren.",
-            "Die Warnung wurde also weitergegeben, nicht nur selbst erlebt. Fünf Jahre später reagierten die Vögel immer noch."
+            "Forscher in Seattle fingen mehrere Vögel, während sie eine auffällige Maske trugen. Die Tiere wurden beringt und kurz darauf wieder freigelassen, ohne dass ihnen etwas geschah. Wer danach dieselbe Maske aufsetzte und über den Campus ging, wurde lautstark angeschimpft — auch von Tieren, die nie gefangen worden waren.",
+            "Die Warnung wurde also weitergegeben, nicht nur selbst erlebt. Junge Krähen lernten sie offenbar von ihren Eltern. Wer dagegen eine neutrale Maske trug, wurde in Ruhe gelassen.",
+            "Fünf Jahre später reagierten die Vögel immer noch. Die Zahl der schimpfenden Krähen war sogar gestiegen.",
+            "Krähen gehören ohnehin zu den klügsten Vögeln. Sie benutzen Stöckchen als Werkzeug, legen Nüsse auf die Straße, damit Autos sie knacken, und verstecken Futter an Hunderten Stellen, die sie später wiederfinden.",
+            "Die Forscher empfehlen übrigens nicht, das Experiment nachzumachen: Wer einmal auf der schwarzen Liste steht, kommt so schnell nicht wieder herunter."
           ],
           "keyPoints": [
             "Krähen erkennen einzelne Gesichter",
             "Die Warnung wird weitergegeben",
             "Der Versuch fand in Seattle statt, mit Masken",
             "Die Erinnerung hält noch nach fünf Jahren"
+          ],
+          "subExercises": [
+            {
+              "id": "retell",
+              "type": "recall_text"
+            },
+            {
+              "id": "m1",
+              "type": "detail_match",
+              "prompt": "Wie reagierten die Krähen auf eine neutrale Maske?",
+              "options": [
+                "Sie schimpften noch lauter",
+                "Sie ließen die Person in Ruhe",
+                "Sie flogen davon",
+                "Sie griffen an"
+              ],
+              "correct": [
+                "Sie ließen die Person in Ruhe"
+              ],
+              "quote": "„Wer dagegen eine neutrale Maske trug, wurde in Ruhe gelassen.“"
+            }
           ]
         }
       ]
@@ -38,15 +62,48 @@
           "title": "Wie Bienen den Weg beschreiben",
           "topic": "Der Tanz der Bienen",
           "paragraphs": [
-            "Hat eine Honigbiene eine gute Futterquelle gefunden, kehrt sie zum Stock zurück und tanzt.",
-            "Beim Schwänzeltanz läuft sie eine gerade Strecke und wackelt dabei mit dem Hinterleib. Der Winkel dieser Strecke zeigt die Richtung zur Futterquelle, gemessen am Stand der Sonne. Wie lange sie wackelt, verrät die Entfernung.",
-            "Entschlüsselt hat das der Forscher Karl von Frisch. Er bekam dafür 1973 den Nobelpreis."
+            "Hat eine Honigbiene eine gute Futterquelle gefunden, kehrt sie zum Stock zurück und tanzt. Die anderen Bienen drängen sich um sie und folgen ihren Bewegungen im Dunkeln mit den Fühlern.",
+            "Beim Schwänzeltanz läuft sie eine gerade Strecke und wackelt dabei mit dem Hinterleib. Dann läuft sie in einem Bogen zurück und beginnt von vorn. Der Winkel der geraden Strecke zeigt die Richtung zur Futterquelle, gemessen am Stand der Sonne. Wie lange sie wackelt, verrät die Entfernung.",
+            "Liegt das Futter ganz nah am Stock, tanzt die Biene stattdessen einen einfachen Rundtanz. Der sagt nur: Sucht in der Nähe.",
+            "Entschlüsselt hat das der Forscher Karl von Frisch. Er bekam dafür 1973 den Nobelpreis.",
+            "Eine einzelne Biene fliegt für ihr Volk oft mehrere Kilometer weit. Je besser die Futterquelle, desto länger und begeisterter tanzt sie, und desto mehr Bienen machen sich auf den Weg.",
+            "Auch bei der Suche nach einer neuen Wohnung für den ganzen Schwarm wird getanzt: Kundschafterinnen werben so lange für ihren Fund, bis sich die meisten auf einen Ort geeinigt haben."
           ],
           "keyPoints": [
             "Bienen tanzen, um anderen eine Futterquelle zu zeigen",
             "Der Winkel zeigt die Richtung, bezogen auf die Sonne",
             "Die Dauer des Wackelns zeigt die Entfernung",
             "Karl von Frisch entschlüsselte es, Nobelpreis 1973"
+          ],
+          "subExercises": [
+            {
+              "id": "retell",
+              "type": "recall_text"
+            },
+            {
+              "id": "s1",
+              "type": "sequence_events",
+              "prompt": "In welcher Reihenfolge läuft ein Schwänzeltanz ab?",
+              "events": [
+                "Futterquelle finden",
+                "Zum Stock zurückkehren",
+                "Gerade Strecke mit Wackeln",
+                "Im Bogen zurücklaufen"
+              ]
+            },
+            {
+              "id": "q1",
+              "type": "recall_text",
+              "prompt": "Welchen Tanz macht die Biene, wenn das Futter ganz nah ist?",
+              "answers": [
+                [
+                  "Rundtanz",
+                  "Rund"
+                ]
+              ],
+              "solution": "Einen Rundtanz.",
+              "quote": "„… tanzt die Biene stattdessen einen einfachen Rundtanz.“"
+            }
           ]
         }
       ]
@@ -62,14 +119,23 @@
           "topic": "Altbackenes Brot",
           "paragraphs": [
             "Altes Brot ist nicht einfach ausgetrocknet. Der Grund liegt in der Stärke.",
-            "Beim Backen nimmt die Stärke Wasser auf und wird weich. Beim Abkühlen ordnen sich ihre Moleküle langsam wieder zu festen Strukturen. Das Brot wird hart, obwohl noch Wasser darin steckt.",
-            "Im Kühlschrank passiert das sogar schneller. Kurzes Aufbacken im Ofen macht den Vorgang für eine Weile rückgängig."
+            "Beim Backen nimmt die Stärke Wasser auf und wird weich. Beim Abkühlen ordnen sich ihre Moleküle langsam wieder zu festen Strukturen. Das Brot wird hart, obwohl noch Wasser darin steckt. Die Rinde dagegen zieht Feuchtigkeit aus der Krume und wird zäh statt knusprig.",
+            "Im Kühlschrank passiert das sogar schneller, weil die Stärke bei kühlen Temperaturen besonders gern fest wird. Besser ist ein Brotkasten bei Zimmertemperatur. Wer Brot länger aufheben will, friert es ein.",
+            "Kurzes Aufbacken im Ofen macht den Vorgang für eine Weile rückgängig. Nach dem Abkühlen wird das Brot dann aber umso schneller wieder hart.",
+            "Wie schnell ein Brot altbacken wird, hängt auch von seinen Zutaten ab. Roggenbrot und Sauerteigbrot bleiben länger frisch als helles Weizenbrot, Brote mit viel Fett oder Körnern ebenfalls.",
+            "Wer altes Brot trotzdem nicht wegwerfen will, macht daraus Semmelbrösel, Croûtons oder Arme Ritter."
           ],
           "keyPoints": [
             "Altbacken heißt nicht ausgetrocknet",
             "Die Stärke ordnet sich beim Abkühlen neu und wird fest",
             "Im Kühlschrank wird Brot schneller altbacken",
             "Aufbacken macht es vorübergehend wieder weich"
+          ],
+          "subExercises": [
+            {
+              "id": "retell",
+              "type": "recall_text"
+            }
           ]
         }
       ]
@@ -85,14 +151,54 @@
           "topic": "Oktopus-Arme",
           "paragraphs": [
             "Ein Oktopus hat rund 500 Millionen Nervenzellen. Etwa zwei Drittel davon sitzen nicht im Kopf, sondern in den acht Armen.",
-            "Deshalb erledigen die Arme vieles selbst: Sie tasten, greifen und schmecken sogar mit ihren Saugnäpfen, ohne dass das Gehirn jeden Schritt steuert.",
-            "Dazu hat der Oktopus drei Herzen und blaues Blut."
+            "Deshalb erledigen die Arme vieles selbst: Sie tasten, greifen und schmecken sogar mit ihren Saugnäpfen, ohne dass das Gehirn jeden Schritt steuert. In Versuchen griff ein abgetrennter Arm noch nach Futter.",
+            "Oktopusse können außerdem blitzschnell Farbe und Muster ihrer Haut ändern, um sich zu tarnen. Manche öffnen im Aquarium Schraubgläser oder klettern nachts in andere Becken.",
+            "Dazu hat der Oktopus drei Herzen und blaues Blut.",
+            "Ein Oktopus lebt meist nur ein bis zwei Jahre. Umso erstaunlicher ist, wie schnell er lernt: In Versuchen fanden Tiere den Weg durch kleine Labyrinthe und merkten sich, welche Deckel sich öffnen ließen.",
+            "Manche Forscher sehen im Oktopus deshalb eine Art zweite, ganz andere Form von Intelligenz, die sich völlig unabhängig von unserer entwickelt hat."
           ],
           "keyPoints": [
             "Rund zwei Drittel der Nervenzellen stecken in den Armen",
             "Die Arme tasten und greifen weitgehend selbstständig",
             "Mit den Saugnäpfen kann er schmecken",
             "Drei Herzen und blaues Blut"
+          ],
+          "subExercises": [
+            {
+              "id": "retell",
+              "type": "recall_text"
+            },
+            {
+              "id": "q1",
+              "type": "recall_text",
+              "prompt": "Womit schmeckt ein Oktopus?",
+              "answers": [
+                [
+                  "Saugnäpfe",
+                  "Saugnäpfen",
+                  "Saugnapf",
+                  "Saugnaepfe"
+                ]
+              ],
+              "solution": "Mit seinen Saugnäpfen.",
+              "quote": "„… und schmecken sogar mit ihren Saugnäpfen …“"
+            },
+            {
+              "id": "m1",
+              "type": "detail_match",
+              "prompt": "Was stimmt? (Mehrere Antworten richtig)",
+              "options": [
+                "Er hat drei Herzen",
+                "Sein Blut ist blau",
+                "Er hat zwei Gehirne",
+                "Er hat zehn Arme"
+              ],
+              "correct": [
+                "Er hat drei Herzen",
+                "Sein Blut ist blau"
+              ],
+              "quote": "„Dazu hat der Oktopus drei Herzen und blaues Blut.“"
+            }
           ]
         }
       ]

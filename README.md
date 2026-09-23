@@ -115,35 +115,78 @@ sie im Feedback selbst als gemerkt zählen.
 - **Tagesziel** 1 / 3 / 5 / 8 Karten (3 empfohlen). Ist es erreicht und nichts mehr fällig, kommt
   „Für heute ist alles gemerkt“ mit „Freiwillige Runde“.
 
-## Inhalte erweitern
+## Felder, Teilübungen und Inhalte
 
-Jede JSON-Datei in `src/content/chapters/` ist ein Kapitel. Ein neues Kapitel ist einfach eine neue
-Datei, der Code bleibt unverändert. Danach `npm run check:content`.
+Jeder Knoten im Pfad ist ein **Feld** mit 1–4 **Teilübungen**. Die Anzahl ist bewusst
+unterschiedlich. Ein Feld ist erst abgeschlossen, wenn **alle** Teilübungen gemeistert sind,
+also mindestens teilweise richtig beantwortet. Erst dann schaltet sich das nächste Feld frei.
+Ist eine Übung daneben, kommt am Ende der Runde ein zweiter Versuch. Er kostet kein Herz und
+ändert kein Intervall. Jede Teilübung hat ihren eigenen Spaced-Repetition-Verlauf.
+
+| Typ | Übung | Anteil |
+|---|---|---|
+| `recall_text` mit `answers` | Freitext, automatisch geprüft | Großteil (Kernmechanik) |
+| `recall_text` ohne `answers` (id `retell`) | Text frei nacherzählen, Selbstbewertung über `keyPoints` | jeder Lesetext |
+| `sequence_events` | 3–4 Ereignisse in die richtige Reihenfolge tippen | gelegentlich |
+| `detail_match` | Antwort-Chips, eine oder mehrere richtig | gelegentlich |
+
+Am Knoten zeigt ein **Segment-Ring** den Stand: ein Bogen pro Teilübung. Gemeisterte Bögen
+sind voll in der Spurfarbe, offene zu 28 %. In der Übung steht oben „Frage X von Y“, bezogen
+auf das aktuelle Feld.
+
+Jede JSON-Datei in `src/content/chapters/` ist ein Kapitel. Ein neues Kapitel ist einfach eine
+neue Datei, danach `npm run check:content` und `npm run audio`.
 
 ```jsonc
 {
   "id": "zuhoeren-6", "order": 6, "title": "…", "track": "listen" /* | "read" | "mixed" */, "difficulty": 6,
-  "lessons": [
+  "lessons": [                                         // Felder, beliebig viele
     { "id": "z6-beispiel", "title": "Beispiel", "items": [
-      { "id": "z6-beispiel-d", "type": "dialog", "title": "…",
+      { "id": "z6-beispiel-d", "type": "dialog", "title": "…", "characterId": "frau-berger",
         "text": "…"                                   /* oder "lines": [{ "who": "Name", "text": "…" }] */,
-        "questions": [
-          { "id": "q1", "prompt": "Frage?", "answers": [["Jonas", "Bruder"], ["30", "dreißig"]],
-            "solution": "Ihr Bruder Jonas, 30.", "quote": "„… Zitat aus dem Dialog …“" }
-        ] },
-      { "id": "l6-text-t", "type": "text", "title": "…", "topic": "Kurzes Thema",
-        "paragraphs": ["…", "…"], "keyPoints": ["…", "…", "…", "…"] }
+        "subExercises": [                              // 1–4 pro Feld
+          { "id": "q1", "type": "recall_text", "prompt": "Frage?", "answers": [["Jonas", "Bruder"]], "solution": "…", "quote": "„…“" },
+          { "id": "s1", "type": "sequence_events", "prompt": "Was passierte zuerst?", "events": ["…", "…", "…"] },
+          { "id": "m1", "type": "detail_match", "prompt": "…", "options": ["…", "…", "…"], "correct": ["…"], "quote": "„…“" }
+        ],
+        "worldRefs": { "charactersReferenced": [], "locationsReferenced": [] } },
+      { "id": "l6-text-t", "type": "text", "title": "…", "topic": "…", "paragraphs": ["…"], "keyPoints": ["…"],
+        "subExercises": [{ "id": "retell", "type": "recall_text" }] }
     ] },
     { "id": "z6-checkpoint", "type": "checkpoint", "title": "Checkpoint" }
   ]
 }
 ```
 
-`answers` ist eine Liste von Gruppen. Jede Gruppe ist ein Detail, das genannt werden soll, mit
-gleichwertigen Schreibweisen. `order` legt die Reihenfolge innerhalb der Spur fest.
+Werden Karten-IDs umgebaut, etwa weil ein Gespräch in zwei Teile geteilt wird, trägt man die
+alte und die neue ID in `src/content/migrations.json` ein. Verlauf und Intervalle wandern beim
+nächsten Start mit.
 
-Mitgeliefert: 5 Kapitel Zuhören, 5 Kapitel Lesen und 1 gemischtes Kapitel. Das sind 50 Lektionen
-mit 120 Karten.
+Mitgeliefert: 11 Kapitel mit 57 Feldern und 163 Teilübungen. Davon sind 106 Freitext,
+24 Nacherzählen, 16 Reihenfolge und 17 Auswahl. Die Lesetexte haben 117–193 Wörter. Die
+Gespräche haben 200–260 Wörter, meist aufgeteilt in zwei Hörteile.
+
+## Pfad
+
+- **Sticky Kapitel-Leiste:** Beim Scrollen zeigt eine schmale Leiste unter der Statusleiste,
+  in welchem Kapitel du gerade bist. Die Erkennung läuft über einen IntersectionObserver auf
+  die Kapitel-Abschnitte. Antippen springt zum Kapitelanfang.
+- **„Zur aktuellen Position“:** Ist der nächste fällige bzw. unerledigte Knoten außer Sicht,
+  erscheint unten rechts ein runder Button, ebenfalls über einen IntersectionObserver erkannt.
+  Antippen scrollt sanft zurück.
+
+## Zufällige Erinnerungs-Pop-ups
+
+Unabhängig vom Pfad-Scheduling (`src/engine/game.js`, `schedulePopup` / `pickPopup`):
+
+- Wird ein Kapitel abgeschlossen, bekommt es mit 60 % Wahrscheinlichkeit einen Pop-up-Termin.
+  Der Termin liegt zufällig 3–5 Tage später, auch über die Tageszeit gestreut. 40 % der
+  Kapitel bekommen bewusst nie eines.
+- Beim Öffnen des Pfads erscheint höchstens ein Pop-up pro Tag. Sind mehrere fällig, wird
+  eines zufällig gewählt. Die anderen rutschen erneut 3–5 Tage zufällig nach hinten.
+- **„Kurzer Test“** stellt 3 zufällige Übungen aus dem ganzen Kapitel. Die Intervalle bleiben
+  unberührt, Streak und Tagesziel auch, es gibt nur Bonus-Federn. **„Nicht jetzt“** schließt
+  das Pop-up folgenlos.
 
 ## Daten & Datenschutz
 

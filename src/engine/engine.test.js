@@ -7,8 +7,10 @@ import { gradeListen, gradeKeyPoints, normalize } from './answer.js';
 import { addDays, dayKey } from './dates.js';
 import {
   initialState, commitAnswer, buildLessonSession, buildDueSession, buildPath, tick, regenHearts,
-  HEART_REGEN_MS, MAX_HEARTS, dueCardIds, buildCheckpointSession,
+  HEART_REGEN_MS, MAX_HEARTS, dueCardIds, buildCheckpointSession, isLessonComplete, lessonSegments,
+  schedulePopup, pickPopup, buildPopupSession, hydrate, markLessonDone,
 } from './game.js';
+import { gradeMatch, gradeSequence } from './answer.js';
 
 const index = buildIndex(loadChapters());
 const at = (s) => new Date(s);
@@ -60,13 +62,85 @@ test('Pfad: "Beides" verzahnt Zuhören und Lesen, erster Knoten ist current', ()
   assert.equal(path[0].nodes[2].label, null);
 });
 
-test('Neue Lektion: Folgefragen kommen später und ohne Originaltext', () => {
+test('Feld-Session: Original nur vor der ersten Übung, Zähler "Frage X von Y"', () => {
   const s = initialState();
   const session = buildLessonSession(index, s, 'z1-umzug');
   assert.equal(session.entries[0].cardId, 'z1-umzug-d:q1');
   assert.equal(session.entries[0].showSource, true);
   assert.ok(session.entries.slice(1).every((e) => !e.showSource));
   assert.equal(session.entries.length, 3);
+  assert.deepEqual(session.entries.map((e) => e.feld), [{ n: 1, of: 3 }, { n: 2, of: 3 }, { n: 3, of: 3 }]);
+});
+
+test('Feld erst abgeschlossen, wenn ALLE Teilübungen gemeistert sind; Segmente zählen mit', () => {
+  const now = at('2026-09-23T10:00:00');
+  let s = initialState();
+  const ids = index.lessons.get('z1-kaffeekueche').cardIds;
+  assert.equal(ids.length, 4);
+  let r;
+  for (const id of ids.slice(0, 3)) r = commitAnswer(index, (s = r ? r.state : s), { cardId: id, mode: 'new' }, 'good', now);
+  s = commitAnswer(index, r.state, { cardId: ids[3], mode: 'new' }, 'poor', now).state;
+  assert.equal(isLessonComplete(index, s, 'z1-kaffeekueche'), false);
+  assert.deepEqual(lessonSegments(index, s, 'z1-kaffeekueche'), { total: 4, done: 3 });
+  // Zweiter Versuch in derselben Session meistert das Segment, ohne das Intervall zu ändern
+  const before = s.cards[ids[3]].due;
+  r = commitAnswer(index, s, { cardId: ids[3], mode: 'retry' }, 'good', now);
+  assert.equal(r.state.cards[ids[3]].due, before);
+  assert.equal(r.events.lessonDone, 'z1-kaffeekueche');
+  // Nicht gemeisterte Übungen kommen beim nächsten Öffnen wieder, ohne erneutes Anhören
+  const again = buildLessonSession(index, s, 'z1-kaffeekueche', now);
+  assert.equal(again.entries.filter((e) => e.feld).length, 1);
+  assert.equal(again.entries[0].showSource, false);
+});
+
+test('Auswahl und Reihenfolge werden bewertet', () => {
+  assert.equal(gradeMatch(['a'], ['a']).grade, 'good');
+  assert.equal(gradeMatch(['a', 'x'], ['a', 'b']).grade, 'poor');
+  assert.equal(gradeMatch(['a'], ['a', 'b']).grade, 'partial');
+  assert.equal(gradeSequence(['a', 'b', 'c'], ['a', 'b', 'c']).grade, 'good');
+  assert.equal(gradeSequence(['a', 'c', 'b', 'd'], ['a', 'b', 'c', 'd']).grade, 'partial');
+  assert.equal(gradeSequence(['c', 'a', 'b'], ['a', 'b', 'c']).grade, 'poor');
+});
+
+test('Pop-ups: ~60 % Chance, 3–5 Tage, höchstens eines pro Tag, Rest verschiebt sich', () => {
+  const now = at('2026-09-23T10:00:00');
+  const seq = (...v) => { let i = 0; return () => v[i++ % v.length]; };
+  assert.deepEqual(schedulePopup({}, 'lesen-1', now, seq(0.7)), {}); // 40 %: bewusst kein Pop-up
+  const p = schedulePopup({}, 'lesen-1', now, seq(0.1, 0.5));
+  const due = new Date(p['lesen-1'].dueAt) - now;
+  assert.ok(due >= 3 * 86400000 && due <= 5 * 86400000);
+  // Zwei fällige Geschichten am selben Tag: eine wird gezeigt, die andere wandert 3–5 Tage weiter
+  let s = initialState();
+  for (const id of index.lessons.get('l1-kraehen').cardIds) s = commitAnswer(index, s, { cardId: id, mode: 'new' }, 'good', now).state;
+  for (const id of index.lessons.get('z1-umzug').cardIds) s = commitAnswer(index, s, { cardId: id, mode: 'new' }, 'good', now).state;
+  const past = new Date(now.getTime() - 1000).toISOString();
+  s = { ...s, progress: { ...s.progress, popups: { 'lesen-1': { dueAt: past }, 'zuhoeren-1': { dueAt: past } } } };
+  const r = pickPopup(index, s, now, seq(0, 0.5));
+  assert.equal(r.chapterId, 'lesen-1');
+  assert.ok(new Date(r.state.progress.popups['zuhoeren-1'].dueAt) - now >= 3 * 86400000);
+  assert.equal(pickPopup(index, r.state, now).chapterId, null); // nicht zweimal am selben Tag
+  // Kurztest: höchstens 3 Übungen aus der Geschichte, beeinflusst keine Intervalle
+  const test = buildPopupSession(index, r.state, 'lesen-1', seq(0.3));
+  assert.ok(test.entries.length >= 1 && test.entries.length <= 3);
+  const card = test.entries[0].cardId;
+  const after = commitAnswer(index, r.state, test.entries[0], 'good', now).state;
+  assert.equal(after.cards[card].due, r.state.cards[card].due);
+  assert.equal(after.progress.streak, r.state.progress.streak);
+  assert.equal(after.progress.xp, r.state.progress.xp + 10);
+});
+
+test('Kapitelabschluss plant Pop-up; Migration alter Karten-IDs verliert nichts', () => {
+  const now = at('2026-09-23T10:00:00');
+  let s = initialState();
+  for (const l of index.chapters.find((c) => c.id === 'lesen-1').lessons) s = { ...s, progress: { ...s.progress, lessonsDone: { ...s.progress.lessonsDone, [l.id]: 'x' } } };
+  const ev = {};
+  s = markLessonDone(index, s, 'l1-oktopus', now, ev, () => 0.1);
+  assert.equal(ev.chapterDone, 'lesen-1');
+  assert.ok(s.progress.popups['lesen-1']);
+  const old = { version: 1, onboarded: true, settings: {}, progress: {}, cards: { 'l1-kraehen-t': { stage: 3, due: '2026-10-01', history: [{ g: 'good' }] } } };
+  const h = hydrate(old, now, { 'l1-kraehen-t': 'l1-kraehen-t:retell' });
+  assert.equal(h.cards['l1-kraehen-t:retell'].stage, 3);
+  assert.equal(h.version, 2);
 });
 
 test('Herzen: nur neue Karten kosten eins, Wiederholungen nie; Regeneration alle 2 h', () => {
@@ -118,7 +192,7 @@ test('Lektion fertig → nächster Knoten current, Karten werden fällig und ers
   const d1 = at('2026-09-23T10:00:00');
   let s = initialState();
   let events;
-  for (const q of ['q1', 'q2', 'q3']) ({ state: s, events } = commitAnswer(index, s, { cardId: `z1-kaffeekueche-d:${q}`, mode: 'new' }, 'good', d1));
+  for (const id of index.lessons.get('z1-kaffeekueche').cardIds) ({ state: s, events } = commitAnswer(index, s, { cardId: id, mode: 'new' }, 'good', d1));
   assert.equal(events.lessonDone, 'z1-kaffeekueche');
   let path = buildPath(index, s, d1);
   assert.equal(path[0].nodes[0].status, 'done');
@@ -126,7 +200,7 @@ test('Lektion fertig → nächster Knoten current, Karten werden fällig und ers
   const d2 = at('2026-09-24T10:00:00');
   path = buildPath(index, s, d2);
   assert.equal(path[0].nodes[0].status, 'due');
-  assert.equal(dueCardIds(index, s, d2).length, 3);
+  assert.equal(dueCardIds(index, s, d2).length, 4);
   const due = buildDueSession(index, s, 'z1-kaffeekueche', d2);
   assert.ok(due.entries.every((e) => e.mode === 'review' && !e.showSource));
   // Neue Lektion mischt fällige Wiederholungen ein (Interleaving)
@@ -154,7 +228,7 @@ test('Getrenntes Scheduling: Zuhören und Lesen haben je einen eigenen aktuellen
   for (const l of ['z1-kaffeekueche', 'z1-umzug']) for (const id of index.lessons.get(l).cardIds) s = commitAnswer(index, s, { cardId: id, mode: 'new' }, 'good', d1).state;
   path = buildPath(index, s, d1);
   const cur = Object.fromEntries(path.flatMap((g) => g.nodes).filter((n) => n.status === 'current').map((n) => [n.track, n.id]));
-  assert.deepEqual(cur, { listen: 'z1-feierabend', read: 'l1-kraehen' });
+  assert.deepEqual(cur, { listen: 'z1-paket', read: 'l1-kraehen' });
   // Checkpoints gehören zur Spur ihres Kapitels
   assert.equal(index.lessons.get('z3-checkpoint').track, 'listen');
   assert.equal(index.lessons.get('l3-checkpoint').track, 'read');

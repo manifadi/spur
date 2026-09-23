@@ -17,36 +17,37 @@
           "lines": [
             {
               "who": "Tante Vera",
-              "text": "Zum Siebzigsten von Opa kommen alle: Wir sind 23 Leute, der Saal im Gasthof Krone ist ab 18 Uhr gebucht."
+              "text": "Also, zum Siebzigsten von Opa kommen alle! Wirklich alle, sogar die Cousins aus Kanada. Wir sind 23 Leute, der Saal im Gasthof Krone ist ab 18 Uhr gebucht."
             },
             {
               "who": "Ole",
-              "text": "Wer hält die Rede?"
+              "text": "Und wer hält die Rede?"
             },
             {
               "who": "Tante Vera",
-              "text": "Onkel Rüdiger — aber nur fünf Minuten, hab ich ihm gesagt. Letztes Mal hat er zwanzig geredet."
+              "text": "Onkel Rüdiger — aber nur fünf Minuten, hab ich ihm gesagt. Letztes Mal hat er zwanzig geredet, und die Suppe war kalt."
             },
             {
               "who": "Ole",
-              "text": "Und das Geschenk?"
+              "text": "Fünf Minuten. Rüdiger. Das glaubst du doch selbst nicht."
             },
             {
               "who": "Tante Vera",
-              "text": "Eine Ballonfahrt über den Chiemsee. Das wollte Opa schon immer. Die Gutscheine liegen bei mir, die Überraschung gibt's beim Nachtisch."
+              "text": "Ich stelle mich mit einer Eieruhr neben ihn, wenn es sein muss. Und du, Ole, du holst die Cousins am Nachmittag vom Flughafen ab. Die landen um halb drei."
             },
             {
-              "who": "Pia",
-              "text": "Ich bringe die Fotowand mit. Ich hab alte Bilder eingescannt, sogar das von der Hochzeit 1978."
+              "who": "Ole",
+              "text": "Um halb drei. Und dann soll ich die Cousins noch durch die halbe Stadt fahren, bevor um sechs das Fest losgeht?"
             },
             {
               "who": "Tante Vera",
-              "text": "Wunderbar. Ach, und Oma möchte keine Blumen, sondern lieber Samen für ihren Kräutergarten."
+              "text": "Du zeigst ihnen den Dom und fährst sie ins Hotel, mehr nicht. Die sind nach zehn Stunden Flug eh müde."
             }
           ],
-          "questions": [
+          "subExercises": [
             {
               "id": "q1",
+              "type": "recall_text",
               "prompt": "Wie viele Leute kommen zum Fest?",
               "answers": [
                 [
@@ -59,6 +60,7 @@
             },
             {
               "id": "q2",
+              "type": "recall_text",
               "prompt": "Wo ist der Saal gebucht?",
               "answers": [
                 [
@@ -70,6 +72,7 @@
             },
             {
               "id": "q3",
+              "type": "recall_text",
               "prompt": "Wer hält die Rede?",
               "answers": [
                 [
@@ -80,9 +83,60 @@
               ],
               "solution": "Onkel Rüdiger.",
               "quote": "„Onkel Rüdiger — aber nur fünf Minuten …“"
+            }
+          ],
+          "worldRefs": {
+            "charactersReferenced": [],
+            "locationsReferenced": [
+              "gasthof-krone"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "z5-familienfest-2",
+      "title": "Familienfest, Teil 2",
+      "items": [
+        {
+          "id": "z5-familienfest-d2",
+          "type": "dialog",
+          "title": "Familienfest, Teil 2",
+          "characterId": "tante-vera",
+          "lines": [
+            {
+              "who": "Ole",
+              "text": "Und was schenken wir Opa?"
             },
             {
+              "who": "Tante Vera",
+              "text": "Eine Ballonfahrt über den Chiemsee. Das wollte er schon immer. Die Gutscheine liegen bei mir, die Überraschung gibt's beim Nachtisch."
+            },
+            {
+              "who": "Pia",
+              "text": "Ich bringe die Fotowand mit. Ich hab alte Bilder eingescannt, sogar das von der Hochzeit 1978. Opa mit Schnurrbart!"
+            },
+            {
+              "who": "Tante Vera",
+              "text": "Wunderbar. Also: Erst die Rede, dann das Essen, beim Nachtisch der Gutschein, und danach darf getanzt werden. Ach, und Oma möchte keine Blumen, sondern lieber Samen für ihren Kräutergarten."
+            },
+            {
+              "who": "Pia",
+              "text": "Samen statt Blumen. Typisch Oma."
+            },
+            {
+              "who": "Ole",
+              "text": "Und wer sitzt neben Onkel Rüdiger?"
+            },
+            {
+              "who": "Tante Vera",
+              "text": "Du. Damit er nicht zu viel Wein trinkt, bevor er redet."
+            }
+          ],
+          "subExercises": [
+            {
               "id": "q4",
+              "type": "recall_text",
               "prompt": "Was bekommt Opa geschenkt?",
               "answers": [
                 [
@@ -99,6 +153,7 @@
             },
             {
               "id": "q5",
+              "type": "recall_text",
               "prompt": "Aus welchem Jahr stammt das Hochzeitsfoto?",
               "answers": [
                 [
@@ -110,6 +165,7 @@
             },
             {
               "id": "q6",
+              "type": "recall_text",
               "prompt": "Was wünscht sich Oma statt Blumen?",
               "answers": [
                 [
@@ -120,6 +176,17 @@
               ],
               "solution": "Samen für ihren Kräutergarten.",
               "quote": "„… sondern lieber Samen für ihren Kräutergarten.“"
+            },
+            {
+              "id": "s1",
+              "type": "sequence_events",
+              "prompt": "In welcher Reihenfolge läuft der Abend ab?",
+              "events": [
+                "Rede",
+                "Essen",
+                "Gutschein beim Nachtisch",
+                "Tanzen"
+              ]
             }
           ],
           "worldRefs": {
@@ -147,32 +214,33 @@
             },
             {
               "who": "Carla",
-              "text": "Wow! Und dein Chef?"
+              "text": "Wow! Endlich! Und dein Chef?"
             },
             {
               "who": "Deniz",
-              "text": "Herr Wendt war erst sauer, dann hat er mir zehn Prozent mehr Gehalt angeboten. Aber es geht mir nicht ums Geld."
+              "text": "Herr Wendt war erst sauer, dann hat er mir zehn Prozent mehr Gehalt angeboten. Aber es geht mir nicht ums Geld. Ich wollte schon seit dem Studium etwas mit Kindern machen."
             },
             {
               "who": "Carla",
-              "text": "Wo sitzt die Stiftung?"
+              "text": "Und was machst du da genau?"
             },
             {
               "who": "Deniz",
-              "text": "In Potsdam, in einer alten Villa am Heiligen See. Zwei Tage die Woche Homeoffice, sonst pendle ich mit dem Regionalexpress."
+              "text": "Ich plane Lesepatenschaften. Ehrenamtliche lesen einmal pro Woche mit einem Kind, eine Stunde lang. Ich suche die Paten aus und besuche die Schulen."
             },
             {
               "who": "Carla",
-              "text": "Und dein Team hier?"
+              "text": "Und das Gehalt? Ehrlich jetzt."
             },
             {
               "who": "Deniz",
-              "text": "Meine Nachfolgerin ist Aysel, die arbeite ich noch drei Wochen ein. Am letzten Tag gibt's Waffeln — das ist bei uns Tradition."
+              "text": "Etwas weniger als jetzt. Aber dafür muss ich nie wieder Quartalsberichte schreiben. Das ist mir mehr wert als jede Gehaltserhöhung."
             }
           ],
-          "questions": [
+          "subExercises": [
             {
               "id": "q1",
+              "type": "recall_text",
               "prompt": "Ab wann arbeitet Deniz bei der Stiftung?",
               "answers": [
                 [
@@ -190,6 +258,7 @@
             },
             {
               "id": "q2",
+              "type": "recall_text",
               "prompt": "Womit beschäftigt sich die Stiftung?",
               "answers": [
                 [
@@ -204,6 +273,7 @@
             },
             {
               "id": "q3",
+              "type": "recall_text",
               "prompt": "Was hat Herr Wendt angeboten?",
               "answers": [
                 [
@@ -213,9 +283,54 @@
               ],
               "solution": "Zehn Prozent mehr Gehalt.",
               "quote": "„… dann hat er mir zehn Prozent mehr Gehalt angeboten.“"
+            }
+          ],
+          "worldRefs": {
+            "charactersReferenced": [],
+            "locationsReferenced": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "z5-jobwechsel-2",
+      "title": "Jobwechsel, Teil 2",
+      "items": [
+        {
+          "id": "z5-jobwechsel-d2",
+          "type": "dialog",
+          "title": "Jobwechsel, Teil 2",
+          "characterId": "deniz",
+          "lines": [
+            {
+              "who": "Carla",
+              "text": "Wo sitzt die Stiftung eigentlich?"
             },
             {
+              "who": "Deniz",
+              "text": "In Potsdam, in einer alten Villa am Heiligen See. Zwei Tage die Woche Homeoffice, sonst pendle ich mit dem Regionalexpress."
+            },
+            {
+              "who": "Carla",
+              "text": "Und dein Team hier?"
+            },
+            {
+              "who": "Deniz",
+              "text": "Meine Nachfolgerin ist Aysel, die arbeite ich noch drei Wochen ein. Sie kennt die Kunden schon, das geht schnell. Am letzten Tag gibt's Waffeln — das ist bei uns Tradition, wer geht, backt."
+            },
+            {
+              "who": "Carla",
+              "text": "Du backst deine eigenen Abschiedswaffeln? Das ist die traurigste und schönste Tradition, die ich kenne."
+            },
+            {
+              "who": "Deniz",
+              "text": "Und am ersten Oktober ist gleich eine Konferenz in Leipzig. Ich fange also direkt mit einer Dienstreise an."
+            }
+          ],
+          "subExercises": [
+            {
               "id": "q4",
+              "type": "recall_text",
               "prompt": "In welcher Stadt sitzt die Stiftung?",
               "answers": [
                 [
@@ -227,6 +342,7 @@
             },
             {
               "id": "q5",
+              "type": "recall_text",
               "prompt": "Wie heißt die Nachfolgerin?",
               "answers": [
                 [
@@ -238,16 +354,19 @@
               "quote": "„Meine Nachfolgerin ist Aysel …“"
             },
             {
-              "id": "q6",
-              "prompt": "Was gibt es am letzten Tag?",
-              "answers": [
-                [
-                  "Waffeln",
-                  "Waffel"
-                ]
+              "id": "m1",
+              "type": "detail_match",
+              "prompt": "Was gibt es am letzten Arbeitstag?",
+              "options": [
+                "Kuchen vom Chef",
+                "Waffeln",
+                "Ein Grillfest",
+                "Sekt im Büro"
               ],
-              "solution": "Waffeln.",
-              "quote": "„Am letzten Tag gibt's Waffeln — das ist bei uns Tradition.“"
+              "correct": [
+                "Waffeln"
+              ],
+              "quote": "„Am letzten Tag gibt's Waffeln — das ist bei uns Tradition …“"
             }
           ],
           "worldRefs": {
@@ -269,36 +388,29 @@
           "lines": [
             {
               "who": "Jakob",
-              "text": "Die Wanderung auf Madeira war der Wahnsinn. Wir sind die Levadas entlang, das sind alte Bewässerungskanäle, teilweise über 200 Jahre alt."
+              "text": "Die Wanderung auf Madeira war der Wahnsinn. Wir sind die Levadas entlang, das sind alte Bewässerungskanäle, teilweise über 200 Jahre alt. Manchmal war der Weg nur einen halben Meter breit, daneben ging es hundert Meter runter."
             },
             {
               "who": "Nele",
-              "text": "Und das Wetter?"
+              "text": "Klingt nach nichts für mich. Und das Wetter?"
             },
             {
               "who": "Jakob",
-              "text": "Oben am Pico Ruivo war dichter Nebel, man hat keine drei Meter weit gesehen. Unten in Funchal hatte es 24 Grad."
+              "text": "Oben am Pico Ruivo war dichter Nebel, man hat keine drei Meter weit gesehen. Unten in Funchal hatte es 24 Grad. Am ersten Tag sind wir mit dem Bus hoch, dann durch einen Tunnel mit Stirnlampe, und am Ende saßen wir mit nassen Füßen in einer Bar am Hafen."
             },
             {
               "who": "Nele",
-              "text": "Habt ihr euch verlaufen?"
+              "text": "Wie viele Kilometer seid ihr denn gelaufen?"
             },
             {
               "who": "Jakob",
-              "text": "Einmal. Ein Schäfer namens Afonso hat uns dann den Weg gezeigt und uns Käse von seinen Ziegen geschenkt."
-            },
-            {
-              "who": "Nele",
-              "text": "Klingt kitschig schön."
-            },
-            {
-              "who": "Jakob",
-              "text": "War es auch. Nur mein Rucksack ist beim Rückflug in Lissabon hängen geblieben. Der kam drei Tage später."
+              "text": "An dem Tag achtzehn. Am zweiten Tag nur zwölf, weil meine Knie nicht mehr wollten. Aber die Aussicht war jeden Schritt wert."
             }
           ],
-          "questions": [
+          "subExercises": [
             {
               "id": "q1",
+              "type": "recall_text",
               "prompt": "Auf welcher Insel war Jakob wandern?",
               "answers": [
                 [
@@ -310,6 +422,7 @@
             },
             {
               "id": "q2",
+              "type": "recall_text",
               "prompt": "Was sind Levadas?",
               "answers": [
                 [
@@ -325,6 +438,7 @@
             },
             {
               "id": "q3",
+              "type": "recall_text",
               "prompt": "Wie war das Wetter am Pico Ruivo?",
               "answers": [
                 [
@@ -336,7 +450,62 @@
               "quote": "„Oben am Pico Ruivo war dichter Nebel …“"
             },
             {
+              "id": "s1",
+              "type": "sequence_events",
+              "prompt": "Wie lief der erste Wandertag ab?",
+              "events": [
+                "Mit dem Bus hoch",
+                "Durch einen Tunnel mit Stirnlampe",
+                "In einer Bar am Hafen"
+              ]
+            }
+          ],
+          "worldRefs": {
+            "charactersReferenced": [],
+            "locationsReferenced": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "z5-reise-2",
+      "title": "Reisebericht, Teil 2",
+      "items": [
+        {
+          "id": "z5-reise-d2",
+          "type": "dialog",
+          "title": "Reisebericht, Teil 2",
+          "characterId": "jakob",
+          "lines": [
+            {
+              "who": "Nele",
+              "text": "Wie warm war es denn unten?"
+            },
+            {
+              "who": "Jakob",
+              "text": "In Funchal 24 Grad, perfekt. Und dann haben wir uns einmal richtig verlaufen. Ein Schäfer namens Afonso hat uns den Weg gezeigt und uns Käse von seinen Ziegen geschenkt."
+            },
+            {
+              "who": "Nele",
+              "text": "Klingt kitschig schön."
+            },
+            {
+              "who": "Jakob",
+              "text": "War es auch. Nur mein Rucksack ist beim Rückflug in Lissabon hängen geblieben. Der kam drei Tage später, mit dem Käse drin. Du kannst dir vorstellen, wie der gerochen hat."
+            },
+            {
+              "who": "Nele",
+              "text": "Und würdest du wieder hinfliegen?"
+            },
+            {
+              "who": "Jakob",
+              "text": "Sofort. Aber nächstes Mal mit Handgepäck. Und ohne Käse."
+            }
+          ],
+          "subExercises": [
+            {
               "id": "q4",
+              "type": "recall_text",
               "prompt": "Wie warm war es in Funchal?",
               "answers": [
                 [
@@ -345,10 +514,11 @@
                 ]
               ],
               "solution": "24 Grad.",
-              "quote": "„Unten in Funchal hatte es 24 Grad.“"
+              "quote": "„In Funchal 24 Grad, perfekt.“"
             },
             {
               "id": "q5",
+              "type": "recall_text",
               "prompt": "Wie hieß der Schäfer?",
               "answers": [
                 [
@@ -358,10 +528,11 @@
                 ]
               ],
               "solution": "Afonso.",
-              "quote": "„Ein Schäfer namens Afonso hat uns dann den Weg gezeigt …“"
+              "quote": "„Ein Schäfer namens Afonso hat uns den Weg gezeigt …“"
             },
             {
               "id": "q6",
+              "type": "recall_text",
               "prompt": "Wo ist der Rucksack hängen geblieben?",
               "answers": [
                 [
@@ -396,7 +567,7 @@
             },
             {
               "who": "Herr Özdemir",
-              "text": "Der Jugendbeitrag bleibt dafür bei 30 Euro."
+              "text": "Der Jugendbeitrag bleibt dafür bei 30 Euro. Das war mir wichtig."
             },
             {
               "who": "Frau Albrecht",
@@ -404,20 +575,21 @@
             },
             {
               "who": "Herr Kraus",
-              "text": "Und wer macht den Grill?"
+              "text": "Und wer macht den Grill? Letztes Jahr stand ich da vier Stunden allein."
             },
             {
               "who": "Frau Albrecht",
-              "text": "Die Handballabteilung. Punkt drei: Wir brauchen einen neuen Platzwart. Herr Vogel hört nach 22 Jahren auf."
+              "text": "Die Handballabteilung, Herr Kraus. Sie haben dieses Jahr frei."
             },
             {
               "who": "Herr Özdemir",
-              "text": "Er bekommt zum Abschied die Ehrenmitgliedschaft."
+              "text": "Und bitte denkt daran: Die Kasse für das Sommerfest übernehme ich, nicht wie letztes Jahr fünf verschiedene Leute mit fünf verschiedenen Blechdosen."
             }
           ],
-          "questions": [
+          "subExercises": [
             {
               "id": "q1",
+              "type": "recall_text",
               "prompt": "Wie hoch ist der neue Jahresbeitrag?",
               "answers": [
                 [
@@ -430,6 +602,7 @@
             },
             {
               "id": "q2",
+              "type": "recall_text",
               "prompt": "Warum steigt der Beitrag?",
               "answers": [
                 [
@@ -443,6 +616,7 @@
             },
             {
               "id": "q3",
+              "type": "recall_text",
               "prompt": "Wann ist das Sommerfest?",
               "answers": [
                 [
@@ -459,6 +633,7 @@
             },
             {
               "id": "q4",
+              "type": "recall_text",
               "prompt": "Wer organisiert die Tombola?",
               "answers": [
                 [
@@ -467,10 +642,53 @@
               ],
               "solution": "Frau Nowak.",
               "quote": "„Frau Nowak organisiert die Tombola …“"
+            }
+          ],
+          "worldRefs": {
+            "charactersReferenced": [],
+            "locationsReferenced": [
+              "sportplatz"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "z5-verein-2",
+      "title": "Vereinssitzung, Teil 2",
+      "items": [
+        {
+          "id": "z5-verein-d2",
+          "type": "dialog",
+          "title": "Vereinssitzung, Teil 2",
+          "characterId": "frau-albrecht",
+          "lines": [
+            {
+              "who": "Frau Albrecht",
+              "text": "Noch einmal zur Tombola: Der Hauptpreis ist ein Fahrrad vom Radhaus Meyer, der zweite Preis ein Essensgutschein. Punkt drei: Wir brauchen einen neuen Platzwart. Herr Vogel hört nach 22 Jahren auf."
             },
             {
+              "who": "Herr Özdemir",
+              "text": "Er bekommt zum Abschied die Ehrenmitgliedschaft. Und eine Bank am Spielfeldrand mit seinem Namen."
+            },
+            {
+              "who": "Herr Kraus",
+              "text": "Eine Bank. Nach 22 Jahren. Da hätte ich mir mehr erwartet."
+            },
+            {
+              "who": "Frau Albrecht",
+              "text": "Die Bank ist aus Eiche, Herr Kraus. Nächster Punkt."
+            },
+            {
+              "who": "Herr Özdemir",
+              "text": "Wer Interesse am Platzwart-Posten hat, meldet sich bitte bis Ende des Monats bei mir. Es gibt eine kleine Aufwandsentschädigung, und den Schlüssel für das Vereinsheim."
+            }
+          ],
+          "subExercises": [
+            {
               "id": "q5",
-              "prompt": "Was ist der Hauptpreis?",
+              "type": "recall_text",
+              "prompt": "Was ist der Hauptpreis der Tombola?",
               "answers": [
                 [
                   "Fahrrad",
@@ -478,10 +696,11 @@
                 ]
               ],
               "solution": "Ein Fahrrad vom Radhaus Meyer.",
-              "quote": "„… Hauptpreis ist ein Fahrrad vom Radhaus Meyer.“"
+              "quote": "„Der Hauptpreis ist ein Fahrrad vom Radhaus Meyer …“"
             },
             {
               "id": "q6",
+              "type": "recall_text",
               "prompt": "Wie lange war Herr Vogel Platzwart?",
               "answers": [
                 [

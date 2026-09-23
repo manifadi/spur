@@ -15,11 +15,12 @@
           "title": "Bäume gegen die Hitze in der Stadt",
           "topic": "Stadtbäume & Hitze",
           "paragraphs": [
-            "In Städten ist es im Sommer oft deutlich heißer als im Umland. Asphalt und Beton speichern tagsüber Wärme und geben sie nachts wieder ab. Man spricht von der städtischen Wärmeinsel.",
+            "In Städten ist es im Sommer oft deutlich heißer als im Umland. Asphalt und Beton speichern tagsüber Wärme und geben sie nachts wieder ab, sodass es auch nach Sonnenuntergang kaum abkühlt. Man spricht von der städtischen Wärmeinsel.",
             "Bäume wirken auf zwei Arten dagegen. Ihr Schatten verhindert, dass sich Straßen und Fassaden aufheizen. Und über ihre Blätter verdunsten sie Wasser, was die Umgebung kühlt, ähnlich wie Schweiß auf der Haut.",
-            "Ein großer Stadtbaum kann an einem heißen Tag mehrere hundert Liter Wasser verdunsten. Unter Baumkronen sind Oberflächen oft um zehn Grad und mehr kühler als in der prallen Sonne.",
-            "Allerdings leiden auch Bäume unter Hitze und Trockenheit. Viele Städte pflanzen deshalb inzwischen Arten, die mit wärmerem Klima besser zurechtkommen, etwa aus Südosteuropa.",
-            "Fachleute betonen: Ein einzelner Baum hilft wenig. Erst viele Bäume, verteilt über ganze Straßenzüge, senken die Temperatur spürbar."
+            "Ein großer Stadtbaum kann an einem heißen Tag mehrere hundert Liter Wasser verdunsten. Unter Baumkronen sind Oberflächen oft um zehn Grad und mehr kühler als in der prallen Sonne. Nebenbei filtern die Blätter Staub aus der Luft.",
+            "Allerdings leiden auch Bäume unter Hitze und Trockenheit. Viele Städte pflanzen deshalb inzwischen Arten, die mit wärmerem Klima besser zurechtkommen, etwa aus Südosteuropa. Junge Bäume müssen in den ersten Jahren oft zusätzlich gegossen werden, manche Städte bitten die Anwohner um Hilfe.",
+            "Fachleute betonen: Ein einzelner Baum hilft wenig. Erst viele Bäume, verteilt über ganze Straßenzüge, senken die Temperatur spürbar.",
+            "Auch andere Maßnahmen helfen: begrünte Dächer und Fassaden, hellere Straßenbeläge, die weniger Wärme speichern, und Frischluftschneisen, durch die nachts kühlere Luft aus dem Umland in die Stadt strömt."
           ],
           "keyPoints": [
             "Asphalt und Beton speichern Wärme (Wärmeinsel)",
@@ -27,6 +28,28 @@
             "Verdunstung über die Blätter kühlt wie Schweiß",
             "Städte pflanzen hitzefestere Arten",
             "Erst viele Bäume senken die Temperatur spürbar"
+          ],
+          "subExercises": [
+            {
+              "id": "retell",
+              "type": "recall_text"
+            },
+            {
+              "id": "m1",
+              "type": "detail_match",
+              "prompt": "Auf welche zwei Arten kühlen Bäume? (Mehrere Antworten richtig)",
+              "options": [
+                "Durch Schatten",
+                "Durch Verdunstung über die Blätter",
+                "Durch kalte Wurzeln",
+                "Durch Wind in der Krone"
+              ],
+              "correct": [
+                "Durch Schatten",
+                "Durch Verdunstung über die Blätter"
+              ],
+              "quote": "„Ihr Schatten verhindert, dass sich Straßen und Fassaden aufheizen. Und über ihre Blätter verdunsten sie Wasser …“"
+            }
           ]
         }
       ]
@@ -41,11 +64,12 @@
           "title": "Die Vier-Tage-Woche",
           "topic": "Vier-Tage-Woche",
           "paragraphs": [
-            "Vier Tage arbeiten bei vollem Lohn: Das klingt nach einem Traum. In Großbritannien testeten 2022 rund 60 Unternehmen genau das, ein halbes Jahr lang.",
-            "Die meisten Firmen wollten danach dabei bleiben. Die Beschäftigten berichteten von weniger Stress und besserem Schlaf, die Umsätze blieben im Schnitt stabil. Voraussetzung war allerdings, dass Abläufe gestrafft wurden, etwa durch kürzere Meetings.",
-            "Kritiker wenden ein, dass sich die Ergebnisse nicht auf alle Branchen übertragen lassen. In Pflege, Handel oder Produktion lässt sich Arbeit nicht einfach verdichten. Dort bräuchte man mehr Personal.",
+            "Vier Tage arbeiten bei vollem Lohn: Das klingt nach einem Traum. In Großbritannien testeten 2022 rund 60 Unternehmen genau das, ein halbes Jahr lang. Dabei waren Agenturen, Handwerksbetriebe und sogar eine Fish-and-Chips-Bude.",
+            "Die meisten Firmen wollten danach dabei bleiben. Die Beschäftigten berichteten von weniger Stress und besserem Schlaf, die Umsätze blieben im Schnitt stabil. Voraussetzung war allerdings, dass Abläufe gestrafft wurden, etwa durch kürzere Meetings und feste Zeiten ohne E-Mails.",
+            "Kritiker wenden ein, dass sich die Ergebnisse nicht auf alle Branchen übertragen lassen. In Pflege, Handel oder Produktion lässt sich Arbeit nicht einfach verdichten. Dort bräuchte man mehr Personal, und das fehlt ohnehin.",
             "Außerdem nahmen an solchen Tests vor allem Firmen teil, die ohnehin offen für das Modell waren. Das kann die Ergebnisse besser aussehen lassen, als sie im Durchschnitt wären.",
-            "Ein Fazit vieler Forschender: Die Vier-Tage-Woche kann funktionieren, aber nicht überall und nicht ohne Umbau der Arbeit."
+            "Ein Fazit vieler Forschender: Die Vier-Tage-Woche kann funktionieren, aber nicht überall und nicht ohne Umbau der Arbeit.",
+            "In Deutschland lief 2024 ein ähnlicher Test mit rund 45 Firmen. Auch hier wollten die meisten danach weitermachen, allerdings oft in angepasster Form."
           ],
           "keyPoints": [
             "2022 testeten rund 60 britische Firmen die Vier-Tage-Woche",
@@ -53,6 +77,40 @@
             "Voraussetzung: Abläufe straffen, etwa kürzere Meetings",
             "Pflege, Handel und Produktion bräuchten mehr Personal",
             "Teilnehmende Firmen waren schon offen dafür (Verzerrung)"
+          ],
+          "subExercises": [
+            {
+              "id": "retell",
+              "type": "recall_text"
+            },
+            {
+              "id": "q1",
+              "type": "recall_text",
+              "prompt": "In welchem Land fand der große Test 2022 statt?",
+              "answers": [
+                [
+                  "Großbritannien",
+                  "Grossbritannien",
+                  "England",
+                  "UK",
+                  "Vereinigtes Königreich",
+                  "Britannien"
+                ]
+              ],
+              "solution": "In Großbritannien.",
+              "quote": "„In Großbritannien testeten 2022 rund 60 Unternehmen genau das …“"
+            },
+            {
+              "id": "s1",
+              "type": "sequence_events",
+              "prompt": "In welcher Reihenfolge baut der Text sein Argument auf?",
+              "events": [
+                "Der Test in Großbritannien",
+                "Die positiven Ergebnisse",
+                "Die Einwände der Kritiker",
+                "Das Fazit der Forschenden"
+              ]
+            }
           ]
         }
       ]
@@ -67,10 +125,11 @@
           "title": "Zwei Sprachen im Kopf",
           "topic": "Mehrsprachigkeit",
           "paragraphs": [
-            "Lange glaubte man, Kinder kämen durcheinander, wenn sie zwei Sprachen gleichzeitig lernen. Heute weiß man: Mehrsprachig aufwachsende Kinder erreichen die üblichen Meilensteine der Sprachentwicklung im gleichen Zeitraum.",
+            "Lange glaubte man, Kinder kämen durcheinander, wenn sie zwei Sprachen gleichzeitig lernen. Eltern wurde sogar geraten, zu Hause nur eine Sprache zu sprechen. Heute weiß man: Mehrsprachig aufwachsende Kinder erreichen die üblichen Meilensteine der Sprachentwicklung im gleichen Zeitraum.",
             "Zwar kennen sie in jeder einzelnen Sprache manchmal weniger Wörter als einsprachige Kinder. Zählt man beide Sprachen zusammen, ist ihr Wortschatz aber meist genauso groß.",
-            "Dass sie Sprachen mischen, ist kein Zeichen von Verwirrung. Auch mehrsprachige Erwachsene wechseln oft mitten im Satz, wenn ein Wort in der anderen Sprache besser passt.",
-            "Ob Mehrsprachigkeit darüber hinaus das Denken schult, etwa die Fähigkeit, Aufmerksamkeit zu steuern, ist umstritten. Frühe Studien fanden Vorteile, neuere und größere Studien oft nicht."
+            "Dass sie Sprachen mischen, ist kein Zeichen von Verwirrung. Auch mehrsprachige Erwachsene wechseln oft mitten im Satz, wenn ein Wort in der anderen Sprache besser passt. Fachleute nennen das Code-Switching.",
+            "Ob Mehrsprachigkeit darüber hinaus das Denken schult, etwa die Fähigkeit, Aufmerksamkeit zu steuern, ist umstritten. Frühe Studien fanden Vorteile, neuere und größere Studien oft nicht. Unstrittig ist: Eine zweite Sprache öffnet Türen zu anderen Menschen und Kulturen.",
+            "Wichtig für den Spracherwerb ist vor allem, wie viel ein Kind eine Sprache hört und wie gern es sie benutzt. Eine Sprache, die nur selten gesprochen wird, bleibt oft passiv: Das Kind versteht sie, antwortet aber in der anderen."
           ],
           "keyPoints": [
             "Früher glaubte man, zwei Sprachen verwirren Kinder",
@@ -78,6 +137,12 @@
             "Pro Sprache teils weniger Wörter, zusammen gleich viele",
             "Sprachen mischen ist kein Zeichen von Verwirrung",
             "Denkvorteile sind umstritten, große Studien fanden oft keine"
+          ],
+          "subExercises": [
+            {
+              "id": "retell",
+              "type": "recall_text"
+            }
           ]
         }
       ]
@@ -92,11 +157,12 @@
           "title": "Wie Lärm krank macht",
           "topic": "Lärm & Gesundheit",
           "paragraphs": [
-            "Lärm nervt nicht nur. Er setzt den Körper unter Stress, auch dann, wenn wir ihn gar nicht mehr bewusst wahrnehmen.",
+            "Lärm nervt nicht nur. Er setzt den Körper unter Stress, auch dann, wenn wir ihn gar nicht mehr bewusst wahrnehmen. Viele Menschen an lauten Straßen sagen, sie hätten sich längst daran gewöhnt — ihr Körper hat es nicht.",
             "Das Gehör bleibt im Schlaf aktiv. Verkehrslärm in der Nacht lässt den Puls steigen und Stresshormone ausschütten, selbst wenn wir nicht aufwachen.",
             "Wer über Jahre an einer lauten Straße lebt, hat laut großen Studien ein höheres Risiko für Bluthochdruck und Herz-Kreislauf-Erkrankungen.",
-            "Die Weltgesundheitsorganisation empfiehlt deshalb, dass Straßenverkehrslärm im Tagesmittel unter 53 Dezibel bleibt, nachts unter 45. Zum Vergleich: Ein normales Gespräch hat etwa 60 Dezibel.",
-            "Helfen können Schallschutzfenster, leisere Straßenbeläge, Tempo 30 und ein Schlafzimmer auf der ruhigen Seite der Wohnung."
+            "Die Weltgesundheitsorganisation empfiehlt deshalb, dass Straßenverkehrslärm im Tagesmittel unter 53 Dezibel bleibt, nachts unter 45. Zum Vergleich: Ein normales Gespräch hat etwa 60 Dezibel. Dezibel sind eine logarithmische Einheit: Zehn Dezibel mehr empfinden wir etwa als doppelt so laut.",
+            "Helfen können Schallschutzfenster, leisere Straßenbeläge, Tempo 30 und ein Schlafzimmer auf der ruhigen Seite der Wohnung.",
+            "Besonders störend ist Lärm, der unregelmäßig kommt, etwa einzelne laute Lastwagen in einer sonst ruhigen Nacht. Gleichmäßiges Rauschen dagegen blendet das Gehirn leichter aus. Manche Menschen schlafen deshalb mit einem Ventilator besser."
           ],
           "keyPoints": [
             "Lärm stresst auch, wenn wir ihn nicht bewusst hören",
@@ -104,6 +170,50 @@
             "Dauerlärm erhöht das Risiko für Bluthochdruck und Herzkrankheiten",
             "WHO: unter 53 Dezibel am Tag, nachts unter 45",
             "Hilfe: Schallschutz, leise Beläge, Tempo 30, ruhiges Schlafzimmer"
+          ],
+          "subExercises": [
+            {
+              "id": "retell",
+              "type": "recall_text"
+            },
+            {
+              "id": "q1",
+              "type": "recall_text",
+              "prompt": "Welchen Wert empfiehlt die WHO nachts?",
+              "answers": [
+                [
+                  "45",
+                  "fünfundvierzig"
+                ]
+              ],
+              "solution": "Unter 45 Dezibel.",
+              "quote": "„… im Tagesmittel unter 53 Dezibel bleibt, nachts unter 45.“"
+            },
+            {
+              "id": "m1",
+              "type": "detail_match",
+              "prompt": "Wie empfinden wir zehn Dezibel mehr?",
+              "options": [
+                "Etwa doppelt so laut",
+                "Etwa zehnmal so laut",
+                "Kaum hörbar lauter",
+                "Etwa halb so laut"
+              ],
+              "correct": [
+                "Etwa doppelt so laut"
+              ],
+              "quote": "„Zehn Dezibel mehr empfinden wir etwa als doppelt so laut.“"
+            },
+            {
+              "id": "s1",
+              "type": "sequence_events",
+              "prompt": "Ordne von leise nach laut.",
+              "events": [
+                "WHO-Empfehlung nachts",
+                "WHO-Empfehlung tagsüber",
+                "Normales Gespräch"
+              ]
+            }
           ]
         }
       ]

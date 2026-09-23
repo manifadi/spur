@@ -17,7 +17,7 @@
           "lines": [
             {
               "who": "Oma Ilse",
-              "text": "Schön, dass du anrufst! Stell dir vor, der Apfelbaum trägt dieses Jahr so viel, ich hab schon vier Gläser Apfelmus eingekocht."
+              "text": "Schön, dass du anrufst! Stell dir vor, der Apfelbaum trägt dieses Jahr so viel, ich hab schon vier Gläser Apfelmus eingekocht. Und die Äste hängen fast bis auf den Rasen."
             },
             {
               "who": "Leon",
@@ -25,7 +25,7 @@
             },
             {
               "who": "Oma Ilse",
-              "text": "Besser. Dienstags geh ich jetzt zur Wassergymnastik, mit Frau Brenner von nebenan. Die fährt uns hin, sie hat ja jetzt so ein kleines rotes Elektroauto."
+              "text": "Besser. Dienstags geh ich jetzt zur Wassergymnastik, mit Frau Brenner von nebenan. Die fährt uns hin, sie hat ja jetzt so ein kleines rotes Elektroauto. Man hört es gar nicht kommen, ich hab mich neulich richtig erschrocken."
             },
             {
               "who": "Leon",
@@ -33,12 +33,21 @@
             },
             {
               "who": "Oma Ilse",
-              "text": "Wenn Opa Günter seinen Zahnarzttermin bis dahin hinter sich hat, gerne."
+              "text": "Wenn Opa Günter seinen Zahnarzttermin bis dahin hinter sich hat, gerne. Er schiebt ihn schon seit Weihnachten vor sich her. Und sag deiner Mutter, ich bringe den Eierlikör mit, aber diesmal nur eine Flasche."
+            },
+            {
+              "who": "Leon",
+              "text": "Eine Flasche. Das sagst du jedes Jahr."
+            },
+            {
+              "who": "Oma Ilse",
+              "text": "Dieses Jahr meine ich es ernst. Ach, und frag deinen Vater, ob er mir den Rasenmäher zurückbringt. Den hat er sich im Sommer geliehen, und jetzt wächst mir das Gras bis zu den Knien."
             }
           ],
-          "questions": [
+          "subExercises": [
             {
               "id": "q1",
+              "type": "recall_text",
               "prompt": "Wie viele Gläser Apfelmus hat Oma eingekocht?",
               "answers": [
                 [
@@ -51,6 +60,7 @@
             },
             {
               "id": "q2",
+              "type": "recall_text",
               "prompt": "An welchem Tag geht Oma zur Wassergymnastik?",
               "answers": [
                 [
@@ -63,6 +73,7 @@
             },
             {
               "id": "q3",
+              "type": "recall_text",
               "prompt": "Was für ein Auto hat Frau Brenner?",
               "answers": [
                 [
@@ -83,6 +94,7 @@
             },
             {
               "id": "q4",
+              "type": "recall_text",
               "prompt": "Was muss Opa Günter vor Ostern erledigen?",
               "answers": [
                 [
@@ -114,7 +126,7 @@
           "lines": [
             {
               "who": "Jana",
-              "text": "Kurz zum Stand: Der Launch verschiebt sich auf den 14. März, weil die Druckerei die Verpackungen noch nicht liefern kann."
+              "text": "Kurz zum Stand: Der Launch verschiebt sich auf den 14. März, weil die Druckerei die Verpackungen noch nicht liefern kann. Die haben ein Problem mit dem Karton, der ist zu dünn."
             },
             {
               "who": "Tobias",
@@ -122,20 +134,29 @@
             },
             {
               "who": "Jana",
-              "text": "Die macht Selin, sie war ja schon beim Termin in Hamburg dabei. Ich übernehme dafür ihre Budgetplanung."
+              "text": "Die macht Selin, sie war ja schon beim Termin in Hamburg dabei. Ich übernehme dafür ihre Budgetplanung. Tobias, du prüfst bitte bis Mittwoch die Preisliste."
             },
             {
               "who": "Tobias",
-              "text": "Okay. Und das Teamessen?"
+              "text": "Mittwoch. Okay. Und das Teamessen?"
             },
             {
               "who": "Jana",
-              "text": "Freitag, beim Griechen am Bahnhof. Ich hab für elf Leute reserviert."
+              "text": "Freitag, beim Griechen am Bahnhof. Ich hab für elf Leute reserviert, um halb sieben. Wer vegetarisch isst, sagt mir bitte bis Donnerstag Bescheid."
+            },
+            {
+              "who": "Tobias",
+              "text": "Noch was: Die Kaffeemaschine im dritten Stock ist schon wieder kaputt."
+            },
+            {
+              "who": "Jana",
+              "text": "Ist gemeldet. Bis dahin gibt es Kaffee im Erdgeschoss. Und nächste Woche ist Montag der Brückentag, das Büro bleibt zu. Das war's von mir, danke euch."
             }
           ],
-          "questions": [
+          "subExercises": [
             {
               "id": "q1",
+              "type": "recall_text",
               "prompt": "Auf welches Datum verschiebt sich der Launch?",
               "answers": [
                 [
@@ -152,12 +173,14 @@
             },
             {
               "id": "q2",
+              "type": "recall_text",
               "prompt": "Warum verschiebt er sich?",
               "answers": [
                 [
                   "Druckerei",
                   "Verpackung",
-                  "Verpackungen"
+                  "Verpackungen",
+                  "Karton"
                 ]
               ],
               "solution": "Die Druckerei kann die Verpackungen noch nicht liefern.",
@@ -165,6 +188,7 @@
             },
             {
               "id": "q3",
+              "type": "recall_text",
               "prompt": "Wer macht die Präsentation für den Kunden?",
               "answers": [
                 [
@@ -176,6 +200,7 @@
             },
             {
               "id": "q4",
+              "type": "recall_text",
               "prompt": "Für wie viele Leute ist das Teamessen reserviert?",
               "answers": [
                 [
@@ -184,7 +209,7 @@
                 ]
               ],
               "solution": "Für elf.",
-              "quote": "„Ich hab für elf Leute reserviert.“"
+              "quote": "„Ich hab für elf Leute reserviert …“"
             }
           ],
           "worldRefs": {
@@ -212,24 +237,33 @@
             },
             {
               "who": "Aylin",
-              "text": "Zwei Paar. Mindestens. Und wo wohnen wir?"
+              "text": "Zwei Paar. Mindestens. Wann geht der Flug?"
             },
             {
               "who": "Paul",
-              "text": "In einer kleinen Wohnung im Viertel Ribeira, direkt am Fluss. Die Vermieterin heißt Dona Rosa und bringt angeblich jeden Morgen frisches Brot vorbei."
+              "text": "Um sechs Uhr morgens, ab Düsseldorf. Wir fahren am Abend vorher mit dem Zug hin und schlafen im Flughafenhotel. Das Taxi um vier wäre sonst doppelt so teuer."
             },
             {
               "who": "Aylin",
-              "text": "Und der Tagesausflug?"
+              "text": "Um vier aufstehen, im Urlaub. Na gut. Und wenn wir ankommen?"
             },
             {
               "who": "Paul",
-              "text": "Ins Douro-Tal, mit dem Zug. Da gibt's Weingüter, und du wolltest ja unbedingt mal Portwein direkt beim Winzer probieren."
+              "text": "Erst die Schlüssel holen, dann frühstücken, und am Nachmittag wollte ich die Brücke Dom Luís einmal zu Fuß überqueren."
+            },
+            {
+              "who": "Aylin",
+              "text": "Und das Hotel am Flughafen, ist da wenigstens ein Frühstück dabei?"
+            },
+            {
+              "who": "Paul",
+              "text": "Nein, aber um vier Uhr morgens isst du sowieso nichts. Wir holen uns am Flughafen einen Kaffee. Und wehe, du nimmst den Koffer mit den Rollen, der ist zu groß fürs Handgepäck."
             }
           ],
-          "questions": [
+          "subExercises": [
             {
               "id": "q1",
+              "type": "recall_text",
               "prompt": "Wohin geht die Reise?",
               "answers": [
                 [
@@ -241,6 +275,7 @@
             },
             {
               "id": "q2",
+              "type": "recall_text",
               "prompt": "Wann fliegen die beiden?",
               "answers": [
                 [
@@ -256,7 +291,69 @@
               "quote": "„Wir fliegen am 2. August nach Porto …“"
             },
             {
+              "id": "s1",
+              "type": "sequence_events",
+              "prompt": "Was passiert in welcher Reihenfolge?",
+              "events": [
+                "Mit dem Zug nach Düsseldorf",
+                "Nacht im Flughafenhotel",
+                "Flug um sechs Uhr",
+                "Schlüssel holen in Porto"
+              ]
+            }
+          ],
+          "worldRefs": {
+            "charactersReferenced": [],
+            "locationsReferenced": [
+              "bahnhof"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "z3-urlaub-2",
+      "title": "Urlaub, Teil 2",
+      "items": [
+        {
+          "id": "z3-urlaub-d2",
+          "type": "dialog",
+          "title": "Urlaub, Teil 2",
+          "characterId": "paul",
+          "lines": [
+            {
+              "who": "Aylin",
+              "text": "Und wo wohnen wir eigentlich?"
+            },
+            {
+              "who": "Paul",
+              "text": "In einer kleinen Wohnung im Viertel Ribeira, direkt am Fluss. Die Vermieterin heißt Dona Rosa und bringt angeblich jeden Morgen frisches Brot vorbei."
+            },
+            {
+              "who": "Aylin",
+              "text": "Das klingt zu schön. Und der Tagesausflug?"
+            },
+            {
+              "who": "Paul",
+              "text": "Ins Douro-Tal, mit dem Zug. Die Strecke geht die ganze Zeit am Fluss entlang. Da gibt's Weingüter, und du wolltest ja unbedingt mal Portwein direkt beim Winzer probieren."
+            },
+            {
+              "who": "Aylin",
+              "text": "Dann brauche ich aber ein drittes Paar Schuhe. Für die Weinberge."
+            },
+            {
+              "who": "Paul",
+              "text": "Und am letzten Abend gehen wir in das kleine Fischrestaurant, das mir Dona Rosa empfohlen hat. Es hat nur fünf Tische, man muss reservieren."
+            },
+            {
+              "who": "Aylin",
+              "text": "Dann reserviere gleich. Nicht dass wir am Ende wieder Nudeln im Zimmer essen wie in Barcelona."
+            }
+          ],
+          "subExercises": [
+            {
               "id": "q3",
+              "type": "recall_text",
               "prompt": "Wie heißt die Vermieterin?",
               "answers": [
                 [
@@ -268,6 +365,7 @@
             },
             {
               "id": "q4",
+              "type": "recall_text",
               "prompt": "Womit geht es ins Douro-Tal?",
               "answers": [
                 [
@@ -298,7 +396,7 @@
           "lines": [
             {
               "who": "Kim",
-              "text": "Die Hochzeit von Sarah und Malte ist jetzt doch nicht im September, sondern am 21. Juni, auf einem Hof bei Lüneburg."
+              "text": "Die Hochzeit von Sarah und Malte ist jetzt doch nicht im September, sondern am 21. Juni, auf einem Hof bei Lüneburg! Mit Pferden und allem!"
             },
             {
               "who": "Deniz",
@@ -306,20 +404,25 @@
             },
             {
               "who": "Kim",
-              "text": "Es gibt eine Scheune als Plan B. Dresscode ist Sommerfest, also bitte kein Anzug. Sarahs Schwester Hanna hält die Rede — die war ja früher Radiomoderatorin."
+              "text": "Es gibt eine Scheune als Plan B. Und rate mal, wer die Trauung macht: Maltes Onkel, der ist Standesbeamter in Celle. Dresscode ist Sommerfest, also bitte kein Anzug."
             },
             {
               "who": "Deniz",
-              "text": "Und was schenken wir?"
+              "text": "Kein Anzug. Endlich mal eine Hochzeit nach meinem Geschmack."
             },
             {
               "who": "Kim",
-              "text": "Die beiden wünschen sich einen Zuschuss für die Hochzeitsreise nach Island."
+              "text": "Und das Beste: Es gibt kein Buffet, sondern Foodtrucks. Einer mit Burgern, einer mit vegetarischen Bowls und einer mit Eis."
+            },
+            {
+              "who": "Deniz",
+              "text": "Foodtrucks auf einem Bauernhof. Ich bin gespannt, ob die Pferde auch was abbekommen."
             }
           ],
-          "questions": [
+          "subExercises": [
             {
               "id": "q1",
+              "type": "recall_text",
               "prompt": "Wann ist die Hochzeit?",
               "answers": [
                 [
@@ -331,10 +434,11 @@
                 ]
               ],
               "solution": "Am 21. Juni.",
-              "quote": "„… sondern am 21. Juni, auf einem Hof bei Lüneburg.“"
+              "quote": "„… sondern am 21. Juni, auf einem Hof bei Lüneburg!“"
             },
             {
               "id": "q2",
+              "type": "recall_text",
               "prompt": "In der Nähe welcher Stadt liegt der Hof?",
               "answers": [
                 [
@@ -343,10 +447,11 @@
                 ]
               ],
               "solution": "Lüneburg.",
-              "quote": "„… auf einem Hof bei Lüneburg.“"
+              "quote": "„… auf einem Hof bei Lüneburg!“"
             },
             {
               "id": "q3",
+              "type": "recall_text",
               "prompt": "Was ist der Plan B bei Regen?",
               "answers": [
                 [
@@ -357,7 +462,71 @@
               "quote": "„Es gibt eine Scheune als Plan B.“"
             },
             {
+              "id": "m1",
+              "type": "detail_match",
+              "prompt": "Wer macht die Trauung?",
+              "options": [
+                "Sarahs Vater",
+                "Maltes Onkel",
+                "Eine Pfarrerin aus Lüneburg",
+                "Kim"
+              ],
+              "correct": [
+                "Maltes Onkel"
+              ],
+              "quote": "„… Maltes Onkel, der ist Standesbeamter in Celle.“"
+            }
+          ],
+          "worldRefs": {
+            "charactersReferenced": [],
+            "locationsReferenced": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "z3-hochzeit-2",
+      "title": "Hochzeit, Teil 2",
+      "items": [
+        {
+          "id": "z3-hochzeit-d2",
+          "type": "dialog",
+          "title": "Hochzeit, Teil 2",
+          "characterId": "kim",
+          "lines": [
+            {
+              "who": "Deniz",
+              "text": "Und wer hält die Rede?"
+            },
+            {
+              "who": "Kim",
+              "text": "Sarahs Schwester Hanna — die war ja früher Radiomoderatorin, die kann das. Sie hat schon angekündigt, dass sie peinliche Fotos zeigt."
+            },
+            {
+              "who": "Deniz",
+              "text": "Und was schenken wir?"
+            },
+            {
+              "who": "Kim",
+              "text": "Die beiden wünschen sich einen Zuschuss für die Hochzeitsreise nach Island. Ich dachte, wir legen zusammen und basteln eine Karte mit einem kleinen Vulkan drauf."
+            },
+            {
+              "who": "Deniz",
+              "text": "Ein Vulkan auf einer Hochzeitskarte. Sehr romantisch, Kim."
+            },
+            {
+              "who": "Deniz",
+              "text": "Wann müssen wir eigentlich dort sein?"
+            },
+            {
+              "who": "Kim",
+              "text": "Um zwei ist die Trauung, aber wir sollten um halb zwei da sein, weil es nur einen kleinen Parkplatz gibt. Ich fahre, du darfst dafür am Abend tanzen."
+            }
+          ],
+          "subExercises": [
+            {
               "id": "q4",
+              "type": "recall_text",
               "prompt": "Wer hält die Rede?",
               "answers": [
                 [
@@ -367,10 +536,11 @@
                 ]
               ],
               "solution": "Sarahs Schwester Hanna.",
-              "quote": "„Sarahs Schwester Hanna hält die Rede …“"
+              "quote": "„Sarahs Schwester Hanna — die war ja früher Radiomoderatorin …“"
             },
             {
               "id": "q5",
+              "type": "recall_text",
               "prompt": "Wohin geht die Hochzeitsreise?",
               "answers": [
                 [

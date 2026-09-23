@@ -15,9 +15,12 @@
           "title": "Der Placebo-Effekt",
           "topic": "Placebos",
           "paragraphs": [
-            "Ein Placebo ist ein Scheinmedikament ohne Wirkstoff, zum Beispiel eine Tablette aus Zucker. Trotzdem fühlen sich viele Menschen danach besser.",
-            "Der Grund ist die Erwartung. Wer glaubt, behandelt zu werden, dessen Körper reagiert messbar: Bei Schmerzen kann das Gehirn eigene schmerzlindernde Stoffe ausschütten.",
-            "Auch die Verpackung spielt eine Rolle. In einer Studie wirkten teure Scheinpillen stärker als billige. Und selbst Menschen, die wussten, dass sie ein Placebo bekamen, berichteten teilweise von Besserung."
+            "Ein Placebo ist ein Scheinmedikament ohne Wirkstoff, zum Beispiel eine Tablette aus Zucker. Trotzdem fühlen sich viele Menschen danach besser. In Studien bekommt deshalb oft eine Gruppe das echte Mittel und eine andere ein Placebo — nur so sieht man, was der Wirkstoff selbst bewirkt.",
+            "Der Grund für den Effekt ist die Erwartung. Wer glaubt, behandelt zu werden, dessen Körper reagiert messbar: Bei Schmerzen kann das Gehirn eigene schmerzlindernde Stoffe ausschütten.",
+            "Auch die Verpackung spielt eine Rolle. In einer Studie wirkten teure Scheinpillen stärker als billige. Und selbst Menschen, die wussten, dass sie ein Placebo bekamen, berichteten teilweise von Besserung.",
+            "Es gibt auch das Gegenteil, den Nocebo-Effekt: Wer starke Nebenwirkungen erwartet, spürt sie häufiger — sogar nach einer Zuckertablette.",
+            "Selbst die Farbe einer Tablette kann eine Rolle spielen: In manchen Befragungen hielten Menschen rote Pillen eher für anregend, blaue eher für beruhigend.",
+            "Ärztinnen und Ärzte nutzen den Effekt deshalb bewusst: Ein ruhiges Gespräch und eine klare Erklärung können die Wirkung einer echten Behandlung verstärken."
           ],
           "keyPoints": [
             "Ein Placebo enthält keinen Wirkstoff",
@@ -25,6 +28,27 @@
             "Das Gehirn kann eigene Schmerzmittel ausschütten",
             "Teure Scheinpillen wirkten stärker als billige",
             "Auch offen gegebene Placebos halfen manchen"
+          ],
+          "subExercises": [
+            {
+              "id": "retell",
+              "type": "recall_text"
+            },
+            {
+              "id": "m1",
+              "type": "detail_match",
+              "prompt": "Wie heißt das Gegenteil des Placebo-Effekts?",
+              "options": [
+                "Nocebo-Effekt",
+                "Plazenta-Effekt",
+                "Doppelblind-Effekt",
+                "Rebound-Effekt"
+              ],
+              "correct": [
+                "Nocebo-Effekt"
+              ],
+              "quote": "„Es gibt auch das Gegenteil, den Nocebo-Effekt …“"
+            }
           ]
         }
       ]
@@ -39,15 +63,37 @@
           "title": "Schlaf sortiert das Gedächtnis",
           "topic": "Schlaf & Gedächtnis",
           "paragraphs": [
-            "Was wir tagsüber lernen, landet zuerst im Hippocampus, einer Art Zwischenspeicher im Gehirn.",
-            "Im Tiefschlaf werden diese Erinnerungen noch einmal abgespielt und nach und nach in die Großhirnrinde übertragen, wo sie länger halten. Forschende nennen das Konsolidierung.",
-            "Wer nach dem Lernen schläft, behält deshalb mehr als jemand, der gleich lange wach bleibt. Eine durchgemachte Nacht vor der Prüfung ist also ein schlechter Plan."
+            "Was wir tagsüber lernen, landet zuerst im Hippocampus, einer Art Zwischenspeicher im Gehirn. Er hat nur begrenzt Platz und ist empfindlich für Störungen.",
+            "Im Tiefschlaf werden diese Erinnerungen noch einmal abgespielt, oft sogar im Zeitraffer, und nach und nach in die Großhirnrinde übertragen, wo sie länger halten. Forschende nennen das Konsolidierung.",
+            "Wer nach dem Lernen schläft, behält deshalb mehr als jemand, der gleich lange wach bleibt. Schon ein kurzer Mittagsschlaf kann helfen, wenn er Tiefschlafphasen enthält.",
+            "Eine durchgemachte Nacht vor der Prüfung ist also ein schlechter Plan: Das Gelernte kommt nicht mehr sicher im Langzeitspeicher an.",
+            "Auch im Traumschlaf, der sogenannten REM-Phase, passiert etwas: Hier werden vermutlich vor allem Gefühle verarbeitet. Und wer ein Instrument übt, spielt nach einer Nacht Schlaf oft messbar besser.",
+            "Wie viel Schlaf nötig ist, ist verschieden. Die meisten Erwachsenen brauchen sieben bis neun Stunden."
           ],
           "keyPoints": [
             "Neues landet zuerst im Hippocampus",
             "Im Tiefschlaf werden Erinnerungen wieder abgespielt",
             "Sie wandern in die Großhirnrinde (Konsolidierung)",
             "Schlaf nach dem Lernen verbessert das Behalten"
+          ],
+          "subExercises": [
+            {
+              "id": "retell",
+              "type": "recall_text"
+            },
+            {
+              "id": "q1",
+              "type": "recall_text",
+              "prompt": "Wie nennen Forschende das Übertragen der Erinnerungen in den Langzeitspeicher?",
+              "answers": [
+                [
+                  "Konsolidierung",
+                  "Konsolidieren"
+                ]
+              ],
+              "solution": "Konsolidierung.",
+              "quote": "„Forschende nennen das Konsolidierung.“"
+            }
           ]
         }
       ]
@@ -62,16 +108,74 @@
           "title": "Wie die Ampel nach Deutschland kam",
           "topic": "Geschichte der Ampel",
           "paragraphs": [
-            "Die erste elektrische Verkehrsampel ging 1914 in Cleveland in den USA in Betrieb. Sie hatte nur Rot und Grün.",
-            "Nach Deutschland kam die Ampel 1924: Am Potsdamer Platz in Berlin stand ein fünfeckiger Turm, in dem ein Polizist die Lichter von Hand schaltete.",
-            "Das berühmte Ampelmännchen mit Hut entwarf der Verkehrspsychologe Karl Peglau 1961 für Ost-Berlin. Nach der Wende sollte es verschwinden, doch Proteste retteten es."
+            "Die erste elektrische Verkehrsampel ging 1914 in Cleveland in den USA in Betrieb. Sie hatte nur Rot und Grün, und bevor sie umschaltete, ertönte ein Summer.",
+            "Gelb kam erst ein paar Jahre später dazu, als Warnung vor dem Umschalten.",
+            "Nach Deutschland kam die Ampel 1924: Am Potsdamer Platz in Berlin stand ein fünfeckiger Turm, in dem ein Polizist die Lichter von Hand schaltete. Der Platz galt damals als einer der verkehrsreichsten in Europa. Heute steht dort eine Nachbildung des Turms.",
+            "Die ersten Ampeln wurden noch per Hand bedient, später von Zeitschaltuhren. Heute zählen Kontaktschleifen im Asphalt oder Kameras die wartenden Autos und passen die Grünphasen an.",
+            "Übrigens: Die Reihenfolge der Farben ist weltweit fast überall gleich — Rot oben, Grün unten. So erkennen auch Menschen mit einer Rot-Grün-Schwäche, welches Licht gerade leuchtet."
           ],
           "keyPoints": [
             "Die erste elektrische Ampel stand 1914 in Cleveland",
             "Sie hatte nur Rot und Grün",
-            "1924 kam ein Ampelturm an den Potsdamer Platz, von Hand geschaltet",
+            "1924 kam ein Ampelturm an den Potsdamer Platz, von Hand geschaltet"
+          ],
+          "subExercises": [
+            {
+              "id": "retell",
+              "type": "recall_text"
+            },
+            {
+              "id": "s1",
+              "type": "sequence_events",
+              "prompt": "Bring die Ereignisse in die richtige Reihenfolge.",
+              "events": [
+                "Erste elektrische Ampel in Cleveland",
+                "Gelb kommt als Warnfarbe dazu",
+                "Ampelturm am Potsdamer Platz"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "l2-ampelmaennchen",
+      "title": "Ampelmännchen",
+      "items": [
+        {
+          "id": "l2-ampelmaennchen-t",
+          "type": "text",
+          "title": "Das Ampelmännchen",
+          "topic": "Das Ampelmännchen",
+          "paragraphs": [
+            "Das berühmte Ampelmännchen mit Hut entwarf der Verkehrspsychologe Karl Peglau 1961 für Ost-Berlin. Seine Idee: Figuren erkennt man schneller als bloße Farben, besonders Kinder und ältere Menschen.",
+            "Nach der Wende sollte das Männchen verschwinden und durch die westdeutsche Figur ersetzt werden. Doch es gab Proteste, und am Ende blieb es.",
+            "Heute steht es nicht nur an vielen Berliner Kreuzungen, sondern auch auf Tassen, Taschen und Gummibärchen.",
+            "Das Ost-Männchen ist etwas pummelig, trägt einen Hut und schreitet beim Grün sichtlich zügig aus. Das westdeutsche Männchen dagegen wirkt schlanker und deutlich nüchterner.",
+            "Längst haben andere Städte eigene Figuren eingeführt: In manchen Orten leuchten Ampelfrauen, anderswo Figuren aus der örtlichen Geschichte. Das Original aus Ost-Berlin ist aber das bekannteste geblieben."
+          ],
+          "keyPoints": [
             "Karl Peglau entwarf 1961 das Ampelmännchen",
+            "Figuren erkennt man schneller als Farben",
             "Proteste retteten es nach der Wende"
+          ],
+          "subExercises": [
+            {
+              "id": "retell",
+              "type": "recall_text"
+            },
+            {
+              "id": "q1",
+              "type": "recall_text",
+              "prompt": "Wer hat das Ampelmännchen entworfen?",
+              "answers": [
+                [
+                  "Peglau"
+                ]
+              ],
+              "solution": "Der Verkehrspsychologe Karl Peglau.",
+              "quote": "„… entwarf der Verkehrspsychologe Karl Peglau 1961 für Ost-Berlin.“"
+            }
           ]
         }
       ]
@@ -86,15 +190,63 @@
           "title": "Warum Kaffee wach macht",
           "topic": "Koffein",
           "paragraphs": [
-            "Während wir wach sind, sammelt sich im Gehirn ein Stoff namens Adenosin. Je mehr davon an bestimmte Rezeptoren andockt, desto müder werden wir.",
-            "Koffein ähnelt Adenosin und besetzt dieselben Rezeptoren, ohne sie zu aktivieren. Die Müdigkeit kommt dann nicht an. Weg ist sie aber nicht.",
-            "Im Körper wird Koffein nur langsam abgebaut: Nach etwa fünf Stunden ist noch rund die Hälfte da. Ein Kaffee am Nachmittag kann also den Schlaf stören."
+            "Während wir wach sind, sammelt sich im Gehirn ein Stoff namens Adenosin. Je mehr davon an bestimmte Rezeptoren andockt, desto müder werden wir. Im Schlaf wird das Adenosin wieder abgebaut.",
+            "Koffein ähnelt Adenosin und besetzt dieselben Rezeptoren, ohne sie zu aktivieren. Die Müdigkeit kommt dann nicht an. Weg ist sie aber nicht: Das Adenosin sammelt sich weiter an.",
+            "Deshalb kommt die Müdigkeit oft auf einen Schlag zurück, wenn das Koffein nachlässt.",
+            "Im Körper wird Koffein nur langsam abgebaut: Nach etwa fünf Stunden ist noch rund die Hälfte da. Ein Kaffee am Nachmittag kann also den Schlaf stören.",
+            "Wie stark Koffein wirkt, ist sehr unterschiedlich. Manche Menschen bauen es wegen ihrer Gene besonders schnell ab und können abends noch einen Espresso trinken, andere liegen nach einer Tasse am Nachmittag lange wach.",
+            "Wer regelmäßig viel Kaffee trinkt, gewöhnt sich außerdem daran: Der Körper bildet mehr Adenosin-Rezeptoren, und die gleiche Menge Kaffee wirkt schwächer."
           ],
           "keyPoints": [
             "Adenosin sammelt sich an und macht müde",
             "Koffein blockiert die Adenosin-Rezeptoren",
             "Die Müdigkeit wird nur verdeckt",
             "Nach etwa fünf Stunden ist noch die Hälfte da"
+          ],
+          "subExercises": [
+            {
+              "id": "retell",
+              "type": "recall_text"
+            },
+            {
+              "id": "q1",
+              "type": "recall_text",
+              "prompt": "Wie heißt der Stoff, der uns müde macht?",
+              "answers": [
+                [
+                  "Adenosin",
+                  "Adenosine"
+                ]
+              ],
+              "solution": "Adenosin.",
+              "quote": "„… sammelt sich im Gehirn ein Stoff namens Adenosin.“"
+            },
+            {
+              "id": "m1",
+              "type": "detail_match",
+              "prompt": "Wie viel Koffein ist nach etwa fünf Stunden noch im Körper?",
+              "options": [
+                "Fast nichts mehr",
+                "Rund die Hälfte",
+                "Noch alles",
+                "Ein Zehntel"
+              ],
+              "correct": [
+                "Rund die Hälfte"
+              ],
+              "quote": "„Nach etwa fünf Stunden ist noch rund die Hälfte da.“"
+            },
+            {
+              "id": "s1",
+              "type": "sequence_events",
+              "prompt": "Was passiert nacheinander?",
+              "events": [
+                "Adenosin sammelt sich an",
+                "Koffein besetzt die Rezeptoren",
+                "Das Koffein lässt nach",
+                "Die Müdigkeit kommt auf einen Schlag"
+              ]
+            }
           ]
         }
       ]

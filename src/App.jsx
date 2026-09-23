@@ -8,7 +8,7 @@ import { SessionEnd, StreakMilestone, InfinityUnlocked, ChapterDone } from './sc
 import { AllDone, StreakBroken, HeartsEmpty } from './screens/States.jsx';
 import {
   buildLessonSession, buildDueSession, buildCheckpointSession, buildReviewSession, buildVoluntarySession,
-  canStartNew, dueCardIds, doneTodayCount, hasAnyProgress, markLessonDone,
+  canStartNew, dueCardIds, doneTodayCount, hasAnyProgress, markLessonDone, isMastered, buildPopupSession,
 } from './engine/game.js';
 
 /** Hält die App-Höhe über der Bildschirmtastatur (iOS ignoriert interactive-widget). */
@@ -57,18 +57,26 @@ function Main() {
   const openNode = useCallback((node) => {
     const now = new Date();
     if (node.lesson.type === 'checkpoint') return startSession(buildCheckpointSession(index, state, node.id, now));
+    // Feld mit noch offenen Teilübungen (z. B. neu hinzugekommene): erst die offenen üben.
+    const hasOpen = node.cardIds.some((id) => !isMastered(state.cards[id]));
     if (node.status === 'due') return startSession(buildDueSession(index, state, node.id, now));
+    if (node.status === 'done' && hasOpen) {
+      if (!canStartNew(state.progress, now)) return go({ name: 'heartsEmpty' });
+      return startSession(buildLessonSession(index, state, node.id, now));
+    }
     if (node.status === 'done') return startSession(buildLessonSession(index, state, node.id, now, 'replay'));
     if (!canStartNew(state.progress, now)) return go({ name: 'heartsEmpty' });
     return startSession(buildLessonSession(index, state, node.id, now));
   }, [index, state, startSession, go]);
 
+  const popupTest = useCallback((chapterId) => startSession(buildPopupSession(index, state, chapterId)), [index, state, startSession]);
   const reviewsOnly = useCallback(() => startSession(buildReviewSession(index, state)), [index, state, startSession]);
   const voluntary = useCallback(() => startSession(buildVoluntarySession(index, state)), [index, state, startSession]);
 
   /** Nach der Session: Abschluss → Meilenstein → ∞ → Kapitel geschafft → Pfad bzw. "Alles erledigt". */
   const finishSession = useCallback((result) => {
     const q = [{ name: 'summary', result }];
+    if (result.kind === 'popup') { setQueue([]); setRoute(q[0]); return; }
     if (result.milestone) {
       q.push({ name: 'milestone', days: result.milestone });
       q.push({ name: 'infinity', days: result.milestone });
@@ -122,7 +130,7 @@ function Main() {
       screen = <HeartsEmpty onReviews={reviewsOnly} onPath={() => home()} />;
       break;
     default:
-      screen = <Home anim={route.anim} onOpenNode={openNode} />;
+      screen = <Home anim={route.anim} onOpenNode={openNode} onPopupTest={popupTest} />;
   }
   return <div key={route.name + (route.key || '')} className="screen-wrap">{screen}</div>;
 }

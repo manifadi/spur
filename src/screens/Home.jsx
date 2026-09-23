@@ -8,11 +8,11 @@ import { Mascot, SpeechBubble } from '../ds/feedback.jsx';
 import { GoalRing, HeartsMeter, InfinityPill, PathNode, StreakPill, XPPill } from '../ds/progress.jsx';
 import { SettingsSheet } from './Settings.jsx';
 import {
-  buildPath, doneTodayCount, dueCardIds, hasAnyProgress, isInfinite, nextLessonAfter, daysSinceFirstSeen,
+  buildPath, doneTodayCount, dueCardIds, hasAnyProgress, isInfinite, nextLessonAfter, daysSinceFirstSeen, isMastered, pickPopup,
 } from '../engine/game.js';
 import { dayKey, daysBetween } from '../engine/dates.js';
-import { isNew } from '../engine/srs.js';
-import { cap, cards, daysAgoText, numWord } from '../lib/format.js';
+import { Sheet } from '../ds/feedback.jsx';
+import { cap, daysAgoText, numWord } from '../lib/format.js';
 import { prefersReducedMotion, useCountUp, EASE } from '../lib/motion.js';
 
 const OFFSETS = [0, 56, 82, 40, -14, -56, -82, -40];
@@ -82,27 +82,33 @@ function bubbleText(index, state) {
 
 function nodeInfo(node, state) {
   const now = new Date();
+  const teil = (k) => `${k} ${k === 1 ? 'Teilübung' : 'Teilübungen'}`;
   const n = node.cardIds.length;
   const t = node.track;
   if (node.lesson.type === 'checkpoint') {
     const done = node.status === 'done';
     return { title: 'Checkpoint', meta: done ? 'Gemischte Wiederholung · erledigt' : 'Gemischte Wiederholung · bis zu 6 Karten', cta: done ? 'Nochmal üben' : 'Los geht’s', variant: 'primary' };
   }
+  const open = node.cardIds.filter((id) => !isMastered(state.cards[id])).length;
+  if (node.status === 'done' && open > 0) {
+    return { title: node.lesson.title, meta: `${n - open} von ${teil(n)} geschafft`, cta: 'Weitermachen', variant: t === 'mixed' ? 'primary' : t };
+  }
   if (node.status === 'done') {
     const at = state.progress.lessonsDone[node.id];
     const d = at ? daysBetween(dayKey(new Date(at)), dayKey(now)) : daysSinceFirstSeen(state, node.cardIds, now);
-    return { title: node.lesson.title, meta: `${n} ${cards(n)} · abgeschlossen ${daysAgoText(d)}`, cta: t === 'read' ? 'Nochmal lesen' : 'Nochmal hören', variant: t === 'mixed' ? 'primary' : t };
+    return { title: node.lesson.title, meta: `${teil(n)} · abgeschlossen ${daysAgoText(d)}`, cta: t === 'read' ? 'Nochmal lesen' : 'Nochmal hören', variant: t === 'mixed' ? 'primary' : t };
   }
   if (node.status === 'due') {
     const today = dayKey(now);
     const due = node.cardIds.filter((id) => { const r = state.cards[id]; return r && r.stage >= 0 && r.due <= today; }).length;
     const d = daysSinceFirstSeen(state, node.cardIds, now);
-    if (t === 'read') return { title: 'Fällige Wiedergabe', meta: `${due} Text · gelesen ${daysAgoText(d)}`, cta: 'Wiedergeben', variant: 'read' };
-    return { title: 'Fällige Wiederholung', meta: `${due} ${cards(due)} · zuletzt ${daysAgoText(d)}`, cta: 'Wiederholen', variant: 'listen' };
+    if (t === 'read') return { title: 'Fällige Wiedergabe', meta: `${teil(due)} · gelesen ${daysAgoText(d)}`, cta: 'Wiedergeben', variant: 'read' };
+    return { title: 'Fällige Wiederholung', meta: `${teil(due)} · zuletzt ${daysAgoText(d)}`, cta: 'Wiederholen', variant: 'listen' };
   }
-  const open = node.cardIds.filter((id) => isNew(state.cards[id])).length;
-  if (t === 'read') return { title: node.lesson.title, meta: `1 neuer Text · ca. 2 Minuten`, cta: 'Los geht’s', variant: 'read' };
-  return { title: node.lesson.title, meta: `${open} neue ${cards(open)} · ca. ${Math.max(1, Math.round(open * 0.8))} Minuten`, cta: 'Los geht’s', variant: t === 'mixed' ? 'primary' : t };
+  const started = open < n;
+  const cta = started ? 'Weitermachen' : 'Los geht’s';
+  if (t === 'read') return { title: node.lesson.title, meta: `${started ? 'Noch ' : '1 Text · '}${teil(open)} · ca. ${Math.max(2, open + 1)} Minuten`, cta, variant: 'read' };
+  return { title: node.lesson.title, meta: `${started ? 'Noch ' : '1 Gespräch · '}${teil(open)} · ca. ${Math.max(1, Math.round(open * 0.8 + 1))} Minuten`, cta, variant: t === 'mixed' ? 'primary' : t };
 }
 
 /* ---- Kapitel-Banner --------------------------------------------------------- */
@@ -136,27 +142,30 @@ function ChapterBanner({ group }) {
 
 /* ---- Knoten mit Überblendung (3e) ------------------------------------------ */
 function NodeView({ node, from, delay, onTap, nodeRef }) {
-  const common = { track: node.track, icon: node.lesson.type === 'checkpoint' ? 'target' : undefined };
+  const common = { track: node.track === 'mixed' ? 'mixed' : node.track, icon: node.lesson.type === 'checkpoint' ? 'target' : undefined };
   const label = node.lesson.type === 'checkpoint' && node.status !== 'locked' ? 'Checkpoint' : node.label;
   const tap = node.status === 'locked' ? undefined : (e) => { e.stopPropagation(); onTap(node); };
   const aria = `${node.lesson.title}${node.status === 'locked' ? ', gesperrt' : node.status === 'due' ? ', fällig' : node.status === 'done' ? ', erledigt' : ''}`;
   if (!from || from === node.status) {
-    return <span ref={nodeRef}><PathNode {...common} state={node.status} label={label} ariaLabel={aria} onClick={tap} /></span>;
+    return <span ref={nodeRef}><PathNode {...common} state={node.status} segments={node.segments} label={label} ariaLabel={aria} onClick={tap} /></span>;
   }
   return (
     <span ref={nodeRef} style={{ position: 'relative', display: 'inline-flex', flexDirection: 'column', alignItems: 'center' }}>
       <span style={{ position: 'absolute', top: 0, animation: `spur-fadeout 600ms cubic-bezier(.45,.05,.35,1) ${delay}ms both`, pointerEvents: 'none' }}>
-        <PathNode {...common} state={from} />
+        <PathNode {...common} state={from} segments={node.segments} />
       </span>
       <span style={{ animation: `spur-softin 600ms ${EASE.soft} ${delay}ms both` }}>
-        <PathNode {...common} state={node.status} label={label} ariaLabel={aria} onClick={tap} />
+        <PathNode {...common} state={node.status} segments={node.segments} label={label} ariaLabel={aria} onClick={tap} />
       </span>
     </span>
   );
 }
 
 /* ---- Home / Pfad ------------------------------------------------------------ */
-export function Home({ anim, onOpenNode }) {
+/** Pop-ups höchstens einmal pro App-Start prüfen (StrictMode ruft Effekte doppelt auf). */
+let popupCheckedAt = 0;
+
+export function Home({ anim, onOpenNode, onPopupTest }) {
   const { state, index } = useStore();
   const narrow = useNarrow();
   const reduced = prefersReducedMotion();
@@ -169,6 +178,11 @@ export function Home({ anim, onOpenNode }) {
   const scrollRef = useRef(null);
   const wrapRef = useRef(null);
   const nodeEls = useRef(new Map());
+  const sectionEls = useRef(new Map());
+  const [sticky, setSticky] = useState(null);
+  const [targetVisible, setTargetVisible] = useState(true);
+  const [popup, setPopup] = useState(null);
+  const { update } = useStore();
 
   // Welche Knoten werden gerade animiert (Rückkehr nach abgeschlossener Lektion)?
   const animState = useMemo(() => {
@@ -229,12 +243,58 @@ export function Home({ anim, onOpenNode }) {
     return () => { clearTimeout(t1); clearTimeout(t2); };
   }, [anim?.key]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Sticky Kapitel-Leiste: Welches Kapitel liegt gerade oben im Sichtbereich?
+  // IntersectionObserver auf die Kapitel-Abschnitte mit einem schmalen Band unter der Leiste.
+  useEffect(() => {
+    const root = scrollRef.current;
+    if (!root || typeof IntersectionObserver === 'undefined') return undefined;
+    const inBand = new Set();
+    const order = groups.map((g) => g.chapter.id);
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        const id = e.target.dataset.chapter;
+        if (e.isIntersecting) inBand.add(id); else inBand.delete(id);
+      }
+      setSticky(order.find((id) => inBand.has(id)) || null);
+    }, { root, rootMargin: `-44px 0px -${Math.max(0, root.clientHeight - 46)}px 0px`, threshold: 0 });
+    sectionEls.current.forEach((el) => el && io.observe(el));
+    return () => io.disconnect();
+  }, [groups]);
+
+  // "Zur aktuellen Position": nächster fälliger bzw. unerledigter Knoten.
+  const target = nodes.find((x) => x.status === 'due') || nodes.find((x) => x.status === 'current');
+  useEffect(() => {
+    const root = scrollRef.current;
+    const el = target && nodeEls.current.get(target.id);
+    if (!root || !el || typeof IntersectionObserver === 'undefined') { setTargetVisible(true); return undefined; }
+    const io = new IntersectionObserver(([e]) => setTargetVisible(e.isIntersecting), { root, rootMargin: '-48px 0px 0px 0px', threshold: 0.4 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [target?.id, geo]); // eslint-disable-line react-hooks/exhaustive-deps
+  const scrollToTarget = () => {
+    const el = target && nodeEls.current.get(target.id);
+    el?.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
+  };
+
+  // Zufällige Erinnerungs-Pop-ups: beim Öffnen des Pfads, höchstens eins pro Tag.
+  useEffect(() => {
+    const t = setTimeout(() => {
+      if (Date.now() - popupCheckedAt < 60000) return;
+      popupCheckedAt = Date.now();
+      const r = pickPopup(index, state);
+      if (!r.chapterId) return;
+      update(() => r.state);
+      setPopup(r.chapterId);
+    }, anim?.lessonDone ? 5000 : 1200);
+    return () => clearTimeout(t);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   const p = state.progress;
   const goal = state.settings.dailyGoal;
   const done = doneTodayCount(p);
 
   // Verbindungslinien von Knotenmitte zu Knotenmitte (nur innerhalb eines Kapitels).
-  const segments = [];
+  const lines = [];
   if (geo) {
     for (const g of groups) {
       for (let i = 0; i + 1 < g.nodes.length; i++) {
@@ -245,7 +305,7 @@ export function Home({ anim, onOpenNode }) {
         const d = `M${a.x} ${a.y} C ${a.x} ${a.y + dy * 0.55}, ${b.x} ${b.y - dy * 0.55}, ${b.x} ${b.y}`;
         const reached = g.nodes[i + 1].status !== 'locked';
         const animated = animState && g.nodes[i].id === animState.doneId && g.nodes[i + 1].id === animState.nextId;
-        segments.push({ key: g.nodes[i].id, d, reached: reached && !animated, animated });
+        lines.push({ key: g.nodes[i].id, d, reached: reached && !animated, animated });
       }
     }
   }
@@ -277,7 +337,27 @@ export function Home({ anim, onOpenNode }) {
     <div className="screen">
       <PathHeader xpFrom={anim?.xpFrom} xpDelay={animState ? 3000 : 300} streakBump={anim?.streakBump} onMenu={() => { setSelected(null); setSettings(true); }} />
 
-      <div ref={scrollRef} className="screen-body" style={{ paddingBottom: 140 }} onClick={() => selected && setSelected(null)}>
+      <div style={{ position: 'relative', flex: 1, minHeight: 0 }}>
+      {sticky && (() => {
+        const g = groups.find((x) => x.chapter.id === sticky);
+        const tone = g.chapter.track;
+        const soft = tone === 'read' ? 'var(--track-read-soft)' : tone === 'listen' ? 'var(--track-listen-soft)' : 'var(--surface-sunken)';
+        const shade = tone === 'read' ? 'var(--track-read-shade)' : tone === 'listen' ? 'var(--track-listen-shade)' : 'var(--spur-indigo)';
+        return (
+          <button type="button" key={sticky} className="a-rise" onClick={() => sectionEls.current.get(sticky)?.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' })}
+            aria-label={`Kapitel ${g.number}: ${g.chapter.title}, ${TRACK_NAME[tone]}`}
+            style={{ position: 'absolute', top: 0, left: 0, right: 0, zIndex: 6, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10,
+              height: 44, padding: '0 var(--gutter-screen)', border: 'none', borderBottom: '2px solid var(--border-default)', background: soft, cursor: 'pointer',
+              animationDuration: '200ms', textAlign: 'left' }}>
+            <span style={{ display: 'flex', alignItems: 'baseline', gap: 8, minWidth: 0 }}>
+              <span className="overline" style={{ color: shade, flex: '0 0 auto' }}>Kapitel {g.number}</span>
+              <span style={{ font: 'var(--type-body)', fontWeight: 700, color: 'var(--text-ink)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{g.chapter.title}</span>
+            </span>
+            <Badge tone={tone} variant="solid" size="sm">{TRACK_NAME[tone]}</Badge>
+          </button>
+        );
+      })()}
+      <div ref={scrollRef} className="screen-body" style={{ position: 'absolute', inset: 0, paddingBottom: 140 }} onClick={() => selected && setSelected(null)}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '16px var(--gutter-screen) 6px' }}>
           <GoalRing value={done / goal} size={64} thickness={8} caption="Tagesziel" tone={done >= goal ? 'correct' : 'amber'}>{done}/{goal}</GoalRing>
           <SpeechBubble tail="left" tone="lavender" style={{ flex: 1 }}>{bubbleText(index, state)}</SpeechBubble>
@@ -286,7 +366,7 @@ export function Home({ anim, onOpenNode }) {
         <div ref={wrapRef} style={{ position: 'relative' }}>
           {geo && (
             <svg width={geo.w} height={geo.h} style={{ position: 'absolute', left: 0, top: 0, overflow: 'visible', pointerEvents: 'none' }} aria-hidden="true">
-              {segments.map((s) => (
+              {lines.map((s) => (
                 <g key={s.key}>
                   <path d={s.d} fill="none" stroke={s.reached ? 'var(--spur-lavender-deep)' : 'var(--surface-locked)'} strokeWidth="6" strokeLinecap="round" />
                   {s.animated && (
@@ -299,7 +379,8 @@ export function Home({ anim, onOpenNode }) {
           )}
 
           {groups.map((g) => (
-            <section key={g.chapter.id} aria-label={`Kapitel ${g.number}: ${g.chapter.title}`}>
+            <section key={g.chapter.id} aria-label={`Kapitel ${g.number}: ${g.chapter.title}`} data-chapter={g.chapter.id}
+              ref={(el) => { if (el) sectionEls.current.set(g.chapter.id, el); else sectionEls.current.delete(g.chapter.id); }}>
               <div style={{ margin: '24px var(--gutter-screen) 0', position: 'relative' }}>
                 <ChapterBanner group={g} />
               </div>
@@ -330,6 +411,17 @@ export function Home({ anim, onOpenNode }) {
           </div>
         )}
       </div>
+      </div>
+
+      {!targetVisible && !selected && target && (
+        <button type="button" onClick={scrollToTarget} aria-label="Zur aktuellen Position" className="a-popin"
+          style={{ position: 'absolute', right: 'var(--gutter-screen)', bottom: 'calc(24px + env(safe-area-inset-bottom))', zIndex: 15,
+            width: 56, height: 56, borderRadius: '50%', border: '2px solid var(--border-default)', background: 'var(--surface-card)',
+            color: target.status === 'due' ? 'var(--spur-amber-shade)' : `var(--track-${target.track === 'read' ? 'read' : 'listen'})`,
+            boxShadow: '0 4px 0 var(--border-strong), var(--shadow-raised)', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+          <Icon name="target" size={26} strokeWidth={2.4} />
+        </button>
+      )}
 
       {selected && info && (
         <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: '0 var(--gutter-screen) calc(20px + env(safe-area-inset-bottom))', zIndex: 20 }} className="a-rise">
@@ -354,6 +446,26 @@ export function Home({ anim, onOpenNode }) {
       )}
 
       <SettingsSheet open={settings} onClose={() => setSettings(false)} />
+
+      {popup && (() => {
+        const ch = index.chapters.find((c) => c.id === popup);
+        const read = ch.track === 'read';
+        return (
+          <Sheet title="Kurz gefragt" onClose={() => setPopup(null)}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginTop: -4 }}>
+              <Mascot pose="head" size={64} />
+              <div className="stack" style={{ gap: 4 }}>
+                <p style={{ font: 'var(--type-headline)', color: 'var(--text-ink)' }}>{read ? `Weißt du noch, was in „${ch.title}“ stand?` : `Weißt du noch, worum es in „${ch.title}“ ging?`}</p>
+                <p style={{ font: 'var(--type-body)', color: 'var(--text-muted)' }}>Drei Fragen, ganz ohne Folgen. Für Federn, wenn es sitzt.</p>
+              </div>
+            </div>
+            <div className="stack" style={{ gap: 10 }}>
+              <Button full icon="sparkles" onClick={() => { setPopup(null); onPopupTest(popup); }}>Kurzer Test</Button>
+              <Button variant="ghost" size="md" full onClick={() => setPopup(null)}>Nicht jetzt</Button>
+            </div>
+          </Sheet>
+        );
+      })()}
     </div>
   );
 }

@@ -15,10 +15,12 @@
           "title": "Ebbinghaus und das Vergessen",
           "topic": "Die Vergessenskurve",
           "paragraphs": [
-            "1885 veröffentlichte der Psychologe Hermann Ebbinghaus ein ungewöhnliches Selbstexperiment. Er lernte Listen aus sinnlosen Silben wie „DAX“ oder „BOK“, damit ihm kein Vorwissen half.",
-            "Dann prüfte er, wie viel er nach Minuten, Stunden und Tagen noch wusste. Das Ergebnis ist die Vergessenskurve: Am Anfang vergessen wir sehr schnell, danach immer langsamer.",
+            "1885 veröffentlichte der Psychologe Hermann Ebbinghaus ein ungewöhnliches Selbstexperiment. Er lernte Listen aus sinnlosen Silben wie „DAX“ oder „BOK“, damit ihm kein Vorwissen half. Über Monate übte er Tausende solcher Silben, immer zur gleichen Tageszeit.",
+            "Dann prüfte er, wie viel er nach Minuten, Stunden und Tagen noch wusste. Dazu maß er, wie viel schneller er eine Liste ein zweites Mal lernen konnte. Diese Ersparnis zeigte, was im Gedächtnis übrig geblieben war.",
+            "Das Ergebnis ist die Vergessenskurve: Am Anfang vergessen wir sehr schnell, danach immer langsamer. Ein großer Teil ist schon nach einem Tag weg, der Rest hält sich erstaunlich lange.",
             "Er stellte auch fest, dass sich verteiltes Wiederholen lohnt. Wer über mehrere Tage verteilt übt, behält mehr als jemand, der alles an einem Stück paukt.",
-            "Genau darauf beruht Spaced Repetition, und auch diese App: Jede Wiederholung kommt ungefähr dann, wenn du etwas sonst vergessen würdest."
+            "Genau darauf beruht Spaced Repetition, und auch diese App: Jede Wiederholung kommt ungefähr dann, wenn du etwas sonst vergessen würdest.",
+            "Ebbinghaus war sein eigenes und einziges Versuchsobjekt. Das würde heute kaum als saubere Studie durchgehen. Trotzdem wurden seine Ergebnisse seitdem viele Male mit anderen Menschen bestätigt."
           ],
           "keyPoints": [
             "Ebbinghaus machte 1885 ein Selbstexperiment",
@@ -26,6 +28,39 @@
             "Vergessenskurve: erst schnell, dann langsamer",
             "Verteiltes Wiederholen wirkt besser als Pauken am Stück",
             "Spaced Repetition beruht darauf"
+          ],
+          "subExercises": [
+            {
+              "id": "retell",
+              "type": "recall_text"
+            },
+            {
+              "id": "m1",
+              "type": "detail_match",
+              "prompt": "Wie maß Ebbinghaus, was noch im Gedächtnis war?",
+              "options": [
+                "Er ließ sich abfragen",
+                "Er maß, wie viel schneller er neu lernte",
+                "Er schrieb alles aus dem Kopf auf",
+                "Er zählte seine Fehler beim Vorlesen"
+              ],
+              "correct": [
+                "Er maß, wie viel schneller er neu lernte"
+              ],
+              "quote": "„Dazu maß er, wie viel schneller er eine Liste ein zweites Mal lernen konnte.“"
+            },
+            {
+              "id": "q1",
+              "type": "recall_text",
+              "prompt": "In welchem Jahr veröffentlichte Ebbinghaus sein Experiment?",
+              "answers": [
+                [
+                  "1885"
+                ]
+              ],
+              "solution": "1885.",
+              "quote": "„1885 veröffentlichte der Psychologe Hermann Ebbinghaus …“"
+            }
           ]
         }
       ]
@@ -41,9 +76,10 @@
           "topic": "Die Gezeiten",
           "paragraphs": [
             "An vielen Küsten steigt und fällt das Meer zweimal am Tag. Der Hauptgrund ist der Mond: Seine Anziehungskraft zieht das Wasser auf der ihm zugewandten Seite der Erde zu einem Wellenberg.",
-            "Ein zweiter Wellenberg entsteht auf der gegenüberliegenden Seite. Weil sich die Erde unter beiden hindurchdreht, gibt es meist zwei Hochwasser am Tag, etwa alle zwölf Stunden und 25 Minuten.",
-            "Auch die Sonne wirkt mit. Stehen Sonne, Mond und Erde in einer Linie, also bei Vollmond und Neumond, addieren sich die Kräfte. Dann gibt es eine besonders hohe Springflut.",
-            "Im Wattenmeer der Nordsee beträgt der Unterschied zwischen Ebbe und Flut an manchen Stellen über drei Meter."
+            "Ein zweiter Wellenberg entsteht auf der gegenüberliegenden Seite. Weil sich die Erde unter beiden hindurchdreht, gibt es meist zwei Hochwasser am Tag, etwa alle zwölf Stunden und 25 Minuten. Deshalb verschiebt sich die Flut jeden Tag ein Stück nach hinten.",
+            "Auch die Sonne wirkt mit, allerdings schwächer als der viel nähere Mond. Stehen Sonne, Mond und Erde in einer Linie, also bei Vollmond und Neumond, addieren sich die Kräfte. Dann gibt es eine besonders hohe Springflut. Bei Halbmond heben sich die Kräfte teilweise auf, es kommt zur schwächeren Nippflut.",
+            "Im Wattenmeer der Nordsee beträgt der Unterschied zwischen Ebbe und Flut an manchen Stellen über drei Meter. In der Ostsee dagegen merkt man die Gezeiten kaum.",
+            "Für die Schifffahrt sind die Gezeiten bis heute wichtig. Große Schiffe können manche Häfen nur bei Hochwasser anlaufen, und im Watt wird jedes Jahr jemand von der auflaufenden Flut überrascht. Wer dort wandert, sollte die Gezeitentabelle kennen."
           ],
           "keyPoints": [
             "Der Mond zieht das Wasser an",
@@ -51,6 +87,22 @@
             "Zwei Hochwasser am Tag, etwa alle 12 Stunden und 25 Minuten",
             "Bei Vollmond und Neumond gibt es Springflut",
             "Im Wattenmeer teils über drei Meter Unterschied"
+          ],
+          "subExercises": [
+            {
+              "id": "retell",
+              "type": "recall_text"
+            },
+            {
+              "id": "s1",
+              "type": "sequence_events",
+              "prompt": "Ordne vom stärksten zum schwächsten Gezeitenunterschied.",
+              "events": [
+                "Springflut bei Vollmond",
+                "Nippflut bei Halbmond",
+                "Kaum Gezeiten in der Ostsee"
+              ]
+            }
           ]
         }
       ]
@@ -65,10 +117,11 @@
           "title": "Das unterirdische Netz der Pilze",
           "topic": "Pilze & Bäume",
           "paragraphs": [
-            "Was wir im Wald als Pilz sammeln, ist nur der Fruchtkörper. Der eigentliche Pilz lebt im Boden: ein Geflecht aus feinen Fäden, das Myzel.",
+            "Was wir im Wald als Pilz sammeln, ist nur der Fruchtkörper. Der eigentliche Pilz lebt im Boden: ein Geflecht aus feinen Fäden, das Myzel. In einer Handvoll Waldboden können mehrere Kilometer davon stecken.",
             "Viele Pilze gehen mit Bäumen eine Partnerschaft ein, die Mykorrhiza. Die Pilzfäden umhüllen die Wurzeln und liefern Wasser und Nährstoffe wie Phosphor. Im Gegenzug bekommen sie Zucker, den der Baum durch Photosynthese herstellt.",
-            "Über dieses Netz können sogar Stoffe zwischen verschiedenen Bäumen wandern. Wie viel das den Bäumen tatsächlich nützt, ist unter Forschenden allerdings umstritten.",
-            "Manche Myzelien werden riesig: Ein Hallimasch in Oregon erstreckt sich über fast zehn Quadratkilometer und gilt als eines der größten Lebewesen der Erde."
+            "Über dieses Netz können sogar Stoffe zwischen verschiedenen Bäumen wandern. Manche sprechen deshalb vom „Wood Wide Web“. Wie viel das den Bäumen tatsächlich nützt, ist unter Forschenden allerdings umstritten.",
+            "Manche Myzelien werden riesig: Ein Hallimasch in Oregon erstreckt sich über fast zehn Quadratkilometer und gilt als eines der größten Lebewesen der Erde. Sein Alter wird auf mehrere tausend Jahre geschätzt.",
+            "Für den Wald ist das unterirdische Netz trotzdem unverzichtbar: Viele Baumarten wachsen ohne ihre Pilzpartner schlecht oder gar nicht. Wer Pilze sammelt, sollte sie deshalb vorsichtig herausdrehen oder abschneiden und den Boden nicht aufwühlen."
           ],
           "keyPoints": [
             "Der sichtbare Pilz ist nur der Fruchtkörper",
@@ -76,6 +129,26 @@
             "Mykorrhiza: Wasser und Nährstoffe gegen Zucker",
             "Stoffe wandern zwischen Bäumen, der Nutzen ist umstritten",
             "Ein Hallimasch in Oregon ist fast zehn Quadratkilometer groß"
+          ],
+          "subExercises": [
+            {
+              "id": "retell",
+              "type": "recall_text"
+            },
+            {
+              "id": "q1",
+              "type": "recall_text",
+              "prompt": "Wie heißt die Partnerschaft zwischen Pilzen und Bäumen?",
+              "answers": [
+                [
+                  "Mykorrhiza",
+                  "Mykorhiza",
+                  "Mycorrhiza"
+                ]
+              ],
+              "solution": "Mykorrhiza.",
+              "quote": "„Viele Pilze gehen mit Bäumen eine Partnerschaft ein, die Mykorrhiza.“"
+            }
           ]
         }
       ]
@@ -90,10 +163,12 @@
           "title": "Gutenbergs Erfindung",
           "topic": "Der Buchdruck",
           "paragraphs": [
-            "Um 1450 entwickelte Johannes Gutenberg in Mainz ein Verfahren, das die Welt verändern sollte: den Buchdruck mit beweglichen Lettern aus Metall.",
-            "Jeder Buchstabe war ein einzelner Metallkörper. Die Setzer fügten die Lettern zu Zeilen und Seiten zusammen und konnten sie nach dem Druck wiederverwenden. Dazu entwickelte Gutenberg ein Handgießinstrument, mit dem sich Lettern schnell und gleichmäßig gießen ließen.",
+            "Um 1450 entwickelte Johannes Gutenberg in Mainz ein Verfahren, das die Welt verändern sollte: den Buchdruck mit beweglichen Lettern aus Metall. Vorher wurden Bücher meist von Hand abgeschrieben, oft in Klöstern, und eine einzige Bibel konnte Jahre dauern.",
+            "Jeder Buchstabe war ein einzelner Metallkörper. Die Setzer fügten die Lettern zu Zeilen und Seiten zusammen und konnten sie nach dem Druck wiederverwenden. Dazu entwickelte Gutenberg ein Handgießinstrument, mit dem sich Lettern schnell und gleichmäßig gießen ließen, außerdem eine ölhaltige Druckfarbe und eine Presse nach dem Vorbild von Weinpressen.",
             "Sein bekanntestes Werk ist die Gutenberg-Bibel. Rund 180 Exemplare wurden gedruckt, 49 sind bis heute erhalten, manche nur teilweise.",
-            "Bücher ließen sich nun viel billiger und schneller herstellen. Wissen verbreitete sich rascher, eine Voraussetzung für Reformation und moderne Wissenschaft."
+            "Reich wurde Gutenberg damit nicht: Er geriet in einen Rechtsstreit mit seinem Geldgeber und verlor einen Teil seiner Werkstatt.",
+            "Bücher ließen sich nun viel billiger und schneller herstellen. Wissen verbreitete sich rascher, eine Voraussetzung für Reformation und moderne Wissenschaft.",
+            "Bis zum Jahr 1500 gab es in über 250 Städten Europas Druckereien. Die frühen Drucke aus dieser Zeit nennt man Inkunabeln, das heißt übersetzt ungefähr „Wiegendrucke“."
           ],
           "keyPoints": [
             "Gutenberg, Mainz, um 1450",
@@ -101,6 +176,39 @@
             "Ein Handgießinstrument für gleichmäßige Lettern",
             "Gutenberg-Bibel: rund 180 gedruckt, 49 erhalten",
             "Bücher wurden billiger, Wissen verbreitete sich schneller"
+          ],
+          "subExercises": [
+            {
+              "id": "retell",
+              "type": "recall_text"
+            },
+            {
+              "id": "s1",
+              "type": "sequence_events",
+              "prompt": "In welcher Reihenfolge entsteht eine gedruckte Seite?",
+              "events": [
+                "Lettern gießen",
+                "Lettern zu Zeilen setzen",
+                "Seite drucken",
+                "Lettern wiederverwenden"
+              ]
+            },
+            {
+              "id": "m1",
+              "type": "detail_match",
+              "prompt": "Was entwickelte Gutenberg außer den Lettern? (Mehrere Antworten richtig)",
+              "options": [
+                "Eine ölhaltige Druckfarbe",
+                "Eine Presse nach dem Vorbild von Weinpressen",
+                "Das Papier",
+                "Die Schreibmaschine"
+              ],
+              "correct": [
+                "Eine ölhaltige Druckfarbe",
+                "Eine Presse nach dem Vorbild von Weinpressen"
+              ],
+              "quote": "„… außerdem eine ölhaltige Druckfarbe und eine Presse nach dem Vorbild von Weinpressen.“"
+            }
           ]
         }
       ]

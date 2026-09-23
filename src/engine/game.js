@@ -1,5 +1,5 @@
 import { addDays, dayKey, daysBetween, endOfDay } from './dates.js';
-import { applyGrade, isDue, isNew, XP } from './srs.js';
+import { applyGrade, isDue, XP } from './srs.js';
 import { itemTrack, pathChapters, pathLessons, trackSequence } from './content.js';
 
 export const MAX_HEARTS = 5;
@@ -24,21 +24,39 @@ export function freshProgress() {
     doneToday: 0, doneTodayDay: null,
     lessonsDone: {}, chaptersDone: {},
     pendingStreakBroken: null, infiniteSeenDay: null,
+    popups: {}, lastPopupDay: null,
   };
 }
 
+export const STATE_VERSION = 2;
+
 export function initialState() {
-  return { version: 1, onboarded: false, settings: defaultSettings(), progress: freshProgress(), cards: {} };
+  return { version: STATE_VERSION, onboarded: false, settings: defaultSettings(), progress: freshProgress(), cards: {} };
+}
+
+/**
+ * Karten-IDs umbenennen, wenn sich der Content umbaut (z. B. Lesetext → "text:retell",
+ * geteilte Gespräche). Verlauf und Intervalle wandern mit — nichts geht verloren.
+ */
+export function migrateCards(cards, renames = {}) {
+  let changed = false;
+  const out = {};
+  for (const [id, rec] of Object.entries(cards)) {
+    const to = renames[id];
+    if (to && !cards[to]) { out[to] = rec; changed = true; } else out[id] = rec;
+  }
+  return changed ? out : cards;
 }
 
 /** Normalisiert geladenen Zustand und holt Zeitabhängiges nach (Herzen, Tageswechsel, Streak-Lücke). */
-export function hydrate(saved, now = new Date()) {
+export function hydrate(saved, now = new Date(), renames = {}) {
   const base = initialState();
-  const s = saved && saved.version === 1 ? {
+  const s = saved && saved.version >= 1 ? {
     ...base, ...saved,
+    version: STATE_VERSION,
     settings: { ...base.settings, ...saved.settings },
     progress: { ...base.progress, ...saved.progress },
-    cards: saved.cards || {},
+    cards: migrateCards(saved.cards || {}, renames),
   } : base;
   return tick(s, now);
 }
@@ -102,11 +120,24 @@ export function daysSinceFirstSeen(state, cardIds, now = new Date()) {
   return daysBetween(dayKey(new Date(firsts[0])), dayKey(now));
 }
 
+/** Eine Teilübung gilt als gemeistert, sobald sie einmal (teilweise) richtig beantwortet wurde. */
+export function isMastered(rec) {
+  return !!rec && (rec.history || []).some((h) => h.g !== 'poor');
+}
+
+/** Ein Feld ist erst abgeschlossen, wenn ALLE seine Teilübungen gemeistert sind. */
 export function isLessonComplete(index, state, lessonId) {
   if (state.progress.lessonsDone[lessonId]) return true;
   const l = index.lessons.get(lessonId);
   if (!l || l.lesson.type === 'checkpoint') return false;
-  return l.cardIds.every((id) => !isNew(state.cards[id]));
+  return l.cardIds.every((id) => isMastered(state.cards[id]));
+}
+
+/** Segmente für den Ring am Knoten: gemeisterte von allen Teilübungen. */
+export function lessonSegments(index, state, lessonId) {
+  const l = index.lessons.get(lessonId);
+  if (!l || l.lesson.type === 'checkpoint') return { total: 1, done: state.progress.lessonsDone[lessonId] ? 1 : 0 };
+  return { total: l.cardIds.length, done: l.cardIds.filter((id) => isMastered(state.cards[id])).length };
 }
 
 /**
@@ -132,7 +163,7 @@ export function buildPath(index, state, now = new Date()) {
       let label = lesson.title;
       if (status === 'due') label = `Fällig · ${daysSinceFirstSeen(state, info.cardIds, now)} Tage`;
       if (status === 'locked') { label = firstLockedLabelled ? null : 'Bald'; firstLockedLabelled = true; }
-      return { id: lesson.id, n: n++, lesson, chapter, track: info.track, status, label, cardIds: info.cardIds };
+      return { id: lesson.id, n: n++, lesson, chapter, track: info.track, status, label, cardIds: info.cardIds, segments: lessonSegments(index, state, lesson.id) };
     });
     const complete = nodes.every((x) => x.status === 'done' || x.status === 'due');
     return { chapter, number: ci + 1, nodes, complete };
@@ -183,43 +214,32 @@ function reviewEntry(state, id, today) {
 }
 
 /**
- * Neue Lektion: Pro Dialog kommt die erste Frage direkt mit dem Gespräch, die
- * übrigen Fragen erst später in der Session ("Ich frage später nach"), dazwischen
- * fällige Wiederholungen aus beiden Spuren.
+ * Feld-Session: alle noch nicht gemeisterten Teilübungen des Feldes, der Reihe nach.
+ * Das Original (Gespräch hören / Text lesen) kommt nur vor der ersten Übung eines
+ * Items, das noch nie präsentiert wurde. Danach folgen bis zu 3 fällige Wiederholungen
+ * (bevorzugt aus der anderen Spur — Interleaving, ohne Einfluss aufs Scheduling).
+ * Jede Feld-Übung trägt { feld: { n, of } } für die Anzeige "Frage X von Y".
  */
 export function buildLessonSession(index, state, lessonId, now = new Date(), mode = 'new') {
   const info = index.lessons.get(lessonId);
   const today = dayKey(now);
-  const openItems = info.lesson.items.filter((it) =>
-    mode === 'replay' || info.cardIds.some((id) => id.split(':')[0] === it.id && isNew(state.cards[id])));
-  const firsts = [];
-  const follow = [];
-  for (const item of openItems) {
-    const ids = (item.type === 'dialog' ? item.questions.map((q) => `${item.id}:${q.id}`) : [item.id])
-      .filter((id) => mode === 'replay' || isNew(state.cards[id]));
-    const presented = item.type === 'dialog' && ids.length < item.questions.length;
-    const [first, ...rest] = ids;
-    firsts.push({ cardId: first, mode, showSource: mode === 'replay' || !presented || item.type === 'text' });
-    rest.forEach((id) => follow.push({ cardId: id, mode, showSource: false }));
+  const feld = [];
+  for (const item of info.lesson.items) {
+    const ids = cardIdsOfItemIn(info, item);
+    const open = mode === 'replay' ? ids : ids.filter((id) => !isMastered(state.cards[id]));
+    const presented = ids.some((id) => state.cards[id]);
+    open.forEach((id, i) => feld.push({ cardId: id, mode, showSource: i === 0 && (mode === 'replay' || !presented) }));
   }
+  feld.forEach((e, i) => { e.feld = { n: i + 1, of: feld.length }; });
   const otherTrack = info.track === 'listen' ? 'read' : 'listen';
   const due = mode === 'replay' ? [] : dueCardIds(index, state, now).filter((id) => !info.cardIds.includes(id));
   const reviews = [...due.filter((id) => index.cards.get(id).track === otherTrack), ...due.filter((id) => index.cards.get(id).track !== otherTrack)]
     .slice(0, REVIEWS_PER_LESSON).map((id) => reviewEntry(state, id, today));
+  return { kind: mode === 'replay' ? 'replay' : 'lesson', lessonId, entries: [...feld, ...reviews] };
+}
 
-  const out = [];
-  const pending = [];
-  for (const f of firsts) {
-    out.push(f);
-    if (reviews.length) out.push(reviews.shift());
-    if (pending.length) out.push(pending.shift());
-    pending.push(...follow.filter((e) => e.cardId.startsWith(f.cardId.split(':')[0] + ':')));
-  }
-  while (pending.length || reviews.length) {
-    if (pending.length) out.push(pending.shift());
-    if (reviews.length) out.push(reviews.shift());
-  }
-  return { kind: mode === 'replay' ? 'replay' : 'lesson', lessonId, entries: out };
+function cardIdsOfItemIn(info, item) {
+  return info.cardIds.filter((id) => id.startsWith(item.id + ':'));
 }
 
 /** Fällige Wiederholung eines Knotens, gemischt mit ein, zwei fälligen Karten der anderen Spur. */
@@ -282,11 +302,21 @@ export function commitAnswer(index, state, entry, grade, now = new Date()) {
   const rec = cards[entry.cardId];
   events.prevStage = rec ? rec.stage : -1;
 
-  if (entry.mode !== 'replay') {
+  if (entry.mode === 'retry' || entry.mode === 'popup') {
+    // Zweiter Versuch im Feld / Kurztest aus dem Pop-up: nur protokollieren, Intervalle bleiben.
+    if (rec) cards = { ...cards, [entry.cardId]: { ...rec, history: [...(rec.history || []), { at: now.toISOString(), g: grade, m: entry.mode }].slice(-20) } };
+    events.newStage = rec ? rec.stage : null;
+  } else if (entry.mode !== 'replay') {
     const reschedule = entry.mode === 'new' || entry.mode === 'review';
     const next = applyGrade(rec, grade, now, { reschedule });
     cards = { ...cards, [entry.cardId]: next };
     events.newStage = next.stage;
+  }
+
+  // Pop-up-Kurztest: kleine Bonus-Federn, sonst keinerlei Einfluss (kein Streak, kein Tagesziel).
+  if (entry.mode === 'popup') {
+    events.xp = XP[grade];
+    return { state: { ...state, cards, progress: { ...p, xp: p.xp + XP[grade] } }, events };
   }
 
   if (entry.mode === 'new' && grade === 'poor' && !isInfinite(p, now)) {
@@ -321,7 +351,7 @@ export function commitAnswer(index, state, entry, grade, now = new Date()) {
 
   // Lektion & Kapitel abschließen
   const card = index.cards.get(entry.cardId);
-  if (entry.mode === 'new') {
+  if (entry.mode === 'new' || entry.mode === 'retry') {
     const lid = card.lesson.id;
     if (!next.progress.lessonsDone[lid] && isLessonComplete(index, next, lid)) {
       next = markLessonDone(index, next, lid, now, events);
@@ -330,15 +360,70 @@ export function commitAnswer(index, state, entry, grade, now = new Date()) {
   return { state: next, events };
 }
 
-export function markLessonDone(index, state, lessonId, now, events = {}) {
+export function markLessonDone(index, state, lessonId, now, events = {}, rng = Math.random) {
   const p = { ...state.progress, lessonsDone: { ...state.progress.lessonsDone, [lessonId]: now.toISOString() } };
   events.lessonDone = lessonId;
   const chapter = index.lessons.get(lessonId).chapter;
   if (chapter.lessons.every((l) => p.lessonsDone[l.id]) && !p.chaptersDone[chapter.id]) {
     p.chaptersDone = { ...p.chaptersDone, [chapter.id]: now.toISOString() };
     events.chapterDone = chapter.id;
+    p.popups = schedulePopup(p.popups || {}, chapter.id, now, rng);
   }
   return { ...state, progress: p };
+}
+
+/* ------------------------------------------------------------------------ */
+/* Zufällige Erinnerungs-Pop-ups (unabhängig vom Pfad-Scheduling)            */
+/* ------------------------------------------------------------------------ */
+
+export const POPUP_CHANCE = 0.6;
+const DAY_MS = 86400000;
+
+/** Zufälliger Zeitpunkt 3–5 Tage nach `from` (echte Streuung, auch über die Tageszeit). */
+export function popupDelay(from, rng = Math.random) {
+  return new Date(from.getTime() + (3 + rng() * 2) * DAY_MS).toISOString();
+}
+
+/** Bei Abschluss: mit ~60 % Wahrscheinlichkeit wird die Geschichte/Feld-Gruppe pop-up-fähig. */
+export function schedulePopup(popups, chapterId, now, rng = Math.random) {
+  if (popups[chapterId] || rng() >= POPUP_CHANCE) return popups;
+  return { ...popups, [chapterId]: { dueAt: popupDelay(now, rng) } };
+}
+
+/**
+ * Beim Öffnen des Pfads: höchstens ein Pop-up pro Tag. Sind mehrere fällig, wird eines
+ * zufällig gewählt, die anderen wandern erneut 3–5 Tage in die Zukunft.
+ * @returns {{ state, chapterId: string|null }}
+ */
+export function pickPopup(index, state, now = new Date(), rng = Math.random) {
+  const p = state.progress;
+  const today = dayKey(now);
+  if (p.lastPopupDay === today) return { state, chapterId: null };
+  const due = Object.entries(p.popups || {}).filter(([id, v]) => new Date(v.dueAt) <= now && hasPopupPool(index, state, id)).map(([id]) => id);
+  if (!due.length) return { state, chapterId: null };
+  const chapterId = due[Math.floor(rng() * due.length)];
+  const popups = { ...p.popups };
+  delete popups[chapterId];
+  for (const id of due) if (id !== chapterId) popups[id] = { dueAt: popupDelay(now, rng) };
+  return { state: { ...state, progress: { ...p, popups, lastPopupDay: today } }, chapterId };
+}
+
+function popupPool(index, state, chapterId) {
+  const ch = index.chapters.find((c) => c.id === chapterId);
+  if (!ch) return [];
+  return ch.lessons.flatMap((l) => index.lessons.get(l.id)?.cardIds || []).filter((id) => state.cards[id]);
+}
+
+function hasPopupPool(index, state, chapterId) {
+  return popupPool(index, state, chapterId).length > 0;
+}
+
+/** Kurzer Test: 3 zufällige Übungen aus dem gesamten Fragenpool der Geschichte. */
+export function buildPopupSession(index, state, chapterId, rng = Math.random) {
+  const pool = popupPool(index, state, chapterId);
+  for (let i = pool.length - 1; i > 0; i--) { const j = Math.floor(rng() * (i + 1)); [pool[i], pool[j]] = [pool[j], pool[i]]; }
+  const entries = pool.slice(0, 3).map((id, i, a) => ({ cardId: id, mode: 'popup', showSource: false, feld: { n: i + 1, of: a.length } }));
+  return { kind: 'popup', lessonId: null, chapterId, entries };
 }
 
 /** Nächste Lektion nach `lessonId` im Pfad (für die "… ist freigeschaltet"-Meldung). */

@@ -10,8 +10,40 @@ const TRACK = {
   mixed:  { bg: 'var(--spur-indigo)', edge: 'var(--spur-indigo-shade)' },
 };
 
-export function PathNode({ state = 'locked', track = 'listen', icon, label, ariaLabel, size = 68, onClick, style, ...rest }) {
+/** Bogen-Pfad eines Kreissegments (Winkel in Grad, 0 = oben, im Uhrzeigersinn). */
+function arcPath(cx, cy, r, a0, a1) {
+  const p = (a) => [cx + r * Math.sin((a * Math.PI) / 180), cy - r * Math.cos((a * Math.PI) / 180)];
+  const [x0, y0] = p(a0);
+  const [x1, y1] = p(a1);
+  return `M ${x0} ${y0} A ${r} ${r} 0 ${a1 - a0 > 180 ? 1 : 0} 1 ${x1} ${y1}`;
+}
+
+/**
+ * Mehrsegment-Ring: ein Bogen pro Teilübung. Gemeisterte Segmente voll in der
+ * Spurfarbe, offene mit ~28 % Deckkraft. Bei nur einer Teilübung kein Ring.
+ */
+function SegmentRing({ total, done, color, size }) {
+  if (!total || total < 2) return null;
+  const box = size + 26;
+  const c = box / 2;
+  const r = size / 2 + 8;
+  const gap = total > 2 ? 14 : 18;
+  const seg = 360 / total;
+  return (
+    <svg aria-hidden="true" width={box} height={box} viewBox={`0 0 ${box} ${box}`}
+      style={{ position: 'absolute', left: '50%', top: size / 2 + 3, transform: 'translate(-50%, -50%)', overflow: 'visible', pointerEvents: 'none' }}>
+      {Array.from({ length: total }, (_, i) => (
+        <path key={i} d={arcPath(c, c, r, i * seg + gap / 2, (i + 1) * seg - gap / 2)} fill="none" stroke={color} strokeWidth={5} strokeLinecap="round"
+          opacity={i < done ? 1 : 0.28} style={{ transition: 'opacity var(--dur-base) var(--ease-out-soft)' }} />
+      ))}
+    </svg>
+  );
+}
+
+export function PathNode({ state = 'locked', track = 'listen', icon, label, ariaLabel, size = 68, segments, onClick, style, ...rest }) {
   const [down, setDown] = useState(false);
+  const segmented = segments && segments.total > 1;
+  const ringSize = size + (segmented ? 38 : 22);
   const t = TRACK[track] || TRACK.listen;
   const look = {
     done:    { bg: t.bg, edge: t.edge, fg: '#fff', icon: 'check' },
@@ -22,21 +54,24 @@ export function PathNode({ state = 'locked', track = 'listen', icon, label, aria
   const interactive = state !== 'locked';
   return (
     <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: 8, ...style }}>
-      <span style={{ position: 'relative', display: 'inline-flex', marginBottom: state === 'current' ? 12 : 0 }}>
+      <span style={{ position: 'relative', display: 'inline-flex', marginBottom: state === 'current' ? (segmented ? 18 : 12) : segmented ? 8 : 0 }}>
+      {segmented && <SegmentRing total={segments.total} done={state === 'done' || state === 'due' ? segments.total : segments.done} size={size}
+        color={state === 'locked' ? 'var(--spur-locked)' : t.bg} />}
       {state === 'current' && (
         // Auswahlring als eigener Kreis, zentriert auf Knoten + 6-px-Unterkante,
         // damit der Knoten mittig sitzt und nicht unten am Ring aufliegt.
         // Ruhiges "Atmen": leicht größer, kräftiger und mit sanftem Glow, dauerhaft im Loop.
         // Als SVG-Strich statt CSS-Border, weil border-width auf ganze Pixel springt;
         // stroke-width wird stufenlos (subpixel) gezeichnet.
-        <svg aria-hidden="true" className="rm-static" width={size + 22} height={size + 22} viewBox={`0 0 ${size + 22} ${size + 22}`}
+        <svg aria-hidden="true" className="rm-static" width={ringSize} height={ringSize} viewBox={`0 0 ${ringSize} ${ringSize}`}
           style={{ position: 'absolute', left: '50%', top: size / 2 + 3, overflow: 'visible', pointerEvents: 'none', color: t.bg,
             transform: 'translate(-50%, -50%)', animation: 'spur-ring-breathe 3200ms var(--ease-sine) infinite alternate' }}>
-          <circle cx={(size + 22) / 2} cy={(size + 22) / 2} r={(size + 22) / 2 - 3} fill="none" stroke="currentColor"
+          <circle cx={ringSize / 2} cy={ringSize / 2} r={ringSize / 2 - 3} fill="none" stroke="currentColor"
             style={{ animation: 'spur-ring-stroke 3200ms var(--ease-sine) infinite alternate' }} />
         </svg>
       )}
-      <button type="button" disabled={!interactive} onClick={onClick} aria-label={ariaLabel || label || state}
+      <button type="button" disabled={!interactive} onClick={onClick}
+        aria-label={(ariaLabel || label || state) + (segmented ? `, ${state === 'done' || state === 'due' ? segments.total : segments.done} von ${segments.total} Teilübungen` : '')}
         onPointerDown={() => setDown(true)} onPointerUp={() => setDown(false)} onPointerLeave={() => setDown(false)} onPointerCancel={() => setDown(false)}
         className={state === 'due' ? 'rm-static' : undefined}
         style={{

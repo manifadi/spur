@@ -7,7 +7,7 @@ import { Badge, Card, TextField } from '../ds/core.jsx';
 import { FeedbackPanel, Mascot, Sheet } from '../ds/feedback.jsx';
 import { LessonHeader } from '../ds/progress.jsx';
 import { IntervalStep } from './IntervalStep.jsx';
-import { gradeKeyPoints, gradeListen } from '../engine/answer.js';
+import { gradeKeyPoints, gradeListen, gradeMatch, gradeSequence } from '../engine/answer.js';
 import { commitAnswer, isInfinite, markLessonDone } from '../engine/game.js';
 import { XP } from '../engine/srs.js';
 import { dayKey, daysBetween } from '../engine/dates.js';
@@ -22,10 +22,25 @@ const body = { flex: 1, minHeight: 0, overflowY: 'auto', padding: '10px var(--gu
 const cta = { flex: '0 0 auto', padding: '8px var(--gutter-screen) calc(24px + env(safe-area-inset-bottom))' };
 const lockBox = { display: 'flex', alignItems: 'center', gap: 12, background: 'var(--surface-locked)', borderRadius: 'var(--radius-md)', padding: '14px 16px' };
 
+/** Bildschirm für die Teilübung selbst (nach Hören/Lesen des Originals). */
+function exercisePhase(card) {
+  return { recall: 'question', retell: 'read-recall', match: 'match', sequence: 'sequence' }[card.kind] || 'question';
+}
+
 function firstPhase(entry, card) {
-  if (card.track === 'read') return entry.showSource ? 'read-text' : 'read-recall';
-  // Neue Gespräche: erst nur zuhören, dann Fragen. Wiederholungen starten direkt bei den Fragen.
-  return entry.showSource ? 'listen-audio' : 'question';
+  // Neue Gespräche: erst nur zuhören, neue Texte: erst lesen. Danach die Übung.
+  // Wiederholungen und weitere Übungen desselben Feldes starten direkt bei der Übung.
+  if (entry.showSource) return card.track === 'read' ? 'read-text' : 'listen-audio';
+  return exercisePhase(card);
+}
+
+/** Stabile, aber gemischte Reihenfolge pro Karte (Antwort steht nicht immer an derselben Stelle). */
+function seededShuffle(list, seed) {
+  let h = 0;
+  for (const c of seed) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+  const a = [...list];
+  for (let i = a.length - 1; i > 0; i--) { h = (h * 1103515245 + 12345) >>> 0; const j = h % (i + 1); [a[i], a[j]] = [a[j], a[i]]; }
+  return a;
 }
 
 function daysSinceFirst(rec) {
@@ -43,6 +58,8 @@ function LockHint({ children }) {
 }
 
 function CardBadge({ entry, card, seenBefore }) {
+  if (entry.mode === 'retry') return <Badge tone={card.track === 'read' ? 'read' : 'listen'} icon="rotate-ccw" style={{ alignSelf: 'flex-start' }}>Zweiter Versuch</Badge>;
+  if (entry.mode === 'popup') return <Badge tone="amber" icon="sparkles" style={{ alignSelf: 'flex-start' }}>Kurzer Test</Badge>;
   if (entry.mode === 'replay') return <Badge tone={card.track} icon={card.track === 'read' ? 'book-open' : 'ear'} style={{ alignSelf: 'flex-start' }}>{card.track === 'read' ? 'Nochmal lesen' : 'Nochmal hören'}</Badge>;
   if (entry.mode === 'new' && !seenBefore) {
     return card.track === 'read'
@@ -50,6 +67,20 @@ function CardBadge({ entry, card, seenBefore }) {
       : <Badge tone="listen" icon="ear" style={{ alignSelf: 'flex-start' }}>Neue Karte</Badge>;
   }
   return <Badge tone="amber" icon="history" style={{ alignSelf: 'flex-start' }}>Erinnerst du dich noch?</Badge>;
+}
+
+/** Badge links, Zähler "Frage X von Y" (bezogen auf die Teilübungen des Feldes) rechts. */
+function ExerciseTop({ entry, card, seenBefore }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10 }}>
+      <CardBadge entry={entry} card={card} seenBefore={seenBefore} />
+      {entry.feld && (
+        <span aria-live="polite" style={{ font: 'var(--type-label)', fontWeight: 700, color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>
+          Frage {entry.feld.n} von {entry.feld.of}
+        </span>
+      )}
+    </div>
+  );
 }
 
 /** Dialog als Zitat oder mit Sprechernamen. */
@@ -208,25 +239,113 @@ function ListenOnly({ entry, card, onNext }) {
   );
 }
 
-/* ---- 1d Zuhören, fällige Wiederholung (auch Folgefragen) ------------------- */
-function ListenRecall({ entry, card, rec, answer, setAnswer, onCheck }) {
+/* ---- 1d Frage (Zuhören und Lesen, neu wie fällig) ------------------------- */
+function contextLine(entry, card, rec) {
   const d = daysSinceFirst(rec);
-  const from = entry.mode === 'new' ? 'Aus dem Gespräch von eben.' : d > 0 ? `Aus dem Gespräch ${daysAgoText(d)}.` : 'Aus dem Gespräch von heute.';
+  const when = entry.mode === 'new' && !rec ? 'von eben' : d > 0 ? daysAgoText(d) : 'von heute';
+  if (card.track === 'read') return `Aus dem Text „${card.item.topic}“, ${d > 0 && !(entry.mode === 'new' && !rec) ? 'gelesen ' + daysAgoText(d) : 'gerade gelesen'}.`;
+  return `Aus dem Gespräch ${when}.`;
+}
+
+function RecallQuestion({ entry, card, rec, answer, setAnswer, onCheck }) {
+  const read = card.track === 'read';
   return (
     <>
       <div style={{ ...body, gap: 18 }}>
-        <CardBadge entry={entry} card={card} seenBefore={entry.mode !== 'new'} />
+        <ExerciseTop entry={entry} card={card} seenBefore={entry.mode !== 'new'} />
         <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
-          <Mascot pose="listening" size={64} />
+          <Mascot pose={read ? 'neutral' : 'listening'} size={64} />
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 6, paddingTop: 2 }}>
             <h2 style={{ font: 'var(--type-title)', textWrap: 'pretty' }}>{card.question.prompt}</h2>
-            <p style={{ font: 'var(--type-body)', color: 'var(--text-muted)' }}>{from}</p>
+            <p style={{ font: 'var(--type-body)', color: 'var(--text-muted)' }}>{contextLine(entry, card, rec)}</p>
           </div>
         </div>
-        <LockHint>Der Originaltext bleibt aus — das ist der Sinn der Sache.</LockHint>
+        <LockHint>{read ? 'Das Buch bleibt zu — antworte aus dem Kopf.' : 'Der Originaltext bleibt aus — das ist der Sinn der Sache.'}</LockHint>
         <TextField value={answer} onChange={(e) => setAnswer(e.target.value)} rows={4} placeholder="Schreib auf, woran du dich erinnerst …" hint="Stichworte reichen." />
       </div>
-      <div style={cta}><Button full disabled={!answer.trim()} onClick={onCheck}>Prüfen</Button></div>
+      <div style={cta}><Button variant={read ? 'read' : 'primary'} full disabled={!answer.trim()} onClick={onCheck}>Prüfen</Button></div>
+    </>
+  );
+}
+
+/* ---- detail_match: Antwort-Chips -------------------------------------------- */
+function MatchExercise({ entry, card, rec, onCheck }) {
+  const ex = card.ex;
+  const multi = ex.correct.length > 1;
+  const options = seededShuffle(ex.options, card.id);
+  const [sel, setSel] = useState([]);
+  const toggle = (o) => setSel((cur) => (cur.includes(o) ? cur.filter((x) => x !== o) : multi ? [...cur, o] : [o]));
+  const tone = card.track === 'read' ? 'read' : 'listen';
+  return (
+    <>
+      <div style={{ ...body, gap: 18 }}>
+        <ExerciseTop entry={entry} card={card} seenBefore={entry.mode !== 'new'} />
+        <div className="stack" style={{ gap: 6 }}>
+          <h2 style={{ font: 'var(--type-title)', textWrap: 'pretty' }}>{ex.prompt}</h2>
+          <p style={{ font: 'var(--type-body)', color: 'var(--text-muted)' }}>{contextLine(entry, card, rec)} {multi ? 'Mehrere Antworten sind richtig.' : 'Eine Antwort ist richtig.'}</p>
+        </div>
+        <div role="group" aria-label="Antworten" style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
+          {options.map((o) => {
+            const on = sel.includes(o);
+            return (
+              <button key={o} type="button" aria-pressed={on} onClick={() => toggle(o)}
+                style={{ padding: '12px 16px', minHeight: 48, borderRadius: 'var(--radius-md)', cursor: 'pointer', textAlign: 'left',
+                  font: 'var(--type-body)', fontSize: 'var(--text-body-l)', fontWeight: 600,
+                  border: `2px solid ${on ? `var(--track-${tone})` : 'var(--border-default)'}`,
+                  background: on ? `var(--track-${tone}-soft)` : 'var(--surface-card)', color: 'var(--text-ink)',
+                  boxShadow: on ? `0 3px 0 var(--track-${tone})` : '0 3px 0 var(--border-default)',
+                  transition: 'background var(--dur-fast) var(--ease-out-soft), border-color var(--dur-fast) var(--ease-out-soft)' }}>
+                {o}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+      <div style={cta}><Button variant={tone === 'read' ? 'read' : 'primary'} full disabled={!sel.length} onClick={() => onCheck({ ...gradeMatch(sel, ex.correct), selected: sel })}>Prüfen</Button></div>
+    </>
+  );
+}
+
+/* ---- sequence_events: Ereignisse in Reihenfolge antippen --------------------- */
+function SequenceExercise({ entry, card, rec, onCheck }) {
+  const ex = card.ex;
+  let shuffled = seededShuffle(ex.events, card.id);
+  if (shuffled.every((e, i) => e === ex.events[i])) shuffled = [...shuffled.slice(1), shuffled[0]];
+  const [order, setOrder] = useState([]);
+  const tap = (e) => setOrder((cur) => (cur.includes(e) ? cur.filter((x) => x !== e) : [...cur, e]));
+  const tone = card.track === 'read' ? 'read' : 'listen';
+  const done = order.length === ex.events.length;
+  return (
+    <>
+      <div style={{ ...body, gap: 18 }}>
+        <ExerciseTop entry={entry} card={card} seenBefore={entry.mode !== 'new'} />
+        <div className="stack" style={{ gap: 6 }}>
+          <h2 style={{ font: 'var(--type-title)', textWrap: 'pretty' }}>{ex.prompt}</h2>
+          <p style={{ font: 'var(--type-body)', color: 'var(--text-muted)' }}>Tipp die Ereignisse der Reihe nach an. Nochmal tippen nimmt eins zurück.</p>
+        </div>
+        <div className="stack" style={{ gap: 10 }}>
+          {shuffled.map((e) => {
+            const n = order.indexOf(e);
+            const on = n >= 0;
+            return (
+              <button key={e} type="button" onClick={() => tap(e)} aria-label={on ? `${e}, Position ${n + 1}` : e}
+                style={{ display: 'flex', alignItems: 'center', gap: 12, width: '100%', padding: '12px 14px', minHeight: 56, cursor: 'pointer', textAlign: 'left',
+                  borderRadius: 'var(--radius-md)', border: `2px solid ${on ? `var(--track-${tone})` : 'var(--border-default)'}`,
+                  background: on ? `var(--track-${tone}-soft)` : 'var(--surface-card)', color: 'var(--text-ink)',
+                  transition: 'background var(--dur-fast) var(--ease-out-soft), border-color var(--dur-fast) var(--ease-out-soft)' }}>
+                <span style={{ width: 30, height: 30, borderRadius: '50%', flex: '0 0 auto', display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                  font: 'var(--type-label)', fontWeight: 700, background: on ? `var(--track-${tone})` : 'var(--surface-locked)', color: on ? '#fff' : 'var(--text-subtle)',
+                  transition: 'background var(--dur-fast) var(--ease-out-soft)' }}>
+                  {on ? n + 1 : ''}
+                </span>
+                <span style={{ font: 'var(--type-body)', fontSize: 'var(--text-body-l)' }}>{e}</span>
+              </button>
+            );
+          })}
+        </div>
+        {order.length > 0 && <button type="button" onClick={() => setOrder([])} style={{ alignSelf: 'flex-start', background: 'none', border: 'none', cursor: 'pointer', font: 'var(--type-label)', color: 'var(--text-link)', padding: '4px 0' }}>Neu anfangen</button>}
+      </div>
+      <div style={cta}><Button variant={tone === 'read' ? 'read' : 'primary'} full disabled={!done} onClick={() => onCheck({ ...gradeSequence(order, ex.events), order })}>Prüfen</Button></div>
     </>
   );
 }
@@ -263,7 +382,7 @@ function ReadRecall({ entry, card, rec, answer, setAnswer, onCompare }) {
   return (
     <>
       <div style={{ ...body, gap: 18 }}>
-        <CardBadge entry={entry} card={card} seenBefore={!entry.showSource && entry.mode !== 'new'} />
+        <ExerciseTop entry={entry} card={card} seenBefore={!entry.showSource && entry.mode !== 'new'} />
         <div className="stack" style={{ gap: 6 }}>
           <span className="overline" style={{ color: 'var(--track-read-shade)' }}>Thema</span>
           <h2 style={{ font: 'var(--type-title)' }}>{item.topic}</h2>
@@ -278,13 +397,14 @@ function ReadRecall({ entry, card, rec, answer, setAnswer, onCompare }) {
 }
 
 /* ---- 2d Kernpunkte abhaken -------------------------------------------------- */
-function KeyPoints({ card, answer, checks, setChecks, onDone }) {
+function KeyPoints({ entry, card, answer, checks, setChecks, onDone }) {
   const pts = card.item.keyPoints;
   const hits = checks.filter(Boolean).length;
   const enough = gradeKeyPoints(hits, pts.length).grade === 'good';
   return (
     <>
       <div style={body}>
+        {entry.feld && <span style={{ alignSelf: 'flex-end', font: 'var(--type-label)', fontWeight: 700, color: 'var(--text-muted)' }}>Frage {entry.feld.n} von {entry.feld.of}</span>}
         <div className="stack" style={{ gap: 4 }}>
           <h2 style={{ font: 'var(--type-title)' }}>Was hast du getroffen?</h2>
           <p style={{ font: 'var(--type-body)', color: 'var(--text-muted)' }}>Tipp an, was in deiner Wiedergabe vorkam. Du bewertest dich selbst.</p>
@@ -321,31 +441,63 @@ function KeyPoints({ card, answer, checks, setChecks, onDone }) {
 /* ---- 1g / 1h Feedback --------------------------------------------------------- */
 function Feedback({ entry, card, rec, answer, result, combo, infiniteSaved, onOverride, onNext }) {
   const grade = result.override ? 'good' : result.grade;
-  const read = card.track === 'read';
+  const kind = card.kind;
   const state = grade === 'good' ? 'correct' : grade === 'partial' ? 'partial' : 'wrong';
   const d = daysSinceFirst(rec);
   const after = entry.mode === 'review' && d > 0 ? ` — nach ${d} ${d === 1 ? 'Tag' : 'Tagen'}.` : '.';
   let detail;
   let source = null;
   let sourceLabel = 'Im Original';
-  if (read) {
+  if (kind === 'retell') {
     const missing = card.item.keyPoints.filter((_, i) => !result.checks[i]);
     detail = grade === 'good'
       ? `${result.hits} von ${result.total} Kernpunkten${after}`
       : grade === 'partial' ? `${result.hits} von ${result.total} Kernpunkten. Die fehlenden kommen wieder.` : `${result.hits} von ${result.total} Kernpunkten.`;
     if (grade !== 'good' && missing.length) { source = missing; sourceLabel = 'Fehlte noch'; }
+  } else if (kind === 'match') {
+    const ex = card.ex;
+    detail = grade === 'good' ? `Genau das war es${after}` : `Richtig wäre: ${ex.correct.join(' · ')}`;
+    if (grade !== 'good' && ex.quote) source = ex.quote;
+  } else if (kind === 'sequence') {
+    detail = grade === 'good' ? `Richtige Reihenfolge${after}` : `${result.hits} von ${result.total} an der richtigen Stelle.`;
+    if (grade !== 'good') { source = card.ex.events.map((e, i) => `${i + 1}. ${e}`); sourceLabel = 'So war es'; }
   } else {
     const q = card.question;
     detail = grade === 'good' ? `Genau das war es${after}` : grade === 'partial' ? `Ein Teil saß. Gesucht war: ${q.solution}` : `Gesucht war: ${q.solution}`;
     if (grade !== 'good' && q.quote) source = q.quote;
   }
+  const read = kind === 'retell';
+  const title = kind === 'retell' ? card.item.topic : card.question.prompt;
+  const mark = (ok) => ({ border: `2px solid ${ok ? 'var(--spur-green)' : 'var(--spur-coral)'}`, background: ok ? 'var(--state-correct-soft)' : 'var(--state-wrong-soft)' });
+  let yourAnswer;
+  if (kind === 'match') {
+    yourAnswer = (
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }} aria-label="Deine Auswahl">
+        {result.selected.map((o) => (
+          <span key={o} style={{ padding: '10px 14px', borderRadius: 'var(--radius-md)', font: 'var(--type-body)', fontWeight: 600, color: 'var(--text-ink)', ...mark(card.ex.correct.includes(o)) }}>{o}</span>
+        ))}
+      </div>
+    );
+  } else if (kind === 'sequence') {
+    yourAnswer = (
+      <div className="stack" style={{ gap: 8 }} aria-label="Deine Reihenfolge">
+        {result.order.map((e, i) => (
+          <span key={e} style={{ display: 'flex', gap: 10, alignItems: 'center', padding: '10px 14px', borderRadius: 'var(--radius-md)', font: 'var(--type-body)', color: 'var(--text-ink)', ...mark(card.ex.events[i] === e) }}>
+            <b>{i + 1}.</b>{e}
+          </span>
+        ))}
+      </div>
+    );
+  } else {
+    yourAnswer = <TextField value={answer} state={state} rows={read ? 4 : 2} disabled label={read ? 'Deine Wiedergabe' : undefined} />;
+  }
   const pose = grade === 'good' ? 'cheering' : grade === 'partial' ? 'neutral' : 'disappointed';
   return (
     <>
       <div style={body}>
-        <CardBadge entry={entry} card={card} seenBefore={entry.mode !== 'new'} />
-        <h2 style={{ font: 'var(--type-title)', textWrap: 'pretty' }}>{read ? card.item.topic : card.question.prompt}</h2>
-        <TextField value={answer} state={state} rows={read ? 4 : 2} disabled label={read ? 'Deine Wiedergabe' : undefined} />
+        <ExerciseTop entry={entry} card={card} seenBefore={entry.mode !== 'new'} />
+        <h2 style={{ font: 'var(--type-title)', textWrap: 'pretty' }}>{title}</h2>
+        {yourAnswer}
         <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 10 }}>
           <Badge tone="amber" variant="solid" icon="feather" style={{ alignSelf: 'flex-start', animation: 'spur-popin 420ms cubic-bezier(.34,1.56,.64,1) 200ms both' }}>+{XP[grade]} Federn</Badge>
           {combo >= 3 && grade === 'good' && (
@@ -364,7 +516,7 @@ function Feedback({ entry, card, rec, answer, result, combo, infiniteSaved, onOv
             <Icon name="shield" size={18} />Kein Herz verloren — heute unendlich
           </span>
         )}
-        {!read && result.grade !== 'good' && (
+        {kind === 'recall' && result.grade !== 'good' && (
           <button type="button" onClick={onOverride}
             style={{ alignSelf: 'flex-start', background: 'none', border: 'none', padding: '6px 0', cursor: 'pointer', font: 'var(--type-label)', color: 'var(--text-link)', textDecoration: result.override ? 'none' : 'underline', textUnderlineOffset: 3 }}>
             {result.override ? 'Zählt als gemerkt.' : 'Meine Antwort meinte dasselbe — als gemerkt zählen'}
@@ -384,7 +536,9 @@ function Feedback({ entry, card, rec, answer, result, combo, infiniteSaved, onOv
 /* ---- Lektion ------------------------------------------------------------------ */
 export function Lesson({ session, onFinish, onExit }) {
   const { state, index, update } = useStore();
-  const [entries, setEntries] = useState(session.entries);
+  const [entries, setEntriesState] = useState(session.entries);
+  const entriesRef = useRef(session.entries);
+  const setEntries = (v) => { const nextList = typeof v === 'function' ? v(entriesRef.current) : v; entriesRef.current = nextList; setEntriesState(nextList); };
   const [pos, setPos] = useState(0);
   const entry = entries[pos];
   const card = index.cards.get(entry.cardId);
@@ -433,7 +587,9 @@ export function Lesson({ session, onFinish, onExit }) {
     const { events, state: after } = commitAnswer(index, state, entry, grade, now);
     update((cur) => commitAnswer(index, cur, entry, grade, now).state);
     const st = stats.current;
-    st.total += 1; st[grade] += 1; st.xp += events.xp;
+    st.xp += events.xp;
+    // Zweite Versuche zählen nicht als eigene Karte in der Auswertung.
+    if (entry.mode !== 'retry') { st.total += 1; st[grade] += 1; }
     const a = agg.current;
     a.milestone = a.milestone || events.milestone;
     a.lessonDone = a.lessonDone || events.lessonDone;
@@ -457,10 +613,10 @@ export function Lesson({ session, onFinish, onExit }) {
   };
 
   const advance = (after) => {
-    let list = entries;
+    let list = entriesRef.current;
     // Aufmerksamkeit aufgebraucht: neue Karten fallen weg, Wiederholungen bleiben.
     if (after && after.progress.hearts <= 0 && !isInfinite(after.progress)) {
-      list = [...entries.slice(0, pos + 1), ...entries.slice(pos + 1).filter((e) => e.mode !== 'new')];
+      list = [...list.slice(0, pos + 1), ...list.slice(pos + 1).filter((e) => e.mode !== 'new')];
       setEntries(list);
     }
     if (pos + 1 >= list.length) return finish();
@@ -476,6 +632,10 @@ export function Lesson({ session, onFinish, onExit }) {
 
   const next = () => {
     const c = commit();
+    // Nicht gemeisterte Feld-Übung: ein zweiter Versuch am Ende der Runde (ohne Herz, ohne Intervall-Änderung).
+    if (c && c.grade === 'poor' && entry.feld && entry.mode === 'new') {
+      setEntries((cur) => [...cur, { cardId: entry.cardId, mode: 'retry', showSource: false, feld: { ...entry.feld, n: entry.feld.n } }]);
+    }
     if (c && entry.mode === 'review' && c.grade === 'good' && c.events.prevStage >= 0) {
       setIntervalInfo({ from: c.events.prevStage, to: c.events.newStage, after: c.after });
       setPhase('interval');
@@ -492,15 +652,19 @@ export function Lesson({ session, onFinish, onExit }) {
 
   let view;
   if (phase === 'listen-audio') {
-    view = <ListenOnly entry={entry} card={card} onNext={() => setPhase('question')} />;
+    view = <ListenOnly entry={entry} card={card} onNext={() => setPhase(exercisePhase(card))} />;
   } else if (phase === 'question') {
-    view = <ListenRecall entry={entry} card={card} rec={rec} answer={answer} setAnswer={setAnswer} onCheck={check} />;
+    view = <RecallQuestion entry={entry} card={card} rec={rec} answer={answer} setAnswer={setAnswer} onCheck={check} />;
+  } else if (phase === 'match') {
+    view = <MatchExercise key={entry.cardId + pos} entry={entry} card={card} rec={rec} onCheck={showFeedback} />;
+  } else if (phase === 'sequence') {
+    view = <SequenceExercise key={entry.cardId + pos} entry={entry} card={card} rec={rec} onCheck={showFeedback} />;
   } else if (phase === 'read-text') {
-    view = <ReadText entry={entry} card={card} tts={s.tts} onClose={() => setPhase('read-recall')} />;
+    view = <ReadText entry={entry} card={card} tts={s.tts} onClose={() => setPhase(exercisePhase(card))} />;
   } else if (phase === 'read-recall') {
     view = <ReadRecall entry={entry} card={card} rec={rec} answer={answer} setAnswer={setAnswer} onCompare={() => { setChecks(card.item.keyPoints.map(() => false)); setPhase('keypoints'); }} />;
   } else if (phase === 'keypoints') {
-    view = <KeyPoints card={card} answer={answer} checks={checks} setChecks={setChecks} onDone={keyPointsDone} />;
+    view = <KeyPoints entry={entry} card={card} answer={answer} checks={checks} setChecks={setChecks} onDone={keyPointsDone} />;
   } else if (phase === 'feedback') {
     view = (
       <Feedback entry={entry} card={card} rec={rec} answer={answer} result={result} combo={result.override || result.grade === 'good' ? combo + 1 : 0}
