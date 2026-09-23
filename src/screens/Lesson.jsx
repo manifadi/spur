@@ -19,7 +19,6 @@ import { sounds } from '../lib/sound.js';
 import { daysAgoText } from '../lib/format.js';
 
 const body = { flex: 1, minHeight: 0, overflowY: 'auto', padding: '10px var(--gutter-screen) 16px', display: 'flex', flexDirection: 'column', gap: 16 };
-const cta = { flex: '0 0 auto', padding: '8px var(--gutter-screen) calc(24px + env(safe-area-inset-bottom))' };
 const lockBox = { display: 'flex', alignItems: 'center', gap: 12, background: 'var(--surface-locked)', borderRadius: 'var(--radius-md)', padding: '14px 16px' };
 
 /** Bildschirm für die Teilübung selbst (nach Hören/Lesen des Originals). */
@@ -50,7 +49,7 @@ function daysSinceFirst(rec) {
 
 function LockHint({ children }) {
   return (
-    <div style={lockBox}>
+    <div className="kb-hide" style={lockBox}>
       <span style={{ color: 'var(--text-subtle)', display: 'inline-flex' }}><Icon name="lock" /></span>
       <span style={{ font: 'var(--type-body)', color: 'var(--text-muted)' }}>{children}</span>
     </div>
@@ -200,7 +199,7 @@ function ListenOnly({ entry, card, onNext }) {
   const size = speakers.length > 2 ? 64 : speakers.length === 2 ? 76 : 96;
   return (
     <>
-      <div style={{ ...body, alignItems: 'center', textAlign: 'center', justifyContent: 'safe center', gap: 22 }}>
+      <div style={{ ...body, alignItems: 'center', textAlign: 'center', justifyContent: 'safe center', gap: 'clamp(12px, 3dvh, 22px)' }}>
         <span style={{ alignSelf: 'flex-start' }}><CardBadge entry={entry} card={card} /></span>
         <div className="stack" style={{ gap: 6, alignItems: 'center' }}>
           <h2 style={{ font: 'var(--type-title)' }}>Hör genau hin.</h2>
@@ -234,7 +233,7 @@ function ListenOnly({ entry, card, onNext }) {
           </span>
         </div>
       </div>
-      <div style={cta}><Button variant="listen" full disabled={!heard || speech.playing} onClick={() => { speech.stop(); onNext(); }}>Weiter zu den Fragen</Button></div>
+      <div className="lesson-cta"><Button variant="listen" full disabled={!heard || speech.playing} onClick={() => { speech.stop(); onNext(); }}>Weiter zu den Fragen</Button></div>
     </>
   );
 }
@@ -254,7 +253,7 @@ function RecallQuestion({ entry, card, rec, answer, setAnswer, onCheck }) {
       <div style={{ ...body, gap: 18 }}>
         <ExerciseTop entry={entry} card={card} seenBefore={entry.mode !== 'new'} />
         <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
-          <Mascot pose={read ? 'neutral' : 'listening'} size={64} />
+          <Mascot pose={read ? 'neutral' : 'listening'} size={64} className="kb-hide" />
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 6, paddingTop: 2 }}>
             <h2 style={{ font: 'var(--type-title)', textWrap: 'pretty' }}>{card.question.prompt}</h2>
             <p style={{ font: 'var(--type-body)', color: 'var(--text-muted)' }}>{contextLine(entry, card, rec)}</p>
@@ -263,7 +262,7 @@ function RecallQuestion({ entry, card, rec, answer, setAnswer, onCheck }) {
         <LockHint>{read ? 'Das Buch bleibt zu — antworte aus dem Kopf.' : 'Der Originaltext bleibt aus — das ist der Sinn der Sache.'}</LockHint>
         <TextField value={answer} onChange={(e) => setAnswer(e.target.value)} rows={4} placeholder="Schreib auf, woran du dich erinnerst …" hint="Stichworte reichen." />
       </div>
-      <div style={cta}><Button variant={read ? 'read' : 'primary'} full disabled={!answer.trim()} onClick={onCheck}>Prüfen</Button></div>
+      <div className="lesson-cta"><Button variant={read ? 'read' : 'primary'} full disabled={!answer.trim()} onClick={onCheck}>Prüfen</Button></div>
     </>
   );
 }
@@ -301,7 +300,7 @@ function MatchExercise({ entry, card, rec, onCheck }) {
           })}
         </div>
       </div>
-      <div style={cta}><Button variant={tone === 'read' ? 'read' : 'primary'} full disabled={!sel.length} onClick={() => onCheck({ ...gradeMatch(sel, ex.correct), selected: sel })}>Prüfen</Button></div>
+      <div className="lesson-cta"><Button variant={tone === 'read' ? 'read' : 'primary'} full disabled={!sel.length} onClick={() => onCheck({ ...gradeMatch(sel, ex.correct), selected: sel })}>Prüfen</Button></div>
     </>
   );
 }
@@ -345,7 +344,7 @@ function SequenceExercise({ entry, card, rec, onCheck }) {
         </div>
         {order.length > 0 && <button type="button" onClick={() => setOrder([])} style={{ alignSelf: 'flex-start', background: 'none', border: 'none', cursor: 'pointer', font: 'var(--type-label)', color: 'var(--text-link)', padding: '4px 0' }}>Neu anfangen</button>}
       </div>
-      <div style={cta}><Button variant={tone === 'read' ? 'read' : 'primary'} full disabled={!done} onClick={() => onCheck({ ...gradeSequence(order, ex.events), order })}>Prüfen</Button></div>
+      <div className="lesson-cta"><Button variant={tone === 'read' ? 'read' : 'primary'} full disabled={!done} onClick={() => onCheck({ ...gradeSequence(order, ex.events), order })}>Prüfen</Button></div>
     </>
   );
 }
@@ -368,7 +367,7 @@ function ReadText({ entry, card, onClose, tts }) {
           {item.paragraphs.map((p, i) => <p key={i} style={{ font: 'var(--type-body-l)', margin: i < item.paragraphs.length - 1 ? '0 0 14px' : 0 }}>{p}</p>)}
         </Card>
       </div>
-      <div style={cta}><Button variant="read" full icon="book" onClick={() => { stopSpeaking(); onClose(); }}>Buch zuklappen &amp; wiedergeben</Button></div>
+      <div className="lesson-cta"><Button variant="read" full icon="book" onClick={() => { stopSpeaking(); onClose(); }}>Buch zuklappen &amp; wiedergeben</Button></div>
     </>
   );
 }
@@ -391,7 +390,7 @@ function ReadRecall({ entry, card, rec, answer, setAnswer, onCompare }) {
         <LockHint>Das Buch bleibt zu. Erzähl es frei.</LockHint>
         <TextField value={answer} onChange={(e) => setAnswer(e.target.value)} rows={7} placeholder="Erzähl den Text so, wie du ihn jemandem erklären würdest …" hint="Reihenfolge ist egal." />
       </div>
-      <div style={cta}><Button variant="read" full disabled={!answer.trim()} onClick={onCompare}>Mit Kernpunkten vergleichen</Button></div>
+      <div className="lesson-cta"><Button variant="read" full disabled={!answer.trim()} onClick={onCompare}>Mit Kernpunkten vergleichen</Button></div>
     </>
   );
 }
@@ -428,7 +427,7 @@ function KeyPoints({ entry, card, answer, checks, setChecks, onDone }) {
           ))}
         </div>
       </div>
-      <div style={{ ...cta, display: 'flex', flexDirection: 'column', gap: 10 }}>
+      <div className="lesson-cta" style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
         <span aria-live="polite" style={{ font: 'var(--type-label)', fontWeight: 500, color: 'var(--text-muted)', textAlign: 'center' }}>
           {hits} von {pts.length} getroffen{enough ? ' — reicht für „gemerkt“.' : '.'}
         </span>
@@ -524,7 +523,7 @@ function Feedback({ entry, card, rec, answer, result, combo, infiniteSaved, onOv
         )}
       </div>
       <div style={{ flex: '0 0 auto', position: 'relative' }}>
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: -14, position: 'relative', zIndex: 2 }}>
+        <div className="fb-mascot" style={{ display: 'flex', justifyContent: 'center', marginBottom: -14, position: 'relative', zIndex: 2 }}>
           <span key={pose} style={{ display: 'inline-flex', animation: 'spur-popin 460ms cubic-bezier(.34,1.56,.64,1) both' }}><Mascot pose={pose} size={96} /></span>
         </div>
         <FeedbackPanel state={state} detail={detail} source={source} sourceLabel={sourceLabel} onAction={onNext} />
@@ -553,6 +552,20 @@ export function Lesson({ session, onFinish, onExit }) {
   const stats = useRef({ good: 0, partial: 0, poor: 0, xp: 0, total: 0 });
   const agg = useRef({ milestone: null, lessonDone: null, chapterDone: null, goalReached: false, streakUp: false, xpBefore: state.progress.xp });
   const committed = useRef(false);
+  // Stand des Feldes vor der Session: Wer ein neues Feld abbricht, fängt es beim nächsten Mal von vorn an.
+  const feldBefore = useRef(null);
+  if (!feldBefore.current) {
+    const lesson = session.kind === 'lesson' ? index.lessons.get(session.lessonId) : null;
+    feldBefore.current = lesson && {
+      cards: Object.fromEntries(lesson.cardIds.map((id) => [id, state.cards[id]])),
+      lessonDone: state.progress.lessonsDone[session.lessonId],
+      chapterId: lesson.chapter.id,
+      chapterDone: state.progress.chaptersDone[lesson.chapter.id],
+      popup: state.progress.popups?.[lesson.chapter.id],
+      xp: 0,
+      answered: 0,
+    };
+  }
 
   const s = state.settings;
   const infinite = isInfinite(state.progress);
@@ -588,6 +601,7 @@ export function Lesson({ session, onFinish, onExit }) {
     update((cur) => commitAnswer(index, cur, entry, grade, now).state);
     const st = stats.current;
     st.xp += events.xp;
+    if (feldBefore.current && entry.feld) { feldBefore.current.xp += events.xp; feldBefore.current.answered += 1; }
     // Zweite Versuche zählen nicht als eigene Karte in der Auswertung.
     if (entry.mode !== 'retry') { st.total += 1; st[grade] += 1; }
     const a = agg.current;
@@ -644,9 +658,29 @@ export function Lesson({ session, onFinish, onExit }) {
     advance(c?.after);
   };
 
+  /**
+   * Abbrechen zählt die gerade offene Übung nicht. Bei einem neuen Feld wird dessen
+   * Fortschritt aus dieser Session komplett zurückgenommen (Karten, Abschluss, Federn),
+   * damit es beim nächsten Öffnen samt Original neu startet. Verlorene Herzen bleiben.
+   */
   const quit = () => {
-    if (phase === 'feedback') commit();
     stopSpeaking();
+    const snap = feldBefore.current;
+    if (snap) {
+      update((cur) => {
+        const cards = { ...cur.cards };
+        for (const [id, rec] of Object.entries(snap.cards)) { if (rec) cards[id] = rec; else delete cards[id]; }
+        const p = { ...cur.progress, xp: Math.max(0, cur.progress.xp - snap.xp) };
+        if (p.doneTodayDay === dayKey()) p.doneToday = Math.max(0, p.doneToday - snap.answered);
+        p.lessonsDone = { ...p.lessonsDone };
+        if (snap.lessonDone) p.lessonsDone[session.lessonId] = snap.lessonDone; else delete p.lessonsDone[session.lessonId];
+        p.chaptersDone = { ...p.chaptersDone };
+        if (snap.chapterDone) p.chaptersDone[snap.chapterId] = snap.chapterDone; else delete p.chaptersDone[snap.chapterId];
+        p.popups = { ...(p.popups || {}) };
+        if (snap.popup) p.popups[snap.chapterId] = snap.popup; else delete p.popups[snap.chapterId];
+        return { ...cur, cards, progress: p };
+      });
+    }
     onExit();
   };
 
@@ -682,7 +716,11 @@ export function Lesson({ session, onFinish, onExit }) {
       )}
       {view}
       <Sheet open={abort} title="Session abbrechen?" onClose={() => setAbort(false)}>
-        <p style={{ font: 'var(--type-body-l)', color: 'var(--text-muted)', marginTop: -4 }}>Was du bis hier beantwortet hast, bleibt gezählt. Die restlichen Karten kommen morgen wieder — ohne Vorwurf.</p>
+        <p style={{ font: 'var(--type-body-l)', color: 'var(--text-muted)', marginTop: -4 }}>
+          {feldBefore.current
+            ? 'Das Feld zählt dann noch nicht. Beim nächsten Mal fängst du es von vorn an — ohne Vorwurf.'
+            : 'Die offene Karte zählt nicht. Was du davor abgeschlossen hast, bleibt gezählt — der Rest kommt wieder.'}
+        </p>
         <div className="stack" style={{ gap: 10 }}>
           <Button full onClick={() => setAbort(false)}>Weitermachen</Button>
           <Button variant="ghost" size="md" full onClick={quit}>Abbrechen</Button>

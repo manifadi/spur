@@ -16,7 +16,7 @@ const FILES = {
 };
 
 /** Miro, der Rabe. Antippen lässt ihn kurz hüpfen (Pop 1 → 1.28 → 1, 600 ms). */
-export function Mascot({ pose = 'neutral', size = 120, alt, style, interactive = true, ...rest }) {
+export function Mascot({ pose = 'neutral', size = 120, alt, style, className, interactive = true, ...rest }) {
   const [failed, setFailed] = useState(false);
   const [pop, setPop] = useState(0);
   const label = POSES[pose] || pose;
@@ -39,7 +39,7 @@ export function Mascot({ pose = 'neutral', size = 120, alt, style, interactive =
     </span>
   );
   return (
-    <span onClick={onTap} key={pop} className={pop ? 'a-pop' : undefined}
+    <span onClick={onTap} key={pop} className={[pop ? 'a-pop' : '', className || ''].join(' ').trim() || undefined}
       style={{ display: 'inline-flex', flex: '0 0 auto', cursor: interactive ? 'pointer' : undefined, ...style }} {...rest}>
       {inner}
     </span>
@@ -74,16 +74,16 @@ const PANEL = {
 export function FeedbackPanel({ state = 'correct', title, detail, source, sourceLabel = 'Im Original', actionLabel = 'Weiter', onAction, extra, style, ...rest }) {
   const p = PANEL[state] || PANEL.correct;
   return (
-    <div role="status" aria-live="polite" style={{ background: p.bg, borderTopLeftRadius: 'var(--radius-xl)', borderTopRightRadius: 'var(--radius-xl)',
+    <div role="status" aria-live="polite" className="fb-panel" style={{ background: p.bg, borderTopLeftRadius: 'var(--radius-xl)', borderTopRightRadius: 'var(--radius-xl)',
       padding: '20px var(--gutter-screen) calc(24px + env(safe-area-inset-bottom))', boxShadow: 'var(--shadow-sheet)',
       display: 'flex', flexDirection: 'column', gap: 14, ...style }} {...rest}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, color: p.fg }}>
         <Icon name={p.icon} size={30} strokeWidth={2.4} />
-        <span style={{ font: 'var(--type-title)', fontSize: 'var(--text-title)' }}>{title || p.title}</span>
+        <span className="fb-title" style={{ font: 'var(--type-title)', fontSize: 'var(--text-title)' }}>{title || p.title}</span>
       </div>
       {detail && <p style={{ font: 'var(--type-body)', fontSize: 'var(--text-body-l)', color: 'var(--text-ink)' }}>{detail}</p>}
       {source && (
-        <div style={{ background: 'var(--surface-card)', border: '2px solid rgba(31,33,48,.06)', borderRadius: 'var(--radius-md)', padding: '12px 14px', maxHeight: '28dvh', overflowY: 'auto' }}>
+        <div className="fb-source" style={{ background: 'var(--surface-card)', border: '2px solid rgba(31,33,48,.06)', borderRadius: 'var(--radius-md)', padding: '12px 14px', maxHeight: '28dvh', overflowY: 'auto' }}>
           <div className="overline" style={{ color: 'var(--text-muted)', marginBottom: 4 }}>{sourceLabel}</div>
           {Array.isArray(source)
             ? <ul style={{ margin: 0, paddingLeft: 18, font: 'var(--type-body)', color: 'var(--text-ink)' }}>{source.map((s) => <li key={s}>{s}</li>)}</ul>
@@ -117,7 +117,7 @@ export function Sheet({ open = true, title, onClose, children, footer, closable 
       style={{ position: 'absolute', inset: 0, background: 'var(--overlay-scrim)', display: 'flex', alignItems: 'flex-end',
         justifyContent: 'center', zIndex: 40, animation: 'spur-scrim-in var(--dur-base) var(--ease-out-soft) both' }}>
       <div role="dialog" aria-modal="true" aria-label={title} onClick={(e) => e.stopPropagation()}
-        style={{ width: '100%', maxWidth: 'var(--screen-max)', maxHeight: '90dvh', background: 'var(--surface-card)',
+        style={{ width: '100%', maxWidth: 'var(--screen-max)', maxHeight: 'calc(100% - env(safe-area-inset-top) - 32px)', background: 'var(--surface-card)',
           borderTopLeftRadius: 'var(--radius-xl)', borderTopRightRadius: 'var(--radius-xl)', display: 'flex', flexDirection: 'column',
           boxShadow: 'var(--shadow-sheet)', transform: `translateY(${drag}px)`, transition: start.current == null ? 'transform var(--dur-fast) var(--ease-out-soft)' : 'none',
           animation: 'spur-sheet-in var(--dur-base) var(--ease-out-soft) both' }}>

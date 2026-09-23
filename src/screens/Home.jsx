@@ -55,7 +55,7 @@ export function PathHeader({ xpFrom, xpDelay = 300, streakBump = false, onMenu }
       </div>
       <IconButton icon="menu" label="Menü" size={44} onClick={onMenu} />
       {tip && (
-        <div role="tooltip" className="a-rise" style={{ position: 'absolute', top: 'calc(60px + env(safe-area-inset-top))', left: 110, width: 230, background: '#1F2130', color: '#fff',
+        <div role="tooltip" className="a-rise" style={{ position: 'absolute', top: 'calc(60px + env(safe-area-inset-top))', left: 110, width: 'min(230px, calc(100% - 110px - var(--gutter-screen)))', background: '#1F2130', color: '#fff',
           borderRadius: 'var(--radius-md)', padding: '12px 14px', boxShadow: 'var(--shadow-raised)', animationDuration: '200ms' }}>
           <span style={{ display: 'block', font: 'var(--type-headline)', fontSize: 'var(--text-body)', marginBottom: 2 }}>Unendlich bis Mitternacht</span>
           <span style={{ display: 'block', font: 'var(--type-label)', fontWeight: 500, color: 'rgba(255,255,255,.75)' }}>Belohnung für {p.streak} Tage am Stück. Fehler kosten heute nichts.</span>

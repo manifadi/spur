@@ -11,15 +11,81 @@ import {
   canStartNew, dueCardIds, doneTodayCount, hasAnyProgress, markLessonDone, isMastered, buildPopupSession,
 } from './engine/game.js';
 
-/** Hält die App-Höhe über der Bildschirmtastatur (iOS ignoriert interactive-widget). */
+const isTextField = (el) => !!el && (el.tagName === 'TEXTAREA' || (el.tagName === 'INPUT' && !['checkbox', 'radio', 'button', 'submit', 'range'].includes(el.type)));
+
+/** Nächster scrollbarer Vorfahre (der Inhaltsbereich eines Screens). */
+function scrollParent(el) {
+  for (let p = el.parentElement; p && p !== document.body; p = p.parentElement) {
+    const oy = getComputedStyle(p).overflowY;
+    if ((oy === 'auto' || oy === 'scroll') && p.scrollHeight > p.clientHeight) return p;
+  }
+  return null;
+}
+
+/** Scrollt nur den Inhaltsbereich (nie das Fenster), bis das Feld samt Hinweis sichtbar ist. */
+function revealField(el) {
+  const box = scrollParent(el);
+  if (!box) return;
+  const target = el.closest('label') || el;
+  const b = box.getBoundingClientRect();
+  const r = target.getBoundingClientRect();
+  const pad = 12;
+  if (r.bottom > b.bottom - pad) box.scrollTop += Math.min(r.bottom - b.bottom + pad, r.top - b.top - pad);
+  else if (r.top < b.top + pad) box.scrollTop -= b.top + pad - r.top;
+}
+
+/**
+ * Hält die App genau im sichtbaren Bereich über der Bildschirmtastatur.
+ * iOS ignoriert interactive-widget und schiebt stattdessen die ganze Seite nach oben
+ * (visualViewport.offsetTop). Die App folgt deshalb Höhe UND Versatz des Visual
+ * Viewports; der Kopf bleibt oben, der Button sitzt direkt über der Tastatur und das
+ * Textfeld wird im Inhaltsbereich sichtbar gescrollt. `data-kb` blendet Abstände
+ * für den Home-Indikator aus, solange die Tastatur offen ist.
+ */
 function useVisualViewport() {
   useEffect(() => {
     const vv = window.visualViewport;
-    if (!vv) return undefined;
-    const set = () => document.documentElement.style.setProperty('--app-h', `${vv.height}px`);
-    set();
-    vv.addEventListener('resize', set);
-    return () => vv.removeEventListener('resize', set);
+    const root = document.documentElement;
+    let raf = 0;
+    const apply = () => {
+      raf = 0;
+      if (vv) {
+        root.style.setProperty('--app-h', `${Math.round(vv.height)}px`);
+        root.style.setProperty('--app-y', `${Math.round(vv.offsetTop)}px`);
+      }
+      const el = document.activeElement;
+      const typing = isTextField(el) && matchMedia('(pointer: coarse)').matches;
+      root.toggleAttribute('data-kb', typing);
+      if (typing) revealField(el);
+    };
+    const schedule = () => { if (!raf) raf = requestAnimationFrame(apply); };
+    const onFocusIn = (e) => {
+      if (!isTextField(e.target)) return;
+      schedule();
+      // Die Tastatur fährt animiert aus; danach noch einmal nachziehen.
+      setTimeout(schedule, 350);
+    };
+    const onFocusOut = () => setTimeout(() => {
+      if (isTextField(document.activeElement)) return;
+      root.removeAttribute('data-kb');
+      // iOS lässt die Seite nach dem Schließen gern verschoben stehen.
+      if (window.scrollY) window.scrollTo(0, 0);
+      schedule();
+    }, 60);
+    apply();
+    vv?.addEventListener('resize', schedule);
+    vv?.addEventListener('scroll', schedule);
+    window.addEventListener('resize', schedule);
+    document.addEventListener('focusin', onFocusIn);
+    document.addEventListener('focusout', onFocusOut);
+    return () => {
+      cancelAnimationFrame(raf);
+      vv?.removeEventListener('resize', schedule);
+      vv?.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+      document.removeEventListener('focusin', onFocusIn);
+      document.removeEventListener('focusout', onFocusOut);
+    };
   }, []);
 }
 

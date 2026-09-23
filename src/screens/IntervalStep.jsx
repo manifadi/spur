@@ -7,28 +7,33 @@ import { INTERVALS } from '../engine/srs.js';
 /** 3f Karte gemerkt: Karte dreht sich zu "Gemerkt" und wandert ins nächste Intervall. */
 export function IntervalStep({ card, from, to, onNext }) {
   const rowRef = useRef(null);
+  const cardRef = useRef(null);
   const [dx, setDx] = useState(0);
+  const [dy, setDy] = useState(233);
   useLayoutEffect(() => {
     const row = rowRef.current;
     if (!row) return;
-    const w = row.getBoundingClientRect().width;
-    const slot = 18 + (to * (w - 36)) / (INTERVALS.length - 1);
-    setDx(slot - w / 2);
+    const r = row.getBoundingClientRect();
+    const slot = 18 + (to * (r.width - 36)) / (INTERVALS.length - 1);
+    setDx(slot - r.width / 2);
+    // Abstand hängt von der Displayhöhe ab: Karte fliegt genau in den Kreis der Stufe.
+    const c = cardRef.current?.getBoundingClientRect();
+    if (c) setDy(r.top + 18 - (c.top + c.height / 2));
   }, [to]);
   const days = INTERVALS[to];
   const title = card.track === 'read' ? card.item.topic : card.question.prompt;
   const same = from === to;
   return (
     <div className="screen">
-      <div style={{ padding: 'calc(40px + env(safe-area-inset-top)) var(--gutter-screen) 0', textAlign: 'center' }}>
+      <div style={{ padding: 'calc(clamp(16px, 5dvh, 40px) + env(safe-area-inset-top)) var(--gutter-screen) 0', textAlign: 'center' }}>
         <span className="overline" style={{ color: 'var(--text-muted)' }}>Wiederholung richtig</span>
         <h2 style={{ font: 'var(--type-title)', margin: '6px 0 0', textWrap: 'pretty' }}>
           {same ? 'Gut gemerkt — der größte Abstand hält.' : 'Gut gemerkt — der Abstand verdoppelt sich.'}
         </h2>
       </div>
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0 24px', minHeight: 0 }}>
-        <div className="rm-fade" style={{ position: 'relative', width: 220, height: 150, flex: '0 0 auto', perspective: 900,
-          '--file-x': `${dx}px`, animation: 'spur-file 640ms cubic-bezier(.55,0,.6,1) 1500ms both' }}>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'safe center', padding: '0 24px', minHeight: 0 }}>
+        <div ref={cardRef} className="rm-fade" style={{ position: 'relative', width: 220, height: 150, flex: '0 0 auto', perspective: 900,
+          '--file-x': `${dx}px`, '--file-y': `${dy}px`, animation: 'spur-file 640ms cubic-bezier(.55,0,.6,1) 1500ms both' }}>
           <div className="rm-static" style={{ position: 'relative', width: '100%', height: '100%', transformStyle: 'preserve-3d', animation: 'spur-flip 520ms cubic-bezier(.45,0,.35,1) 600ms both' }}>
             <div style={{ position: 'absolute', inset: 0, backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', background: 'var(--surface-card)', border: '2px solid var(--border-default)',
               borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-raised)', padding: 16, display: 'flex', flexDirection: 'column', gap: 10, textAlign: 'left', overflow: 'hidden' }}>
@@ -42,7 +47,7 @@ export function IntervalStep({ card, from, to, onNext }) {
             </div>
           </div>
         </div>
-        <div style={{ flex: '0 0 140px' }} />
+        <div style={{ flex: '0 1 140px', minHeight: 36 }} />
         <div ref={rowRef} style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }} role="img" aria-label={`Intervall-Stufen, jetzt ${days} Tage`}>
           {INTERVALS.map((d, i) => (
             <span key={d} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, width: 36 }}>
