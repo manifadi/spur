@@ -108,6 +108,10 @@
         }
       ]
     },
-    { "id": "l4-checkpoint", "type": "checkpoint", "title": "Checkpoint" }
+    {
+      "id": "l4-checkpoint",
+      "type": "checkpoint",
+      "title": "Checkpoint"
+    }
   ]
 }

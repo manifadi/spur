@@ -2,17 +2,18 @@ import { useEffect, useRef, useState } from 'react';
 import { useStore } from '../store.jsx';
 import { Icon } from '../ds/Icon.jsx';
 import { Button } from '../ds/Button.jsx';
-import { IconButton, SpeakButton } from '../ds/IconButton.jsx';
+import { SpeakButton } from '../ds/IconButton.jsx';
 import { Badge, Card, TextField } from '../ds/core.jsx';
-import { FeedbackPanel, Mascot, Sheet, SpeechBubble } from '../ds/feedback.jsx';
+import { FeedbackPanel, Mascot, Sheet } from '../ds/feedback.jsx';
 import { LessonHeader } from '../ds/progress.jsx';
 import { IntervalStep } from './IntervalStep.jsx';
 import { gradeKeyPoints, gradeListen } from '../engine/answer.js';
 import { commitAnswer, isInfinite, markLessonDone } from '../engine/game.js';
 import { XP } from '../engine/srs.js';
 import { dayKey, daysBetween } from '../engine/dates.js';
-import { dialogPlainText, readSeconds } from '../engine/content.js';
-import { speak, stopSpeaking } from '../lib/tts.js';
+import { readSeconds } from '../engine/content.js';
+import { speakSegments, stopSpeaking } from '../lib/tts.js';
+import { dialogSpeakers, deviceSegments } from '../lib/voice.js';
 import { hasAudio, playItem } from '../lib/audio.js';
 import { sounds } from '../lib/sound.js';
 import { daysAgoText } from '../lib/format.js';
@@ -23,7 +24,8 @@ const lockBox = { display: 'flex', alignItems: 'center', gap: 12, background: 'v
 
 function firstPhase(entry, card) {
   if (card.track === 'read') return entry.showSource ? 'read-text' : 'read-recall';
-  return 'question';
+  // Neue Gespräche: erst nur zuhören, dann Fragen. Wiederholungen starten direkt bei den Fragen.
+  return entry.showSource ? 'listen-audio' : 'question';
 }
 
 function daysSinceFirst(rec) {
@@ -65,74 +67,143 @@ function DialogText({ item }) {
 }
 
 /**
- * Vorlesen mit Fehlerzustand (4e). Bevorzugt die mitgelieferten Audios (echte
- * Stimmen, eine pro Person); fehlt eins oder klappt es nicht, liest die Gerätestimme.
- * Automatisch nur, wenn "Miro liest vor" an ist.
+ * Vorlesen mit Fehlerzustand (4e). Bevorzugt die mitgelieferten Aufnahmen (eine
+ * Stimme pro Figur, Archetyp-Tempo/-Tonhöhe); fehlt eine oder klappt es nicht,
+ * liest die Gerätestimme mit dem pitch/rate-Profil der jeweiligen Figur.
  */
-function useSpeech(itemId, text, auto) {
+function useSpeech(item, auto = false) {
   const [playing, setPlaying] = useState(false);
   const [error, setError] = useState(false);
+  const [who, setWho] = useState(null);
   const stop = useRef(() => {});
+  const done = () => { setPlaying(false); setWho(null); };
   const viaDevice = (manual) => {
-    stop.current = speak(text, {
-      onEnd: () => setPlaying(false),
-      onError: () => { setPlaying(false); if (manual) setError(true); },
+    stop.current = speakSegments(deviceSegments(item), {
+      onSegment: (w) => setWho(w),
+      onEnd: done,
+      onError: () => { done(); if (manual) setError(true); },
     });
   };
   const start = (manual = true) => {
     stop.current();
     setError(false);
     setPlaying(true);
-    if (!hasAudio(itemId)) return viaDevice(manual);
-    stop.current = playItem(itemId, {
-      onEnd: () => setPlaying(false),
-      onBlocked: () => setPlaying(false), // Autoplay gesperrt (iOS): Lautsprecher antippen genügt
+    if (!hasAudio(item.id)) return viaDevice(manual);
+    stop.current = playItem(item.id, {
+      onSegment: (w) => setWho(w),
+      onEnd: done,
+      onBlocked: done, // Autoplay gesperrt (iOS): Antippen genügt
       onError: () => viaDevice(manual),
     });
     return undefined;
   };
-  const toggle = () => { if (playing) { stop.current(); setPlaying(false); } else start(true); };
+  const stopNow = () => { stop.current(); done(); };
+  const toggle = () => { if (playing) stopNow(); else start(true); };
   useEffect(() => {
     if (auto) start(false);
     return () => { stop.current(); stopSpeaking(); };
-  }, [itemId]); // eslint-disable-line react-hooks/exhaustive-deps
-  return { playing, error, toggle, retry: () => start(true) };
+  }, [item.id]); // eslint-disable-line react-hooks/exhaustive-deps
+  return { playing, error, who, toggle, start, stop: stopNow, retry: () => start(true) };
 }
 
-function TtsError({ onRetry }) {
+function TtsError({ onRetry, onShowText }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '14px 16px', borderRadius: 'var(--radius-md)', background: 'var(--surface-locked)' }}>
+    <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '14px 16px', borderRadius: 'var(--radius-md)', background: 'var(--surface-locked)', textAlign: 'left' }}>
       <span style={{ color: 'var(--text-muted)', display: 'inline-flex' }}><Icon name="volume-x" /></span>
       <span style={{ display: 'flex', flexDirection: 'column', gap: 6, flex: 1 }}>
         <span style={{ font: 'var(--type-body)', fontWeight: 700, color: 'var(--text-ink)' }}>Vorlesen klappt gerade nicht.</span>
-        <span style={{ font: 'var(--type-body)', color: 'var(--text-muted)' }}>Lies den Dialog einfach selbst — die Frage kommt trotzdem später.</span>
-        <span style={{ display: 'flex' }}><Button variant="secondary" size="sm" icon="rotate-ccw" onClick={onRetry}>Nochmal versuchen</Button></span>
+        <span style={{ font: 'var(--type-body)', color: 'var(--text-muted)' }}>{onShowText ? 'Versuch es nochmal — oder lies das Gespräch ausnahmsweise selbst.' : 'Lies den Text einfach selbst.'}</span>
+        <span style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          <Button variant="secondary" size="sm" icon="rotate-ccw" onClick={onRetry}>Nochmal versuchen</Button>
+          {onShowText && <Button variant="ghost" size="sm" onClick={onShowText}>Text lesen</Button>}
+        </span>
       </span>
     </div>
   );
 }
 
-/* ---- 1c Zuhören, neue Karte ----------------------------------------------- */
-function ListenNew({ entry, card, answer, setAnswer, onCheck, tts }) {
-  const speech = useSpeech(card.item.id, dialogPlainText(card.item), tts);
+/* ---- Figur als Avatar (Initialen), aktiv sprechend = sanftes Atmen ---------- */
+function SpeakerAvatar({ speaker, active, size }) {
+  return (
+    <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, width: size + 24 }}>
+      <span style={{ position: 'relative', width: size, height: size }}>
+        {active && <span aria-hidden="true" className="rm-static" style={{ position: 'absolute', inset: -8, borderRadius: '50%', border: '3px solid var(--track-listen)', animation: 'spur-speak 900ms var(--ease-sine) infinite alternate' }} />}
+        <span style={{ position: 'absolute', inset: 0, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
+          background: active ? 'var(--track-listen)' : 'var(--track-listen-soft)', color: active ? '#fff' : 'var(--track-listen-shade)',
+          font: 'var(--type-title)', fontSize: Math.round(size * 0.34), transition: 'background var(--dur-fast) var(--ease-out-soft), color var(--dur-fast) var(--ease-out-soft)' }}>
+          {speaker.initials}
+        </span>
+      </span>
+      <span style={{ font: 'var(--type-label)', fontWeight: 700, color: active ? 'var(--text-ink)' : 'var(--text-muted)', textAlign: 'center', lineHeight: 1.25 }}>
+        {speaker.name}
+        {speaker.relation && <span style={{ display: 'block', fontWeight: 500, color: 'var(--text-subtle)' }}>{speaker.relation}</span>}
+      </span>
+    </span>
+  );
+}
+
+const MAX_PLAYS = 2;
+
+/* ---- Schritt 1: Nur zuhören (neue Karten) ------------------------------------
+   Kein Text, keine Frage — nur die Stimmen. Höchstens zwei Wiedergaben, "Weiter"
+   erst nach der ersten. Bei fälligen Wiederholungen gibt es diesen Schritt nicht. */
+function ListenOnly({ entry, card, onNext }) {
+  const speech = useSpeech(card.item);
+  const [plays, setPlays] = useState(0);
+  const [heard, setHeard] = useState(false);
+  const [showText, setShowText] = useState(false);
+  const speakers = dialogSpeakers(card.item);
+  const wasPlaying = useRef(false);
+  useEffect(() => {
+    if (wasPlaying.current && !speech.playing) setHeard(true);
+    wasPlaying.current = speech.playing;
+  }, [speech.playing]);
+  const left = MAX_PLAYS - plays;
+  const play = () => {
+    if (speech.playing) { speech.stop(); return; }
+    if (left <= 0) return;
+    setPlays((n) => n + 1);
+    speech.start(true);
+  };
+  const activeName = speech.playing ? (speech.who || (speakers.length === 1 ? speakers[0].name : null)) : null;
+  const size = speakers.length > 2 ? 64 : speakers.length === 2 ? 76 : 96;
   return (
     <>
-      <div style={body}>
-        <CardBadge entry={entry} card={card} />
-        {speech.error ? <TtsError onRetry={speech.retry} /> : (
-          <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
-            <Mascot pose="listening" size={78} />
-            <SpeechBubble tail="left" style={{ flex: 1 }}>Hör einmal zu. Ich frage später nach — nicht sofort.</SpeechBubble>
+      <div style={{ ...body, alignItems: 'center', textAlign: 'center', justifyContent: 'safe center', gap: 22 }}>
+        <span style={{ alignSelf: 'flex-start' }}><CardBadge entry={entry} card={card} /></span>
+        <div className="stack" style={{ gap: 6, alignItems: 'center' }}>
+          <h2 style={{ font: 'var(--type-title)' }}>Hör genau hin.</h2>
+          <p style={{ font: 'var(--type-body)', color: 'var(--text-muted)', maxWidth: 300 }}>Die Fragen kommen danach. Den Text siehst du nicht — nur die Stimmen zählen.</p>
+        </div>
+        {speakers.length ? (
+          <div style={{ display: 'flex', justifyContent: 'center', gap: 8, flexWrap: 'wrap' }}>
+            {speakers.map((sp) => <SpeakerAvatar key={sp.id} speaker={sp} size={size} active={activeName === sp.name} />)}
           </div>
+        ) : (
+          <span className={speech.playing ? 'a-bob' : undefined}><Mascot pose="listening" size={110} /></span>
         )}
-        <Card tone="listen" padding={16} elevated={false} style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
-          {tts && <SpeakButton playing={speech.playing} onClick={speech.toggle} label="Dialog vorlesen" />}
-          <DialogText item={card.item} />
-        </Card>
-        <h3 style={{ font: 'var(--type-headline)', margin: '4px 0 0' }}>{card.question.prompt}</h3>
-        <TextField value={answer} onChange={(e) => setAnswer(e.target.value)} rows={3} placeholder="Schreib auf, woran du dich erinnerst …" hint="Stichworte reichen." />
+        {speech.error && !showText && <TtsError onRetry={() => { speech.retry(); }} onShowText={() => { setShowText(true); setHeard(true); }} />}
+        {showText && (
+          <Card tone="listen" padding={16} elevated={false} style={{ textAlign: 'left', width: '100%' }}><DialogText item={card.item} /></Card>
+        )}
+        <div className="stack" style={{ alignItems: 'center', gap: 10 }}>
+          <button type="button" onClick={play} disabled={!speech.playing && left <= 0}
+            aria-label={speech.playing ? 'Wiedergabe stoppen' : 'Gespräch abspielen'}
+            style={{ width: 84, height: 84, borderRadius: '50%', border: 'none', cursor: !speech.playing && left <= 0 ? 'not-allowed' : 'pointer',
+              background: !speech.playing && left <= 0 ? 'var(--surface-locked)' : 'var(--track-listen)',
+              color: !speech.playing && left <= 0 ? 'var(--text-subtle)' : '#fff',
+              boxShadow: !speech.playing && left <= 0 ? 'none' : '0 6px 0 var(--track-listen-shade)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}>
+            {speech.playing
+              ? [0, 140, 280, 420].map((d) => <span key={d} className="rm-static" style={{ width: 5, height: 16, borderRadius: 999, background: '#fff', animation: `spur-eq 700ms ease-in-out ${d}ms infinite` }} />)
+              : <Icon name={plays > 0 ? 'rotate-ccw' : 'play'} size={36} strokeWidth={2.4} fill={plays > 0 ? 'none' : 'currentColor'} />}
+          </button>
+          <span aria-live="polite" style={{ font: 'var(--type-label)', fontWeight: 600, color: 'var(--text-muted)' }}>
+            {plays === 0 ? `Du kannst es ${MAX_PLAYS}× hören.` : left > 0 ? `${plays} von ${MAX_PLAYS} Wiedergaben` : 'Beide Wiedergaben genutzt.'}
+          </span>
+        </div>
       </div>
-      <div style={cta}><Button full disabled={!answer.trim()} onClick={onCheck}>Prüfen</Button></div>
+      <div style={cta}><Button variant="listen" full disabled={!heard || speech.playing} onClick={() => { speech.stop(); onNext(); }}>Weiter zu den Fragen</Button></div>
     </>
   );
 }
@@ -163,7 +234,7 @@ function ListenRecall({ entry, card, rec, answer, setAnswer, onCheck }) {
 /* ---- 1e Lesen, neuer Text -------------------------------------------------- */
 function ReadText({ entry, card, onClose, tts }) {
   const item = card.item;
-  const speech = useSpeech(item.id, `${item.title}. ${item.paragraphs.join(' ')}`, false);
+  const speech = useSpeech(item);
   return (
     <>
       <div style={{ ...body, gap: 14 }}>
@@ -420,10 +491,10 @@ export function Lesson({ session, onFinish, onExit }) {
   };
 
   let view;
-  if (phase === 'question') {
-    view = entry.showSource
-      ? <ListenNew entry={entry} card={card} answer={answer} setAnswer={setAnswer} onCheck={check} tts={s.tts} />
-      : <ListenRecall entry={entry} card={card} rec={rec} answer={answer} setAnswer={setAnswer} onCheck={check} />;
+  if (phase === 'listen-audio') {
+    view = <ListenOnly entry={entry} card={card} onNext={() => setPhase('question')} />;
+  } else if (phase === 'question') {
+    view = <ListenRecall entry={entry} card={card} rec={rec} answer={answer} setAnswer={setAnswer} onCheck={check} />;
   } else if (phase === 'read-text') {
     view = <ReadText entry={entry} card={card} tts={s.tts} onClose={() => setPhase('read-recall')} />;
   } else if (phase === 'read-recall') {

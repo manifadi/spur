@@ -175,11 +175,14 @@ export function Home({ anim, onOpenNode }) {
     if (!anim?.lessonDone || reduced) return null;
     const i = nodes.findIndex((x) => x.id === anim.lessonDone);
     if (i < 0) return null;
-    const next = nodes[i + 1] && nodes[i + 1].status === 'current' ? nodes[i + 1] : null;
+    // Nächster Knoten derselben Spur (Zuhören und Lesen schalten getrennt frei).
+    const nextLesson = nextLessonAfter(index, state, anim.lessonDone);
+    const next = nextLesson && nodes.find((x) => x.id === nextLesson.lesson.id && x.status === 'current');
     return { doneId: anim.lessonDone, nextId: next?.id || null, fromIdx: i };
-  }, [anim, nodes, reduced]);
+  }, [anim, nodes, reduced]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const current = nodes.find((x) => x.status === 'current');
+  // Miro sitzt am gerade freigeschalteten Knoten, sonst am ersten aktuellen.
+  const current = (animState?.nextId && nodes.find((x) => x.id === animState.nextId)) || nodes.find((x) => x.status === 'current');
   const scale = narrow ? 0.8 : 1;
   const offsetOf = (node) => OFFSETS[node.n % OFFSETS.length] * scale;
 

@@ -113,6 +113,10 @@
         }
       ]
     },
-    { "id": "l5-checkpoint", "type": "checkpoint", "title": "Checkpoint" }
+    {
+      "id": "l5-checkpoint",
+      "type": "checkpoint",
+      "title": "Checkpoint"
+    }
   ]
 }

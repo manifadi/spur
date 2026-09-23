@@ -17,7 +17,8 @@ export function itemTrack(item) {
 }
 
 export function lessonTrack(lesson, chapter) {
-  if (lesson.type === 'checkpoint') return 'mixed';
+  // Checkpoints gehören zur Spur ihres Kapitels (Zuhören und Lesen laufen getrennt).
+  if (lesson.type === 'checkpoint') return chapter?.track === 'read' || chapter?.track === 'listen' ? chapter.track : 'mixed';
   const tracks = new Set((lesson.items || []).map(itemTrack));
   if (tracks.size === 1) return [...tracks][0];
   return chapter?.track === 'mixed' || tracks.size > 1 ? 'mixed' : chapter.track;
@@ -71,6 +72,15 @@ export function pathChapters(index, track) {
 
 export function pathLessons(index, track) {
   return pathChapters(index, track).flatMap((c) => c.lessons.map((l) => l.id));
+}
+
+/**
+ * Freischalt-Reihenfolge einer Spur. Zuhören und Lesen haben jeweils eine eigene
+ * Reihenfolge und einen eigenen "aktuellen" Knoten; sie blockieren sich nie gegenseitig.
+ */
+export function trackSequence(index, trackPref, lessonId) {
+  const t = index.lessons.get(lessonId).track;
+  return pathLessons(index, trackPref).filter((id) => index.lessons.get(id).track === t);
 }
 
 /** Geschätzte Lesedauer in Sekunden: aufmerksames Lesen zum Behalten, ca. 100 Wörter pro Minute, auf 10 s gerundet. */

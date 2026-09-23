@@ -36,17 +36,46 @@ Das Skript sucht `miro-*.png`, `miro-sorting-cards.png` und `app-icon.png`, verk
 den Offline-Cache auf 480 px, legt alles unter `public/assets/` ab und erzeugt die Home-Screen-Icons
 aus dem PNG-Master neu (`npm run icons`). Danach neu bauen.
 
+## Gemeinsame Welt, getrenntes Scheduling
+
+- **Welt** (`src/content/world.json`): Alle Figuren mit Beziehung zu dir, Persönlichkeits-Archetyp
+  und Stimmprofil, dazu Orte. Jeder Dialog hat eine `characterId` (die Figur mit der wichtigen
+  Info) und `worldRefs` (erwähnte Figuren/Orte). Die Welt verbindet die Spuren nur inhaltlich.
+- **Zuhören und Lesen schalten unabhängig frei.** Jede Spur hat ihren eigenen aktuellen Knoten.
+  Neue Gespräche kommen in Schwierigkeits-Reihenfolge dazu, danach wird jede Karte nur nach ihren
+  eigenen Intervallen fällig, unabhängig von allem anderen. Checkpoints wiederholen nur ihre Spur.
+- **Zuhören in zwei Schritten:** Bei neuen Gesprächen gibt es zuerst nur Stimmen. Die sprechenden
+  Figuren erscheinen als Avatare, die aktive Figur atmet. Es gibt höchstens 2 Wiedergaben, kein Text
+  und keine Frage. Danach kommen die Fragen. Bei fälligen Wiederholungen entfällt der Hör-Schritt.
+  Nur wenn Vorlesen komplett scheitert, lässt sich der Text ausnahmsweise einblenden.
+
+### Archetypen
+
+| Archetyp | pitch | rate | Beispiele |
+|---|---|---|---|
+| hibbelig-aufgeregt | 1.35 | 1.2 | Frau Berger (Nachbarin), Tante Vera, Kim |
+| monoton-trocken | 0.85 | 0.88 | Thomas (Kollege), Meister Kowalski |
+| warm-ruhig | 1.02 | 0.92 | Oma Ilse, Marta |
+| energisch-jung | 1.2 | 1.12 | Mia (Freundin), Azubi Timo |
+| müde-genervt | 0.9 | 0.82 | Sandra (Kollegin), Frau Heller |
+| sachlich-neutral | 1.0 | 1.0 | Jana (Chefin), Frau Demir |
+
+Die Faktoren wirken an zwei Stellen. Bei den mitgelieferten Aufnahmen werden sie in edge-tts-Werte
+umgerechnet (Tempo in %, Tonhöhe in Hz, 50 Hz pro Faktor-Einheit). Bei der Gerätestimme als
+Fallback werden sie direkt als `pitch`/`rate` gesetzt. Dort wird zusätzlich eine Stimme nach
+Geschlecht und `voiceNameHints` gesucht.
+
 ## Vorlese-Stimmen
 
 Dialoge und Texte werden nicht live vom Gerät vorgelesen, sondern mit mitgelieferten Audiodateien
 (`public/audio/`, ca. 9 MB, 25 Minuten). Erzeugt werden sie mit neuronalen Microsoft-Stimmen
 über [edge-tts](https://github.com/rany2/edge-tts):
 
-- Jede Person in einem Dialog hat eine eigene, feste Stimme. Die Stimmen wechseln von Gespräch
-  zu Gespräch, Oma Ilse spricht etwas langsamer und tiefer.
-- Die Lesetexte liest immer dieselbe ruhige Erzählstimme („Miro“).
-- Die Besetzung steht in `scripts/voices.mjs`. Pro Dialog lässt sie sich im Content mit
-  `"voices": { "Name": { "voice": "de-DE-KatjaNeural", "rate": "-10%" } }` überschreiben.
+- Jede Figur hat eine feste Stimme (`voiceProfile.edgeVoice` oder stabil aus dem Pool gewählt),
+  wiederkehrende Figuren klingen überall gleich. Zwei Figuren im selben Gespräch bekommen nie
+  dieselbe Stimme.
+- Tempo und Tonhöhe kommen aus dem Archetyp der Figur.
+- Die Lesetexte liest immer dieselbe ruhige Erzählstimme („Miro“), die in keinem Gespräch vorkommt.
 
 ```bash
 npm run audio            # vertont nur Neues/Geändertes, löscht Verwaistes
@@ -54,7 +83,7 @@ npm run audio -- --force # alles neu
 ```
 
 Voraussetzung ist [uv](https://docs.astral.sh/uv/), edge-tts wird dann per `uvx` geholt. Nach
-neuen Kapiteln: `npm run audio`, danach committen. Vercel baut nur und vertont nichts.
+neuen Kapiteln oder Figuren: `npm run audio`, danach committen. Vercel baut nur und vertont nichts.
 
 Hinweis: edge-tts nutzt den inoffiziellen Vorlese-Dienst des Edge-Browsers. Das ist eine
 rechtliche Grauzone und kann jederzeit wegfallen. Die fertigen Dateien bleiben aber nutzbar.

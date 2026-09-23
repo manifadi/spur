@@ -11,7 +11,7 @@ export function hasAudio(itemId) {
  * @returns {() => void} Stopp-Funktion
  * onBlocked: Browser verbietet Autoplay ohne Antippen (iOS) — kein Fehler, nur nicht gestartet.
  */
-export function playItem(itemId, { onEnd, onError, onBlocked } = {}) {
+export function playItem(itemId, { onEnd, onError, onBlocked, onSegment } = {}) {
   const segments = AUDIO[itemId]?.segments || [];
   const audio = new Audio();
   audio.preload = 'auto';
@@ -24,6 +24,7 @@ export function playItem(itemId, { onEnd, onError, onBlocked } = {}) {
     if (stopped) return;
     if (i >= segments.length) return finish(onEnd);
     const seg = segments[i++];
+    onSegment?.(seg.who ?? null, i - 1);
     audio.src = seg.file;
     // Nächsten Abschnitt schon vorladen, damit zwischen den Sprechern nichts hängt.
     if (segments[i]) { const pre = new Audio(); pre.preload = 'auto'; pre.src = segments[i].file; }

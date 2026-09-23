@@ -143,3 +143,19 @@ test('Checkpoint wählt bereits gelernte Karten', () => {
   assert.equal(cp.entries.length, 3);
   assert.ok(cp.entries.every((e) => !e.showSource));
 });
+
+test('Getrenntes Scheduling: Zuhören und Lesen haben je einen eigenen aktuellen Knoten', () => {
+  const d1 = at('2026-09-23T10:00:00');
+  let s = initialState();
+  let path = buildPath(index, s, d1);
+  const current = path.flatMap((g) => g.nodes).filter((n) => n.status === 'current').map((n) => `${n.track}:${n.id}`);
+  assert.deepEqual(current, ['listen:z1-kaffeekueche', 'read:l1-kraehen']);
+  // Zwei Zuhör-Lektionen erledigen: Lesen bleibt unberührt bei der ersten Lektion.
+  for (const l of ['z1-kaffeekueche', 'z1-umzug']) for (const id of index.lessons.get(l).cardIds) s = commitAnswer(index, s, { cardId: id, mode: 'new' }, 'good', d1).state;
+  path = buildPath(index, s, d1);
+  const cur = Object.fromEntries(path.flatMap((g) => g.nodes).filter((n) => n.status === 'current').map((n) => [n.track, n.id]));
+  assert.deepEqual(cur, { listen: 'z1-feierabend', read: 'l1-kraehen' });
+  // Checkpoints gehören zur Spur ihres Kapitels
+  assert.equal(index.lessons.get('z3-checkpoint').track, 'listen');
+  assert.equal(index.lessons.get('l3-checkpoint').track, 'read');
+});

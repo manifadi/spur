@@ -13,20 +13,97 @@
           "id": "z4-abendessen-d",
           "type": "dialog",
           "title": "Abendessen",
+          "characterId": "marta",
           "lines": [
-            { "who": "Marta", "text": "Ich hab Linsencurry gemacht, diesmal ohne Koriander, weil Ben ihn nicht verträgt." },
-            { "who": "Ben", "text": "Danke! Ich hab dafür Nachtisch mitgebracht: Tiramisu, aber ohne Alkohol, wegen Yusuf." },
-            { "who": "Yusuf", "text": "Sehr aufmerksam. Übrigens: Ich fange im Mai bei einer Baumschule in Pinneberg an. Endlich raus aus dem Büro." },
-            { "who": "Marta", "text": "Pinneberg? Dann fährst du ja jeden Tag über eine Stunde." },
-            { "who": "Yusuf", "text": "Fünfzig Minuten mit der S-Bahn. Und mein Fahrrad kann ich mitnehmen." }
+            {
+              "who": "Marta",
+              "text": "Ich hab Linsencurry gemacht, diesmal ohne Koriander, weil Ben ihn nicht verträgt."
+            },
+            {
+              "who": "Ben",
+              "text": "Danke! Ich hab dafür Nachtisch mitgebracht: Tiramisu, aber ohne Alkohol, wegen Yusuf."
+            },
+            {
+              "who": "Yusuf",
+              "text": "Sehr aufmerksam. Übrigens: Ich fange im Mai bei einer Baumschule in Pinneberg an. Endlich raus aus dem Büro."
+            },
+            {
+              "who": "Marta",
+              "text": "Pinneberg? Dann fährst du ja jeden Tag über eine Stunde."
+            },
+            {
+              "who": "Yusuf",
+              "text": "Fünfzig Minuten mit der S-Bahn. Und mein Fahrrad kann ich mitnehmen."
+            }
           ],
           "questions": [
-            { "id": "q1", "prompt": "Was hat Marta gekocht?", "answers": [["Linsencurry", "Linsen", "Curry"]], "solution": "Linsencurry.", "quote": "„Ich hab Linsencurry gemacht …“" },
-            { "id": "q2", "prompt": "Welche Zutat hat Marta weggelassen?", "answers": [["Koriander"]], "solution": "Koriander.", "quote": "„… diesmal ohne Koriander, weil Ben ihn nicht verträgt.“" },
-            { "id": "q3", "prompt": "Welchen Nachtisch hat Ben mitgebracht?", "answers": [["Tiramisu"]], "solution": "Tiramisu ohne Alkohol.", "quote": "„Tiramisu, aber ohne Alkohol, wegen Yusuf.“" },
-            { "id": "q4", "prompt": "Wo fängt Yusuf im Mai an?", "answers": [["Baumschule"], ["Pinneberg"]], "solution": "Bei einer Baumschule in Pinneberg.", "quote": "„Ich fange im Mai bei einer Baumschule in Pinneberg an.“" },
-            { "id": "q5", "prompt": "Wie lange fährt Yusuf mit der S-Bahn?", "answers": [["50", "fünfzig", "fuenfzig"]], "solution": "Fünfzig Minuten.", "quote": "„Fünfzig Minuten mit der S-Bahn.“" }
-          ]
+            {
+              "id": "q1",
+              "prompt": "Was hat Marta gekocht?",
+              "answers": [
+                [
+                  "Linsencurry",
+                  "Linsen",
+                  "Curry"
+                ]
+              ],
+              "solution": "Linsencurry.",
+              "quote": "„Ich hab Linsencurry gemacht …“"
+            },
+            {
+              "id": "q2",
+              "prompt": "Welche Zutat hat Marta weggelassen?",
+              "answers": [
+                [
+                  "Koriander"
+                ]
+              ],
+              "solution": "Koriander.",
+              "quote": "„… diesmal ohne Koriander, weil Ben ihn nicht verträgt.“"
+            },
+            {
+              "id": "q3",
+              "prompt": "Welchen Nachtisch hat Ben mitgebracht?",
+              "answers": [
+                [
+                  "Tiramisu"
+                ]
+              ],
+              "solution": "Tiramisu ohne Alkohol.",
+              "quote": "„Tiramisu, aber ohne Alkohol, wegen Yusuf.“"
+            },
+            {
+              "id": "q4",
+              "prompt": "Wo fängt Yusuf im Mai an?",
+              "answers": [
+                [
+                  "Baumschule"
+                ],
+                [
+                  "Pinneberg"
+                ]
+              ],
+              "solution": "Bei einer Baumschule in Pinneberg.",
+              "quote": "„Ich fange im Mai bei einer Baumschule in Pinneberg an.“"
+            },
+            {
+              "id": "q5",
+              "prompt": "Wie lange fährt Yusuf mit der S-Bahn?",
+              "answers": [
+                [
+                  "50",
+                  "fünfzig",
+                  "fuenfzig"
+                ]
+              ],
+              "solution": "Fünfzig Minuten.",
+              "quote": "„Fünfzig Minuten mit der S-Bahn.“"
+            }
+          ],
+          "worldRefs": {
+            "charactersReferenced": [],
+            "locationsReferenced": []
+          }
         }
       ]
     },
@@ -38,20 +115,96 @@
           "id": "z4-elternabend-d",
           "type": "dialog",
           "title": "Elternabend",
+          "characterId": "frau-demir",
           "lines": [
-            { "who": "Frau Demir", "text": "Die Klassenfahrt geht dieses Jahr nach Rügen, vom 12. bis 16. Mai. Kosten: 240 Euro pro Kind." },
-            { "who": "Herr Lindqvist", "text": "Gibt es dafür einen Zuschuss?" },
-            { "who": "Frau Demir", "text": "Ja, über den Förderverein. Den Antrag bitte bis Ende März bei Herrn Oswald im Sekretariat abgeben." },
-            { "who": "Frau Petrović", "text": "Und wer begleitet die Fahrt?" },
-            { "who": "Frau Demir", "text": "Ich und Herr Brandt, der Sportlehrer. Außerdem suchen wir noch einen Elternteil mit Erste-Hilfe-Kenntnissen." }
+            {
+              "who": "Frau Demir",
+              "text": "Die Klassenfahrt geht dieses Jahr nach Rügen, vom 12. bis 16. Mai. Kosten: 240 Euro pro Kind."
+            },
+            {
+              "who": "Herr Lindqvist",
+              "text": "Gibt es dafür einen Zuschuss?"
+            },
+            {
+              "who": "Frau Demir",
+              "text": "Ja, über den Förderverein. Den Antrag bitte bis Ende März bei Herrn Oswald im Sekretariat abgeben."
+            },
+            {
+              "who": "Frau Petrović",
+              "text": "Und wer begleitet die Fahrt?"
+            },
+            {
+              "who": "Frau Demir",
+              "text": "Ich und Herr Brandt, der Sportlehrer. Außerdem suchen wir noch einen Elternteil mit Erste-Hilfe-Kenntnissen."
+            }
           ],
           "questions": [
-            { "id": "q1", "prompt": "Wohin geht die Klassenfahrt?", "answers": [["Rügen", "Ruegen"]], "solution": "Nach Rügen.", "quote": "„Die Klassenfahrt geht dieses Jahr nach Rügen …“" },
-            { "id": "q2", "prompt": "Was kostet die Fahrt pro Kind?", "answers": [["240"]], "solution": "240 Euro.", "quote": "„Kosten: 240 Euro pro Kind.“" },
-            { "id": "q3", "prompt": "Bei wem wird der Antrag abgegeben?", "answers": [["Oswald"]], "solution": "Bei Herrn Oswald im Sekretariat.", "quote": "„… bei Herrn Oswald im Sekretariat abgeben.“" },
-            { "id": "q4", "prompt": "Wer begleitet außer Frau Demir die Fahrt?", "answers": [["Brandt", "Sportlehrer"]], "solution": "Herr Brandt, der Sportlehrer.", "quote": "„Ich und Herr Brandt, der Sportlehrer.“" },
-            { "id": "q5", "prompt": "Was soll der gesuchte Elternteil können?", "answers": [["Erste Hilfe", "Ersthelfer", "Erste-Hilfe"]], "solution": "Erste Hilfe.", "quote": "„… einen Elternteil mit Erste-Hilfe-Kenntnissen.“" }
-          ]
+            {
+              "id": "q1",
+              "prompt": "Wohin geht die Klassenfahrt?",
+              "answers": [
+                [
+                  "Rügen",
+                  "Ruegen"
+                ]
+              ],
+              "solution": "Nach Rügen.",
+              "quote": "„Die Klassenfahrt geht dieses Jahr nach Rügen …“"
+            },
+            {
+              "id": "q2",
+              "prompt": "Was kostet die Fahrt pro Kind?",
+              "answers": [
+                [
+                  "240"
+                ]
+              ],
+              "solution": "240 Euro.",
+              "quote": "„Kosten: 240 Euro pro Kind.“"
+            },
+            {
+              "id": "q3",
+              "prompt": "Bei wem wird der Antrag abgegeben?",
+              "answers": [
+                [
+                  "Oswald"
+                ]
+              ],
+              "solution": "Bei Herrn Oswald im Sekretariat.",
+              "quote": "„… bei Herrn Oswald im Sekretariat abgeben.“"
+            },
+            {
+              "id": "q4",
+              "prompt": "Wer begleitet außer Frau Demir die Fahrt?",
+              "answers": [
+                [
+                  "Brandt",
+                  "Sportlehrer"
+                ]
+              ],
+              "solution": "Herr Brandt, der Sportlehrer.",
+              "quote": "„Ich und Herr Brandt, der Sportlehrer.“"
+            },
+            {
+              "id": "q5",
+              "prompt": "Was soll der gesuchte Elternteil können?",
+              "answers": [
+                [
+                  "Erste Hilfe",
+                  "Ersthelfer",
+                  "Erste-Hilfe"
+                ]
+              ],
+              "solution": "Erste Hilfe.",
+              "quote": "„… einen Elternteil mit Erste-Hilfe-Kenntnissen.“"
+            }
+          ],
+          "worldRefs": {
+            "charactersReferenced": [],
+            "locationsReferenced": [
+              "schule"
+            ]
+          }
         }
       ]
     },
@@ -63,20 +216,105 @@
           "id": "z4-werkstatt-d",
           "type": "dialog",
           "title": "Werkstatt",
+          "characterId": "meister-kowalski",
           "lines": [
-            { "who": "Meister Kowalski", "text": "Also: Die Bremsbeläge vorne sind runter, die tauschen wir. Das Klappern hinten kam vom Hitzeschutzblech, das haben wir nur festgeschraubt." },
-            { "who": "Frau Heller", "text": "Und was kostet das?" },
-            { "who": "Meister Kowalski", "text": "Mit Belägen und Arbeit rund 280 Euro. Morgen ab 16 Uhr ist der Wagen fertig." },
-            { "who": "Azubi Timo", "text": "Chef, beim Reifenwechsel hab ich gesehen: Der linke Scheinwerfer ist auch kaputt." },
-            { "who": "Meister Kowalski", "text": "Stimmt. Den machen wir gleich mit, das Birnchen kostet nur acht Euro." }
+            {
+              "who": "Meister Kowalski",
+              "text": "Also: Die Bremsbeläge vorne sind runter, die tauschen wir. Das Klappern hinten kam vom Hitzeschutzblech, das haben wir nur festgeschraubt."
+            },
+            {
+              "who": "Frau Heller",
+              "text": "Und was kostet das?"
+            },
+            {
+              "who": "Meister Kowalski",
+              "text": "Mit Belägen und Arbeit rund 280 Euro. Morgen ab 16 Uhr ist der Wagen fertig."
+            },
+            {
+              "who": "Azubi Timo",
+              "text": "Chef, beim Reifenwechsel hab ich gesehen: Der linke Scheinwerfer ist auch kaputt."
+            },
+            {
+              "who": "Meister Kowalski",
+              "text": "Stimmt. Den machen wir gleich mit, das Birnchen kostet nur acht Euro."
+            }
           ],
           "questions": [
-            { "id": "q1", "prompt": "Was muss getauscht werden?", "answers": [["Bremsbeläge", "Bremsbelaege", "Bremsen", "Bremse", "Beläge"]], "solution": "Die vorderen Bremsbeläge.", "quote": "„Die Bremsbeläge vorne sind runter, die tauschen wir.“" },
-            { "id": "q2", "prompt": "Woher kam das Klappern?", "answers": [["Hitzeschutzblech", "Hitzeschutz", "Blech"]], "solution": "Vom Hitzeschutzblech.", "quote": "„Das Klappern hinten kam vom Hitzeschutzblech …“" },
-            { "id": "q3", "prompt": "Was kostet die Reparatur ungefähr?", "answers": [["280"]], "solution": "Rund 280 Euro.", "quote": "„Mit Belägen und Arbeit rund 280 Euro.“" },
-            { "id": "q4", "prompt": "Wann ist der Wagen fertig?", "answers": [["morgen"], ["16", "vier"]], "solution": "Morgen ab 16 Uhr.", "quote": "„Morgen ab 16 Uhr ist der Wagen fertig.“" },
-            { "id": "q5", "prompt": "Was ist außerdem kaputt?", "answers": [["Scheinwerfer", "Licht", "Lampe", "Birne"]], "solution": "Der linke Scheinwerfer.", "quote": "„Der linke Scheinwerfer ist auch kaputt.“" }
-          ]
+            {
+              "id": "q1",
+              "prompt": "Was muss getauscht werden?",
+              "answers": [
+                [
+                  "Bremsbeläge",
+                  "Bremsbelaege",
+                  "Bremsen",
+                  "Bremse",
+                  "Beläge"
+                ]
+              ],
+              "solution": "Die vorderen Bremsbeläge.",
+              "quote": "„Die Bremsbeläge vorne sind runter, die tauschen wir.“"
+            },
+            {
+              "id": "q2",
+              "prompt": "Woher kam das Klappern?",
+              "answers": [
+                [
+                  "Hitzeschutzblech",
+                  "Hitzeschutz",
+                  "Blech"
+                ]
+              ],
+              "solution": "Vom Hitzeschutzblech.",
+              "quote": "„Das Klappern hinten kam vom Hitzeschutzblech …“"
+            },
+            {
+              "id": "q3",
+              "prompt": "Was kostet die Reparatur ungefähr?",
+              "answers": [
+                [
+                  "280"
+                ]
+              ],
+              "solution": "Rund 280 Euro.",
+              "quote": "„Mit Belägen und Arbeit rund 280 Euro.“"
+            },
+            {
+              "id": "q4",
+              "prompt": "Wann ist der Wagen fertig?",
+              "answers": [
+                [
+                  "morgen"
+                ],
+                [
+                  "16",
+                  "vier"
+                ]
+              ],
+              "solution": "Morgen ab 16 Uhr.",
+              "quote": "„Morgen ab 16 Uhr ist der Wagen fertig.“"
+            },
+            {
+              "id": "q5",
+              "prompt": "Was ist außerdem kaputt?",
+              "answers": [
+                [
+                  "Scheinwerfer",
+                  "Licht",
+                  "Lampe",
+                  "Birne"
+                ]
+              ],
+              "solution": "Der linke Scheinwerfer.",
+              "quote": "„Der linke Scheinwerfer ist auch kaputt.“"
+            }
+          ],
+          "worldRefs": {
+            "charactersReferenced": [],
+            "locationsReferenced": [
+              "werkstatt"
+            ]
+          }
         }
       ]
     },
@@ -88,23 +326,102 @@
           "id": "z4-besichtigung-d",
           "type": "dialog",
           "title": "Wohnungsbesichtigung",
+          "characterId": "frau-sommer",
           "lines": [
-            { "who": "Frau Sommer", "text": "Die Wohnung hat 68 Quadratmeter, drei Zimmer und einen Balkon nach Westen — also Abendsonne." },
-            { "who": "Jonte", "text": "Und wie wird geheizt?" },
-            { "who": "Frau Sommer", "text": "Fernwärme. Die Nebenkosten liegen bei 190 Euro im Monat. Der Keller gehört dazu, der Stellplatz kostet extra." },
-            { "who": "Lea", "text": "Sind Haustiere erlaubt? Wir haben zwei Kaninchen." },
-            { "who": "Frau Sommer", "text": "Kleintiere ja. Und falls Sie möchten: Die Vormieterin lässt die Einbauküche für 1.500 Euro da." }
+            {
+              "who": "Frau Sommer",
+              "text": "Die Wohnung hat 68 Quadratmeter, drei Zimmer und einen Balkon nach Westen — also Abendsonne."
+            },
+            {
+              "who": "Jonte",
+              "text": "Und wie wird geheizt?"
+            },
+            {
+              "who": "Frau Sommer",
+              "text": "Fernwärme. Die Nebenkosten liegen bei 190 Euro im Monat. Der Keller gehört dazu, der Stellplatz kostet extra."
+            },
+            {
+              "who": "Lea",
+              "text": "Sind Haustiere erlaubt? Wir haben zwei Kaninchen."
+            },
+            {
+              "who": "Frau Sommer",
+              "text": "Kleintiere ja. Und falls Sie möchten: Die Vormieterin lässt die Einbauküche für 1.500 Euro da."
+            }
           ],
           "questions": [
-            { "id": "q1", "prompt": "Wie groß ist die Wohnung?", "answers": [["68"]], "solution": "68 Quadratmeter.", "quote": "„Die Wohnung hat 68 Quadratmeter …“" },
-            { "id": "q2", "prompt": "In welche Richtung zeigt der Balkon?", "answers": [["Westen", "West", "Abendsonne"]], "solution": "Nach Westen.", "quote": "„… einen Balkon nach Westen — also Abendsonne.“" },
-            { "id": "q3", "prompt": "Wie hoch sind die Nebenkosten?", "answers": [["190"]], "solution": "190 Euro im Monat.", "quote": "„Die Nebenkosten liegen bei 190 Euro im Monat.“" },
-            { "id": "q4", "prompt": "Welche Haustiere haben Jonte und Lea?", "answers": [["Kaninchen", "Hasen"]], "solution": "Zwei Kaninchen.", "quote": "„Wir haben zwei Kaninchen.“" },
-            { "id": "q5", "prompt": "Was kostet die Einbauküche?", "answers": [["1500", "1 500", "tausendfünfhundert"]], "solution": "1.500 Euro.", "quote": "„Die Vormieterin lässt die Einbauküche für 1.500 Euro da.“" }
-          ]
+            {
+              "id": "q1",
+              "prompt": "Wie groß ist die Wohnung?",
+              "answers": [
+                [
+                  "68"
+                ]
+              ],
+              "solution": "68 Quadratmeter.",
+              "quote": "„Die Wohnung hat 68 Quadratmeter …“"
+            },
+            {
+              "id": "q2",
+              "prompt": "In welche Richtung zeigt der Balkon?",
+              "answers": [
+                [
+                  "Westen",
+                  "West",
+                  "Abendsonne"
+                ]
+              ],
+              "solution": "Nach Westen.",
+              "quote": "„… einen Balkon nach Westen — also Abendsonne.“"
+            },
+            {
+              "id": "q3",
+              "prompt": "Wie hoch sind die Nebenkosten?",
+              "answers": [
+                [
+                  "190"
+                ]
+              ],
+              "solution": "190 Euro im Monat.",
+              "quote": "„Die Nebenkosten liegen bei 190 Euro im Monat.“"
+            },
+            {
+              "id": "q4",
+              "prompt": "Welche Haustiere haben Jonte und Lea?",
+              "answers": [
+                [
+                  "Kaninchen",
+                  "Hasen"
+                ]
+              ],
+              "solution": "Zwei Kaninchen.",
+              "quote": "„Wir haben zwei Kaninchen.“"
+            },
+            {
+              "id": "q5",
+              "prompt": "Was kostet die Einbauküche?",
+              "answers": [
+                [
+                  "1500",
+                  "1 500",
+                  "tausendfünfhundert"
+                ]
+              ],
+              "solution": "1.500 Euro.",
+              "quote": "„Die Vormieterin lässt die Einbauküche für 1.500 Euro da.“"
+            }
+          ],
+          "worldRefs": {
+            "charactersReferenced": [],
+            "locationsReferenced": []
+          }
         }
       ]
     },
-    { "id": "z4-checkpoint", "type": "checkpoint", "title": "Checkpoint" }
+    {
+      "id": "z4-checkpoint",
+      "type": "checkpoint",
+      "title": "Checkpoint"
+    }
   ]
 }

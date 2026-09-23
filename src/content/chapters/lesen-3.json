@@ -105,6 +105,10 @@
         }
       ]
     },
-    { "id": "l3-checkpoint", "type": "checkpoint", "title": "Checkpoint" }
+    {
+      "id": "l3-checkpoint",
+      "type": "checkpoint",
+      "title": "Checkpoint"
+    }
   ]
 }

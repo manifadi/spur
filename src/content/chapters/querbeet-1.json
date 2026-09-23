@@ -13,18 +13,78 @@
           "id": "q1-flohmarkt-d",
           "type": "dialog",
           "title": "Flohmarkt",
+          "characterId": "emre",
           "lines": [
-            { "who": "Emre", "text": "Guck mal, ich hab einen Plattenspieler von 1974 gefunden. Der Verkäufer wollte 40 Euro, ich hab ihn auf 25 runtergehandelt." },
-            { "who": "Sophie", "text": "Funktioniert der überhaupt?" },
-            { "who": "Emre", "text": "Die Nadel fehlt, die bestelle ich nach. Und für dich hab ich auch was: eine alte Stempeluhr aus einer Fabrik in Wuppertal." },
-            { "who": "Sophie", "text": "Du hast dir gemerkt, dass ich Uhren sammle? Wahnsinn." }
+            {
+              "who": "Emre",
+              "text": "Guck mal, ich hab einen Plattenspieler von 1974 gefunden. Der Verkäufer wollte 40 Euro, ich hab ihn auf 25 runtergehandelt."
+            },
+            {
+              "who": "Sophie",
+              "text": "Funktioniert der überhaupt?"
+            },
+            {
+              "who": "Emre",
+              "text": "Die Nadel fehlt, die bestelle ich nach. Und für dich hab ich auch was: eine alte Stempeluhr aus einer Fabrik in Wuppertal."
+            },
+            {
+              "who": "Sophie",
+              "text": "Du hast dir gemerkt, dass ich Uhren sammle? Wahnsinn."
+            }
           ],
           "questions": [
-            { "id": "q1", "prompt": "Aus welchem Jahr ist der Plattenspieler?", "answers": [["1974"]], "solution": "1974.", "quote": "„… einen Plattenspieler von 1974 gefunden.“" },
-            { "id": "q2", "prompt": "Wie viel hat Emre am Ende bezahlt?", "answers": [["25", "fünfundzwanzig"]], "solution": "25 Euro.", "quote": "„Der Verkäufer wollte 40 Euro, ich hab ihn auf 25 runtergehandelt.“" },
-            { "id": "q3", "prompt": "Was fehlt am Plattenspieler?", "answers": [["Nadel"]], "solution": "Die Nadel.", "quote": "„Die Nadel fehlt, die bestelle ich nach.“" },
-            { "id": "q4", "prompt": "Woher stammt die Stempeluhr?", "answers": [["Wuppertal"]], "solution": "Aus einer Fabrik in Wuppertal.", "quote": "„… eine alte Stempeluhr aus einer Fabrik in Wuppertal.“" }
-          ]
+            {
+              "id": "q1",
+              "prompt": "Aus welchem Jahr ist der Plattenspieler?",
+              "answers": [
+                [
+                  "1974"
+                ]
+              ],
+              "solution": "1974.",
+              "quote": "„… einen Plattenspieler von 1974 gefunden.“"
+            },
+            {
+              "id": "q2",
+              "prompt": "Wie viel hat Emre am Ende bezahlt?",
+              "answers": [
+                [
+                  "25",
+                  "fünfundzwanzig"
+                ]
+              ],
+              "solution": "25 Euro.",
+              "quote": "„Der Verkäufer wollte 40 Euro, ich hab ihn auf 25 runtergehandelt.“"
+            },
+            {
+              "id": "q3",
+              "prompt": "Was fehlt am Plattenspieler?",
+              "answers": [
+                [
+                  "Nadel"
+                ]
+              ],
+              "solution": "Die Nadel.",
+              "quote": "„Die Nadel fehlt, die bestelle ich nach.“"
+            },
+            {
+              "id": "q4",
+              "prompt": "Woher stammt die Stempeluhr?",
+              "answers": [
+                [
+                  "Wuppertal"
+                ]
+              ],
+              "solution": "Aus einer Fabrik in Wuppertal.",
+              "quote": "„… eine alte Stempeluhr aus einer Fabrik in Wuppertal.“"
+            }
+          ],
+          "worldRefs": {
+            "charactersReferenced": [],
+            "locationsReferenced": [
+              "flohmarkt"
+            ]
+          }
         }
       ]
     },
@@ -58,19 +118,86 @@
           "id": "q1-arbeitsweg-d",
           "type": "dialog",
           "title": "Arbeitsweg",
+          "characterId": "kolja",
           "lines": [
-            { "who": "Kolja", "text": "Seit ich mit dem Rad fahre, bin ich zwölf Minuten schneller als mit dem Bus. Außer bei Regen." },
-            { "who": "Ida", "text": "Und wo stellst du es ab?" },
-            { "who": "Kolja", "text": "Im Hof hinter der Bäckerei Stein. Der Chef hat mir erlaubt, es an den Zaun zu schließen, wenn ich morgens ein Croissant kaufe." },
-            { "who": "Ida", "text": "Fairer Deal." },
-            { "who": "Kolja", "text": "Nur donnerstags nicht, da ist Markt und der Hof ist voller Lieferwagen." }
+            {
+              "who": "Kolja",
+              "text": "Seit ich mit dem Rad fahre, bin ich zwölf Minuten schneller als mit dem Bus. Außer bei Regen."
+            },
+            {
+              "who": "Ida",
+              "text": "Und wo stellst du es ab?"
+            },
+            {
+              "who": "Kolja",
+              "text": "Im Hof hinter der Bäckerei Stein. Der Chef hat mir erlaubt, es an den Zaun zu schließen, wenn ich morgens ein Croissant kaufe."
+            },
+            {
+              "who": "Ida",
+              "text": "Fairer Deal."
+            },
+            {
+              "who": "Kolja",
+              "text": "Nur donnerstags nicht, da ist Markt und der Hof ist voller Lieferwagen."
+            }
           ],
           "questions": [
-            { "id": "q1", "prompt": "Wie viel schneller ist Kolja mit dem Rad?", "answers": [["12", "zwölf", "zwoelf"]], "solution": "Zwölf Minuten.", "quote": "„… bin ich zwölf Minuten schneller als mit dem Bus.“" },
-            { "id": "q2", "prompt": "Wo stellt er sein Rad ab?", "answers": [["Bäckerei", "Baeckerei", "Stein"]], "solution": "Im Hof hinter der Bäckerei Stein.", "quote": "„Im Hof hinter der Bäckerei Stein.“" },
-            { "id": "q3", "prompt": "Was ist sein Deal mit dem Chef?", "answers": [["Croissant"]], "solution": "Er kauft morgens ein Croissant.", "quote": "„… wenn ich morgens ein Croissant kaufe.“" },
-            { "id": "q4", "prompt": "An welchem Tag klappt das nicht?", "answers": [["Donnerstag", "donnerstags"]], "solution": "Donnerstags, wegen des Markts.", "quote": "„Nur donnerstags nicht, da ist Markt …“" }
-          ]
+            {
+              "id": "q1",
+              "prompt": "Wie viel schneller ist Kolja mit dem Rad?",
+              "answers": [
+                [
+                  "12",
+                  "zwölf",
+                  "zwoelf"
+                ]
+              ],
+              "solution": "Zwölf Minuten.",
+              "quote": "„… bin ich zwölf Minuten schneller als mit dem Bus.“"
+            },
+            {
+              "id": "q2",
+              "prompt": "Wo stellt er sein Rad ab?",
+              "answers": [
+                [
+                  "Bäckerei",
+                  "Baeckerei",
+                  "Stein"
+                ]
+              ],
+              "solution": "Im Hof hinter der Bäckerei Stein.",
+              "quote": "„Im Hof hinter der Bäckerei Stein.“"
+            },
+            {
+              "id": "q3",
+              "prompt": "Was ist sein Deal mit dem Chef?",
+              "answers": [
+                [
+                  "Croissant"
+                ]
+              ],
+              "solution": "Er kauft morgens ein Croissant.",
+              "quote": "„… wenn ich morgens ein Croissant kaufe.“"
+            },
+            {
+              "id": "q4",
+              "prompt": "An welchem Tag klappt das nicht?",
+              "answers": [
+                [
+                  "Donnerstag",
+                  "donnerstags"
+                ]
+              ],
+              "solution": "Donnerstags, wegen des Markts.",
+              "quote": "„Nur donnerstags nicht, da ist Markt …“"
+            }
+          ],
+          "worldRefs": {
+            "charactersReferenced": [],
+            "locationsReferenced": [
+              "baeckerei-stein"
+            ]
+          }
         }
       ]
     },

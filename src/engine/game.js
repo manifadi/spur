@@ -1,6 +1,6 @@
 import { addDays, dayKey, daysBetween, endOfDay } from './dates.js';
 import { applyGrade, isDue, isNew, XP } from './srs.js';
-import { itemTrack, pathChapters, pathLessons } from './content.js';
+import { itemTrack, pathChapters, pathLessons, trackSequence } from './content.js';
 
 export const MAX_HEARTS = 5;
 export const HEART_REGEN_MS = 2 * 60 * 60 * 1000;
@@ -116,7 +116,8 @@ export function isLessonComplete(index, state, lessonId) {
 export function buildPath(index, state, now = new Date()) {
   const today = dayKey(now);
   const chapters = pathChapters(index, state.settings.track);
-  let currentFound = false;
+  // Je Spur ein eigener aktueller Knoten: Zuhören und Lesen schalten unabhängig frei.
+  const currentFound = {};
   let n = 0;
   return chapters.map((chapter, ci) => {
     let firstLockedLabelled = false;
@@ -127,7 +128,7 @@ export function buildPath(index, state, now = new Date()) {
       if (done) {
         const due = info.cardIds.some((id) => { const r = state.cards[id]; return r && r.stage >= 0 && isDue(r, today); });
         status = due ? 'due' : 'done';
-      } else if (!currentFound) { status = 'current'; currentFound = true; } else status = 'locked';
+      } else if (!currentFound[info.track]) { status = 'current'; currentFound[info.track] = true; } else status = 'locked';
       let label = lesson.title;
       if (status === 'due') label = `Fällig · ${daysSinceFirstSeen(state, info.cardIds, now)} Tage`;
       if (status === 'locked') { label = firstLockedLabelled ? null : 'Bald'; firstLockedLabelled = true; }
@@ -138,8 +139,13 @@ export function buildPath(index, state, now = new Date()) {
   });
 }
 
-export function currentLessonId(index, state) {
-  return pathLessons(index, state.settings.track).find((id) => !isLessonComplete(index, state, id)) || null;
+export function currentLessonIds(index, state) {
+  const out = {};
+  for (const id of pathLessons(index, state.settings.track)) {
+    const t = index.lessons.get(id).track;
+    if (!out[t] && !isLessonComplete(index, state, id)) out[t] = id;
+  }
+  return out;
 }
 
 export function hasAnyProgress(state) {
@@ -237,7 +243,8 @@ function seenCards(index, state, filter = () => true) {
 /** Checkpoint: gemischte Wiederholung aus allem, was bis hier gelernt wurde. */
 export function buildCheckpointSession(index, state, lessonId, now = new Date()) {
   const today = dayKey(now);
-  const order = pathLessons(index, state.settings.track);
+  // Checkpoint wiederholt nur die eigene Spur, alles bis hierher.
+  const order = trackSequence(index, state.settings.track, lessonId);
   const upto = new Set(order.slice(0, order.indexOf(lessonId)));
   const ids = seenCards(index, state, (id) => upto.has(index.cards.get(id).lesson.id)).slice(0, CHECKPOINT_SIZE * 2);
   const entries = byTrack(index, ids).slice(0, CHECKPOINT_SIZE).map((id) => reviewEntry(state, id, today));
@@ -336,7 +343,7 @@ export function markLessonDone(index, state, lessonId, now, events = {}) {
 
 /** Nächste Lektion nach `lessonId` im Pfad (für die "… ist freigeschaltet"-Meldung). */
 export function nextLessonAfter(index, state, lessonId) {
-  const order = pathLessons(index, state.settings.track);
+  const order = trackSequence(index, state.settings.track, lessonId);
   const i = order.indexOf(lessonId);
   return i >= 0 && i + 1 < order.length ? index.lessons.get(order[i + 1]) : null;
 }
