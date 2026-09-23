@@ -1,0 +1,1133 @@
+{
+ "l1-kraehen-t": {
+  "segments": [
+   {
+    "file": "audio/b1d0ae0a32053535.mp3",
+    "who": null,
+    "gap": 600
+   },
+   {
+    "file": "audio/b49bea15201f9469.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/99e209566788bd26.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/56bdd0d96300a6ae.mp3",
+    "who": null,
+    "gap": 450
+   }
+  ]
+ },
+ "l1-bienen-t": {
+  "segments": [
+   {
+    "file": "audio/ef73a1f481da19ef.mp3",
+    "who": null,
+    "gap": 600
+   },
+   {
+    "file": "audio/644057bc92967219.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/722b86d13cdf9198.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/f13937ea0d3945e4.mp3",
+    "who": null,
+    "gap": 450
+   }
+  ]
+ },
+ "l1-brot-t": {
+  "segments": [
+   {
+    "file": "audio/619a08b74500ee08.mp3",
+    "who": null,
+    "gap": 600
+   },
+   {
+    "file": "audio/22e8336fa1fb2766.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/bd566639b300166e.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/3576b6afd6854453.mp3",
+    "who": null,
+    "gap": 450
+   }
+  ]
+ },
+ "l1-oktopus-t": {
+  "segments": [
+   {
+    "file": "audio/01be6f087914c3d3.mp3",
+    "who": null,
+    "gap": 600
+   },
+   {
+    "file": "audio/290a68a427309f48.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/41598b6ea259db4e.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/48ed543c091df0f6.mp3",
+    "who": null,
+    "gap": 450
+   }
+  ]
+ },
+ "l2-placebo-t": {
+  "segments": [
+   {
+    "file": "audio/f9128727a51b94f6.mp3",
+    "who": null,
+    "gap": 600
+   },
+   {
+    "file": "audio/a44690c40ac263a3.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/faa3030fe24ad2e8.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/3f728ddd55e6b020.mp3",
+    "who": null,
+    "gap": 450
+   }
+  ]
+ },
+ "l2-schlaf-t": {
+  "segments": [
+   {
+    "file": "audio/dea144b89ce80e33.mp3",
+    "who": null,
+    "gap": 600
+   },
+   {
+    "file": "audio/bd0c06c38d41d03f.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/ea92b6d7c3ea0e80.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/32ac457d60a272e4.mp3",
+    "who": null,
+    "gap": 450
+   }
+  ]
+ },
+ "l2-ampel-t": {
+  "segments": [
+   {
+    "file": "audio/1a86562e270a476c.mp3",
+    "who": null,
+    "gap": 600
+   },
+   {
+    "file": "audio/126986f479665ef0.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/7fe7ddb9ce0547d9.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/0f676d9bba605463.mp3",
+    "who": null,
+    "gap": 450
+   }
+  ]
+ },
+ "l2-kaffee-t": {
+  "segments": [
+   {
+    "file": "audio/4702ee707453e80e.mp3",
+    "who": null,
+    "gap": 600
+   },
+   {
+    "file": "audio/dcf90d1529b579a6.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/3a64e8fa4c76813e.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/820e98821da104d0.mp3",
+    "who": null,
+    "gap": 450
+   }
+  ]
+ },
+ "l3-ebbinghaus-t": {
+  "segments": [
+   {
+    "file": "audio/477a011d66fbe86e.mp3",
+    "who": null,
+    "gap": 600
+   },
+   {
+    "file": "audio/db1a3ecd93092340.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/1ae9c18c1af15bb7.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/897fe61dd2e0aaff.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/ea2a6c66983c1eef.mp3",
+    "who": null,
+    "gap": 450
+   }
+  ]
+ },
+ "l3-gezeiten-t": {
+  "segments": [
+   {
+    "file": "audio/bb945ee388c9b8e4.mp3",
+    "who": null,
+    "gap": 600
+   },
+   {
+    "file": "audio/204e98084135076b.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/c4c7bf9551a124d1.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/f4eaa2ea05e83d42.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/b2c95b39e2ec8dcf.mp3",
+    "who": null,
+    "gap": 450
+   }
+  ]
+ },
+ "l3-pilze-t": {
+  "segments": [
+   {
+    "file": "audio/9a633f51fab24bac.mp3",
+    "who": null,
+    "gap": 600
+   },
+   {
+    "file": "audio/53928ec0826a2e4a.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/2d502550ccb96f69.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/1e172eaa4950af90.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/f47f91ec9f700e7d.mp3",
+    "who": null,
+    "gap": 450
+   }
+  ]
+ },
+ "l3-gutenberg-t": {
+  "segments": [
+   {
+    "file": "audio/66929f1d8293d976.mp3",
+    "who": null,
+    "gap": 600
+   },
+   {
+    "file": "audio/cf2d6ee44a7ab190.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/ce910fab73f9d84d.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/5cf5357995393c85.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/d9f722ac32b2f706.mp3",
+    "who": null,
+    "gap": 450
+   }
+  ]
+ },
+ "l4-stadtbaeume-t": {
+  "segments": [
+   {
+    "file": "audio/330b4fad54f7600d.mp3",
+    "who": null,
+    "gap": 600
+   },
+   {
+    "file": "audio/8c443aa73f73c73c.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/82df54dc684f619a.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/e47f4dda9e6290ab.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/1911b62971952699.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/974904b225c80fb8.mp3",
+    "who": null,
+    "gap": 450
+   }
+  ]
+ },
+ "l4-viertagewoche-t": {
+  "segments": [
+   {
+    "file": "audio/7f45e816cc28bb55.mp3",
+    "who": null,
+    "gap": 600
+   },
+   {
+    "file": "audio/bb904e55926ba37e.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/cfdc5fca4211070a.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/2a11cb4b76bb1d3f.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/04bbc3e2c3858000.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/9841372c0370581d.mp3",
+    "who": null,
+    "gap": 450
+   }
+  ]
+ },
+ "l4-sprachen-t": {
+  "segments": [
+   {
+    "file": "audio/fe1875e6e4c70e81.mp3",
+    "who": null,
+    "gap": 600
+   },
+   {
+    "file": "audio/5a0b171c8bdcec07.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/f9939a90b3c0e903.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/9961d76486821c32.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/d6b679a5b16f9964.mp3",
+    "who": null,
+    "gap": 450
+   }
+  ]
+ },
+ "l4-laerm-t": {
+  "segments": [
+   {
+    "file": "audio/2a6ab975da92a538.mp3",
+    "who": null,
+    "gap": 600
+   },
+   {
+    "file": "audio/cc127712166f6ce3.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/6719130fc32a4515.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/3e4460825ef5c5de.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/7ca0ff273cb5f4f1.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/427b6f5710a536e6.mp3",
+    "who": null,
+    "gap": 450
+   }
+  ]
+ },
+ "l5-zugvoegel-t": {
+  "segments": [
+   {
+    "file": "audio/9023e96b5ab90ff6.mp3",
+    "who": null,
+    "gap": 600
+   },
+   {
+    "file": "audio/13728cb97f45be3e.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/f987892a8d5dc4ff.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/42e302d9bff9c1c6.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/f1084e8cb89d74da.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/56eb3fb5e37174cc.mp3",
+    "who": null,
+    "gap": 450
+   }
+  ]
+ },
+ "l5-antibiotika-t": {
+  "segments": [
+   {
+    "file": "audio/43ef86a34555897e.mp3",
+    "who": null,
+    "gap": 600
+   },
+   {
+    "file": "audio/b9a0e91234fa7e7b.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/d49fb45107dec492.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/b773de9ba856281c.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/d90a7e301c68c8be.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/856b50ce7ae84143.mp3",
+    "who": null,
+    "gap": 450
+   }
+  ]
+ },
+ "l5-kontinente-t": {
+  "segments": [
+   {
+    "file": "audio/69b2949bc6c51cfa.mp3",
+    "who": null,
+    "gap": 600
+   },
+   {
+    "file": "audio/aeec2b9524e4ddbe.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/157298707c93cf1a.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/85d3213ad4ef176c.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/876100a6e147b27b.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/86b5927a26175944.mp3",
+    "who": null,
+    "gap": 450
+   }
+  ]
+ },
+ "l5-konserve-t": {
+  "segments": [
+   {
+    "file": "audio/ffe35c2e710bbf2e.mp3",
+    "who": null,
+    "gap": 600
+   },
+   {
+    "file": "audio/ebfba0462338cafb.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/475a2e30a62ab279.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/957854813873cf74.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/0f2114b26839ecdc.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/f579eb413bb6179e.mp3",
+    "who": null,
+    "gap": 450
+   }
+  ]
+ },
+ "q1-flohmarkt-d": {
+  "segments": [
+   {
+    "file": "audio/b0306f284efdd5fb.mp3",
+    "who": "Emre",
+    "gap": 380
+   },
+   {
+    "file": "audio/cea47162c55460c2.mp3",
+    "who": "Sophie",
+    "gap": 380
+   },
+   {
+    "file": "audio/8d813ed2009a6607.mp3",
+    "who": "Emre",
+    "gap": 380
+   },
+   {
+    "file": "audio/0ed0cf8a00115f1c.mp3",
+    "who": "Sophie",
+    "gap": 380
+   }
+  ]
+ },
+ "q1-gaehnen-t": {
+  "segments": [
+   {
+    "file": "audio/ab119e8b2d879846.mp3",
+    "who": null,
+    "gap": 600
+   },
+   {
+    "file": "audio/954c3a8d19a9d92c.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/7a15a43701b71bdd.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/27331841ed249672.mp3",
+    "who": null,
+    "gap": 450
+   }
+  ]
+ },
+ "q1-arbeitsweg-d": {
+  "segments": [
+   {
+    "file": "audio/24c08c7e2eaf6961.mp3",
+    "who": "Kolja",
+    "gap": 380
+   },
+   {
+    "file": "audio/853a4689cea6e0e2.mp3",
+    "who": "Ida",
+    "gap": 380
+   },
+   {
+    "file": "audio/177655dc0e5853ea.mp3",
+    "who": "Kolja",
+    "gap": 380
+   },
+   {
+    "file": "audio/8210f56ea85ede68.mp3",
+    "who": "Ida",
+    "gap": 380
+   },
+   {
+    "file": "audio/618634d27598a7a3.mp3",
+    "who": "Kolja",
+    "gap": 380
+   }
+  ]
+ },
+ "q1-wale-t": {
+  "segments": [
+   {
+    "file": "audio/c65507a65d8e615c.mp3",
+    "who": null,
+    "gap": 600
+   },
+   {
+    "file": "audio/64b1fbd54e914cf6.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/85d174ac5b84b2ba.mp3",
+    "who": null,
+    "gap": 450
+   },
+   {
+    "file": "audio/0da9905174af7e65.mp3",
+    "who": null,
+    "gap": 450
+   }
+  ]
+ },
+ "z1-kaffeekueche-d": {
+  "segments": [
+   {
+    "file": "audio/515def48c7c46111.mp3",
+    "who": null,
+    "gap": 0
+   }
+  ]
+ },
+ "z1-umzug-d": {
+  "segments": [
+   {
+    "file": "audio/e0acc0f55aaf277a.mp3",
+    "who": null,
+    "gap": 0
+   }
+  ]
+ },
+ "z1-feierabend-d": {
+  "segments": [
+   {
+    "file": "audio/61254bbc04c952f4.mp3",
+    "who": null,
+    "gap": 0
+   }
+  ]
+ },
+ "z1-wochenmarkt-d": {
+  "segments": [
+   {
+    "file": "audio/1ae53dd606a86940.mp3",
+    "who": null,
+    "gap": 0
+   }
+  ]
+ },
+ "z2-geburtstag-d": {
+  "segments": [
+   {
+    "file": "audio/377b26b059f77a06.mp3",
+    "who": null,
+    "gap": 0
+   }
+  ]
+ },
+ "z2-arztpraxis-d": {
+  "segments": [
+   {
+    "file": "audio/37e76cfd1347c630.mp3",
+    "who": null,
+    "gap": 0
+   }
+  ]
+ },
+ "z2-nachbarn-d": {
+  "segments": [
+   {
+    "file": "audio/3cb61f81fe19afc6.mp3",
+    "who": null,
+    "gap": 0
+   }
+  ]
+ },
+ "z2-zugfahrt-d": {
+  "segments": [
+   {
+    "file": "audio/0dd8a36bbdb14249.mp3",
+    "who": null,
+    "gap": 0
+   }
+  ]
+ },
+ "z3-oma-d": {
+  "segments": [
+   {
+    "file": "audio/e71ce0a59b301503.mp3",
+    "who": "Oma Ilse",
+    "gap": 380
+   },
+   {
+    "file": "audio/d5b160ec1c546e7d.mp3",
+    "who": "Leon",
+    "gap": 380
+   },
+   {
+    "file": "audio/e787c594a7107058.mp3",
+    "who": "Oma Ilse",
+    "gap": 380
+   },
+   {
+    "file": "audio/0049604a76e6441d.mp3",
+    "who": "Leon",
+    "gap": 380
+   },
+   {
+    "file": "audio/770eae5734b1d082.mp3",
+    "who": "Oma Ilse",
+    "gap": 380
+   }
+  ]
+ },
+ "z3-meeting-d": {
+  "segments": [
+   {
+    "file": "audio/3b91615cd32fe379.mp3",
+    "who": "Jana",
+    "gap": 380
+   },
+   {
+    "file": "audio/1a84f65efd1baeb9.mp3",
+    "who": "Tobias",
+    "gap": 380
+   },
+   {
+    "file": "audio/a330f418fd9b4955.mp3",
+    "who": "Jana",
+    "gap": 380
+   },
+   {
+    "file": "audio/444663a32a54a92b.mp3",
+    "who": "Tobias",
+    "gap": 380
+   },
+   {
+    "file": "audio/cae58ed66645905f.mp3",
+    "who": "Jana",
+    "gap": 380
+   }
+  ]
+ },
+ "z3-urlaub-d": {
+  "segments": [
+   {
+    "file": "audio/37a6c671219a0af3.mp3",
+    "who": "Paul",
+    "gap": 380
+   },
+   {
+    "file": "audio/719a62020a9302d9.mp3",
+    "who": "Aylin",
+    "gap": 380
+   },
+   {
+    "file": "audio/673a7fb61d9e2e8a.mp3",
+    "who": "Paul",
+    "gap": 380
+   },
+   {
+    "file": "audio/c2e4ce16e3bf1204.mp3",
+    "who": "Aylin",
+    "gap": 380
+   },
+   {
+    "file": "audio/7eecfdffe65dd39a.mp3",
+    "who": "Paul",
+    "gap": 380
+   }
+  ]
+ },
+ "z3-hochzeit-d": {
+  "segments": [
+   {
+    "file": "audio/e3cdf39edaab81cc.mp3",
+    "who": "Kim",
+    "gap": 380
+   },
+   {
+    "file": "audio/17b3afe3f4289b0f.mp3",
+    "who": "Deniz",
+    "gap": 380
+   },
+   {
+    "file": "audio/dc9a1ebbce02a793.mp3",
+    "who": "Kim",
+    "gap": 380
+   },
+   {
+    "file": "audio/1cbac69fc6661637.mp3",
+    "who": "Deniz",
+    "gap": 380
+   },
+   {
+    "file": "audio/1b2af78d417126ac.mp3",
+    "who": "Kim",
+    "gap": 380
+   }
+  ]
+ },
+ "z4-abendessen-d": {
+  "segments": [
+   {
+    "file": "audio/40c9c72eedca4bb5.mp3",
+    "who": "Marta",
+    "gap": 380
+   },
+   {
+    "file": "audio/adc8d321e39c6647.mp3",
+    "who": "Ben",
+    "gap": 380
+   },
+   {
+    "file": "audio/4313f1e7f42f2683.mp3",
+    "who": "Yusuf",
+    "gap": 380
+   },
+   {
+    "file": "audio/0991210c46911cbe.mp3",
+    "who": "Marta",
+    "gap": 380
+   },
+   {
+    "file": "audio/2fcb6c5c8b682784.mp3",
+    "who": "Yusuf",
+    "gap": 380
+   }
+  ]
+ },
+ "z4-elternabend-d": {
+  "segments": [
+   {
+    "file": "audio/7ab4c635ed722f6b.mp3",
+    "who": "Frau Demir",
+    "gap": 380
+   },
+   {
+    "file": "audio/c64473ab6c03aad8.mp3",
+    "who": "Herr Lindqvist",
+    "gap": 380
+   },
+   {
+    "file": "audio/2de642a1bad7127d.mp3",
+    "who": "Frau Demir",
+    "gap": 380
+   },
+   {
+    "file": "audio/8e4d02ad83ba6e10.mp3",
+    "who": "Frau Petrović",
+    "gap": 380
+   },
+   {
+    "file": "audio/7b7a130c320351f2.mp3",
+    "who": "Frau Demir",
+    "gap": 380
+   }
+  ]
+ },
+ "z4-werkstatt-d": {
+  "segments": [
+   {
+    "file": "audio/adef8f2e5473b18c.mp3",
+    "who": "Meister Kowalski",
+    "gap": 380
+   },
+   {
+    "file": "audio/286b59900f4ab07c.mp3",
+    "who": "Frau Heller",
+    "gap": 380
+   },
+   {
+    "file": "audio/90f0a8f3c117e8bc.mp3",
+    "who": "Meister Kowalski",
+    "gap": 380
+   },
+   {
+    "file": "audio/3e0dad55cd7cb344.mp3",
+    "who": "Azubi Timo",
+    "gap": 380
+   },
+   {
+    "file": "audio/4a1ef751d06ea71d.mp3",
+    "who": "Meister Kowalski",
+    "gap": 380
+   }
+  ]
+ },
+ "z4-besichtigung-d": {
+  "segments": [
+   {
+    "file": "audio/f2829099acf9396e.mp3",
+    "who": "Frau Sommer",
+    "gap": 380
+   },
+   {
+    "file": "audio/fed82018a0f3aad9.mp3",
+    "who": "Jonte",
+    "gap": 380
+   },
+   {
+    "file": "audio/005d1e2b303e28ad.mp3",
+    "who": "Frau Sommer",
+    "gap": 380
+   },
+   {
+    "file": "audio/68832079739c698c.mp3",
+    "who": "Lea",
+    "gap": 380
+   },
+   {
+    "file": "audio/05075d647b1634d6.mp3",
+    "who": "Frau Sommer",
+    "gap": 380
+   }
+  ]
+ },
+ "z5-familienfest-d": {
+  "segments": [
+   {
+    "file": "audio/85e33e4d629276df.mp3",
+    "who": "Tante Vera",
+    "gap": 380
+   },
+   {
+    "file": "audio/9b4c586c067f0a18.mp3",
+    "who": "Ole",
+    "gap": 380
+   },
+   {
+    "file": "audio/536b9257d3e4acb1.mp3",
+    "who": "Tante Vera",
+    "gap": 380
+   },
+   {
+    "file": "audio/fdd9bac7584f51b1.mp3",
+    "who": "Ole",
+    "gap": 380
+   },
+   {
+    "file": "audio/f32279304164e6e1.mp3",
+    "who": "Tante Vera",
+    "gap": 380
+   },
+   {
+    "file": "audio/4b21757ec6836323.mp3",
+    "who": "Pia",
+    "gap": 380
+   },
+   {
+    "file": "audio/807269b17f3dd3a7.mp3",
+    "who": "Tante Vera",
+    "gap": 380
+   }
+  ]
+ },
+ "z5-jobwechsel-d": {
+  "segments": [
+   {
+    "file": "audio/5eb39ca936fcc6cb.mp3",
+    "who": "Deniz",
+    "gap": 380
+   },
+   {
+    "file": "audio/069b7e0206d8054f.mp3",
+    "who": "Carla",
+    "gap": 380
+   },
+   {
+    "file": "audio/4e02080f2116dc88.mp3",
+    "who": "Deniz",
+    "gap": 380
+   },
+   {
+    "file": "audio/c9279aa601a72217.mp3",
+    "who": "Carla",
+    "gap": 380
+   },
+   {
+    "file": "audio/ff3346e672387f91.mp3",
+    "who": "Deniz",
+    "gap": 380
+   },
+   {
+    "file": "audio/f1887d9c8f613dfc.mp3",
+    "who": "Carla",
+    "gap": 380
+   },
+   {
+    "file": "audio/c35bf13bb3b67759.mp3",
+    "who": "Deniz",
+    "gap": 380
+   }
+  ]
+ },
+ "z5-reise-d": {
+  "segments": [
+   {
+    "file": "audio/c671b62a910fb3ec.mp3",
+    "who": "Jakob",
+    "gap": 380
+   },
+   {
+    "file": "audio/143ba5bb2561ceca.mp3",
+    "who": "Nele",
+    "gap": 380
+   },
+   {
+    "file": "audio/7fa04b310000b598.mp3",
+    "who": "Jakob",
+    "gap": 380
+   },
+   {
+    "file": "audio/0c814ea79a86be4a.mp3",
+    "who": "Nele",
+    "gap": 380
+   },
+   {
+    "file": "audio/f2e1f43e863800e1.mp3",
+    "who": "Jakob",
+    "gap": 380
+   },
+   {
+    "file": "audio/d866e39ed6172322.mp3",
+    "who": "Nele",
+    "gap": 380
+   },
+   {
+    "file": "audio/2c7c9c5a58be130f.mp3",
+    "who": "Jakob",
+    "gap": 380
+   }
+  ]
+ },
+ "z5-verein-d": {
+  "segments": [
+   {
+    "file": "audio/c15a71072cf0fe33.mp3",
+    "who": "Frau Albrecht",
+    "gap": 380
+   },
+   {
+    "file": "audio/115a8ded9a16f659.mp3",
+    "who": "Herr Özdemir",
+    "gap": 380
+   },
+   {
+    "file": "audio/c80e545894ceaf7d.mp3",
+    "who": "Frau Albrecht",
+    "gap": 380
+   },
+   {
+    "file": "audio/3af4a8ceecb58297.mp3",
+    "who": "Herr Kraus",
+    "gap": 380
+   },
+   {
+    "file": "audio/6875aaab598e7654.mp3",
+    "who": "Frau Albrecht",
+    "gap": 380
+   },
+   {
+    "file": "audio/e2cb2dff973ddd31.mp3",
+    "who": "Herr Özdemir",
+    "gap": 380
+   }
+  ]
+ }
+}

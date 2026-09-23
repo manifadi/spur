@@ -13,6 +13,7 @@ import { XP } from '../engine/srs.js';
 import { dayKey, daysBetween } from '../engine/dates.js';
 import { dialogPlainText, readSeconds } from '../engine/content.js';
 import { speak, stopSpeaking } from '../lib/tts.js';
+import { hasAudio, playItem } from '../lib/audio.js';
 import { sounds } from '../lib/sound.js';
 import { daysAgoText } from '../lib/format.js';
 
@@ -63,25 +64,38 @@ function DialogText({ item }) {
   );
 }
 
-/** Vorlesen mit Fehlerzustand (4e). Automatisch nur, wenn "Miro liest vor" an ist. */
-function useSpeech(text, auto) {
+/**
+ * Vorlesen mit Fehlerzustand (4e). Bevorzugt die mitgelieferten Audios (echte
+ * Stimmen, eine pro Person); fehlt eins oder klappt es nicht, liest die Gerätestimme.
+ * Automatisch nur, wenn "Miro liest vor" an ist.
+ */
+function useSpeech(itemId, text, auto) {
   const [playing, setPlaying] = useState(false);
   const [error, setError] = useState(false);
   const stop = useRef(() => {});
-  const start = (manual = true) => {
-    stop.current();
-    setError(false);
-    setPlaying(true);
+  const viaDevice = (manual) => {
     stop.current = speak(text, {
       onEnd: () => setPlaying(false),
       onError: () => { setPlaying(false); if (manual) setError(true); },
     });
   };
+  const start = (manual = true) => {
+    stop.current();
+    setError(false);
+    setPlaying(true);
+    if (!hasAudio(itemId)) return viaDevice(manual);
+    stop.current = playItem(itemId, {
+      onEnd: () => setPlaying(false),
+      onBlocked: () => setPlaying(false), // Autoplay gesperrt (iOS): Lautsprecher antippen genügt
+      onError: () => viaDevice(manual),
+    });
+    return undefined;
+  };
   const toggle = () => { if (playing) { stop.current(); setPlaying(false); } else start(true); };
   useEffect(() => {
     if (auto) start(false);
     return () => { stop.current(); stopSpeaking(); };
-  }, [text]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [itemId]); // eslint-disable-line react-hooks/exhaustive-deps
   return { playing, error, toggle, retry: () => start(true) };
 }
 
@@ -100,7 +114,7 @@ function TtsError({ onRetry }) {
 
 /* ---- 1c Zuhören, neue Karte ----------------------------------------------- */
 function ListenNew({ entry, card, answer, setAnswer, onCheck, tts }) {
-  const speech = useSpeech(dialogPlainText(card.item), tts);
+  const speech = useSpeech(card.item.id, dialogPlainText(card.item), tts);
   return (
     <>
       <div style={body}>
@@ -149,7 +163,7 @@ function ListenRecall({ entry, card, rec, answer, setAnswer, onCheck }) {
 /* ---- 1e Lesen, neuer Text -------------------------------------------------- */
 function ReadText({ entry, card, onClose, tts }) {
   const item = card.item;
-  const speech = useSpeech(`${item.title}. ${item.paragraphs.join(' ')}`, false);
+  const speech = useSpeech(item.id, `${item.title}. ${item.paragraphs.join(' ')}`, false);
   return (
     <>
       <div style={{ ...body, gap: 14 }}>

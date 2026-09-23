@@ -36,6 +36,31 @@ Das Skript sucht `miro-*.png`, `miro-sorting-cards.png` und `app-icon.png`, verk
 den Offline-Cache auf 480 px, legt alles unter `public/assets/` ab und erzeugt die Home-Screen-Icons
 aus dem PNG-Master neu (`npm run icons`). Danach neu bauen.
 
+## Vorlese-Stimmen
+
+Dialoge und Texte werden nicht live vom Gerät vorgelesen, sondern mit mitgelieferten Audiodateien
+(`public/audio/`, ca. 9 MB, 25 Minuten). Erzeugt werden sie mit neuronalen Microsoft-Stimmen
+über [edge-tts](https://github.com/rany2/edge-tts):
+
+- Jede Person in einem Dialog hat eine eigene, feste Stimme. Die Stimmen wechseln von Gespräch
+  zu Gespräch, Oma Ilse spricht etwas langsamer und tiefer.
+- Die Lesetexte liest immer dieselbe ruhige Erzählstimme („Miro“).
+- Die Besetzung steht in `scripts/voices.mjs`. Pro Dialog lässt sie sich im Content mit
+  `"voices": { "Name": { "voice": "de-DE-KatjaNeural", "rate": "-10%" } }` überschreiben.
+
+```bash
+npm run audio            # vertont nur Neues/Geändertes, löscht Verwaistes
+npm run audio -- --force # alles neu
+```
+
+Voraussetzung ist [uv](https://docs.astral.sh/uv/), edge-tts wird dann per `uvx` geholt. Nach
+neuen Kapiteln: `npm run audio`, danach committen. Vercel baut nur und vertont nichts.
+
+Hinweis: edge-tts nutzt den inoffiziellen Vorlese-Dienst des Edge-Browsers. Das ist eine
+rechtliche Grauzone und kann jederzeit wegfallen. Die fertigen Dateien bleiben aber nutzbar.
+Das Vertonen passiert nur einmal beim Entwickeln. Die App selbst spielt nur die mitgelieferten
+Dateien ab und schickt nichts an einen Server. Fehlt eine Datei, liest die Gerätestimme.
+
 ## Wie gelernt wird
 
 | Prinzip | Umsetzung |
@@ -93,8 +118,8 @@ mit 120 Karten.
 
 ## Daten & Datenschutz
 
-- Alles liegt in IndexedDB auf dem Gerät (Fallback: localStorage). Schrift (Quicksand) und Icons
-  (Lucide) sind mitgebündelt. Die App macht **keinen einzigen Netzwerk-Request** an Dritte, und
+- Alles liegt in IndexedDB auf dem Gerät (Fallback: localStorage). Schrift (Quicksand), Icons
+  (Lucide) und Vorlese-Audios sind mitgebündelt. Die App macht **keinen einzigen Netzwerk-Request** an Dritte, und
   der Service Worker cacht alles für die Offline-Nutzung.
 - „Fortschritt zurücksetzen“ löscht Karten, Intervalle, Federn und Streak. Die Einstellungen bleiben.
 - Erinnerungen kommen als lokale Mitteilung, ohne Push-Server. Die App prüft minütlich, solange sie

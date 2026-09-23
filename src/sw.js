@@ -1,6 +1,7 @@
 /* Service Worker: cacht alle Assets für die Offline-Nutzung und zeigt die
    tägliche Erinnerung lokal an (Periodic Background Sync, wo verfügbar). */
-import { precacheAndRoute, cleanupOutdatedCaches, createHandlerBoundToURL } from 'workbox-precaching';
+import { precacheAndRoute, cleanupOutdatedCaches, createHandlerBoundToURL, matchPrecache } from 'workbox-precaching';
+import { createPartialResponse } from 'workbox-range-requests';
 import { registerRoute, NavigationRoute } from 'workbox-routing';
 import { loadState, getItem, setItem } from './engine/storage.js';
 import { reminderDue, reminderText, dueCount } from './engine/reminder.js';
@@ -8,6 +9,14 @@ import { dayKey } from './engine/dates.js';
 
 self.skipWaiting();
 self.addEventListener('activate', (e) => e.waitUntil(self.clients.claim()));
+
+// Vorlese-Audios: Safari fragt Audio in Teilstücken (Range-Requests) an. Aus dem
+// Offline-Cache wird deshalb bei Bedarf eine 206-Teilantwort gebaut.
+registerRoute(({ url }) => url.pathname.includes('/audio/') && url.pathname.endsWith('.mp3'), async ({ request }) => {
+  const cached = await matchPrecache(new URL(request.url).pathname.replace(/^.*\/audio\//, 'audio/'));
+  if (!cached) return fetch(request);
+  return request.headers.has('range') ? createPartialResponse(request, cached) : cached;
+});
 
 precacheAndRoute(self.__WB_MANIFEST);
 cleanupOutdatedCaches();
