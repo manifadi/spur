@@ -28,5 +28,6 @@ export function reminderText(n) {
   const body = n > 0
     ? `${WORDS[n] || n} ${n === 1 ? 'Karte ist' : 'Karten sind'} fällig. Zwei Minuten reichen.`
     : 'Ein neues Gespräch wartet. Zwei Minuten reichen.';
-  return { title: 'Ich hab mir heute zwei Dinge gemerkt.', body };
+  // Kurz halten: Auf dem Sperrbildschirm wird der Titel sonst abgeschnitten.
+  return { title: 'Kurze Runde mit Miro?', body };
 }
