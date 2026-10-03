@@ -68,27 +68,51 @@ Geschlecht und `voiceNameHints` gesucht.
 ## Vorlese-Stimmen
 
 Dialoge und Texte werden nicht live vom Gerät vorgelesen, sondern mit mitgelieferten Audiodateien
-(`public/audio/`, ca. 32 MB, 94 Minuten). Erzeugt werden sie mit neuronalen Microsoft-Stimmen
-über [edge-tts](https://github.com/rany2/edge-tts):
+(`public/audio/`). Es gibt zwei Quellen, die App nimmt pro Dialog/Text immer die bessere, die
+vollständig da ist:
 
-- Jede Figur hat eine feste Stimme (`voiceProfile.edgeVoice` oder stabil aus dem Pool gewählt),
-  wiederkehrende Figuren klingen überall gleich. Zwei Figuren im selben Gespräch bekommen nie
-  dieselbe Stimme.
-- Tempo und Tonhöhe kommen aus dem Archetyp der Figur.
-- Die Lesetexte liest immer dieselbe ruhige Erzählstimme („Miro“), die in keinem Gespräch vorkommt.
+1. **Gemini-TTS** (Google AI Studio, kostenloser API-Key): lebendige Stimmen mit Regieanweisung.
+   Jede Figur hat eine feste Gemini-Stimme (`voiceProfile.geminiVoice` oder passend zum Archetyp
+   aus dem Pool), der Archetyp wird zur Regieanweisung („müde und genervt, leicht seufzend“).
+   Optional pro Zeile `tone` für mehr Ausdruck. Miro liest die Lesetexte.
+2. **edge-tts** (neuronale Microsoft-Stimmen) als Ersatz, solange ein Level noch keine
+   Gemini-Fassung hat. Tempo und Tonhöhe kommen aus dem Archetyp.
 
 ```bash
-npm run audio            # vertont nur Neues/Geändertes, löscht Verwaistes
-npm run audio -- --force # alles neu
+npm run audio                                   # edge-tts: nur Neues/Geändertes
+npm run audio -- --engine=gemini                # Gemini, so viele Level wie das Kontingent hergibt
+npm run audio -- --engine=gemini --plan         # zeigt, welche Level noch offen sind
+npm run audio -- --engine=gemini --max=3        # höchstens 3 Level
 ```
 
-Voraussetzung ist [uv](https://docs.astral.sh/uv/), edge-tts wird dann per `uvx` geholt. Nach
-neuen Kapiteln oder Figuren: `npm run audio`, danach committen. Vercel baut nur und vertont nichts.
+**So spart Gemini Anfragen:** Das Gratis-Kontingent liegt bei ca. 10 Anfragen pro Tag. Deshalb
+wird ein ganzes Level (alle Teile einer Geschichte, bis zu ~2,5 Minuten) in **einer** Anfrage
+gesprochen, mit beiden Stimmen im Gesprächsmodus. Danach schneidet `scripts/gemini-tts.mjs`
+die Aufnahme an den Pausen in die einzelnen Zeilen: Die Schnitte werden so gewählt, dass
+Pausenlänge und erwartete Länge jeder Zeile zusammen passen. Anschließend schreibt
+[whisper.cpp](https://github.com/ggerganov/whisper.cpp) jeden Abschnitt lokal mit und
+vergleicht ihn mit dem Skript. Falsche Schnitte werden an anderen Pausen repariert. Klappt das
+nicht, wird das Level Teil für Teil neu angefragt, nie falsch geschnitten gespeichert. Level mit
+drei Figuren brauchen zwei Anfragen (höchstens zwei Stimmen pro Anfrage). Insgesamt sind es ca.
+40 Anfragen für die ganze App. Ein neuer Lauf macht dort weiter, wo der letzte aufgehört hat.
+Rohaufnahmen bleiben in `.audio-cache/` (nicht im Git), damit nie doppelt angefragt wird.
 
-Hinweis: edge-tts nutzt den inoffiziellen Vorlese-Dienst des Edge-Browsers. Das ist eine
-rechtliche Grauzone und kann jederzeit wegfallen. Die fertigen Dateien bleiben aber nutzbar.
-Das Vertonen passiert nur einmal beim Entwickeln. Die App selbst spielt nur die mitgelieferten
-Dateien ab und schickt nichts an einen Server. Fehlt eine Datei, liest die Gerätestimme.
+Voraussetzungen:
+
+- `GEMINI_API_KEY=…` in `.env.local` (nicht im Git), Key aus [AI Studio](https://aistudio.google.com/apikey)
+- `brew install ffmpeg whisper-cpp` und das Whisper-Modell nach `~/.cache/whisper/`:
+  `curl -L -o ~/.cache/whisper/ggml-small.bin https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-small.bin`
+- für edge-tts: [uv](https://docs.astral.sh/uv/), edge-tts wird per `uvx` geholt
+
+Einzelne Stimmen vorab anhören: `node scripts/tts-probe.mjs <itemId>` legt die Gemini-Fassung
+neben die bisherige in `audio-probe/`.
+
+Nach neuen Kapiteln oder Figuren: `npm run audio` (bzw. mit Gemini), danach committen. Vercel
+baut nur und vertont nichts. Im Gratis-Tarif darf Google die Eingaben (hier nur die erfundenen
+Texte) zur Verbesserung nutzen. edge-tts nutzt den inoffiziellen Vorlese-Dienst des
+Edge-Browsers, das ist eine Grauzone. Das Vertonen passiert nur einmal beim Entwickeln: Die App
+selbst spielt nur die mitgelieferten Dateien ab und schickt nichts an einen Server. Fehlt eine
+Datei, liest die Gerätestimme.
 
 ## Wie gelernt wird
 

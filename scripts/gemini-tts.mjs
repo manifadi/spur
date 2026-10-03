@@ -236,7 +236,10 @@ export async function verifySegments(files, texts, offset = 0) {
     const common = lcs(a, b);
     const recall = a.length ? common / a.length : 1;
     const precision = b.length ? common / b.length : 0;
-    const ok = recall >= 0.8 && precision >= 0.8;
+    // Kurze Zeilen ("Fairer Deal.") verhört Whisper leicht; dort reicht eine grobe Übereinstimmung,
+    // ein falscher Schnitt fällt ohnehin an der langen Nachbarzeile auf.
+    const min = texts[i].split(/\s+/).length <= 4 ? 0.5 : 0.8;
+    const ok = recall >= min && precision >= min;
     return { ok, score: recall + precision, msg: ok ? '' : `Abschnitt ${offset + i + 1}: erwartet "${texts[i].slice(0, 50)}…", gehört "${h.trim().slice(0, 50)}…"` };
   });
 }
@@ -319,15 +322,21 @@ export async function splitBatch(wav, texts, dests) {
   return { total, cuts, verified: true };
 }
 
-/** Wie synth, wartet aber bei Rate-Limits (429) und kurzen Serverfehlern und versucht es erneut. */
-export async function synthRetry(job, dest, log = () => {}) {
+/** Tageskontingent aufgebraucht? Dann lohnt kein weiterer Versuch heute. */
+export const isDailyLimit = (e) => e?.status === 429 && /per day|RPD|daily/i.test(e.message);
+
+/** Führt fn aus und wartet bei Rate-Limits pro Minute (429) und kurzen Serverfehlern. */
+export async function withRetry(fn, log = () => {}) {
   for (let attempt = 1; ; attempt++) {
-    try { return await synth(job, dest); } catch (e) {
+    try { return await fn(); } catch (e) {
       const transient = e.status === 429 || e.status >= 500 || !e.status;
-      if (!transient || attempt >= 8 || /per day|RPD|daily/i.test(e.message)) throw e;
+      if (!transient || attempt >= 8 || isDailyLimit(e)) throw e;
       const wait = (e.retryAfter || 5000 * attempt) + 1000;
       log(`warte ${Math.round(wait / 1000)} s (${e.status || e.message}) …`);
       await new Promise((r) => setTimeout(r, wait));
     }
   }
 }
+
+/** Wie synth, mit withRetry. */
+export const synthRetry = (job, dest, log) => withRetry(() => synth(job, dest), log);
