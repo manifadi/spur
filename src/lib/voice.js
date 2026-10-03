@@ -2,6 +2,7 @@
 // die Gerätestimme (Fallback, wenn keine Aufnahme da ist).
 import WORLD_DATA from '../content/world.json';
 import { buildWorld, voiceOf, speakersOf, initials } from '../engine/world.js';
+import { audioParts } from '../engine/content.js';
 
 export const WORLD = buildWorld(WORLD_DATA);
 
@@ -13,6 +14,8 @@ export function dialogSpeakers(item) {
 export function deviceSegments(item) {
   if (item.type === 'text') return [{ text: `${item.title}.`, gap: 500 }, ...item.paragraphs.map((p) => ({ text: p, gap: 400 }))];
   const prof = (c) => { const v = voiceOf(WORLD, c); return { pitch: v.pitch, rate: v.rate, gender: v.gender, hints: v.voiceNameHints }; };
-  if (!item.lines) return [{ text: item.text, who: WORLD.byId.get(item.characterId)?.name || null, ...prof(WORLD.byId.get(item.characterId)) }];
-  return item.lines.map((l) => ({ text: l.text, who: l.who, gap: 350, ...prof(WORLD.byName.get(l.who)) }));
+  const solo = WORLD.byId.get(item.characterId);
+  return audioParts(item).map((p) => (item.lines
+    ? { ...p, gap: 350, ...prof(WORLD.byName.get(p.who)) }
+    : { ...p, who: solo?.name || null, gap: 250, ...prof(solo) }));
 }

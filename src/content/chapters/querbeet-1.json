@@ -44,6 +44,19 @@
        "text": "Drei Platten von Udo Jürgens. Für meine Mutter. Und eine für mich, aber das bleibt unter uns."
       }
      ],
+     "popQuiz": [
+      {
+       "after": "Funktioniert der überhaupt?",
+       "prompt": "Wie viel wollte der Verkäufer zuerst für den Plattenspieler?",
+       "answers": [
+        [
+         "40",
+         "vierzig"
+        ]
+       ],
+       "solution": "40 Euro."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",
@@ -131,6 +144,19 @@
        "text": "Ich schätze, die meisten Karten würden „zu spät“ sagen."
       }
      ],
+     "popQuiz": [
+      {
+       "after": "die Uhrzeit draufgestempelt",
+       "prompt": "Was hat man früher morgens in die Stempeluhr gesteckt?",
+       "answers": [
+        [
+         "Karte",
+         "Stempelkarte"
+        ]
+       ],
+       "solution": "Seine Karte."
+      }
+     ],
      "subExercises": [
       {
        "id": "q4",
@@ -214,6 +240,18 @@
       {
        "who": "Sophie",
        "text": "Nächsten Sonntag ist wieder Flohmarkt am Kanal. Diesmal suchen wir eine Stempelkarte für die Uhr."
+      }
+     ],
+     "popQuiz": [
+      {
+       "after": "Was hat es gekostet?",
+       "prompt": "Wo hat der Uhrmacher seine Werkstatt?",
+       "answers": [
+        [
+         "Altstadt"
+        ]
+       ],
+       "solution": "In der Altstadt."
       }
      ],
      "subExercises": [
@@ -499,6 +537,19 @@
        "text": "Dann nehme ich doch den Bus. Oder ich komme nass an. Kommt drauf an, wie spät ich dran bin."
       }
      ],
+     "popQuiz": [
+      {
+       "after": "fast fünfzig Euro",
+       "prompt": "Wie viel spart Kolja im Monat?",
+       "answers": [
+        [
+         "50",
+         "fünfzig"
+        ]
+       ],
+       "solution": "Fast 50 Euro."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",
@@ -594,6 +645,19 @@
       {
        "who": "Ida",
        "text": "Die Linie 7 fährt ab morgen eine Umleitung, wegen der Baustelle am Kino. Nimm lieber die 12."
+      }
+     ],
+     "popQuiz": [
+      {
+       "after": "zwanzig Minuten schieben",
+       "prompt": "Wie lange musste Kolja sein Rad schieben?",
+       "answers": [
+        [
+         "20",
+         "zwanzig"
+        ]
+       ],
+       "solution": "Zwanzig Minuten."
       }
      ],
      "subExercises": [
@@ -697,6 +761,18 @@
       {
        "who": "Ida",
        "text": "Also fährt es sich ab nächstem Sommer von selbst. Solange es nicht regnet."
+      }
+     ],
+     "popQuiz": [
+      {
+       "after": "pannensichere Reifen",
+       "prompt": "Was hat das neue Rad vorne dran?",
+       "answers": [
+        [
+         "Korb"
+        ]
+       ],
+       "solution": "Einen Korb."
       }
      ],
      "subExercises": [

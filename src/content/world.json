@@ -34,7 +34,7 @@
     { "id": "herr-lindqvist", "name": "Herr Lindqvist", "relationToUser": "Vater aus der Klasse", "personality": "monoton-trocken", "voiceProfile": { "gender": "male" } },
     { "id": "frau-petrovic", "name": "Frau Petrović", "relationToUser": "Mutter aus der Klasse", "personality": "warm-ruhig", "voiceProfile": { "gender": "female" } },
     { "id": "meister-kowalski", "name": "Meister Kowalski", "relationToUser": "Kfz-Meister", "personality": "monoton-trocken", "voiceProfile": { "gender": "male" } },
-    { "id": "frau-heller", "name": "Frau Heller", "relationToUser": "Kundin", "personality": "müde-genervt", "voiceProfile": { "gender": "female" } },
+    { "id": "frau-heller", "name": "Frau Heller", "relationToUser": "Kundin", "personality": "müde-genervt", "voiceProfile": { "gender": "female", "geminiVoice": "Despina" } },
     { "id": "azubi-timo", "name": "Azubi Timo", "relationToUser": "Azubi in der Werkstatt", "personality": "energisch-jung", "voiceProfile": { "gender": "male" } },
     { "id": "frau-sommer", "name": "Frau Sommer", "relationToUser": "Maklerin", "personality": "sachlich-neutral", "voiceProfile": { "gender": "female" } },
     { "id": "jonte", "name": "Jonte", "relationToUser": "Wohnungssuchender", "personality": "energisch-jung", "voiceProfile": { "gender": "male" } },

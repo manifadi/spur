@@ -1,0 +1,1083 @@
+{
+ "id": "zuhoeren-6",
+ "order": 6,
+ "title": "Zwei Meinungen",
+ "track": "listen",
+ "difficulty": 6,
+ "lessons": [
+  {
+   "id": "z6-auto",
+   "title": "Das Auto muss weg?",
+   "items": [
+    {
+     "id": "z6-auto-d",
+     "type": "dialog",
+     "title": "Pro und Contra",
+     "characterId": "aylin",
+     "lines": [
+      {
+       "who": "Aylin",
+       "text": "Paul, ich hab nachgerechnet. Unser Auto kostet uns im Monat 310 Euro, mit Versicherung, Steuer und Parkplatz. Und es steht sechs Tage die Woche nur rum. Ich finde, wir sollten es verkaufen."
+      },
+      {
+       "who": "Paul",
+       "text": "Und wie kommen wir dann zu meinen Eltern nach Bielefeld? Da fährt sonntags kaum ein Zug."
+      },
+      {
+       "who": "Aylin",
+       "text": "Dann leihen wir uns eins. Es gibt drei Carsharing-Stationen im Viertel, die nächste ist hinter dem Supermarkt."
+      },
+      {
+       "who": "Paul",
+       "text": "Und der Großeinkauf? Du willst doch nicht zwölf Wasserflaschen mit dem Fahrrad holen."
+      },
+      {
+       "who": "Aylin",
+       "text": "Dafür gibt es einen Lastenrad-Verleih. Und ehrlich: Wir trinken Leitungswasser."
+      },
+      {
+       "who": "Paul",
+       "text": "Das Auto war von meinem Opa. Das ist nicht einfach irgendein Auto."
+      },
+      {
+       "who": "Aylin",
+       "text": "Das weiß ich. Aber dein Opa hätte auch keine 310 Euro im Monat für ein Auto bezahlt, das nur rumsteht. Lass es uns einen Monat ohne probieren."
+      },
+      {
+       "who": "Paul",
+       "text": "Gut. Einen Monat, ab dem ersten März. Aber der Schlüssel bleibt bei mir."
+      }
+     ],
+     "popQuiz": [
+      {
+       "after": "Ich finde, wir sollten es verkaufen.",
+       "prompt": "Wie viele Tage pro Woche steht das Auto nur herum?",
+       "answers": [
+        [
+         "sechs",
+         "6"
+        ]
+       ],
+       "solution": "Sechs Tage."
+      }
+     ],
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Wie viel kostet das Auto im Monat?",
+       "answers": [
+        [
+         "310",
+         "dreihundertzehn"
+        ]
+       ],
+       "solution": "310 Euro.",
+       "quote": "„Unser Auto kostet uns im Monat 310 Euro …“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Wo wohnen Pauls Eltern?",
+       "answers": [
+        [
+         "Bielefeld"
+        ]
+       ],
+       "solution": "In Bielefeld.",
+       "quote": "„Und wie kommen wir dann zu meinen Eltern nach Bielefeld?“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Welche Argumente bringt Paul gegen den Verkauf?",
+       "options": [
+        "Besuche bei seinen Eltern",
+        "Der Großeinkauf",
+        "Das Auto war von seinem Opa",
+        "Das Auto ist fast neu",
+        "Er fährt jeden Tag zur Arbeit"
+       ],
+       "correct": [
+        "Besuche bei seinen Eltern",
+        "Der Großeinkauf",
+        "Das Auto war von seinem Opa"
+       ],
+       "quote": "„Das Auto war von meinem Opa. Das ist nicht einfach irgendein Auto.“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Worauf einigen sich die beiden?",
+       "answers": [
+        [
+         "Monat",
+         "Probemonat"
+        ]
+       ],
+       "solution": "Einen Monat ohne Auto ausprobieren.",
+       "quote": "„Gut. Einen Monat, ab dem ersten März.“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": []
+     }
+    },
+    {
+     "id": "z6-auto-d2",
+     "type": "dialog",
+     "title": "Der Probemonat",
+     "characterId": "paul",
+     "lines": [
+      {
+       "who": "Paul",
+       "text": "Zwei Wochen ohne Auto. Ich geb’s zu: Zur Arbeit bin ich mit dem Rad sogar schneller, weil ich keinen Parkplatz mehr suchen muss."
+      },
+      {
+       "who": "Aylin",
+       "text": "Siehst du! Und das Carsharing?"
+      },
+      {
+       "who": "Paul",
+       "text": "Zweimal benutzt. Einmal für den Baumarkt, das hat 23 Euro gekostet. Und am Samstag wollte ich spontan nach Bielefeld, aber an allen drei Stationen war kein Auto frei."
+      },
+      {
+       "who": "Aylin",
+       "text": "Das war Pech. Am Wochenende muss man eben vorher reservieren."
+      },
+      {
+       "who": "Paul",
+       "text": "Spontan ist das aber nicht. Und meine Mutter war enttäuscht, sie hatte schon Rouladen gemacht."
+      },
+      {
+       "who": "Aylin",
+       "text": "Dann fahren wir nächsten Sonntag mit dem Zug. Um Viertel nach acht geht einer, mit einmal Umsteigen in Hannover."
+      },
+      {
+       "who": "Paul",
+       "text": "Um acht am Sonntag. Du weißt schon, dass das gegen dein Lieblingsargument spricht. Ausschlafen."
+      },
+      {
+       "who": "Aylin",
+       "text": "Für Rouladen stehe ich auf."
+      }
+     ],
+     "popQuiz": [
+      {
+       "after": "Und das Carsharing?",
+       "prompt": "Warum ist Paul mit dem Rad schneller bei der Arbeit?",
+       "answers": [
+        [
+         "Parkplatz",
+         "Parkplatzsuche",
+         "parken"
+        ]
+       ],
+       "solution": "Weil er keinen Parkplatz mehr suchen muss."
+      }
+     ],
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Was hat die Fahrt zum Baumarkt gekostet?",
+       "answers": [
+        [
+         "23",
+         "dreiundzwanzig"
+        ]
+       ],
+       "solution": "23 Euro.",
+       "quote": "„Einmal für den Baumarkt, das hat 23 Euro gekostet.“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Warum hat es am Samstag mit Bielefeld nicht geklappt?",
+       "answers": [
+        [
+         "kein Auto",
+         "frei",
+         "belegt",
+         "besetzt",
+         "reserviert",
+         "keins"
+        ]
+       ],
+       "solution": "An allen Stationen war kein Auto frei.",
+       "quote": "„… aber an allen drei Stationen war kein Auto frei.“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Was hatte Pauls Mutter gekocht?",
+       "answers": [
+        [
+         "Rouladen",
+         "Roulade"
+        ]
+       ],
+       "solution": "Rouladen.",
+       "quote": "„… sie hatte schon Rouladen gemacht.“"
+      },
+      {
+       "id": "q4",
+       "type": "recall_text",
+       "prompt": "Wo steigen die beiden auf dem Weg nach Bielefeld um?",
+       "answers": [
+        [
+         "Hannover"
+        ]
+       ],
+       "solution": "In Hannover.",
+       "quote": "„… mit einmal Umsteigen in Hannover.“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": []
+     }
+    },
+    {
+     "id": "z6-auto-d3",
+     "type": "dialog",
+     "title": "Die Entscheidung",
+     "characterId": "aylin",
+     "lines": [
+      {
+       "who": "Aylin",
+       "text": "Der Monat ist rum. Ich hab alles aufgeschrieben: Wir haben 96 Euro für Carsharing und Zugtickets ausgegeben. Das Auto hätte 310 gekostet."
+      },
+      {
+       "who": "Paul",
+       "text": "Die Zahlen sind gut, das stimmt. Aber du hast nicht aufgeschrieben, wie oft ich im Regen geradelt bin. Elfmal."
+      },
+      {
+       "who": "Aylin",
+       "text": "Du hast dir doch eine Regenhose gekauft."
+      },
+      {
+       "who": "Paul",
+       "text": "Eben. Neunundvierzig Euro. Die musst du dazurechnen."
+      },
+      {
+       "who": "Aylin",
+       "text": "Dann sind es immer noch über hundertsechzig Euro weniger. Also, was machen wir?"
+      },
+      {
+       "who": "Paul",
+       "text": "Wir verkaufen es. Aber nicht an irgendwen. Mein Cousin Jannik macht gerade den Führerschein, der bekommt es für tausend Euro."
+      },
+      {
+       "who": "Aylin",
+       "text": "Einverstanden. Dann bleibt es in der Familie, und du kannst es besuchen."
+      },
+      {
+       "who": "Paul",
+       "text": "Und von dem Geld kaufen wir ein gebrauchtes Lastenrad. Für den Großeinkauf. Und für die Wasserflaschen, die wir nicht trinken."
+      }
+     ],
+     "popQuiz": [
+      {
+       "after": "Elfmal.",
+       "prompt": "Wie oft ist Paul im Regen geradelt?",
+       "answers": [
+        [
+         "elf",
+         "11",
+         "elfmal"
+        ]
+       ],
+       "solution": "Elfmal."
+      }
+     ],
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Wie viel haben die beiden im Monat für Carsharing und Zug ausgegeben?",
+       "answers": [
+        [
+         "96",
+         "sechsundneunzig"
+        ]
+       ],
+       "solution": "96 Euro.",
+       "quote": "„Wir haben 96 Euro für Carsharing und Zugtickets ausgegeben.“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Was hat die Regenhose gekostet?",
+       "answers": [
+        [
+         "49",
+         "neunundvierzig"
+        ]
+       ],
+       "solution": "49 Euro.",
+       "quote": "„Eben. Neunundvierzig Euro.“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Wer bekommt das Auto?",
+       "answers": [
+        [
+         "Jannik",
+         "Janik",
+         "Cousin"
+        ]
+       ],
+       "solution": "Pauls Cousin Jannik.",
+       "quote": "„Mein Cousin Jannik macht gerade den Führerschein …“"
+      },
+      {
+       "id": "q4",
+       "type": "recall_text",
+       "prompt": "Was kaufen die beiden von dem Geld?",
+       "answers": [
+        [
+         "Lastenrad"
+        ]
+       ],
+       "solution": "Ein gebrauchtes Lastenrad.",
+       "quote": "„… kaufen wir ein gebrauchtes Lastenrad.“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": []
+     }
+    }
+   ]
+  },
+  {
+   "id": "z6-buero",
+   "title": "Zurück ins Büro?",
+   "items": [
+    {
+     "id": "z6-buero-d",
+     "type": "dialog",
+     "title": "Die neue Regel",
+     "characterId": "kolja",
+     "lines": [
+      {
+       "who": "Kolja",
+       "text": "Hast du die Mail von Jana gelesen? Ab April sollen alle vier Tage pro Woche ins Büro kommen. Ich finde das ehrlich gesagt gut."
+      },
+      {
+       "who": "Ida",
+       "text": "Natürlich findest du das gut. Du wohnst zehn Minuten entfernt. Ich brauche eine Stunde und zwanzig, mit zweimal Umsteigen."
+      },
+      {
+       "who": "Kolja",
+       "text": "Aber die Ideen entstehen doch hier, in der Kaffeeküche. Das neue Logo ist auch beim Mittagessen entstanden."
+      },
+      {
+       "who": "Ida",
+       "text": "Das neue Logo ist entstanden, weil Selin es gezeichnet hat. Zu Hause, übrigens."
+      },
+      {
+       "who": "Kolja",
+       "text": "Und die Neuen? Lukas aus dem Vertrieb kennt nach drei Monaten immer noch nicht die Hälfte des Teams."
+      },
+      {
+       "who": "Ida",
+       "text": "Dann machen wir für die Neuen einen festen Teamtag. Einen. Am Dienstag, da sind sowieso fast alle da."
+      },
+      {
+       "who": "Kolja",
+       "text": "Einer ist zu wenig. Zwei Tage, das wäre ein Kompromiss."
+      },
+      {
+       "who": "Ida",
+       "text": "Zwei Tage. Darüber kann man reden. Schreib du das Jana, auf dich hört sie."
+      }
+     ],
+     "popQuiz": [
+      {
+       "after": "mit zweimal Umsteigen.",
+       "prompt": "Wie lange braucht Ida ins Büro?",
+       "answers": [
+        [
+         "Stunde"
+        ],
+        [
+         "zwanzig",
+         "20"
+        ]
+       ],
+       "solution": "Eine Stunde und zwanzig Minuten."
+      }
+     ],
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Wie viele Tage pro Woche sollen ab April alle ins Büro?",
+       "answers": [
+        [
+         "vier",
+         "4"
+        ]
+       ],
+       "solution": "Vier Tage.",
+       "quote": "„Ab April sollen alle vier Tage pro Woche ins Büro kommen.“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Wer hat das neue Logo gezeichnet?",
+       "answers": [
+        [
+         "Selin"
+        ]
+       ],
+       "solution": "Selin.",
+       "quote": "„… weil Selin es gezeichnet hat. Zu Hause, übrigens.“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Welche Argumente bringt Kolja für das Büro?",
+       "options": [
+        "Ideen entstehen in der Kaffeeküche",
+        "Neue lernen das Team kennen",
+        "Im Büro ist es ruhiger",
+        "Der Weg ist für alle kurz",
+        "Das Mittagessen ist günstig"
+       ],
+       "correct": [
+        "Ideen entstehen in der Kaffeeküche",
+        "Neue lernen das Team kennen"
+       ],
+       "quote": "„Aber die Ideen entstehen doch hier, in der Kaffeeküche.“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Welchen Kompromiss schlägt Kolja vor?",
+       "answers": [
+        [
+         "zwei",
+         "2"
+        ]
+       ],
+       "solution": "Zwei Tage im Büro.",
+       "quote": "„Zwei Tage, das wäre ein Kompromiss.“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [
+       "jana"
+      ],
+      "locationsReferenced": [
+       "buero",
+       "kaffeekueche"
+      ]
+     }
+    },
+    {
+     "id": "z6-buero-d2",
+     "type": "dialog",
+     "title": "Die Umfrage",
+     "characterId": "ida",
+     "lines": [
+      {
+       "who": "Ida",
+       "text": "Jana hat eine Umfrage gemacht. Rate mal, wie viele für vier Tage Büro gestimmt haben."
+      },
+      {
+       "who": "Kolja",
+       "text": "Die Hälfte?"
+      },
+      {
+       "who": "Ida",
+       "text": "Drei. Von sechsundzwanzig. Und einer davon warst du."
+      },
+      {
+       "who": "Kolja",
+       "text": "Okay, das ist deutlich. Was wollen die anderen?"
+      },
+      {
+       "who": "Ida",
+       "text": "Die meisten wollen zwei Tage. Und fast alle haben dasselbe geschrieben: Im Büro kann man nicht telefonieren, weil es zu laut ist."
+      },
+      {
+       "who": "Kolja",
+       "text": "Das stimmt leider. Im Großraum versteht man sein eigenes Wort nicht mehr, seit die Buchhaltung zu uns gezogen ist."
+      },
+      {
+       "who": "Ida",
+       "text": "Siehst du. Ich hab Jana vorgeschlagen, den alten Besprechungsraum im dritten Stock zu einem Telefonraum umzubauen. Mit Teppich und Vorhängen."
+      },
+      {
+       "who": "Kolja",
+       "text": "Das ist eine gute Idee. Ehrlich. Ich hätte nicht gedacht, dass ausgerechnet du das Büro schöner machen willst."
+      },
+      {
+       "who": "Ida",
+       "text": "Wenn ich schon zwei Tage hier bin, will ich wenigstens meine Ruhe haben."
+      }
+     ],
+     "popQuiz": [
+      {
+       "after": "Was wollen die anderen?",
+       "prompt": "Wie viele haben für vier Tage Büro gestimmt?",
+       "answers": [
+        [
+         "drei",
+         "3"
+        ]
+       ],
+       "solution": "Drei."
+      }
+     ],
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Wie viele Tage wollen die meisten ins Büro kommen?",
+       "answers": [
+        [
+         "zwei",
+         "2"
+        ]
+       ],
+       "solution": "Zwei Tage.",
+       "quote": "„Die meisten wollen zwei Tage.“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Was ist das größte Problem im Büro?",
+       "answers": [
+        [
+         "laut",
+         "Lärm",
+         "telefonieren",
+         "Lautstärke"
+        ]
+       ],
+       "solution": "Es ist zu laut zum Telefonieren.",
+       "quote": "„Im Büro kann man nicht telefonieren, weil es zu laut ist.“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Wer ist ins Großraumbüro gezogen?",
+       "answers": [
+        [
+         "Buchhaltung"
+        ]
+       ],
+       "solution": "Die Buchhaltung.",
+       "quote": "„… seit die Buchhaltung zu uns gezogen ist.“"
+      },
+      {
+       "id": "q4",
+       "type": "recall_text",
+       "prompt": "Was soll aus dem alten Besprechungsraum werden?",
+       "answers": [
+        [
+         "Telefonraum",
+         "Telefon",
+         "telefonieren"
+        ]
+       ],
+       "solution": "Ein Telefonraum.",
+       "quote": "„… den alten Besprechungsraum im dritten Stock zu einem Telefonraum umzubauen.“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [
+       "jana"
+      ],
+      "locationsReferenced": [
+       "buero"
+      ]
+     }
+    },
+    {
+     "id": "z6-buero-d3",
+     "type": "dialog",
+     "title": "Der Telefonraum",
+     "characterId": "kolja",
+     "lines": [
+      {
+       "who": "Kolja",
+       "text": "Ida, hast du es schon gesehen? Der Telefonraum ist fertig. Grüner Teppich, dicke Vorhänge und ein Sessel."
+      },
+      {
+       "who": "Ida",
+       "text": "Ich war heute früh schon drin. Man hört nicht mal die Kaffeemaschine."
+      },
+      {
+       "who": "Kolja",
+       "text": "Jana hat übrigens entschieden: zwei feste Bürotage, Dienstag und Donnerstag. Und dienstags gibt es ab jetzt immer ein gemeinsames Frühstück."
+      },
+      {
+       "who": "Ida",
+       "text": "Wer bezahlt das Frühstück?"
+      },
+      {
+       "who": "Kolja",
+       "text": "Die Firma. Und wer zuletzt kommt, kocht den Kaffee. Das war mein Vorschlag."
+      },
+      {
+       "who": "Ida",
+       "text": "Dann komme ich nie wieder zuletzt. Ich nehme ab jetzt den Zug um 7:04."
+      },
+      {
+       "who": "Kolja",
+       "text": "Und? Gibst du zu, dass das Büro gar nicht so schlimm ist?"
+      },
+      {
+       "who": "Ida",
+       "text": "Zwei Tage sind in Ordnung. Aber der Sessel im Telefonraum gehört dienstags mir. Das schreibe ich auf ein Schild."
+      }
+     ],
+     "popQuiz": [
+      {
+       "after": "Man hört nicht mal die Kaffeemaschine.",
+       "prompt": "Welche Farbe hat der Teppich im Telefonraum?",
+       "answers": [
+        [
+         "grün",
+         "grüner",
+         "grünen",
+         "grüne"
+        ]
+       ],
+       "solution": "Grün."
+      }
+     ],
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "An welchen Tagen ist das Team jetzt im Büro?",
+       "answers": [
+        [
+         "Dienstag",
+         "dienstags"
+        ],
+        [
+         "Donnerstag",
+         "donnerstags"
+        ]
+       ],
+       "solution": "Dienstag und Donnerstag.",
+       "quote": "„… zwei feste Bürotage, Dienstag und Donnerstag.“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Was gibt es ab jetzt dienstags?",
+       "answers": [
+        [
+         "Frühstück"
+        ]
+       ],
+       "solution": "Ein gemeinsames Frühstück.",
+       "quote": "„Und dienstags gibt es ab jetzt immer ein gemeinsames Frühstück.“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Wer muss den Kaffee kochen?",
+       "answers": [
+        [
+         "zuletzt",
+         "letzte",
+         "letzter",
+         "Letzte"
+        ]
+       ],
+       "solution": "Wer zuletzt kommt.",
+       "quote": "„Und wer zuletzt kommt, kocht den Kaffee.“"
+      },
+      {
+       "id": "q4",
+       "type": "recall_text",
+       "prompt": "Welchen Zug nimmt Ida ab jetzt?",
+       "answers": [
+        [
+         "7 04",
+         "704",
+         "sieben uhr vier",
+         "sieben null vier"
+        ]
+       ],
+       "solution": "Den Zug um 7:04.",
+       "quote": "„Ich nehme ab jetzt den Zug um 7:04.“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [
+       "jana"
+      ],
+      "locationsReferenced": [
+       "buero",
+       "kaffeekueche"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "z6-handy",
+   "title": "Ein Handy für Oma",
+   "items": [
+    {
+     "id": "z6-handy-d",
+     "type": "dialog",
+     "title": "Leons Idee",
+     "characterId": "leon",
+     "lines": [
+      {
+       "who": "Leon",
+       "text": "Oma, ich hab dir was mitgebracht. Mein altes Smartphone. Dann können wir uns Fotos schicken und sogar per Video telefonieren."
+      },
+      {
+       "who": "Oma Ilse",
+       "text": "Ach, Leon. Ich hab doch mein Telefon im Flur. Das funktioniert seit dreißig Jahren, ganz ohne Aufladen."
+      },
+      {
+       "who": "Leon",
+       "text": "Aber darauf kannst du keine Fotos sehen. Mama schickt jeden Tag Bilder vom Hund in die Familiengruppe, und du bekommst nichts mit."
+      },
+      {
+       "who": "Oma Ilse",
+       "text": "Die Bilder zeigt mir Frau Brenner auf ihrem Handy. Und die Schrift auf den Dingern ist so klein, die kann ich ohne Lupe gar nicht lesen."
+      },
+      {
+       "who": "Leon",
+       "text": "Die Schrift kann man groß stellen. Und es hat eine Taschenlampe. Und einen Wecker."
+      },
+      {
+       "who": "Oma Ilse",
+       "text": "Einen Wecker hab ich auch. Der klingelt seit 1985 jeden Morgen um halb sieben."
+      },
+      {
+       "who": "Leon",
+       "text": "Bitte, Oma. Nur eine Woche. Ich zeig dir alles, und wenn es dir nicht gefällt, nehme ich es wieder mit."
+      },
+      {
+       "who": "Oma Ilse",
+       "text": "Eine Woche. Aber nur, wenn du mir am Sonntag beim Kuchenbacken hilfst."
+      }
+     ],
+     "popQuiz": [
+      {
+       "after": "ganz ohne Aufladen.",
+       "prompt": "Wo steht Omas Telefon?",
+       "answers": [
+        [
+         "Flur"
+        ]
+       ],
+       "solution": "Im Flur."
+      }
+     ],
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Seit wann funktioniert Omas Telefon?",
+       "answers": [
+        [
+         "dreißig",
+         "30"
+        ]
+       ],
+       "solution": "Seit dreißig Jahren.",
+       "quote": "„Das funktioniert seit dreißig Jahren, ganz ohne Aufladen.“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Was schickt Mama jeden Tag in die Familiengruppe?",
+       "answers": [
+        [
+         "Hund",
+         "Hundefotos",
+         "Hundebilder"
+        ]
+       ],
+       "solution": "Bilder vom Hund.",
+       "quote": "„Mama schickt jeden Tag Bilder vom Hund in die Familiengruppe …“"
+      },
+      {
+       "id": "m1",
+       "type": "detail_match",
+       "prompt": "Welche Gründe nennt Oma gegen das Smartphone?",
+       "options": [
+        "Ihr Telefon geht ohne Aufladen",
+        "Die Schrift ist zu klein",
+        "Sie hat schon einen Wecker",
+        "Es ist zu teuer",
+        "Sie mag keine Fotos"
+       ],
+       "correct": [
+        "Ihr Telefon geht ohne Aufladen",
+        "Die Schrift ist zu klein",
+        "Sie hat schon einen Wecker"
+       ],
+       "quote": "„Einen Wecker hab ich auch.“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Was muss Leon dafür am Sonntag machen?",
+       "answers": [
+        [
+         "Kuchen",
+         "backen",
+         "Kuchenbacken"
+        ]
+       ],
+       "solution": "Beim Kuchenbacken helfen.",
+       "quote": "„… wenn du mir am Sonntag beim Kuchenbacken hilfst.“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": []
+     }
+    },
+    {
+     "id": "z6-handy-d2",
+     "type": "dialog",
+     "title": "Die Testwoche",
+     "characterId": "oma-ilse",
+     "lines": [
+      {
+       "who": "Leon",
+       "text": "Oma, du hast mir gestern um Mitternacht ein Foto geschickt. Von deinem Daumen."
+      },
+      {
+       "who": "Oma Ilse",
+       "text": "Das war keine Absicht. Ich wollte die Taschenlampe anmachen, weil der Strom weg war."
+      },
+      {
+       "who": "Leon",
+       "text": "Der Strom war weg? Im ganzen Haus?"
+      },
+      {
+       "who": "Oma Ilse",
+       "text": "In der ganzen Straße, zwei Stunden lang. Und weißt du was? Mein Telefon im Flur ging auch nicht mehr. Nur dein Ding hat funktioniert."
+      },
+      {
+       "who": "Leon",
+       "text": "Siehst du! Hast du jemanden angerufen?"
+      },
+      {
+       "who": "Oma Ilse",
+       "text": "Frau Brenner. Die kam rüber, und wir haben bei Kerzenlicht Rommé gespielt. Danach hab ich zum ersten Mal ein Video angeschaut. Von einem Hund, der Klavier spielt."
+      },
+      {
+       "who": "Leon",
+       "text": "Oma, du bist ja schon süchtig."
+      },
+      {
+       "who": "Oma Ilse",
+       "text": "Unsinn. Aber die Familiengruppe lese ich jetzt jeden Morgen beim Frühstück. Deine Mutter schickt übrigens wirklich jeden Tag den Hund."
+      }
+     ],
+     "popQuiz": [
+      {
+       "after": "weil der Strom weg war.",
+       "prompt": "Was war auf dem Foto, das Oma geschickt hat?",
+       "answers": [
+        [
+         "Daumen",
+         "Finger"
+        ]
+       ],
+       "solution": "Ihr Daumen."
+      }
+     ],
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Wie lange war der Strom weg?",
+       "answers": [
+        [
+         "zwei",
+         "2"
+        ],
+        [
+         "Stunden",
+         "Stunde"
+        ]
+       ],
+       "solution": "Zwei Stunden.",
+       "quote": "„In der ganzen Straße, zwei Stunden lang.“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Was haben Oma und Frau Brenner gespielt?",
+       "answers": [
+        [
+         "Rommé",
+         "Rommee",
+         "Karten"
+        ]
+       ],
+       "solution": "Rommé.",
+       "quote": "„… wir haben bei Kerzenlicht Rommé gespielt.“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Was macht der Hund im Video?",
+       "answers": [
+        [
+         "Klavier"
+        ]
+       ],
+       "solution": "Er spielt Klavier.",
+       "quote": "„Von einem Hund, der Klavier spielt.“"
+      },
+      {
+       "id": "s1",
+       "type": "sequence_events",
+       "prompt": "Was ist in der Nacht passiert? Bring es in die richtige Reihenfolge.",
+       "events": [
+        "Der Strom fällt aus",
+        "Oma schickt aus Versehen ein Foto",
+        "Oma ruft Frau Brenner an",
+        "Oma schaut ihr erstes Video"
+       ]
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": []
+     }
+    },
+    {
+     "id": "z6-handy-d3",
+     "type": "dialog",
+     "title": "Das Ergebnis",
+     "characterId": "leon",
+     "lines": [
+      {
+       "who": "Leon",
+       "text": "Die Woche ist um, Oma. Soll ich das Handy wieder mitnehmen?"
+      },
+      {
+       "who": "Oma Ilse",
+       "text": "Untersteh dich. Ich hab gestern sogar Opa Günter beigebracht, wie man ein Foto verschickt."
+      },
+      {
+       "who": "Leon",
+       "text": "Opa? Der hat doch gesagt, so ein Ding kommt ihm nicht ins Haus."
+      },
+      {
+       "who": "Oma Ilse",
+       "text": "Er hat seinen Kürbis fotografiert. Elf Kilo, der größte in der ganzen Kleingartenanlage. Das musste die Familie sehen."
+      },
+      {
+       "who": "Leon",
+       "text": "Und das alte Telefon im Flur?"
+      },
+      {
+       "who": "Oma Ilse",
+       "text": "Das bleibt. Falls der Akku mal leer ist. Aber du hattest recht, und das sage ich nicht oft."
+      },
+      {
+       "who": "Leon",
+       "text": "Darf ich das aufschreiben?"
+      },
+      {
+       "who": "Oma Ilse",
+       "text": "Nein. Aber du darfst mir zeigen, wie man diese kleinen Bildchen schickt. Frau Brenner schickt mir immer eine Sonnenblume, und ich will zurückschicken."
+      }
+     ],
+     "popQuiz": [
+      {
+       "after": "Foto verschickt.",
+       "prompt": "Wem hat Oma beigebracht, ein Foto zu verschicken?",
+       "answers": [
+        [
+         "Opa",
+         "Günter",
+         "Opa Günter"
+        ]
+       ],
+       "solution": "Opa Günter."
+      }
+     ],
+     "subExercises": [
+      {
+       "id": "q1",
+       "type": "recall_text",
+       "prompt": "Was hat Opa fotografiert?",
+       "answers": [
+        [
+         "Kürbis"
+        ]
+       ],
+       "solution": "Seinen Kürbis.",
+       "quote": "„Er hat seinen Kürbis fotografiert.“"
+      },
+      {
+       "id": "q2",
+       "type": "recall_text",
+       "prompt": "Wie schwer ist der Kürbis?",
+       "answers": [
+        [
+         "elf",
+         "11"
+        ]
+       ],
+       "solution": "Elf Kilo.",
+       "quote": "„Elf Kilo, der größte in der ganzen Kleingartenanlage.“"
+      },
+      {
+       "id": "q3",
+       "type": "recall_text",
+       "prompt": "Warum bleibt das alte Telefon im Flur?",
+       "answers": [
+        [
+         "Akku",
+         "leer"
+        ]
+       ],
+       "solution": "Falls der Akku mal leer ist.",
+       "quote": "„Das bleibt. Falls der Akku mal leer ist.“"
+      },
+      {
+       "id": "q4",
+       "type": "recall_text",
+       "prompt": "Welches Bild schickt Frau Brenner immer?",
+       "answers": [
+        [
+         "Sonnenblume",
+         "Blume"
+        ]
+       ],
+       "solution": "Eine Sonnenblume.",
+       "quote": "„Frau Brenner schickt mir immer eine Sonnenblume …“"
+      }
+     ],
+     "worldRefs": {
+      "charactersReferenced": [],
+      "locationsReferenced": []
+     }
+    }
+   ]
+  },
+  {
+   "id": "z6-checkpoint",
+   "type": "checkpoint",
+   "title": "Checkpoint"
+  }
+ ]
+}

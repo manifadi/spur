@@ -126,8 +126,12 @@ function DialogText({ item }) {
  * Stimme pro Figur, Archetyp-Tempo/-Tonhöhe); fehlt eine oder klappt es nicht,
  * liest die Gerätestimme mit dem pitch/rate-Profil der jeweiligen Figur.
  */
-function useSpeech(item, auto = false) {
+function useSpeech(item, auto = false, onQuiz = null) {
   const [playing, setPlaying] = useState(false);
+  // Zwischenfragen: Ohne Handler läuft die Wiedergabe einfach weiter.
+  const quizRef = useRef(onQuiz);
+  quizRef.current = onQuiz;
+  const quiz = (n, resume) => (quizRef.current ? quizRef.current(n, resume) : resume());
   const [error, setError] = useState(false);
   const [who, setWho] = useState(null);
   const stop = useRef(() => {});
@@ -135,6 +139,7 @@ function useSpeech(item, auto = false) {
   const viaDevice = (manual) => {
     stop.current = speakSegments(deviceSegments(item), {
       onSegment: (w) => setWho(w),
+      onQuiz: quiz,
       onEnd: done,
       onError: () => { done(); if (manual) setError(true); },
     });
@@ -146,6 +151,7 @@ function useSpeech(item, auto = false) {
     if (!hasAudio(item.id)) return viaDevice(manual);
     stop.current = playItem(item.id, {
       onSegment: (w) => setWho(w),
+      onQuiz: quiz,
       onEnd: done,
       onBlocked: done, // Autoplay gesperrt (iOS): Antippen genügt
       onError: () => viaDevice(manual),
@@ -199,11 +205,83 @@ function SpeakerAvatar({ speaker, active, size }) {
 
 const MAX_PLAYS = 2;
 
+/* ---- Zwischenfrage beim Hören --------------------------------------------------
+   Das Audio hält an, die Frage fährt von unten hoch. Nach dem Prüfen sieht man kurz,
+   ob es richtig war, dann fährt das Sheet wieder hinunter und es geht weiter.
+   Zählt nicht für Intervalle, Herzen oder Federn: nur ein Aufmerksamkeits-Check. */
+const QUIZ_RESULT = {
+  good: { state: 'correct', icon: 'check-circle-2', color: 'var(--spur-green-shade)', title: 'Richtig!', btn: 'correct', wait: 1700 },
+  partial: { state: 'partial', icon: 'history', color: 'var(--badge-amber-fg, #8A5A12)', title: 'Fast.', btn: 'amber', wait: 3200 },
+  poor: { state: 'wrong', icon: 'rotate-ccw', color: 'var(--spur-coral-shade)', title: 'Nicht ganz.', btn: 'wrong', wait: 3200 },
+};
+
+function QuizBody({ quiz, sound, onDone }) {
+  const [answer, setAnswer] = useState('');
+  const [grade, setGrade] = useState(null);
+  const box = useRef(null);
+  const r = grade && QUIZ_RESULT[grade];
+  // Fokus erst, wenn das Sheet oben ist (sonst springt die Animation mit der Tastatur).
+  useEffect(() => {
+    const t = setTimeout(() => box.current?.querySelector('textarea')?.focus({ preventScroll: true }), 360);
+    return () => clearTimeout(t);
+  }, []);
+  useEffect(() => {
+    if (!r) return undefined;
+    const t = setTimeout(onDone, r.wait);
+    return () => clearTimeout(t);
+  }, [grade]); // eslint-disable-line react-hooks/exhaustive-deps
+  const check = (skip = false) => {
+    if (grade) return;
+    const g = skip ? 'poor' : gradeListen(answer, quiz.answers).grade;
+    document.activeElement?.blur?.();
+    setGrade(g);
+    if (sound) sounds[g]?.();
+    if (g === 'good' && navigator.vibrate) try { navigator.vibrate(12); } catch { /* ignore */ }
+  };
+  return (
+    <div ref={box} className="stack" style={{ gap: 14 }}>
+      <h3 style={{ font: 'var(--type-headline)', color: 'var(--text-ink)', textWrap: 'pretty' }}>{quiz.prompt}</h3>
+      <TextField value={answer} onChange={(e) => setAnswer(e.target.value)} rows={2} state={r ? r.state : 'default'} disabled={!!grade}
+        placeholder="Kurz aus dem Kopf …" enterKeyHint="done"
+        onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); if (answer.trim()) check(); } }} />
+      {r ? (
+        <div key="result" className="a-fade stack" style={{ gap: 12 }} role="status" aria-live="polite">
+          <span style={{ display: 'flex', alignItems: 'center', gap: 8, color: r.color, font: 'var(--type-headline)' }}>
+            <Icon name={r.icon} size={24} strokeWidth={2.4} />{r.title}
+          </span>
+          {grade !== 'good' && <p style={{ font: 'var(--type-body)', fontSize: 'var(--text-body-l)', color: 'var(--text-ink)', marginTop: -4 }}>Gesucht war: {quiz.solution}</p>}
+          <Button variant={r.btn} full icon="play" onClick={onDone}>Weiter hören</Button>
+        </div>
+      ) : (
+        <div key="ask" className="stack" style={{ gap: 4 }}>
+          <Button variant="listen" full disabled={!answer.trim()} onClick={() => check()}>Prüfen</Button>
+          <Button variant="ghost" size="md" full onClick={() => check(true)}>Weiß ich nicht</Button>
+        </div>
+      )}
+    </div>
+  );
+}
+
 /* ---- Schritt 1: Nur zuhören (neue Karten) ------------------------------------
    Kein Text, keine Frage — nur die Stimmen. Höchstens zwei Wiedergaben, "Weiter"
    erst nach der ersten. Bei fälligen Wiederholungen gibt es diesen Schritt nicht. */
 function ListenOnly({ entry, card, onNext }) {
-  const speech = useSpeech(card.item);
+  const { state } = useStore();
+  const quizzes = card.item.popQuiz || [];
+  const [pop, setPop] = useState(null); // { n, resume } während eine Zwischenfrage offen ist
+  const answered = useRef(new Set()); // beim zweiten Hören nicht nochmal fragen
+  const speech = useSpeech(card.item, false, (n, resume) => {
+    if (!quizzes[n] || answered.current.has(n)) resume();
+    else setPop({ n, resume });
+  });
+  const closeQuiz = () => {
+    if (!pop) return;
+    answered.current.add(pop.n);
+    const { resume } = pop;
+    setPop(null);
+    // Erst weiterspielen, wenn das Sheet unten ist.
+    setTimeout(resume, 320);
+  };
   const [plays, setPlays] = useState(0);
   const [heard, setHeard] = useState(false);
   const [showText, setShowText] = useState(false);
@@ -220,7 +298,7 @@ function ListenOnly({ entry, card, onNext }) {
     setPlays((n) => n + 1);
     speech.start(true);
   };
-  const activeName = speech.playing ? (speech.who || (speakers.length === 1 ? speakers[0].name : null)) : null;
+  const activeName = speech.playing && !pop ? (speech.who || (speakers.length === 1 ? speakers[0].name : null)) : null;
   const size = speakers.length > 2 ? 64 : speakers.length === 2 ? 76 : 96;
   return (
     <>
@@ -229,7 +307,9 @@ function ListenOnly({ entry, card, onNext }) {
         <div className="stack" style={{ gap: 6, alignItems: 'center' }}>
           <PartLine entry={entry} card={card} tone="listen" />
           <h2 style={{ font: 'var(--type-title)' }}>Hör genau hin.</h2>
-          <p style={{ font: 'var(--type-body)', color: 'var(--text-muted)', maxWidth: 300 }}>Die Fragen kommen danach. Den Text siehst du nicht — nur die Stimmen zählen.</p>
+          <p style={{ font: 'var(--type-body)', color: 'var(--text-muted)', maxWidth: 300 }}>
+            {quizzes.length ? 'Zwischendurch kommt eine kurze Frage, die anderen danach.' : 'Die Fragen kommen danach.'} Den Text siehst du nicht — nur die Stimmen zählen.
+          </p>
         </div>
         {speakers.length ? (
           <div style={{ display: 'flex', justifyContent: 'center', gap: 8, flexWrap: 'wrap' }}>
@@ -252,7 +332,9 @@ function ListenOnly({ entry, card, onNext }) {
               display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4,
               transition: 'background var(--dur-fast) var(--ease-out-soft), color var(--dur-fast) var(--ease-out-soft), box-shadow var(--dur-fast) var(--ease-out-soft)' }}>
             <span key={speech.playing ? 'eq' : plays > 0 ? 'again' : 'play'} className="a-fade" style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-              {speech.playing
+              {speech.playing && pop
+                ? <Icon name="pause" size={36} strokeWidth={2.4} fill="currentColor" />
+                : speech.playing
                 ? [0, 140, 280, 420].map((d) => <span key={d} className="rm-static" style={{ width: 5, height: 16, borderRadius: 999, background: '#fff', animation: `spur-eq 700ms ease-in-out ${d}ms infinite` }} />)
                 : <Icon name={plays > 0 ? 'rotate-ccw' : 'play'} size={36} strokeWidth={2.4} fill={plays > 0 ? 'none' : 'currentColor'} />}
             </span>
@@ -263,6 +345,9 @@ function ListenOnly({ entry, card, onNext }) {
         </div>
       </div>
       <div className="lesson-cta"><Button variant="listen" full disabled={!heard || speech.playing} onClick={() => { speech.stop(); onNext(); }}>Weiter zu den Fragen</Button></div>
+      <Sheet open={!!pop} title="Kurze Zwischenfrage" closable={false}>
+        {pop && <QuizBody key={pop.n} quiz={quizzes[pop.n]} sound={state.settings.sounds} onDone={closeQuiz} />}
+      </Sheet>
     </>
   );
 }

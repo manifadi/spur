@@ -29,10 +29,11 @@ function pickVoice({ gender, hints = [] } = {}) {
 
 /**
  * Liest Abschnitte nacheinander, jeden mit eigenem Profil.
- * segments: [{ text, pitch=1, rate=1, gender, hints, gap }]
+ * segments: [{ text, pitch=1, rate=1, gender, hints, gap, quiz? }]
+ * onQuiz(n, resume): nach einem Abschnitt mit Zwischenfrage anhalten, bis resume() kommt.
  * @returns {() => void} Stopp-Funktion
  */
-export function speakSegments(segments, { onEnd, onError, onSegment } = {}) {
+export function speakSegments(segments, { onEnd, onError, onSegment, onQuiz } = {}) {
   if (!ttsSupported() || !segments.length) { onError?.(); return () => {}; }
   const synth = window.speechSynthesis;
   synth.cancel();
@@ -57,7 +58,11 @@ export function speakSegments(segments, { onEnd, onError, onSegment } = {}) {
     // Startet die Wiedergabe gar nicht, gilt das als Fehler (z. B. keine Stimme installiert).
     startTimer = setTimeout(() => { if (!started) { synth.cancel(); finish(onError); } }, 4000);
     u.onstart = () => { started = true; clearTimeout(startTimer); };
-    u.onend = () => { timer = setTimeout(next, seg.gap ?? 250); };
+    u.onend = () => {
+      const go = () => { if (!done) timer = setTimeout(next, seg.gap ?? 250); };
+      if (seg.quiz != null && onQuiz) onQuiz(seg.quiz, go);
+      else go();
+    };
     u.onerror = (e) => finish(e.error === 'interrupted' || e.error === 'canceled' ? onEnd : onError);
     synth.speak(u);
   };

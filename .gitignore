@@ -3,3 +3,5 @@ dist
 .DS_Store
 *.zip
 .vercel
+.env.local
+audio-probe/

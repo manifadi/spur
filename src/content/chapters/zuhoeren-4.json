@@ -44,6 +44,18 @@
        "text": "Das Tiramisu gibt es zwischendurch. Nach hundert Fjorden braucht jeder eine Pause."
       }
      ],
+     "popQuiz": [
+      {
+       "after": "wegen Yusuf.",
+       "prompt": "Warum ist das Tiramisu ohne Alkohol?",
+       "answers": [
+        [
+         "Yusuf"
+        ]
+       ],
+       "solution": "Wegen Yusuf."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",
@@ -134,6 +146,18 @@
        "text": "Abgemacht. Aber du musst ihn selber gießen, ich komme nicht jeden Tag mit der S-Bahn vorbei."
       }
      ],
+     "popQuiz": [
+      {
+       "after": "jeden Tag über eine Stunde.",
+       "prompt": "Wo will Yusuf endlich raus?",
+       "answers": [
+        [
+         "Büro"
+        ]
+       ],
+       "solution": "Aus dem Büro."
+      }
+     ],
      "subExercises": [
       {
        "id": "q4",
@@ -222,6 +246,21 @@
       {
        "who": "Yusuf",
        "text": "Dann machen wir bei Foto vierzig die Tiramisu-Pause. Das ist mein letztes Angebot."
+      }
+     ],
+     "popQuiz": [
+      {
+       "after": "mit dem gelben Regenmantel?",
+       "prompt": "Welche Farbe hat der Regenmantel auf dem Foto?",
+       "answers": [
+        [
+         "gelb",
+         "gelben",
+         "gelber",
+         "gelbe"
+        ]
+       ],
+       "solution": "Gelb."
       }
      ],
      "subExercises": [
@@ -323,6 +362,19 @@
       {
        "who": "Frau Demir",
        "text": "Nein, die gibt es in der Jugendherberge. Aber bitte feste Schuhe und eine Regenjacke, wir machen eine Wanderung zu den Kreidefelsen. Handys sammeln wir abends ein, das haben die Kinder selbst so abgestimmt."
+      }
+     ],
+     "popQuiz": [
+      {
+       "after": "Gibt es dafür einen Zuschuss?",
+       "prompt": "Wo wohnt die Klasse auf Rügen?",
+       "answers": [
+        [
+         "Jugendherberge",
+         "Herberge"
+        ]
+       ],
+       "solution": "In einer Jugendherberge."
       }
      ],
      "subExercises": [
@@ -427,6 +479,21 @@
        "text": "Am 12. Mai um halb acht, auf dem Parkplatz hinter der Turnhalle. Bitte pünktlich, der Bus wartet nicht."
       }
      ],
+     "popQuiz": [
+      {
+       "after": "Ich bin Krankenschwester",
+       "prompt": "Was ist Frau Petrović von Beruf?",
+       "answers": [
+        [
+         "Krankenschwester",
+         "Krankenpflegerin",
+         "Pflegerin",
+         "Pflegekraft"
+        ]
+       ],
+       "solution": "Krankenschwester."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",
@@ -525,6 +592,18 @@
       {
        "who": "Frau Demir",
        "text": "Erstaunlich gut. Am zweiten Abend haben sie stattdessen Werwolf gespielt, bis elf. Das war mir allerdings zu spät."
+      }
+     ],
+     "popQuiz": [
+      {
+       "after": "ein Palstek",
+       "prompt": "Welchen Knoten macht die Klasse jetzt in jeden Schnürsenkel?",
+       "answers": [
+        [
+         "Palstek"
+        ]
+       ],
+       "solution": "Einen Palstek."
       }
      ],
      "subExercises": [
@@ -633,6 +712,20 @@
       {
        "who": "Meister Kowalski",
        "text": "Nein, Timo. Wir sind eine Werkstatt, keine Waschanlage."
+      }
+     ],
+     "popQuiz": [
+      {
+       "after": "Und was kostet der Rest?",
+       "prompt": "Woher kam das Klappern hinten?",
+       "answers": [
+        [
+         "Hitzeschutzblech",
+         "Hitzeschutz",
+         "Blech"
+        ]
+       ],
+       "solution": "Vom Hitzeschutzblech."
       }
      ],
      "subExercises": [
@@ -745,6 +838,19 @@
        "text": "Dann überweise ich. Und die Winterreifen: zwei Winter noch, ich weiß. Diesmal hab ich es wirklich aufgeschrieben."
       }
      ],
+     "popQuiz": [
+      {
+       "after": "Steht draußen, Platz drei.",
+       "prompt": "Auf welchem Platz steht das Auto?",
+       "answers": [
+        [
+         "drei",
+         "3"
+        ]
+       ],
+       "solution": "Auf Platz drei."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",
@@ -852,6 +958,19 @@
        "text": "Also doch Waschanlage, Chef."
       }
      ],
+     "popQuiz": [
+      {
+       "after": "am falschen Kabel gesucht",
+       "prompt": "Wie lange hat Timo am falschen Kabel gesucht?",
+       "answers": [
+        [
+         "zwanzig",
+         "20"
+        ]
+       ],
+       "solution": "Zwanzig Minuten."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",
@@ -955,6 +1074,19 @@
        "text": "Die Schlafzimmer gehen nach hinten in den Hof, da ist es ruhig. Vorne ist nur die Küche. Und die Fenster sind vor zwei Jahren erneuert worden."
       }
      ],
+     "popQuiz": [
+      {
+       "after": "Und wie wird geheizt?",
+       "prompt": "Wie viele Zimmer hat die Wohnung?",
+       "answers": [
+        [
+         "drei",
+         "3"
+        ]
+       ],
+       "solution": "Drei Zimmer."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",
@@ -1046,6 +1178,19 @@
       {
        "who": "Jonte",
        "text": "Gern. Und wir überlegen uns das mit der Küche. Fünfzehnhundert sind viel Geld für einen Backofen, der nie an war."
+      }
+     ],
+     "popQuiz": [
+      {
+       "after": "noch gar nicht benutzt worden",
+       "prompt": "Wie alt sind die Küchengeräte?",
+       "answers": [
+        [
+         "drei",
+         "3"
+        ]
+       ],
+       "solution": "Drei Jahre."
       }
      ],
      "subExercises": [
@@ -1140,6 +1285,21 @@
       {
        "who": "Lea",
        "text": "Und du wolltest Orange. Deshalb entscheide ich."
+      }
+     ],
+     "popQuiz": [
+      {
+       "after": "wir haben die Wohnung!",
+       "prompt": "Wer hat sich für Lea und Jonte entschieden?",
+       "answers": [
+        [
+         "Eigentümer",
+         "Vermieter",
+         "Besitzer",
+         "Eigentuemer"
+        ]
+       ],
+       "solution": "Der Eigentümer."
       }
      ],
      "subExercises": [

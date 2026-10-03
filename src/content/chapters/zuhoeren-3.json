@@ -44,6 +44,19 @@
        "text": "Nein, aber um vier Uhr morgens isst du sowieso nichts. Wir holen uns am Flughafen einen Kaffee. Und wehe, du nimmst den Koffer mit den Rollen, der ist zu groß fürs Handgepäck."
       }
      ],
+     "popQuiz": [
+      {
+       "after": "Zwei Paar. Mindestens.",
+       "prompt": "Wie viele Paar Schuhe will Aylin mindestens mitnehmen?",
+       "answers": [
+        [
+         "zwei",
+         "2"
+        ]
+       ],
+       "solution": "Zwei Paar."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",
@@ -128,6 +141,18 @@
        "text": "Dann reserviere gleich. Nicht dass wir am Ende wieder Nudeln im Zimmer essen wie in Barcelona."
       }
      ],
+     "popQuiz": [
+      {
+       "after": "im Viertel Ribeira",
+       "prompt": "In welchem Viertel wohnen die beiden?",
+       "answers": [
+        [
+         "Ribeira"
+        ]
+       ],
+       "solution": "In Ribeira."
+      }
+     ],
      "subExercises": [
       {
        "id": "q3",
@@ -208,6 +233,19 @@
       {
        "who": "Aylin",
        "text": "Nur eine Bäckerei. Mit Kreuz auf der Karte. Das zählt nicht als Umweg."
+      }
+     ],
+     "popQuiz": [
+      {
+       "after": "danebengeschrieben hat?",
+       "prompt": "Was hat Dona Rosa neben die Wäscherei geschrieben?",
+       "answers": [
+        [
+         "Schuhe",
+         "Schuh"
+        ]
+       ],
+       "solution": "Für Aylins Schuhe."
       }
      ],
      "subExercises": [
@@ -312,6 +350,22 @@
        "text": "Foodtrucks auf einem Bauernhof. Ich bin gespannt, ob die Pferde auch was abbekommen."
       }
      ],
+     "popQuiz": [
+      {
+       "after": "Hoffentlich regnet es nicht.",
+       "prompt": "Wer heiratet?",
+       "answers": [
+        [
+         "Sarah",
+         "Sara"
+        ],
+        [
+         "Malte"
+        ]
+       ],
+       "solution": "Sarah und Malte."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",
@@ -410,6 +464,20 @@
        "text": "Um zwei ist die Trauung, aber wir sollten um halb zwei da sein, weil es nur einen kleinen Parkplatz gibt. Ich fahre, du darfst dafür am Abend tanzen."
       }
      ],
+     "popQuiz": [
+      {
+       "after": "früher Radiomoderatorin",
+       "prompt": "Was war Hanna früher von Beruf?",
+       "answers": [
+        [
+         "Radiomoderatorin",
+         "Moderatorin",
+         "Radio"
+        ]
+       ],
+       "solution": "Radiomoderatorin."
+      }
+     ],
      "subExercises": [
       {
        "id": "q4",
@@ -487,6 +555,19 @@
       {
        "who": "Kim",
        "text": "Der Strauß hat es überlebt. Gefangen hat ihn übrigens Maltes Oma. Sie ist dreiundachtzig und hat gesagt, sie gibt ihn an die nächste Generation weiter."
+      }
+     ],
+     "popQuiz": [
+      {
+       "after": "drei Kugeln Eis",
+       "prompt": "Wie viele Kugeln Eis hatte Deniz?",
+       "answers": [
+        [
+         "drei",
+         "3"
+        ]
+       ],
+       "solution": "Drei Kugeln."
       }
      ],
      "subExercises": [
@@ -596,6 +677,20 @@
        "text": "Dieses Jahr meine ich es ernst. Ach, und frag deinen Vater, ob er mir den Rasenmäher zurückbringt. Den hat er sich im Sommer geliehen, und jetzt wächst mir das Gras bis zu den Knien."
       }
      ],
+     "popQuiz": [
+      {
+       "after": "wie geht's deinem Knie?",
+       "prompt": "Welcher Baum trägt dieses Jahr so viel?",
+       "answers": [
+        [
+         "Apfelbaum",
+         "Apfel",
+         "Äpfel"
+        ]
+       ],
+       "solution": "Der Apfelbaum."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",
@@ -703,6 +798,20 @@
        "text": "Eine Flasche. Wie versprochen. Die zweite steht nur zufällig im Kühlschrank."
       }
      ],
+     "popQuiz": [
+      {
+       "after": "Wie groß bist du jetzt?",
+       "prompt": "Welche Farbe hat die Vase?",
+       "answers": [
+        [
+         "grün",
+         "grüne",
+         "grünen"
+        ]
+       ],
+       "solution": "Grün."
+      }
+     ],
      "subExercises": [
       {
        "id": "m1",
@@ -805,6 +914,20 @@
        "text": "Die kommen in den Kamin. Apfelholz riecht wunderbar. Und ein paar Zweige stelle ich ins Wasser, dann blühen sie in der Küche, bevor der Baum draußen so weit ist."
       }
      ],
+     "popQuiz": [
+      {
+       "after": "mein Vater beigebracht",
+       "prompt": "Wer hat Oma Ilse das Baumschneiden beigebracht?",
+       "answers": [
+        [
+         "Vater",
+         "Papa",
+         "Vati"
+        ]
+       ],
+       "solution": "Ihr Vater."
+      }
+     ],
      "subExercises": [
       {
        "id": "m1",
@@ -905,6 +1028,20 @@
       {
        "who": "Jana",
        "text": "Ist gemeldet. Bis dahin gibt es Kaffee im Erdgeschoss. Und nächste Woche ist Montag der Brückentag, das Büro bleibt zu. Das war's von mir, danke euch."
+      }
+     ],
+     "popQuiz": [
+      {
+       "after": "Und die Präsentation für den Kunden?",
+       "prompt": "Was ist das Problem mit dem Karton?",
+       "answers": [
+        [
+         "dünn",
+         "dünne",
+         "duenn"
+        ]
+       ],
+       "solution": "Er ist zu dünn."
       }
      ],
      "subExercises": [
@@ -1012,6 +1149,18 @@
        "text": "Endlich mal eine gute Nachricht vor dem Launch."
       }
      ],
+     "popQuiz": [
+      {
+       "after": "Wer isst noch mal vegetarisch?",
+       "prompt": "Wo ist Selin gerade?",
+       "answers": [
+        [
+         "Hamburg"
+        ]
+       ],
+       "solution": "In Hamburg."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",
@@ -1110,6 +1259,24 @@
       {
        "who": "Jana",
        "text": "Und einem Brief vom Kunden: Die ersten fünfhundert Stück sind schon verkauft. Also, Tobias: Tragen, feiern, weitermachen."
+      }
+     ],
+     "popQuiz": [
+      {
+       "after": "Und wie viele sind es?",
+       "prompt": "Wie ist der Karton der Verpackungen jetzt?",
+       "answers": [
+        [
+         "dick",
+         "dicker",
+         "dickem",
+         "dicke",
+         "dicken",
+         "stabil",
+         "stabiler"
+        ]
+       ],
+       "solution": "Dick."
       }
      ],
      "subExercises": [

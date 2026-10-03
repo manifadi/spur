@@ -15,6 +15,18 @@
      "title": "Morgens in der Kaffeeküche",
      "characterId": "thomas",
      "text": "Morgen. Ich bin heute erst um zehn gekommen, mein Zug hatte schon wieder Verspätung. Zwanzig Minuten stand er einfach vor Fulda, ohne Durchsage. Egal. Falls du Tee suchst: Die Dose mit dem Pfefferminztee steht jetzt im oberen Fach, neben dem Zucker. Die Kaffeemaschine ist übrigens wieder kaputt, der Techniker kommt erst am Donnerstag. Bis dahin gibt es Filterkaffee aus der alten Kanne. Und die Milch mit dem gelben Zettel gehört Sandra. Da würde ich die Finger von lassen. Ach, und falls dich jemand sucht: Ich bin heute Nachmittag im Termin mit der Buchhaltung, bis mindestens vier. Wenn es brennt, schreib mir eine Nachricht, ans Telefon gehe ich da nicht.",
+     "popQuiz": [
+      {
+       "after": "Zwanzig Minuten stand er einfach vor Fulda, ohne Durchsage.",
+       "prompt": "Vor welcher Stadt stand der Zug?",
+       "answers": [
+        [
+         "Fulda"
+        ]
+       ],
+       "solution": "Vor Fulda."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",
@@ -87,6 +99,18 @@
      "title": "Mittagspause",
      "characterId": "thomas",
      "text": "Mahlzeit. Ich hab uns zwei Plätze in der Kantine freigehalten, am Fenster. Heute gibt es Linseneintopf oder Spinatlasagne. Ich nehme den Eintopf, die Lasagne war letzten Dienstag schon zu salzig. Übrigens: Der Termin mit der Buchhaltung ist vorgezogen, nicht mehr um zwei, sondern schon um halb zwei. Ich muss also gleich los. Die Unterlagen für das Quartal liegen im blauen Ordner auf meinem Schreibtisch, falls Jana danach fragt. Ach, und der Techniker war doch schon heute da, nicht erst Donnerstag. Die Kaffeemaschine läuft wieder. Er meinte, jemand hat den Wassertank mit Sprudel aufgefüllt. Ich sage nicht, wer. Ich sage nur: Sandra trinkt nur Sprudel.",
+     "popQuiz": [
+      {
+       "after": "die Lasagne war letzten Dienstag schon zu salzig.",
+       "prompt": "Wo hat Thomas die Plätze freigehalten?",
+       "answers": [
+        [
+         "Fenster"
+        ]
+       ],
+       "solution": "Am Fenster."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",
@@ -164,6 +188,18 @@
      "title": "Feierabend",
      "characterId": "sandra",
      "text": "Ich geh heute direkt nach Hause. Nicht mal ein Feierabendbier, sorry. Meine Katze Pepper muss um sechs zum Tierarzt, sie frisst seit zwei Tagen kaum was. Wahrscheinlich wieder nur Zahnstein, das hatte sie letztes Jahr auch schon. Danach koche ich Kürbissuppe, das Rezept hab ich von meiner Oma. Mit Ingwer und einem Schuss Kokosmilch. Und dann lege ich mich aufs Sofa und mache heute gar nichts mehr. Morgen früh bin ich wieder da, aber erst um neun, ich muss vorher noch Pepper zu meiner Nachbarin bringen, die passt auf sie auf. Die hat drei Katzen, Pepper hasst sie alle.",
+     "popQuiz": [
+      {
+       "after": "das hatte sie letztes Jahr auch schon.",
+       "prompt": "Was hat die Katze wahrscheinlich?",
+       "answers": [
+        [
+         "Zahnstein"
+        ]
+       ],
+       "solution": "Zahnstein."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",
@@ -241,6 +277,18 @@
      "title": "Der Umzugstag",
      "characterId": "mia",
      "text": "Nora ist am Samstag umgezogen! Endlich raus aus der Wohnung über der Pizzeria. Der Lieferwagen kam zwei Stunden zu spät, aber ihr Bruder Jonas hat fast alles alleine hochgetragen — der wird nächsten Monat 30. Die neue Wohnung liegt im vierten Stock, ohne Aufzug, stell dir das mal vor. Das Sofa hat nicht durchs Treppenhaus gepasst, das musste über den Balkon rein. Am Ende haben wir auf dem Boden Pizza gegessen, weil der Tisch noch in Einzelteilen war. Am Montag kommt noch der Techniker für das Internet, zwischen acht und zwölf, also den ganzen Vormittag. Nora hat sich extra freigenommen. Und die Einweihungsparty ist in zwei Wochen, aber erst, wenn der Tisch steht, sagt sie.",
+     "popQuiz": [
+      {
+       "after": "der wird nächsten Monat 30.",
+       "prompt": "Wo hat Nora vorher gewohnt?",
+       "answers": [
+        [
+         "Pizzeria"
+        ]
+       ],
+       "solution": "Über der Pizzeria."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",
@@ -308,6 +356,18 @@
      "title": "Der Tisch steht",
      "characterId": "mia",
      "text": "Neuigkeiten von Nora: Der Tisch steht! Jonas hat ihn am Mittwochabend aufgebaut, drei Stunden hat er gebraucht, weil eine Schraube gefehlt hat. Die hat er am Ende aus dem alten Regal genommen. Das Internet läuft auch, der Techniker kam sogar schon um halb neun. Also steht die Einweihungsparty: Samstag in einer Woche, ab sieben. Jeder soll etwas zu trinken mitbringen, Nora macht ihre berühmte Gemüselasagne. Und sie wünscht sich keine Geschenke, sondern Pflanzen für den Balkon. Am liebsten Kräuter, Basilikum oder Rosmarin. Klingeln bitte zweimal, die Klingel ist noch mit dem Namen vom Vormieter beschriftet. Da steht Kowalczyk drauf.",
+     "popQuiz": [
+      {
+       "after": "Die hat er am Ende aus dem alten Regal genommen.",
+       "prompt": "Woher kam die fehlende Schraube?",
+       "answers": [
+        [
+         "Regal"
+        ]
+       ],
+       "solution": "Aus dem alten Regal."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",
@@ -376,6 +436,19 @@
      "title": "Die Einweihungsparty",
      "characterId": "mia",
      "text": "Die Party bei Nora war so schön! Wir waren am Ende fast zwanzig Leute, auf sechzig Quadratmetern. Der Tisch hat gehalten, zum Glück. Jonas hat eine Rede gehalten, obwohl ihn keiner darum gebeten hat, und sich dabei beim Sofa verheddert. Um elf hat die Nachbarin von unten geklingelt, eine ältere Dame, Frau Sievers. Wir dachten, jetzt gibt es Ärger. Stattdessen hat sie eine Flasche Eierlikör mitgebracht und bis eins mitgefeiert. Nora hat jetzt übrigens sieben Töpfe Basilikum. Sieben. Offenbar haben alle dieselbe Idee gehabt. Nächste Woche macht sie Pesto für das ganze Haus.",
+     "popQuiz": [
+      {
+       "after": "und sich dabei beim Sofa verheddert.",
+       "prompt": "Worin hat sich Jonas bei seiner Rede verheddert?",
+       "answers": [
+        [
+         "Sofa",
+         "Couch"
+        ]
+       ],
+       "solution": "Im Sofa."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",
@@ -449,6 +522,19 @@
      "title": "Das Paket",
      "characterId": "frau-berger",
      "text": "Ach, gut, dass ich Sie treffe! Ihr Paket habe ich angenommen, der Bote wollte es schon wieder mitnehmen. Es steht bei mir im Flur, hinter dem Schirmständer. Ziemlich schwer übrigens, ich dachte schon, da sind Steine drin. Klingeln Sie einfach heute Abend, ich bin ab sechs zu Hause. Nur nicht während der Tagesschau, da gehe ich nicht an die Tür! Ach, und bevor ich es vergesse: Der Hausmeister kommt am Dienstag wegen der tropfenden Heizung im Flur. Er klingelt bei allen, so gegen zehn. Ich sag's Ihnen nur, damit Sie nicht erschrecken, wenn es morgens läutet. Und falls Sie wieder etwas bestellen: Bei mir können Sie es jederzeit hinschicken lassen. Ich bin ja fast immer da. Außer mittwochs, da ist Chor.",
+     "popQuiz": [
+      {
+       "after": "ich dachte schon, da sind Steine drin.",
+       "prompt": "Was dachte Frau Berger, ist im Paket?",
+       "answers": [
+        [
+         "Steine",
+         "Stein"
+        ]
+       ],
+       "solution": "Steine."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",
@@ -508,6 +594,21 @@
      "title": "Auf dem Wochenmarkt",
      "characterId": "frau-berger",
      "text": "Stellen Sie sich vor, am Käsestand gab's heute keinen Bergkäse mehr! Um halb neun schon! Also hab ich Ziegenkäse genommen, der war im Angebot. Der Verkäufer meinte, der Stand zieht nächste Woche um — dann steht er gegenüber vom Brunnen, neben dem Blumenstand. Und der Honig-Mann kommt ab jetzt nur noch jeden zweiten Samstag, der hat wohl Rücken. Ich sag's Ihnen, bald kann man da gar nichts mehr kaufen. Dafür gibt's jetzt einen neuen Stand mit Oliven, gleich am Eingang. Der Mann kommt aus Kreta und lässt einen alles probieren. Ich war eine halbe Stunde da und hab am Ende nur ein kleines Glas gekauft, ist mir ein bisschen peinlich.",
+     "popQuiz": [
+      {
+       "after": "Also hab ich Ziegenkäse genommen, der war im Angebot.",
+       "prompt": "Um wie viel Uhr war der Bergkäse schon weg?",
+       "answers": [
+        [
+         "halb neun",
+         "8:30",
+         "8 30",
+         "acht uhr dreissig"
+        ]
+       ],
+       "solution": "Um halb neun."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",
@@ -574,6 +675,18 @@
      "title": "Das Chorkonzert",
      "characterId": "frau-berger",
      "text": "Haben Sie am Sonntag schon was vor? Unser Chor singt in der Markuskirche, um fünf! Wir proben seit März dafür. Ich singe im Alt, ganz hinten links, Sie erkennen mich an dem roten Schal. Den hat mir meine Schwester gestrickt. Der Eintritt ist frei, aber am Ausgang steht ein Korb für Spenden, das Geld geht an die neue Orgel. Und danach gibt es Kuchen im Gemeindehaus, den backen wir alle selbst. Ich mache Käsekuchen, natürlich mit Rosinen. Ach, und wenn Sie kommen: Setzen Sie sich nicht in die erste Reihe. Unser Dirigent, Herr Pohl, schwitzt immer so, wenn er dirigiert.",
+     "popQuiz": [
+      {
+       "after": "Den hat mir meine Schwester gestrickt.",
+       "prompt": "Wer hat Frau Bergers Schal gestrickt?",
+       "answers": [
+        [
+         "Schwester"
+        ]
+       ],
+       "solution": "Ihre Schwester."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",

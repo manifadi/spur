@@ -16,6 +16,7 @@ import { fileURLToPath } from 'node:url';
 import { spawn } from 'node:child_process';
 import { loadChapters } from './load-chapters.mjs';
 import { castDialog, NARRATOR } from './voices.mjs';
+import { audioParts } from '../src/engine/content.js';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const outDir = join(root, 'public/audio');
@@ -36,11 +37,12 @@ function speakable(t) {
 
 const jobs = [];
 const manifest = {};
-const add = (itemId, text, v, who, gap) => {
+const add = (itemId, text, v, who, gap, quiz) => {
   const t = speakable(text);
   const hash = createHash('sha1').update([v.voice, v.rate, v.pitch, t].join('|')).digest('hex').slice(0, 16);
   const file = `${hash}.mp3`;
-  (manifest[itemId] ||= { segments: [] }).segments.push({ file: `audio/${file}`, who, gap });
+  // quiz: nach diesem Abschnitt hält die App für eine Zwischenfrage an.
+  (manifest[itemId] ||= { segments: [] }).segments.push({ file: `audio/${file}`, who, gap, ...(quiz != null ? { quiz } : {}) });
   if (!jobs.some((j) => j.file === file)) jobs.push({ file, text: t, ...v });
 };
 
@@ -49,8 +51,7 @@ for (const chapter of loadChapters()) {
     for (const item of lesson.items || []) {
       if (item.type === 'dialog') {
         const cast = castDialog(item);
-        if (item.lines) item.lines.forEach((l) => add(item.id, l.text, cast[l.who], l.who, 380));
-        else add(item.id, item.text, cast._, null, 0);
+        for (const p of audioParts(item)) add(item.id, p.text, item.lines ? cast[p.who] : cast._, p.who, item.lines ? 380 : 300, p.quiz);
       } else {
         add(item.id, `${item.title}.`, NARRATOR, null, 600);
         item.paragraphs.forEach((p) => add(item.id, p, NARRATOR, null, 450));

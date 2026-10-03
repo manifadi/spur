@@ -1114,7 +1114,8 @@
    {
     "file": "audio/4ae9e8c4ee6e0c7a.mp3",
     "who": "Sophie",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/67a8c5aa60a27b22.mp3",
@@ -1153,7 +1154,8 @@
    {
     "file": "audio/c45c7652af6e9c72.mp3",
     "who": "Emre",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/7d99afd5f8a698cf.mp3",
@@ -1187,7 +1189,8 @@
    {
     "file": "audio/81446b76ca75c154.mp3",
     "who": "Emre",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/9cf7fca3a3caf54c.mp3",
@@ -1318,7 +1321,8 @@
    {
     "file": "audio/caa6c3884acb3218.mp3",
     "who": "Kolja",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/f2d88f7a309a98ec.mp3",
@@ -1362,7 +1366,8 @@
    {
     "file": "audio/61ea45a3effc7b5a.mp3",
     "who": "Kolja",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/10168597cc33ddd1.mp3",
@@ -1406,7 +1411,8 @@
    {
     "file": "audio/978a0f006e56e758.mp3",
     "who": "Kolja",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/c58a4b0b8d2cd3fa.mp3",
@@ -1438,162 +1444,270 @@
  "z1-kaffeekueche-d": {
   "segments": [
    {
-    "file": "audio/2d39988bbf9b374b.mp3",
+    "file": "audio/791a55fb1ed35a43.mp3",
     "who": null,
-    "gap": 0
+    "gap": 300,
+    "quiz": 0
+   },
+   {
+    "file": "audio/301b762ab1feeff8.mp3",
+    "who": null,
+    "gap": 300
    }
   ]
  },
  "z1-buero-d2": {
   "segments": [
    {
-    "file": "audio/1797c60a96b566ac.mp3",
+    "file": "audio/38153005ef1d56e7.mp3",
     "who": null,
-    "gap": 0
+    "gap": 300,
+    "quiz": 0
+   },
+   {
+    "file": "audio/89865301762b6f10.mp3",
+    "who": null,
+    "gap": 300
    }
   ]
  },
  "z1-feierabend-d": {
   "segments": [
    {
-    "file": "audio/208aa5764cf2df8e.mp3",
+    "file": "audio/c77b974cea22d600.mp3",
     "who": null,
-    "gap": 0
+    "gap": 300,
+    "quiz": 0
+   },
+   {
+    "file": "audio/1c1f2cac62243977.mp3",
+    "who": null,
+    "gap": 300
    }
   ]
  },
  "z1-umzug-d": {
   "segments": [
    {
-    "file": "audio/af3487bc867bb3ce.mp3",
+    "file": "audio/863d952ad90c1906.mp3",
     "who": null,
-    "gap": 0
+    "gap": 300,
+    "quiz": 0
+   },
+   {
+    "file": "audio/2e085ce733c7b698.mp3",
+    "who": null,
+    "gap": 300
    }
   ]
  },
  "z1-umzug-d2": {
   "segments": [
    {
-    "file": "audio/ffec3f6f28c41e3f.mp3",
+    "file": "audio/da0ac9a127d05ac1.mp3",
     "who": null,
-    "gap": 0
+    "gap": 300,
+    "quiz": 0
+   },
+   {
+    "file": "audio/5d657a8e35879f2d.mp3",
+    "who": null,
+    "gap": 300
    }
   ]
  },
  "z1-umzug-d3": {
   "segments": [
    {
-    "file": "audio/8cbe29c29155d942.mp3",
+    "file": "audio/ee302643da551af0.mp3",
     "who": null,
-    "gap": 0
+    "gap": 300,
+    "quiz": 0
+   },
+   {
+    "file": "audio/df1ecb74bccebdd0.mp3",
+    "who": null,
+    "gap": 300
    }
   ]
  },
  "z1-paket-d": {
   "segments": [
    {
-    "file": "audio/27a063ab35c2c7bd.mp3",
+    "file": "audio/881e9355f0090f43.mp3",
     "who": null,
-    "gap": 0
+    "gap": 300,
+    "quiz": 0
+   },
+   {
+    "file": "audio/8dad2142f79db8d9.mp3",
+    "who": null,
+    "gap": 300
    }
   ]
  },
  "z1-wochenmarkt-d": {
   "segments": [
    {
-    "file": "audio/cd9c38c25a166c3f.mp3",
+    "file": "audio/383c8af858a0c802.mp3",
     "who": null,
-    "gap": 0
+    "gap": 300,
+    "quiz": 0
+   },
+   {
+    "file": "audio/6ad44077a9b21f68.mp3",
+    "who": null,
+    "gap": 300
    }
   ]
  },
  "z1-berger-d3": {
   "segments": [
    {
-    "file": "audio/1bc6a3a271a2406d.mp3",
+    "file": "audio/8cb139a2d83a63d8.mp3",
     "who": null,
-    "gap": 0
+    "gap": 300,
+    "quiz": 0
+   },
+   {
+    "file": "audio/ac4b2c3978a4fb52.mp3",
+    "who": null,
+    "gap": 300
    }
   ]
  },
  "z2-geburtstag-d": {
   "segments": [
    {
-    "file": "audio/99101bfc18c61689.mp3",
+    "file": "audio/f41828707ed19588.mp3",
     "who": null,
-    "gap": 0
+    "gap": 300,
+    "quiz": 0
+   },
+   {
+    "file": "audio/1715dd0fd71b38fb.mp3",
+    "who": null,
+    "gap": 300
    }
   ]
  },
  "z2-geburtstag-d2": {
   "segments": [
    {
-    "file": "audio/98760bbf864c9c54.mp3",
+    "file": "audio/0bae42300276fdce.mp3",
     "who": null,
-    "gap": 0
+    "gap": 300,
+    "quiz": 0
+   },
+   {
+    "file": "audio/cd22855cf4371188.mp3",
+    "who": null,
+    "gap": 300
    }
   ]
  },
  "z2-geburtstag-d3": {
   "segments": [
    {
-    "file": "audio/a20f365b0024fdb4.mp3",
+    "file": "audio/5aa4a9390ca570f5.mp3",
     "who": null,
-    "gap": 0
+    "gap": 300,
+    "quiz": 0
+   },
+   {
+    "file": "audio/6821cd04c97cf7ec.mp3",
+    "who": null,
+    "gap": 300
    }
   ]
  },
  "z2-arztpraxis-d": {
   "segments": [
    {
-    "file": "audio/69b2a6185128d803.mp3",
+    "file": "audio/e007e1769388fc0a.mp3",
     "who": null,
-    "gap": 0
+    "gap": 300,
+    "quiz": 0
+   },
+   {
+    "file": "audio/020d8f1f648da8f1.mp3",
+    "who": null,
+    "gap": 300
    }
   ]
  },
  "z2-zugfahrt-d": {
   "segments": [
    {
-    "file": "audio/350738890ce59e31.mp3",
+    "file": "audio/38f6e7fc8e1e6867.mp3",
     "who": null,
-    "gap": 0
+    "gap": 300,
+    "quiz": 0
+   },
+   {
+    "file": "audio/69ed7b384f9dbb4a.mp3",
+    "who": null,
+    "gap": 300
    }
   ]
  },
  "z2-woche-d3": {
   "segments": [
    {
-    "file": "audio/0b103e247d8c253a.mp3",
+    "file": "audio/86d6c4a0ce90e731.mp3",
     "who": null,
-    "gap": 0
+    "gap": 300,
+    "quiz": 0
+   },
+   {
+    "file": "audio/96c490415cbec513.mp3",
+    "who": null,
+    "gap": 300
    }
   ]
  },
  "z2-nachbarn-d": {
   "segments": [
    {
-    "file": "audio/5f406dd7f9b87a3c.mp3",
+    "file": "audio/a3d0dfac3882560c.mp3",
     "who": null,
-    "gap": 0
+    "gap": 300,
+    "quiz": 0
+   },
+   {
+    "file": "audio/f9b1ddf1771b3ee4.mp3",
+    "who": null,
+    "gap": 300
    }
   ]
  },
  "z2-nachbarn-d2": {
   "segments": [
    {
-    "file": "audio/6d629e586a1846d7.mp3",
+    "file": "audio/020228dc2eca60b9.mp3",
     "who": null,
-    "gap": 0
+    "gap": 300,
+    "quiz": 0
+   },
+   {
+    "file": "audio/719f4a9b96beb5b3.mp3",
+    "who": null,
+    "gap": 300
    }
   ]
  },
  "z2-nachbarn-d3": {
   "segments": [
    {
-    "file": "audio/abf8b837f3d81db9.mp3",
+    "file": "audio/92f9917de27bc630.mp3",
     "who": null,
-    "gap": 0
+    "gap": 300,
+    "quiz": 0
+   },
+   {
+    "file": "audio/ffeaf03918bed6df.mp3",
+    "who": null,
+    "gap": 300
    }
   ]
  },
@@ -1607,7 +1721,8 @@
    {
     "file": "audio/4ad8035a5766b0ab.mp3",
     "who": "Aylin",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/a6ead2af7549a4f8.mp3",
@@ -1646,7 +1761,8 @@
    {
     "file": "audio/25354a5e77b9d281.mp3",
     "who": "Paul",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/fdfc8f4613642ee3.mp3",
@@ -1685,7 +1801,8 @@
    {
     "file": "audio/be4e93992da0a387.mp3",
     "who": "Paul",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/055fe6668a46860c.mp3",
@@ -1724,7 +1841,8 @@
    {
     "file": "audio/f12000a6bac9bb5b.mp3",
     "who": "Deniz",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/7e0975ac6af6dbfd.mp3",
@@ -1758,7 +1876,8 @@
    {
     "file": "audio/2a2ee5bed81945e6.mp3",
     "who": "Kim",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/48240339dc42bf96.mp3",
@@ -1792,7 +1911,8 @@
    {
     "file": "audio/147fae883644ca3e.mp3",
     "who": "Deniz",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/72219f816036cbf3.mp3",
@@ -1831,7 +1951,8 @@
    {
     "file": "audio/8dd510106e13a9f3.mp3",
     "who": "Leon",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/40e789174759feef.mp3",
@@ -1870,7 +1991,8 @@
    {
     "file": "audio/769adfcb08ec3cfc.mp3",
     "who": "Oma Ilse",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/5da43a9cf94c8782.mp3",
@@ -1919,7 +2041,8 @@
    {
     "file": "audio/fdd4efbcef4a00ab.mp3",
     "who": "Oma Ilse",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/89e2f8db29ce4f15.mp3",
@@ -1953,7 +2076,8 @@
    {
     "file": "audio/9b85eac195e071f9.mp3",
     "who": "Tobias",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/b0ab1b0d367d314d.mp3",
@@ -1992,7 +2116,8 @@
    {
     "file": "audio/3ad56f5768b7e6e5.mp3",
     "who": "Jana",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/ed09e84a324e44b6.mp3",
@@ -2036,7 +2161,8 @@
    {
     "file": "audio/18421052036cd145.mp3",
     "who": "Tobias",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/55cb1d3eeb9876a7.mp3",
@@ -2075,7 +2201,8 @@
    {
     "file": "audio/cc613f9a1fe6dd98.mp3",
     "who": "Ben",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/7c275d9d09907e5e.mp3",
@@ -2114,7 +2241,8 @@
    {
     "file": "audio/311c14d48e424c73.mp3",
     "who": "Marta",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/918b06e3b29b82e6.mp3",
@@ -2153,7 +2281,8 @@
    {
     "file": "audio/798538f1006f57c2.mp3",
     "who": "Marta",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/d5ba2d4ed3e055c2.mp3",
@@ -2197,7 +2326,8 @@
    {
     "file": "audio/5cc70128de2bc810.mp3",
     "who": "Herr Lindqvist",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/8e0da03144564daf.mp3",
@@ -2236,7 +2366,8 @@
    {
     "file": "audio/62180c4378e597d2.mp3",
     "who": "Frau Petrović",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/9f151d6164ed625b.mp3",
@@ -2285,7 +2416,8 @@
    {
     "file": "audio/fa4fd0faf610c9ed.mp3",
     "who": "Frau Demir",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/3e72480f5e889c4e.mp3",
@@ -2319,7 +2451,8 @@
    {
     "file": "audio/eedd147b777846ce.mp3",
     "who": "Frau Heller",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/a32bbfa49cd930be.mp3",
@@ -2363,7 +2496,8 @@
    {
     "file": "audio/8c995362bf8c6773.mp3",
     "who": "Meister Kowalski",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/6525525423c5fbde.mp3",
@@ -2412,7 +2546,8 @@
    {
     "file": "audio/62aed40c33f56253.mp3",
     "who": "Azubi Timo",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/997a334fc3c1b147.mp3",
@@ -2451,7 +2586,8 @@
    {
     "file": "audio/f51287f9808b5f22.mp3",
     "who": "Jonte",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/5080a22c9bdde91b.mp3",
@@ -2490,7 +2626,8 @@
    {
     "file": "audio/a279a9b704efc006.mp3",
     "who": "Frau Sommer",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/baee7f38e2ccd9d3.mp3",
@@ -2529,7 +2666,8 @@
    {
     "file": "audio/0b77010d5cee2426.mp3",
     "who": "Lea",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/77d7f438163f1db8.mp3",
@@ -2573,7 +2711,8 @@
    {
     "file": "audio/9103feb808e7ea76.mp3",
     "who": "Ole",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/d561d4f8b3d95e3d.mp3",
@@ -2612,7 +2751,8 @@
    {
     "file": "audio/b86de59224e206ee.mp3",
     "who": "Tante Vera",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/411be1508ece84ec.mp3",
@@ -2651,7 +2791,8 @@
    {
     "file": "audio/4ad02049a89fd1ba.mp3",
     "who": "Tante Vera",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/0c64321a8a66af13.mp3",
@@ -2695,7 +2836,8 @@
    {
     "file": "audio/1988464583423efe.mp3",
     "who": "Deniz",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/476e8ba51d68dbfa.mp3",
@@ -2729,7 +2871,8 @@
    {
     "file": "audio/d120c30e0a89f488.mp3",
     "who": "Deniz",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/d5a18d659d1051b4.mp3",
@@ -2763,7 +2906,8 @@
    {
     "file": "audio/3c2cb528b89712cd.mp3",
     "who": "Deniz",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/2452cd78e9065e33.mp3",
@@ -2802,7 +2946,8 @@
    {
     "file": "audio/673997e374a0f62a.mp3",
     "who": "Jakob",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/dd9831ef4776afa4.mp3",
@@ -2836,7 +2981,8 @@
    {
     "file": "audio/f97b59d5c0fe9d3f.mp3",
     "who": "Jakob",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/9e60c36ee692da53.mp3",
@@ -2870,7 +3016,8 @@
    {
     "file": "audio/25bfead52cf24cee.mp3",
     "who": "Jakob",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/49d84b96c5b0e642.mp3",
@@ -2914,7 +3061,8 @@
    {
     "file": "audio/db5bc04cf4e626ba.mp3",
     "who": "Herr Özdemir",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/ef8a95f6309d60c1.mp3",
@@ -2943,7 +3091,8 @@
    {
     "file": "audio/c281439277e9a462.mp3",
     "who": "Frau Albrecht",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/69ef96ddbda3e715.mp3",
@@ -2977,7 +3126,8 @@
    {
     "file": "audio/350ff807be530bdd.mp3",
     "who": "Herr Özdemir",
-    "gap": 380
+    "gap": 380,
+    "quiz": 0
    },
    {
     "file": "audio/fa56bbbb65338061.mp3",
@@ -3002,6 +3152,416 @@
    {
     "file": "audio/798a83563cf96ed6.mp3",
     "who": "Frau Albrecht",
+    "gap": 380
+   }
+  ]
+ },
+ "z6-auto-d": {
+  "segments": [
+   {
+    "file": "audio/2be3e8a93aa6036c.mp3",
+    "who": "Aylin",
+    "gap": 380,
+    "quiz": 0
+   },
+   {
+    "file": "audio/8f509f604ef8aeb1.mp3",
+    "who": "Paul",
+    "gap": 380
+   },
+   {
+    "file": "audio/18eef054506dbd34.mp3",
+    "who": "Aylin",
+    "gap": 380
+   },
+   {
+    "file": "audio/8d40410d829a316b.mp3",
+    "who": "Paul",
+    "gap": 380
+   },
+   {
+    "file": "audio/0d9912274b131bd4.mp3",
+    "who": "Aylin",
+    "gap": 380
+   },
+   {
+    "file": "audio/67ecfcaacdc2e8ec.mp3",
+    "who": "Paul",
+    "gap": 380
+   },
+   {
+    "file": "audio/a0f8790f383924db.mp3",
+    "who": "Aylin",
+    "gap": 380
+   },
+   {
+    "file": "audio/cfec27e24b7e7a61.mp3",
+    "who": "Paul",
+    "gap": 380
+   }
+  ]
+ },
+ "z6-auto-d2": {
+  "segments": [
+   {
+    "file": "audio/d01907d5e5bda37d.mp3",
+    "who": "Paul",
+    "gap": 380
+   },
+   {
+    "file": "audio/2baea6ee630942d1.mp3",
+    "who": "Aylin",
+    "gap": 380,
+    "quiz": 0
+   },
+   {
+    "file": "audio/d8f607c62aeaea2d.mp3",
+    "who": "Paul",
+    "gap": 380
+   },
+   {
+    "file": "audio/ffb27a4701269e57.mp3",
+    "who": "Aylin",
+    "gap": 380
+   },
+   {
+    "file": "audio/04b27a6dd5265e71.mp3",
+    "who": "Paul",
+    "gap": 380
+   },
+   {
+    "file": "audio/c9fc853423cf3e99.mp3",
+    "who": "Aylin",
+    "gap": 380
+   },
+   {
+    "file": "audio/f6e69c9586463dd6.mp3",
+    "who": "Paul",
+    "gap": 380
+   },
+   {
+    "file": "audio/418b6e9daea41045.mp3",
+    "who": "Aylin",
+    "gap": 380
+   }
+  ]
+ },
+ "z6-auto-d3": {
+  "segments": [
+   {
+    "file": "audio/095590e34fca2f5a.mp3",
+    "who": "Aylin",
+    "gap": 380
+   },
+   {
+    "file": "audio/385c41df8a95bae9.mp3",
+    "who": "Paul",
+    "gap": 380,
+    "quiz": 0
+   },
+   {
+    "file": "audio/11b425503150ba6e.mp3",
+    "who": "Aylin",
+    "gap": 380
+   },
+   {
+    "file": "audio/562778957bb0ceab.mp3",
+    "who": "Paul",
+    "gap": 380
+   },
+   {
+    "file": "audio/331ba06b7aa73a5e.mp3",
+    "who": "Aylin",
+    "gap": 380
+   },
+   {
+    "file": "audio/729c5198cd997486.mp3",
+    "who": "Paul",
+    "gap": 380
+   },
+   {
+    "file": "audio/fb028d2a7a63b8b1.mp3",
+    "who": "Aylin",
+    "gap": 380
+   },
+   {
+    "file": "audio/24cad78a71fbfb03.mp3",
+    "who": "Paul",
+    "gap": 380
+   }
+  ]
+ },
+ "z6-buero-d": {
+  "segments": [
+   {
+    "file": "audio/18daeaae75b454c5.mp3",
+    "who": "Kolja",
+    "gap": 380
+   },
+   {
+    "file": "audio/1a927dd7053692dc.mp3",
+    "who": "Ida",
+    "gap": 380,
+    "quiz": 0
+   },
+   {
+    "file": "audio/aa32692adb170508.mp3",
+    "who": "Kolja",
+    "gap": 380
+   },
+   {
+    "file": "audio/674d271825cd97ce.mp3",
+    "who": "Ida",
+    "gap": 380
+   },
+   {
+    "file": "audio/fac401fd39f10f0b.mp3",
+    "who": "Kolja",
+    "gap": 380
+   },
+   {
+    "file": "audio/1d440d647b2314a6.mp3",
+    "who": "Ida",
+    "gap": 380
+   },
+   {
+    "file": "audio/49a6537422c4f6fe.mp3",
+    "who": "Kolja",
+    "gap": 380
+   },
+   {
+    "file": "audio/8cefbf12f269bfb9.mp3",
+    "who": "Ida",
+    "gap": 380
+   }
+  ]
+ },
+ "z6-buero-d2": {
+  "segments": [
+   {
+    "file": "audio/eb42efa3446254dd.mp3",
+    "who": "Ida",
+    "gap": 380
+   },
+   {
+    "file": "audio/a1bed4ed4639fa85.mp3",
+    "who": "Kolja",
+    "gap": 380
+   },
+   {
+    "file": "audio/1abec5b43b691714.mp3",
+    "who": "Ida",
+    "gap": 380
+   },
+   {
+    "file": "audio/86b1c000e44299ab.mp3",
+    "who": "Kolja",
+    "gap": 380,
+    "quiz": 0
+   },
+   {
+    "file": "audio/940848b2822a20ba.mp3",
+    "who": "Ida",
+    "gap": 380
+   },
+   {
+    "file": "audio/d2ef899f606b3e67.mp3",
+    "who": "Kolja",
+    "gap": 380
+   },
+   {
+    "file": "audio/074ed86d97775999.mp3",
+    "who": "Ida",
+    "gap": 380
+   },
+   {
+    "file": "audio/51fc9ab5f4de35fa.mp3",
+    "who": "Kolja",
+    "gap": 380
+   },
+   {
+    "file": "audio/d0d85b5d81914e01.mp3",
+    "who": "Ida",
+    "gap": 380
+   }
+  ]
+ },
+ "z6-buero-d3": {
+  "segments": [
+   {
+    "file": "audio/85c7673daa6e2093.mp3",
+    "who": "Kolja",
+    "gap": 380
+   },
+   {
+    "file": "audio/aa9354ad1824bbf3.mp3",
+    "who": "Ida",
+    "gap": 380,
+    "quiz": 0
+   },
+   {
+    "file": "audio/f424d94e77f68192.mp3",
+    "who": "Kolja",
+    "gap": 380
+   },
+   {
+    "file": "audio/47dd01388c88a50b.mp3",
+    "who": "Ida",
+    "gap": 380
+   },
+   {
+    "file": "audio/60d0c91f50e3775f.mp3",
+    "who": "Kolja",
+    "gap": 380
+   },
+   {
+    "file": "audio/48e3b1faa993b020.mp3",
+    "who": "Ida",
+    "gap": 380
+   },
+   {
+    "file": "audio/2c5fb0b3b893a0ee.mp3",
+    "who": "Kolja",
+    "gap": 380
+   },
+   {
+    "file": "audio/04e0fd137419bfef.mp3",
+    "who": "Ida",
+    "gap": 380
+   }
+  ]
+ },
+ "z6-handy-d": {
+  "segments": [
+   {
+    "file": "audio/a2bd71523d5f46bd.mp3",
+    "who": "Leon",
+    "gap": 380
+   },
+   {
+    "file": "audio/5458af68aac7e649.mp3",
+    "who": "Oma Ilse",
+    "gap": 380,
+    "quiz": 0
+   },
+   {
+    "file": "audio/af02a8d805fdaa58.mp3",
+    "who": "Leon",
+    "gap": 380
+   },
+   {
+    "file": "audio/e2cf175f75f6226b.mp3",
+    "who": "Oma Ilse",
+    "gap": 380
+   },
+   {
+    "file": "audio/ac36b3520f84ef83.mp3",
+    "who": "Leon",
+    "gap": 380
+   },
+   {
+    "file": "audio/463baeb4509c53dc.mp3",
+    "who": "Oma Ilse",
+    "gap": 380
+   },
+   {
+    "file": "audio/04f68b956e700dca.mp3",
+    "who": "Leon",
+    "gap": 380
+   },
+   {
+    "file": "audio/6d23341c2665a2a9.mp3",
+    "who": "Oma Ilse",
+    "gap": 380
+   }
+  ]
+ },
+ "z6-handy-d2": {
+  "segments": [
+   {
+    "file": "audio/77b98b23120ba1c2.mp3",
+    "who": "Leon",
+    "gap": 380
+   },
+   {
+    "file": "audio/9cf39a477ad01c6f.mp3",
+    "who": "Oma Ilse",
+    "gap": 380,
+    "quiz": 0
+   },
+   {
+    "file": "audio/2da61dfdd06f9882.mp3",
+    "who": "Leon",
+    "gap": 380
+   },
+   {
+    "file": "audio/13360984655e8c7e.mp3",
+    "who": "Oma Ilse",
+    "gap": 380
+   },
+   {
+    "file": "audio/42a07b4a6bf8f258.mp3",
+    "who": "Leon",
+    "gap": 380
+   },
+   {
+    "file": "audio/c585873cd37e15eb.mp3",
+    "who": "Oma Ilse",
+    "gap": 380
+   },
+   {
+    "file": "audio/6e9f6663e3218a2c.mp3",
+    "who": "Leon",
+    "gap": 380
+   },
+   {
+    "file": "audio/be6e84196e24ec55.mp3",
+    "who": "Oma Ilse",
+    "gap": 380
+   }
+  ]
+ },
+ "z6-handy-d3": {
+  "segments": [
+   {
+    "file": "audio/6005271d45a8f32b.mp3",
+    "who": "Leon",
+    "gap": 380
+   },
+   {
+    "file": "audio/76ee97e9688f5867.mp3",
+    "who": "Oma Ilse",
+    "gap": 380,
+    "quiz": 0
+   },
+   {
+    "file": "audio/3e88049a33708dba.mp3",
+    "who": "Leon",
+    "gap": 380
+   },
+   {
+    "file": "audio/481afaf87ea0f214.mp3",
+    "who": "Oma Ilse",
+    "gap": 380
+   },
+   {
+    "file": "audio/6f5ae3213b1410a9.mp3",
+    "who": "Leon",
+    "gap": 380
+   },
+   {
+    "file": "audio/7320bdabf5dd922a.mp3",
+    "who": "Oma Ilse",
+    "gap": 380
+   },
+   {
+    "file": "audio/ca9abb8f96534ae6.mp3",
+    "who": "Leon",
+    "gap": 380
+   },
+   {
+    "file": "audio/8d8b4ef0f9d022e0.mp3",
+    "who": "Oma Ilse",
     "gap": 380
    }
   ]

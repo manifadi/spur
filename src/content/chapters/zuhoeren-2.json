@@ -15,6 +15,18 @@
      "title": "Die Einladung",
      "characterId": "mia",
      "text": "Hast du am Samstag Zeit? Mira feiert ihren Geburtstag, diesmal im Garten ihrer Eltern, Lindenweg 14. Das ist das Haus mit dem grünen Zaun, gleich nach der Bushaltestelle. Los geht's ab vier, es gibt Kuchen und später wird gegrillt. Bring bitte keine Blumen mit, sie hat Heuschnupfen, und zwar richtig schlimm. Letztes Jahr hat ihr jemand Lilien geschenkt, und sie hat den ganzen Abend nur geniest. Mira wird übrigens 35, aber sag's keinem, sie tut so, als wäre es der 30. Wir legen zusammen für einen Kochkurs, italienisch, der ist im Oktober. Ich sammle das Geld ein, zwanzig Euro pro Person.",
+     "popQuiz": [
+      {
+       "after": "gleich nach der Bushaltestelle.",
+       "prompt": "Welche Farbe hat der Zaun am Haus?",
+       "answers": [
+        [
+         "grün"
+        ]
+       ],
+       "solution": "Grün."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",
@@ -89,6 +101,20 @@
      "title": "Der Ablauf",
      "characterId": "mia",
      "text": "Ach, und noch was zum Samstag: Ab acht spielt ihr Cousin Felix Gitarre. Der ist eigentlich Zahnarzt, aber am Wochenende tut er so, als wäre er ein Rockstar. Erst gibt's Kuchen, dann wird gegrillt, und wenn es dunkel wird, will Mira eine Feuerschale anmachen. Ich bringe den Nudelsalat mit. Wenn du magst, kannst du Brot besorgen, das vergisst nämlich jedes Jahr jemand. Parken ist schwierig, die Straße ist eng. Am besten stellst du dein Auto am Sportplatz ab und läufst die fünf Minuten. Und nimm eine Jacke mit, im Garten wird es abends kalt, auch wenn es tagsüber warm ist.",
+     "popQuiz": [
+      {
+       "after": "Ich bringe den Nudelsalat mit.",
+       "prompt": "Welcher Salat wird mitgebracht?",
+       "answers": [
+        [
+         "Nudelsalat",
+         "Nudeln",
+         "Nudel"
+        ]
+       ],
+       "solution": "Nudelsalat."
+      }
+     ],
      "subExercises": [
       {
        "id": "q3",
@@ -138,6 +164,21 @@
      "title": "Der Abend danach",
      "characterId": "mia",
      "text": "Na, gut nach Hause gekommen? Was für ein Abend! Felix hat übrigens nicht nur Gitarre gespielt, sondern auch noch gesungen, zwei Stunden lang. Beim dritten Lied von den Beatles hat Miras Vater mitgesungen, und zwar lauter als Felix. Das Brot hast du super besorgt, nur hat jemand anders auch zwei Laibe mitgebracht, jetzt hat Mira Brot für eine Woche. Den Kochkurs fand sie toll, sie hat sogar ein bisschen geweint. Und rate mal: Um Mitternacht hat die Feuerschale den Rasen angesengt, ein Fleck so groß wie ein Wagenrad. Ihr Vater hat nur gelacht und gesagt, der Rasen war sowieso hässlich. Nächstes Jahr feiert sie trotzdem lieber in einer Bar.",
+     "popQuiz": [
+      {
+       "after": "und zwar lauter als Felix.",
+       "prompt": "Beim wievielten Beatles-Lied hat Miras Vater mitgesungen?",
+       "answers": [
+        [
+         "dritten",
+         "drei",
+         "3",
+         "dritte"
+        ]
+       ],
+       "solution": "Beim dritten."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",
@@ -212,6 +253,18 @@
      "title": "Der verschobene Termin",
      "characterId": "sandra",
      "text": "Na toll. Die Praxis hat meinen Termin auf Donnerstag, 9:40 Uhr, verschoben. Mitten in der Teambesprechung natürlich. Dr. Albers ist im Urlaub, drei Wochen Mallorca, also komme ich zu ihrer Vertretung, Frau Dr. Kaya. Die soll gut sein, sagt meine Schwester. Mitbringen soll ich die Versichertenkarte und den Impfpass, weil sie gleich die Tetanus-Impfung auffrischen wollen. Und nüchtern soll ich kommen, wegen der Blutabnahme. Ohne Kaffee. Um 9:40. Ich freu mich schon. Danach muss ich noch zur Apotheke am Markt, die haben meine Tabletten endlich wieder vorrätig. Drei Wochen hat das gedauert. Wenn ich bis zwölf nicht zurück bin, fang ohne mich mit der Präsentation an, die Folien liegen im gemeinsamen Ordner.",
+     "popQuiz": [
+      {
+       "after": "Die soll gut sein, sagt meine Schwester.",
+       "prompt": "Wo macht Dr. Albers Urlaub?",
+       "answers": [
+        [
+         "Mallorca"
+        ]
+       ],
+       "solution": "Auf Mallorca."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",
@@ -291,6 +344,20 @@
      "title": "Die Dienstreise",
      "characterId": "thomas",
      "text": "Für die Schulung nächste Woche fahre ich mit dem Zug. Mein Zug nach Leipzig fährt um 7:12 von Gleis 5. Ich hab Platz 63 in Wagen 8 reserviert, am Fenster, in Fahrtrichtung. Umsteigen muss ich nur einmal, in Erfurt, da habe ich elf Minuten. Wenn der Anschluss klappt, bin ich um zehn nach elf da. Wenn nicht, nehme ich den nächsten und bin eine Stunde später. Rechnet also sicherheitshalber mit mir erst nach der Mittagspause. Die Schulung geht zwei Tage, übernachten tue ich im Hotel am Hauptbahnhof. Zurück fahre ich am Freitag um halb fünf, dann bin ich gegen neun wieder zu Hause. Falls mich jemand braucht: Das Telefon habe ich dabei, aber Empfang gibt es auf der Strecke nicht überall.",
+     "popQuiz": [
+      {
+       "after": "am Fenster, in Fahrtrichtung.",
+       "prompt": "Wofür fährt Thomas nach Leipzig?",
+       "answers": [
+        [
+         "Schulung",
+         "Fortbildung",
+         "Weiterbildung"
+        ]
+       ],
+       "solution": "Für eine Schulung."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",
@@ -361,6 +428,18 @@
      "title": "Grüße aus Leipzig",
      "characterId": "thomas",
      "text": "Kurze Nachricht aus Leipzig. Der Anschluss in Erfurt hat geklappt, ich war sogar um fünf nach elf da. Ein Wunder. Die Schulung ist im vierten Stock, Raum 412, und wir sind nur acht Leute. Der Trainer heißt Herr Nguyen und macht alle zwanzig Minuten ein Quiz. Morgen geht es um Tabellenkalkulation, heute war Projektplanung dran. Das Hotel ist in Ordnung, aber das Fenster geht auf die Straßenbahn raus, ab halb fünf morgens fährt sie im Takt von zehn Minuten. Sagt Sandra bitte, dass ich ihre Präsentation noch nicht gelesen habe. Ich mache das im Zug am Freitag. Und falls die Kaffeemaschine wieder streikt: Der Techniker hat seine Nummer an den Kühlschrank geklebt.",
+     "popQuiz": [
+      {
+       "after": "Ein Wunder.",
+       "prompt": "Wo ist Thomas umgestiegen?",
+       "answers": [
+        [
+         "Erfurt"
+        ]
+       ],
+       "solution": "In Erfurt."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",
@@ -440,6 +519,18 @@
      "title": "Familie Okafor",
      "characterId": "frau-berger",
      "text": "Haben Sie die Neuen schon gesehen? Die im dritten Stock, wo früher Herr Wagner gewohnt hat! Die heißen Okafor. Er arbeitet bei der Feuerwehr, sie ist Hebamme — da hat man ja gleich zwei Leute im Haus, die im Notfall wissen, was zu tun ist! Und die haben einen Hund namens Bruno, so ein großer brauner, der hat Angst vor dem Aufzug. Stellen Sie sich das vor, der läuft jeden Tag drei Stockwerke. Nett sind die aber, sie hat mir gleich Kekse gebracht. Die haben auch eine kleine Tochter, Amara heißt sie, die geht in die zweite Klasse. Und wissen Sie was? Die spielt Geige! Ich hab sie schon üben hören, jeden Nachmittag um fünf. Na ja, sie übt ja noch. Wir sollten sie mal zum Kaffee einladen, finden Sie nicht?",
+     "popQuiz": [
+      {
+       "after": "die im Notfall wissen, was zu tun ist!",
+       "prompt": "Wer hat früher im dritten Stock gewohnt?",
+       "answers": [
+        [
+         "Wagner"
+        ]
+       ],
+       "solution": "Herr Wagner."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",
@@ -511,6 +602,19 @@
      "title": "Kaffee bei Frau Berger",
      "characterId": "frau-berger",
      "text": "Die Okafors waren gestern bei mir zum Kaffee! Er heißt übrigens Emeka, sie heißt Grace. Sie kommen aus Hannover, er hat sich hierher versetzen lassen, zur Wache in der Hafenstraße. Grace hat Bananenbrot mitgebracht, so ein gutes hab ich noch nie gegessen. Das Rezept ist von ihrer Großmutter, mit Zimt und einer Prise Kardamom. Bruno lag die ganze Zeit unter meinem Tisch und hat geschnarcht. Und die Kleine, Amara, hat mir auf der Geige ein Lied vorgespielt, „Alle meine Entchen“. Zweimal. Nächsten Monat hat sie ihr erstes Vorspiel in der Musikschule. Ich hab versprochen, dass ich komme.",
+     "popQuiz": [
+      {
+       "after": "zur Wache in der Hafenstraße.",
+       "prompt": "In welcher Straße ist Emekas neue Wache?",
+       "answers": [
+        [
+         "Hafenstraße",
+         "Hafen"
+        ]
+       ],
+       "solution": "In der Hafenstraße."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",
@@ -580,6 +684,20 @@
      "title": "Das Vorspiel",
      "characterId": "frau-berger",
      "text": "Ich war gestern beim Vorspiel in der Musikschule, wie versprochen. Elf Kinder, und Amara war die Neunte. Sie hatte ein gelbes Kleid an und hat vorher so gezittert, dass ihr der Bogen runtergefallen ist. Aber dann! Sie hat ein Menuett von Bach gespielt, ohne einen einzigen Fehler. Ihre Lehrerin, Frau Takahashi, hat gesagt, sie übt jetzt schon eine halbe Stunde länger als die anderen. Emeka hatte Dienst, der konnte nicht kommen, also hab ich mit dem Handy gefilmt. Leider nur die zweite Hälfte, am Anfang hatte ich den Finger vor der Linse. Grace hat trotzdem geweint vor Freude.",
+     "popQuiz": [
+      {
+       "after": "dass ihr der Bogen runtergefallen ist.",
+       "prompt": "Welche Farbe hatte Amaras Kleid?",
+       "answers": [
+        [
+         "gelb",
+         "gelbes",
+         "gelben"
+        ]
+       ],
+       "solution": "Gelb."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",

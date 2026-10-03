@@ -44,6 +44,18 @@
        "text": "Du zeigst ihnen den Dom und fährst sie ins Hotel, mehr nicht. Die sind nach zehn Stunden Flug eh müde."
       }
      ],
+     "popQuiz": [
+      {
+       "after": "Und wer hält die Rede?",
+       "prompt": "Woher kommen die Cousins?",
+       "answers": [
+        [
+         "Kanada"
+        ]
+       ],
+       "solution": "Aus Kanada."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",
@@ -125,6 +137,18 @@
       {
        "who": "Tante Vera",
        "text": "Du. Damit er nicht zu viel Wein trinkt, bevor er redet."
+      }
+     ],
+     "popQuiz": [
+      {
+       "after": "über den Chiemsee",
+       "prompt": "Worüber geht die Ballonfahrt?",
+       "answers": [
+        [
+         "Chiemsee"
+        ]
+       ],
+       "solution": "Über den Chiemsee."
       }
      ],
      "subExercises": [
@@ -223,6 +247,21 @@
       {
        "who": "Pia",
        "text": "Und das Hochzeitsfoto von 1978 hängt jetzt bei den beiden im Flur. Opa sagt, der Schnurrbart kommt zurück."
+      }
+     ],
+     "popQuiz": [
+      {
+       "after": "Die Eieruhr hat zweimal geklingelt",
+       "prompt": "Wie oft hat die Eieruhr geklingelt?",
+       "answers": [
+        [
+         "zweimal",
+         "zwei",
+         "2",
+         "zwei mal"
+        ]
+       ],
+       "solution": "Zweimal."
       }
      ],
      "subExercises": [
@@ -325,6 +364,18 @@
        "text": "Etwas weniger als jetzt. Aber dafür muss ich nie wieder Quartalsberichte schreiben. Das ist mir mehr wert als jede Gehaltserhöhung."
       }
      ],
+     "popQuiz": [
+      {
+       "after": "seit dem Studium",
+       "prompt": "Seit wann wollte Deniz etwas mit Kindern machen?",
+       "answers": [
+        [
+         "Studium"
+        ]
+       ],
+       "solution": "Seit dem Studium."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",
@@ -407,6 +458,19 @@
       {
        "who": "Deniz",
        "text": "Und am ersten Oktober ist gleich eine Konferenz in Leipzig. Ich fange also direkt mit einer Dienstreise an."
+      }
+     ],
+     "popQuiz": [
+      {
+       "after": "Zwei Tage die Woche Homeoffice",
+       "prompt": "Wie viele Tage pro Woche arbeitet Deniz im Homeoffice?",
+       "answers": [
+        [
+         "zwei",
+         "2"
+        ]
+       ],
+       "solution": "Zwei Tage."
       }
      ],
      "subExercises": [
@@ -493,6 +557,22 @@
       {
        "who": "Deniz",
        "text": "Kein bisschen. Aber Aysel ruft jede Woche an und fragt, wo irgendeine Datei ist. Ich glaube, sie vermisst mich."
+      }
+     ],
+     "popQuiz": [
+      {
+       "after": "die meisten sind Rentner",
+       "prompt": "Wer sind die meisten Lesepaten?",
+       "answers": [
+        [
+         "Rentner",
+         "Rentnerinnen",
+         "Rentnern",
+         "Senioren",
+         "Rente"
+        ]
+       ],
+       "solution": "Rentner."
       }
      ],
      "subExercises": [
@@ -589,6 +669,23 @@
        "text": "An dem Tag achtzehn. Am zweiten Tag nur zwölf, weil meine Knie nicht mehr wollten. Aber die Aussicht war jeden Schritt wert."
       }
      ],
+     "popQuiz": [
+      {
+       "after": "nur einen halben Meter breit",
+       "prompt": "Wie breit war der Weg an manchen Stellen?",
+       "answers": [
+        [
+         "halben meter",
+         "halber meter",
+         "halbe meter",
+         "50 zentimeter",
+         "50 cm",
+         "fuenfzig zentimeter"
+        ]
+       ],
+       "solution": "Einen halben Meter."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",
@@ -678,6 +775,19 @@
        "text": "Sofort. Aber nächstes Mal mit Handgepäck. Und ohne Käse."
       }
      ],
+     "popQuiz": [
+      {
+       "after": "Käse von seinen Ziegen geschenkt",
+       "prompt": "Was hat der Schäfer den beiden geschenkt?",
+       "answers": [
+        [
+         "Käse",
+         "Ziegenkäse"
+        ]
+       ],
+       "solution": "Käse von seinen Ziegen."
+      }
+     ],
      "subExercises": [
       {
        "id": "q4",
@@ -762,6 +872,19 @@
       {
        "who": "Jakob",
        "text": "Dann nehmen wir Handgepäck. Und du trägst den Käse."
+      }
+     ],
+     "popQuiz": [
+      {
+       "after": "Nur die besten achtzig",
+       "prompt": "Wie viele Fotos will Jakob zeigen?",
+       "answers": [
+        [
+         "achtzig",
+         "80"
+        ]
+       ],
+       "solution": "Die besten achtzig."
       }
      ],
      "subExercises": [
@@ -862,6 +985,19 @@
        "text": "Und bitte denkt daran: Die Kasse für das Sommerfest übernehme ich, nicht wie letztes Jahr fünf verschiedene Leute mit fünf verschiedenen Blechdosen."
       }
      ],
+     "popQuiz": [
+      {
+       "after": "Der Jugendbeitrag bleibt dafür bei 30 Euro",
+       "prompt": "Wie hoch bleibt der Jugendbeitrag?",
+       "answers": [
+        [
+         "30",
+         "dreißig"
+        ]
+       ],
+       "solution": "30 Euro."
+      }
+     ],
      "subExercises": [
       {
        "id": "q1",
@@ -954,6 +1090,20 @@
        "text": "Wer Interesse am Platzwart-Posten hat, meldet sich bitte bis Ende des Monats bei mir. Es gibt eine kleine Aufwandsentschädigung, und den Schlüssel für das Vereinsheim."
       }
      ],
+     "popQuiz": [
+      {
+       "after": "der zweite Preis ein Essensgutschein",
+       "prompt": "Was ist der zweite Preis der Tombola?",
+       "answers": [
+        [
+         "Essensgutschein",
+         "Gutschein",
+         "Essen"
+        ]
+       ],
+       "solution": "Ein Essensgutschein."
+      }
+     ],
      "subExercises": [
       {
        "id": "q5",
@@ -1038,6 +1188,20 @@
       {
        "who": "Frau Albrecht",
        "text": "Die Tombola-Frau als Platzwartin. Wer so viele Lose verkaufen kann, kriegt auch den Rasen in den Griff."
+      }
+     ],
+     "popQuiz": [
+      {
+       "after": "So geht das.",
+       "prompt": "Was gab es beim Sommerfest um vier Uhr?",
+       "answers": [
+        [
+         "Gewitter",
+         "Unwetter",
+         "Sturm"
+        ]
+       ],
+       "solution": "Ein Gewitter."
       }
      ],
      "subExercises": [

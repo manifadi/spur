@@ -68,7 +68,7 @@ Geschlecht und `voiceNameHints` gesucht.
 ## Vorlese-Stimmen
 
 Dialoge und Texte werden nicht live vom Gerät vorgelesen, sondern mit mitgelieferten Audiodateien
-(`public/audio/`, ca. 9 MB, 25 Minuten). Erzeugt werden sie mit neuronalen Microsoft-Stimmen
+(`public/audio/`, ca. 32 MB, 94 Minuten). Erzeugt werden sie mit neuronalen Microsoft-Stimmen
 über [edge-tts](https://github.com/rany2/edge-tts):
 
 - Jede Figur hat eine feste Stimme (`voiceProfile.edgeVoice` oder stabil aus dem Pool gewählt),
@@ -122,6 +122,19 @@ längeren Geschichte (ein Gespräch) oder ein Text einer Themenreihe, jeweils mi
 Ein Tippen auf den Knoten startet genau den nächsten offenen Teil: erst hören bzw. lesen, dann
 die Fragen dieses Teils.
 
+**Zwischenfragen:** Beim ersten Hören eines Gesprächs hält das Audio nach etwa 10–15 Sekunden
+einmal an. Von unten fährt eine kurze Frage hoch, z. B. „Wo hat Thomas die Plätze freigehalten?“.
+Nach dem Prüfen sieht man kurz, ob es richtig war, dann fährt das Sheet wieder hinunter und das
+Audio läuft weiter. Bei der zweiten Wiedergabe wird nicht nochmal gefragt. Zwischenfragen sind
+nur ein Aufmerksamkeits-Check und zählen nicht für Intervalle, Herzen oder Federn. Im Inhalt
+stehen sie als `popQuiz` am Dialog. `after` ist die Textstelle, nach der angehalten wird: bei
+Gesprächen nach der Zeile, die sie enthält, bei Monologen genau dort (muss ein Satzende sein,
+der Monolog wird beim Vertonen an dieser Stelle in zwei Audio-Abschnitte geteilt).
+
+**Streitgespräche** (Kapitel „Zwei Meinungen“): Zwei Figuren vertreten gegensätzliche
+Standpunkte und einigen sich über drei Teile hinweg. Gefragt wird auch, wer welches Argument
+gebracht hat.
+
 Ein Teil ist geschafft, wenn alle seine Fragen gemeistert sind, also mindestens teilweise
 richtig beantwortet. Ist eine Frage daneben, kommt am Ende der Runde ein zweiter Versuch. Er
 kostet kein Herz und ändert kein Intervall. Klappt auch der nicht, wird der Teil beim nächsten
@@ -150,6 +163,7 @@ neue Datei, danach `npm run check:content` und `npm run audio`.
     { "id": "z6-beispiel", "title": "Beispiel", "items": [   // 3–4 Teile pro Level
       { "id": "z6-beispiel-d", "type": "dialog", "title": "…", "characterId": "frau-berger",
         "text": "…"                                   /* oder "lines": [{ "who": "Name", "text": "…" }] */,
+        "popQuiz": [{ "after": "…Textstelle.", "prompt": "Zwischenfrage?", "answers": [["…"]], "solution": "…" }],
         "subExercises": [                              // 3–4 Fragen pro Teil
           { "id": "q1", "type": "recall_text", "prompt": "Frage?", "answers": [["Jonas", "Bruder"]], "solution": "…", "quote": "„…“" },
           { "id": "s1", "type": "sequence_events", "prompt": "Was passierte zuerst?", "events": ["…", "…", "…"] },
@@ -168,8 +182,8 @@ Werden Karten-IDs umgebaut, etwa weil ein Gespräch in zwei Teile geteilt wird, 
 alte und die neue ID in `src/content/migrations.json` ein. Verlauf und Intervalle wandern beim
 nächsten Start mit.
 
-Mitgeliefert: 11 Kapitel mit 31 Leveln, 93 Teilen und 340 Fragen. Davon sind 221 Freitext,
-33 Nacherzählen, 19 Reihenfolge und 67 Auswahl. Ein Teil hat 82–193 Wörter (Schnitt 124).
+Mitgeliefert: 12 Kapitel mit 34 Leveln, 102 Teilen und 376 Fragen. Davon sind 253 Freitext,
+33 Nacherzählen, 20 Reihenfolge und 70 Auswahl. Dazu kommen 69 Zwischenfragen, eine pro Gespräch. Ein Teil hat 82–193 Wörter (Schnitt 124).
 
 ## Pfad
 

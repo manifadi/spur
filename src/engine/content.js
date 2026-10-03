@@ -5,8 +5,11 @@
 //          Ein Feld (Knoten im Pfad, "Level") besteht aus 3–4 Teilen. Jeder Teil ist ein
 //          Item (ein Abschnitt der Geschichte bzw. ein Text) mit 3–4 Fragen und wird in
 //          einer eigenen Session gespielt. Ein Ringsegment am Knoten = ein Teil.
-// Item     Dialog { id, type: 'dialog', title, characterId, text | lines[{who,text,tone?}], tone?, subExercises[], worldRefs }
+// Item     Dialog { id, type: 'dialog', title, characterId, text | lines[{who,text,tone?}], tone?, popQuiz?, subExercises[], worldRefs }
 //          tone: optionale Sprechanweisung ("seufzt, genervt"), für ausdrucksstärkere Vertonung.
+//          popQuiz: Zwischenfragen beim ersten Hören [{ after, prompt, answers[[..]], solution }].
+//          "after" ist eine Textstelle, nach der das Audio anhält (bei lines: nach dieser Zeile,
+//          beim Monolog: genau dort, die Stelle muss ein Satzende sein). Zählt nicht für Intervalle.
 //          Text   { id, type: 'text', title, topic, paragraphs[], keyPoints[], subExercises[] }
 // Übung    recall_text     { id, type, prompt, answers[[..]], solution, quote }   Freitext, automatisch geprüft
 //          recall_text     { id: 'retell', type }                                 Text frei nacherzählen,
@@ -108,6 +111,31 @@ export function dialogPlainText(item) {
   return item.text;
 }
 
+/**
+ * Vorlese-Abschnitte eines Dialogs: [{ text, who, quiz? }]. Bei Zwischenfragen wird ein
+ * Monolog an der Stelle geteilt; `quiz` am Abschnitt heißt "danach Frage Nr. quiz stellen".
+ * Wird von der Vertonung (scripts/audio.mjs) und der Gerätestimme gleich genutzt.
+ */
+export function audioParts(item) {
+  const quiz = item.popQuiz || [];
+  if (item.lines) {
+    const parts = item.lines.map((l) => ({ text: l.text, who: l.who }));
+    quiz.forEach((q, qi) => { const i = item.lines.findIndex((l) => l.text.includes(q.after)); if (i >= 0) parts[i].quiz = qi; });
+    return parts;
+  }
+  const parts = [];
+  let rest = item.text;
+  quiz.forEach((q, qi) => {
+    const at = rest.indexOf(q.after);
+    if (at < 0) return;
+    const end = at + q.after.length;
+    parts.push({ text: rest.slice(0, end).trim(), who: null, quiz: qi });
+    rest = rest.slice(end);
+  });
+  if (rest.trim()) parts.push({ text: rest.trim(), who: null });
+  return parts;
+}
+
 /** Prüft Inhalte auf Schemafehler (npm run check:content). */
 export function validateChapters(chapters) {
   const errors = [];
@@ -125,6 +153,12 @@ export function validateChapters(chapters) {
         seen(it.id, `Item in ${l.id}`);
         if (it.type === 'dialog') {
           if (!it.text && !it.lines?.length) errors.push(`Dialog ${it.id}: text oder lines fehlt`);
+          for (const [qi, q] of (it.popQuiz || []).entries()) {
+            const where = `Zwischenfrage ${it.id}#${qi + 1}`;
+            if (!q.after || !q.prompt || !q.solution || !q.answers?.length) errors.push(`${where}: after/prompt/answers/solution fehlt`);
+            else if (!audioParts(it).some((p) => p.quiz === qi)) errors.push(`${where}: Textstelle "${q.after}" nicht gefunden`);
+            else if (!it.lines && !/[.!?…]["“]?$/.test(q.after)) errors.push(`${where}: "${q.after}" endet nicht am Satzende`);
+          }
         } else if (it.type === 'text') {
           if (!it.paragraphs?.length || !it.topic) errors.push(`Text ${it.id}: paragraphs/topic fehlt`);
         }

@@ -14,6 +14,11 @@ for (const card of index.cards.values()) {
   const r = gradeListen(card.question.solution, card.question.answers);
   if (r.grade !== 'good') errors.push(`Musterlösung von ${card.id} wird nicht erkannt: "${card.question.solution}"`);
 }
+for (const { item } of index.items.values()) {
+  for (const [qi, q] of (item.popQuiz || []).entries()) {
+    if (q.answers && gradeListen(q.solution, q.answers).grade !== 'good') errors.push(`Musterlösung der Zwischenfrage ${item.id}#${qi + 1} wird nicht erkannt: "${q.solution}"`);
+  }
+}
 // Welt: jede Figur mit gültigem Archetyp, jeder Dialog mit bekannter Figur/Orten.
 const world = buildWorld(JSON.parse(readFileSync(new URL('../src/content/world.json', import.meta.url), 'utf8')));
 for (const c of world.characters) if (!world.archetypes[c.personality]) errors.push(`Figur ${c.id}: unbekannter Archetyp "${c.personality}"`);
@@ -34,6 +39,8 @@ console.log(`${chapters.length} Kapitel · ${felder.length} Level · ${index.ite
 console.log(`  Typen: ${count((c) => c.kind === 'recall')} Freitext · ${count((c) => c.kind === 'retell')} Nacherzählen · ${count((c) => c.kind === 'sequence')} Reihenfolge · ${count((c) => c.kind === 'match')} Auswahl`);
 console.log(`  Teile pro Level: ${Object.entries(perFeld).map(([k, v]) => `${k}×${v}`).join(', ')} · Fragen pro Teil: ${Object.entries(perTeil).map(([k, v]) => `${k}×${v}`).join(', ')}`);
 const w = [...index.items.values()].map(({ item }) => words(item));
+const dialogs = [...index.items.values()].filter(({ item }) => item.type === 'dialog');
+console.log(`  Zwischenfragen: ${dialogs.reduce((n, { item }) => n + (item.popQuiz?.length || 0), 0)} in ${dialogs.filter(({ item }) => item.popQuiz?.length).length} von ${dialogs.length} Dialogen`);
 console.log(`  Wörter pro Dialog/Text: ${Math.min(...w)}–${Math.max(...w)} (Schnitt ${Math.round(w.reduce((a, b) => a + b) / w.length)})`);
 // Jede Musterreihenfolge/Auswahl muss konsistent sein
 for (const c of index.cards.values()) {

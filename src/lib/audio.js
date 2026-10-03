@@ -10,8 +10,10 @@ export function hasAudio(itemId) {
 /**
  * @returns {() => void} Stopp-Funktion
  * onBlocked: Browser verbietet Autoplay ohne Antippen (iOS) — kein Fehler, nur nicht gestartet.
+ * onQuiz(n, resume): Nach einem Abschnitt mit Zwischenfrage hält die Wiedergabe an,
+ * bis resume() aufgerufen wird.
  */
-export function playItem(itemId, { onEnd, onError, onBlocked, onSegment } = {}) {
+export function playItem(itemId, { onEnd, onError, onBlocked, onSegment, onQuiz } = {}) {
   const segments = AUDIO[itemId]?.segments || [];
   const audio = new Audio();
   audio.preload = 'auto';
@@ -34,8 +36,10 @@ export function playItem(itemId, { onEnd, onError, onBlocked, onSegment } = {}) 
     });
   };
   audio.onended = () => {
-    const gap = segments[i - 1]?.gap ?? 300;
-    timer = setTimeout(next, i < segments.length ? gap : 0);
+    const seg = segments[i - 1];
+    const go = () => { if (!stopped) timer = setTimeout(next, i < segments.length ? seg?.gap ?? 300 : 0); };
+    if (seg?.quiz != null && onQuiz) onQuiz(seg.quiz, go);
+    else go();
   };
   audio.onerror = () => finish(onError);
   next();
