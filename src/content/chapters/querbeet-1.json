@@ -55,6 +55,17 @@
         ]
        ],
        "solution": "40 Euro."
+      },
+      {
+       "after": "nur die Glocke klemmt.",
+       "prompt": "Was sammelt Sophie?",
+       "answers": [
+        [
+         "Uhren",
+         "Uhr"
+        ]
+       ],
+       "solution": "Uhren."
       }
      ],
      "subExercises": [
@@ -548,6 +559,16 @@
         ]
        ],
        "solution": "Fast 50 Euro."
+      },
+      {
+       "after": "Dann stelle ich es am Kino ab.",
+       "prompt": "Wo stellt Kolja das Rad donnerstags ab?",
+       "answers": [
+        [
+         "Kino"
+        ]
+       ],
+       "solution": "Am Kino."
       }
      ],
      "subExercises": [

@@ -8,7 +8,7 @@ import { addDays, dayKey } from './dates.js';
 import {
   initialState, commitAnswer, buildLessonSession, buildDueSession, buildPath, tick, regenHearts,
   HEART_REGEN_MS, MAX_HEARTS, dueCardIds, buildCheckpointSession, isLessonComplete, lessonSegments,
-  schedulePopup, pickPopup, buildPopupSession, hydrate, markLessonDone, lessonParts, isPartDone,
+  schedulePopup, pickPopup, buildPopupSession, hydrate, markLessonDone, lessonParts, isPartDone, buildPartSession,
 } from './game.js';
 import { gradeMatch, gradeSequence } from './answer.js';
 
@@ -252,4 +252,31 @@ test('Getrenntes Scheduling: Zuhören und Lesen haben je einen eigenen aktuellen
   // Checkpoints gehören zur Spur ihres Kapitels
   assert.equal(index.lessons.get('z3-checkpoint').track, 'listen');
   assert.equal(index.lessons.get('l3-checkpoint').track, 'read');
+});
+
+test('Erledigter Teil frei gewählt: alles, nur Fragen (aus dem Gedächtnis), nur hören', () => {
+  const now = at('2026-09-23T10:00:00');
+  const lessonId = 'z3-porto';
+  const parts = lessonParts(index, lessonId);
+  let s = initialState();
+  // Teil 2 kennen, eine Karte ist heute fällig.
+  for (const id of parts[1].cardIds) s.cards[id] = { stage: 2, due: id.endsWith('q1') ? '2026-09-23' : '2026-10-10', first: 'x', last: '2026-09-20T10:00:00Z', reps: 3, lapses: 0, history: [] };
+
+  const full = buildPartSession(index, s, lessonId, 2, 'full', now);
+  assert.equal(full.kind, 'replay');
+  assert.equal(full.part, 2);
+  assert.ok(full.entries[0].showSource);
+
+  const quiz = buildPartSession(index, s, lessonId, 2, 'quiz', now);
+  assert.equal(quiz.kind, 'quiz');
+  assert.deepEqual(quiz.entries.map((e) => e.cardId), parts[1].cardIds);
+  assert.ok(quiz.entries.every((e) => e.fromMemory && !e.showSource));
+  assert.deepEqual(quiz.entries.map((e) => e.mode), parts[1].cardIds.map((id) => (id.endsWith('q1') ? 'review' : 'practice')));
+
+  const src = buildPartSession(index, s, lessonId, 2, 'source', now);
+  assert.equal(src.entries.length, 1);
+  assert.equal(src.entries[0].mode, 'source');
+
+  // Fällige Wiederholungen und Pop-up-Tests kommen ebenfalls aus dem Gedächtnis.
+  assert.ok(buildDueSession(index, s, lessonId, now).entries.every((e) => e.fromMemory));
 });

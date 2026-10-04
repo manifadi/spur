@@ -13,7 +13,7 @@ import { XP } from '../engine/srs.js';
 import { dayKey, daysBetween } from '../engine/dates.js';
 import { readSeconds } from '../engine/content.js';
 import { speakSegments, stopSpeaking } from '../lib/tts.js';
-import { dialogSpeakers, deviceSegments } from '../lib/voice.js';
+import { dialogSpeakers, deviceSegments, answerSegments } from '../lib/voice.js';
 import { hasAudio, playItem } from '../lib/audio.js';
 import { sounds } from '../lib/sound.js';
 import { daysAgoText } from '../lib/format.js';
@@ -26,10 +26,12 @@ function exercisePhase(card) {
   return { recall: 'question', retell: 'read-recall', match: 'match', sequence: 'sequence' }[card.kind] || 'question';
 }
 
-function firstPhase(entry, card) {
+function firstPhase(entry, card, prev, prevCard) {
   // Neue Gespräche: erst nur zuhören, neue Texte: erst lesen. Danach die Übung.
   // Wiederholungen und weitere Übungen desselben Feldes starten direkt bei der Übung.
   if (entry.showSource) return card.track === 'read' ? 'read-text' : 'listen-audio';
+  // Fragen zu einer früheren Geschichte: bei jedem Wechsel der Geschichte erst ein Zwischenscreen.
+  if (entry.fromMemory && (!prev || !prev.fromMemory || prevCard?.item.id !== card.item.id)) return 'intro';
   return exercisePhase(card);
 }
 
@@ -62,6 +64,8 @@ function LockHint({ children }) {
 
 function CardBadge({ entry, card, seenBefore }) {
   if (entry.mode === 'retry') return <Badge tone={card.track === 'read' ? 'read' : 'listen'} icon="rotate-ccw" style={{ alignSelf: 'flex-start' }}>Zweiter Versuch</Badge>;
+  if (entry.mode === 'source') return <Badge tone={card.track} icon={card.track === 'read' ? 'book-open' : 'ear'} style={{ alignSelf: 'flex-start' }}>{card.track === 'read' ? 'Nur lesen' : 'Nur hören'}</Badge>;
+  if (entry.mode === 'practice' && entry.fromMemory && entry.feld) return <Badge tone={card.track === 'read' ? 'read' : 'listen'} icon="history" style={{ alignSelf: 'flex-start' }}>Aus dem Gedächtnis</Badge>;
   if (entry.mode === 'practice' && entry.feld) return <Badge tone={card.track === 'read' ? 'read' : 'listen'} icon="rotate-ccw" style={{ alignSelf: 'flex-start' }}>Teil nochmal</Badge>;
   if (entry.mode === 'popup') return <Badge tone="amber" icon="sparkles" style={{ alignSelf: 'flex-start' }}>Kurzer Test</Badge>;
   if (entry.mode === 'replay') return <Badge tone={card.track} icon={card.track === 'read' ? 'book-open' : 'ear'} style={{ alignSelf: 'flex-start' }}>{card.track === 'read' ? 'Nochmal lesen' : 'Nochmal hören'}</Badge>;
@@ -136,25 +140,28 @@ function useSpeech(item, auto = false, onQuiz = null) {
   const [who, setWho] = useState(null);
   const stop = useRef(() => {});
   const done = () => { setPlaying(false); setWho(null); };
-  const viaDevice = (manual) => {
-    stop.current = speakSegments(deviceSegments(item), {
+  const viaDevice = (manual, only) => {
+    const segs = deviceSegments(item);
+    stop.current = speakSegments(only ? segs.filter((_, i) => only.includes(i)) : segs, {
       onSegment: (w) => setWho(w),
       onQuiz: quiz,
       onEnd: done,
       onError: () => { done(); if (manual) setError(true); },
     });
   };
-  const start = (manual = true) => {
+  // only: nur diese Abschnitte (z. B. "Stelle anhören"), sonst alles.
+  const start = (manual = true, only = null) => {
     stop.current();
     setError(false);
     setPlaying(true);
-    if (!hasAudio(item.id)) return viaDevice(manual);
+    if (!hasAudio(item.id)) return viaDevice(manual, only);
     stop.current = playItem(item.id, {
+      only,
       onSegment: (w) => setWho(w),
       onQuiz: quiz,
       onEnd: done,
       onBlocked: done, // Autoplay gesperrt (iOS): Antippen genügt
-      onError: () => viaDevice(manual),
+      onError: () => viaDevice(manual, only),
     });
     return undefined;
   };
@@ -265,9 +272,11 @@ function QuizBody({ quiz, sound, onDone }) {
 /* ---- Schritt 1: Nur zuhören (neue Karten) ------------------------------------
    Kein Text, keine Frage — nur die Stimmen. Höchstens zwei Wiedergaben, "Weiter"
    erst nach der ersten. Bei fälligen Wiederholungen gibt es diesen Schritt nicht. */
-function ListenOnly({ entry, card, onNext }) {
+function ListenOnly({ entry, card, onNext, sourceOnly = false }) {
   const { state } = useStore();
-  const quizzes = card.item.popQuiz || [];
+  // "Nur hören": ohne Zwischenfragen, beliebig oft.
+  const quizzes = sourceOnly ? [] : card.item.popQuiz || [];
+  const maxPlays = sourceOnly ? Infinity : MAX_PLAYS;
   const [pop, setPop] = useState(null); // { n, resume } während eine Zwischenfrage offen ist
   const answered = useRef(new Set()); // beim zweiten Hören nicht nochmal fragen
   const speech = useSpeech(card.item, false, (n, resume) => {
@@ -291,7 +300,7 @@ function ListenOnly({ entry, card, onNext }) {
     if (wasPlaying.current && !speech.playing) setHeard(true);
     wasPlaying.current = speech.playing;
   }, [speech.playing]);
-  const left = MAX_PLAYS - plays;
+  const left = maxPlays - plays;
   const play = () => {
     if (speech.playing) { speech.stop(); return; }
     if (left <= 0) return;
@@ -306,9 +315,11 @@ function ListenOnly({ entry, card, onNext }) {
         <span style={{ alignSelf: 'flex-start' }}><CardBadge entry={entry} card={card} /></span>
         <div className="stack" style={{ gap: 6, alignItems: 'center' }}>
           <PartLine entry={entry} card={card} tone="listen" />
-          <h2 style={{ font: 'var(--type-title)' }}>Hör genau hin.</h2>
+          <h2 style={{ font: 'var(--type-title)' }}>{sourceOnly ? 'Einfach zuhören.' : 'Hör genau hin.'}</h2>
           <p style={{ font: 'var(--type-body)', color: 'var(--text-muted)', maxWidth: 300 }}>
-            {quizzes.length ? 'Zwischendurch kommt eine kurze Frage, die anderen danach.' : 'Die Fragen kommen danach.'} Den Text siehst du nicht — nur die Stimmen zählen.
+            {sourceOnly
+              ? 'Keine Fragen, keine Wertung. So oft du magst.'
+              : `${quizzes.length > 1 ? 'Zwischendurch kommen kurze Fragen, die anderen danach.' : quizzes.length ? 'Zwischendurch kommt eine kurze Frage, die anderen danach.' : 'Die Fragen kommen danach.'} Den Text siehst du nicht — nur die Stimmen zählen.`}
           </p>
         </div>
         {speakers.length ? (
@@ -340,15 +351,92 @@ function ListenOnly({ entry, card, onNext }) {
             </span>
           </button>
           <span aria-live="polite" style={{ font: 'var(--type-label)', fontWeight: 600, color: 'var(--text-muted)' }}>
-            {plays === 0 ? `Du kannst es ${MAX_PLAYS}× hören.` : left > 0 ? `${plays} von ${MAX_PLAYS} Wiedergaben` : 'Beide Wiedergaben genutzt.'}
+            {sourceOnly ? (plays === 0 ? 'Antippen zum Abspielen.' : 'Nochmal? Einfach antippen.')
+              : plays === 0 ? `Du kannst es ${MAX_PLAYS}× hören.` : left > 0 ? `${plays} von ${MAX_PLAYS} Wiedergaben` : 'Beide Wiedergaben genutzt.'}
           </span>
         </div>
       </div>
-      <div className="lesson-cta"><Button variant="listen" full disabled={!heard || speech.playing} onClick={() => { speech.stop(); onNext(); }}>Weiter zu den Fragen</Button></div>
+      <div className="lesson-cta">
+        {sourceOnly
+          ? <Button variant="listen" full onClick={() => { speech.stop(); onNext(); }}>Fertig</Button>
+          : <Button variant="listen" full disabled={!heard || speech.playing} onClick={() => { speech.stop(); onNext(); }}>Weiter zu den Fragen</Button>}
+      </div>
       <Sheet open={!!pop} title="Kurze Zwischenfrage" closable={false}>
         {pop && <QuizBody key={pop.n} quiz={quizzes[pop.n]} sound={state.settings.sounds} onDone={closeQuiz} />}
       </Sheet>
     </>
+  );
+}
+
+/* ---- Zwischenscreen vor Fragen zu einer früheren Geschichte ------------------ */
+function StoryIntro({ entries, pos, card, rec, cards, onNext }) {
+  const item = card.item;
+  const read = card.track === 'read';
+  const lesson = card.lesson;
+  const partN = lesson.items.indexOf(item) + 1;
+  let count = 0;
+  for (let i = pos; i < entries.length && cards.get(entries[i].cardId)?.item.id === item.id; i++) count++;
+  const d = daysSinceFirst(rec);
+  const when = !rec ? '' : d > 0 ? `${read ? 'gelesen' : 'gehört'} ${daysAgoText(d)}` : `heute ${read ? 'gelesen' : 'gehört'}`;
+  const speakers = read ? [] : dialogSpeakers(item);
+  const tone = read ? 'read' : 'listen';
+  return (
+    <>
+      <div style={{ ...body, alignItems: 'center', textAlign: 'center', justifyContent: 'safe center', gap: 'clamp(14px, 3dvh, 22px)' }}>
+        {speakers.length ? (
+          <div style={{ display: 'flex', justifyContent: 'center', gap: 8, flexWrap: 'wrap' }} className="a-rise">
+            {speakers.map((sp) => <SpeakerAvatar key={sp.id} speaker={sp} size={speakers.length > 2 ? 56 : 68} active={false} />)}
+          </div>
+        ) : <Mascot pose={read ? 'neutral' : 'listening'} size={110} />}
+        <div className="stack" style={{ gap: 8, alignItems: 'center', maxWidth: 320 }}>
+          <span className="overline" style={{ color: `var(--track-${tone}-shade)` }}>
+            {lesson.items.length > 1 ? `Teil ${partN} · ${item.title}` : item.title}
+          </span>
+          <h2 style={{ font: 'var(--type-title)', textWrap: 'balance' }}>
+            Prüfen wir, was du noch {read ? 'aus' : 'von'} „{lesson.title}“ weißt.
+          </h2>
+          <p style={{ font: 'var(--type-body)', color: 'var(--text-muted)' }}>
+            {[when, `${count} ${count === 1 ? 'Frage' : 'Fragen'}`].filter(Boolean).join(' · ')}
+          </p>
+        </div>
+        {!read && (
+          <div style={{ ...lockBox, textAlign: 'left', maxWidth: 360 }}>
+            <span style={{ color: 'var(--track-listen-shade)', display: 'inline-flex' }}><Icon name="ear" /></span>
+            <span style={{ font: 'var(--type-body)', color: 'var(--text-muted)' }}>Hängt es? Bei jeder Frage kannst du die passende Stelle nochmal anhören. Dann zählt es als „mit Hilfe“.</span>
+          </div>
+        )}
+      </div>
+      <div className="lesson-cta"><Button variant={tone} full onClick={onNext}>Los geht’s</Button></div>
+    </>
+  );
+}
+
+/* ---- "Stelle anhören": spielt nur die Zeile(n), in denen die Antwort steckt ----- */
+function HelpListen({ card, used, onUse }) {
+  const speech = useSpeech(card.item);
+  const only = answerSegments(card.item, card.ex);
+  const whole = only.length > 2;
+  const play = () => {
+    if (speech.playing) { speech.stop(); return; }
+    onUse();
+    speech.start(true, only);
+  };
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+      <Button variant="secondary" size="sm" icon={speech.playing ? undefined : 'ear'} onClick={play}
+        aria-label={speech.playing ? 'Wiedergabe stoppen' : whole ? 'Gespräch nochmal anhören' : 'Stelle nochmal anhören'}>
+        {speech.playing
+          ? <span style={{ display: 'inline-flex', alignItems: 'center', gap: 3 }}>
+              {[0, 140, 280].map((d) => <span key={d} className="rm-static" style={{ width: 4, height: 12, borderRadius: 999, background: 'currentColor', animation: `spur-eq 700ms ease-in-out ${d}ms infinite` }} />)}
+              <span style={{ marginLeft: 6 }}>Stopp</span>
+            </span>
+          : whole ? 'Gespräch nochmal anhören' : 'Stelle nochmal anhören'}
+      </Button>
+      <span aria-live="polite" style={{ font: 'var(--type-label)', fontWeight: 500, color: used ? 'var(--badge-amber-fg, var(--spur-amber-shade))' : 'var(--text-subtle)' }}>
+        {used ? 'Mit Hilfe: zählt als teilweise.' : 'Zählt dann als „mit Hilfe“.'}
+      </span>
+      {speech.error && <span style={{ font: 'var(--type-label)', color: 'var(--text-muted)' }}>Vorlesen klappt gerade nicht.</span>}
+    </div>
   );
 }
 
@@ -360,7 +448,7 @@ function contextLine(entry, card, rec) {
   return `Aus dem Gespräch ${when}.`;
 }
 
-function RecallQuestion({ entry, card, rec, answer, setAnswer, onCheck }) {
+function RecallQuestion({ entry, card, rec, answer, setAnswer, onCheck, help }) {
   const read = card.track === 'read';
   return (
     <>
@@ -373,7 +461,7 @@ function RecallQuestion({ entry, card, rec, answer, setAnswer, onCheck }) {
             <p style={{ font: 'var(--type-body)', color: 'var(--text-muted)' }}>{contextLine(entry, card, rec)}</p>
           </div>
         </div>
-        <LockHint>{read ? 'Das Buch bleibt zu — antworte aus dem Kopf.' : 'Der Originaltext bleibt aus — das ist der Sinn der Sache.'}</LockHint>
+        {help || <LockHint>{read ? 'Das Buch bleibt zu — antworte aus dem Kopf.' : 'Der Originaltext bleibt aus — das ist der Sinn der Sache.'}</LockHint>}
         <TextField value={answer} onChange={(e) => setAnswer(e.target.value)} rows={4} placeholder="Schreib auf, woran du dich erinnerst …" hint="Stichworte reichen." />
       </div>
       <div className="lesson-cta"><Button variant={read ? 'read' : 'primary'} full disabled={!answer.trim()} onClick={onCheck}>Prüfen</Button></div>
@@ -382,7 +470,7 @@ function RecallQuestion({ entry, card, rec, answer, setAnswer, onCheck }) {
 }
 
 /* ---- detail_match: Antwort-Chips -------------------------------------------- */
-function MatchExercise({ entry, card, rec, onCheck }) {
+function MatchExercise({ entry, card, rec, onCheck, help }) {
   const ex = card.ex;
   const multi = ex.correct.length > 1;
   const options = seededShuffle(ex.options, card.id);
@@ -397,6 +485,7 @@ function MatchExercise({ entry, card, rec, onCheck }) {
           <h2 style={{ font: 'var(--type-title)', textWrap: 'pretty' }}>{ex.prompt}</h2>
           <p style={{ font: 'var(--type-body)', color: 'var(--text-muted)' }}>{contextLine(entry, card, rec)} {multi ? 'Mehrere Antworten sind richtig.' : 'Eine Antwort ist richtig.'}</p>
         </div>
+        {help}
         <div role="group" aria-label="Antworten" style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
           {options.map((o) => {
             const on = sel.includes(o);
@@ -420,7 +509,7 @@ function MatchExercise({ entry, card, rec, onCheck }) {
 }
 
 /* ---- sequence_events: Ereignisse in Reihenfolge antippen --------------------- */
-function SequenceExercise({ entry, card, rec, onCheck }) {
+function SequenceExercise({ entry, card, rec, onCheck, help }) {
   const ex = card.ex;
   let shuffled = seededShuffle(ex.events, card.id);
   if (shuffled.every((e, i) => e === ex.events[i])) shuffled = [...shuffled.slice(1), shuffled[0]];
@@ -436,6 +525,7 @@ function SequenceExercise({ entry, card, rec, onCheck }) {
           <h2 style={{ font: 'var(--type-title)', textWrap: 'pretty' }}>{ex.prompt}</h2>
           <p style={{ font: 'var(--type-body)', color: 'var(--text-muted)' }}>Tipp die Ereignisse der Reihe nach an. Nochmal tippen nimmt eins zurück.</p>
         </div>
+        {help}
         <div className="stack" style={{ gap: 10 }}>
           {shuffled.map((e) => {
             const n = order.indexOf(e);
@@ -464,7 +554,7 @@ function SequenceExercise({ entry, card, rec, onCheck }) {
 }
 
 /* ---- 1e Lesen, neuer Text -------------------------------------------------- */
-function ReadText({ entry, card, onClose, tts }) {
+function ReadText({ entry, card, onClose, tts, sourceOnly = false }) {
   const item = card.item;
   const speech = useSpeech(item);
   return (
@@ -482,7 +572,11 @@ function ReadText({ entry, card, onClose, tts }) {
           {item.paragraphs.map((p, i) => <p key={i} style={{ font: 'var(--type-body-l)', margin: i < item.paragraphs.length - 1 ? '0 0 14px' : 0 }}>{p}</p>)}
         </Card>
       </div>
-      <div className="lesson-cta"><Button variant="read" full icon="book" onClick={() => { stopSpeaking(); onClose(); }}>Buch zuklappen &amp; wiedergeben</Button></div>
+      <div className="lesson-cta">
+        {sourceOnly
+          ? <Button variant="read" full onClick={() => { stopSpeaking(); onClose(); }}>Fertig</Button>
+          : <Button variant="read" full icon="book" onClick={() => { stopSpeaking(); onClose(); }}>Buch zuklappen &amp; wiedergeben</Button>}
+      </div>
     </>
   );
 }
@@ -556,6 +650,8 @@ function KeyPoints({ entry, card, answer, checks, setChecks, onDone }) {
 function Feedback({ entry, card, rec, answer, result, combo, infiniteSaved, onOverride, onNext }) {
   const grade = result.override ? 'good' : result.grade;
   const kind = card.kind;
+  // Richtig, aber mit nachgehörter Stelle: gelb, zählt wie teilweise.
+  const helpedRight = result.helped && result.rawGrade === 'good';
   const state = grade === 'good' ? 'correct' : grade === 'partial' ? 'partial' : 'wrong';
   const d = daysSinceFirst(rec);
   const after = entry.mode === 'review' && d > 0 ? ` — nach ${d} ${d === 1 ? 'Tag' : 'Tagen'}.` : '.';
@@ -568,6 +664,8 @@ function Feedback({ entry, card, rec, answer, result, combo, infiniteSaved, onOv
       ? `${result.hits} von ${result.total} Kernpunkten${after}`
       : grade === 'partial' ? `${result.hits} von ${result.total} Kernpunkten. Die fehlenden kommen wieder.` : `${result.hits} von ${result.total} Kernpunkten.`;
     if (grade !== 'good' && missing.length) { source = missing; sourceLabel = 'Fehlte noch'; }
+  } else if (helpedRight) {
+    detail = 'Du hast die Stelle nachgehört. Das zählt als teilweise gemerkt — nächstes Mal klappt es aus dem Kopf.';
   } else if (kind === 'match') {
     const ex = card.ex;
     detail = grade === 'good' ? `Genau das war es${after}` : `Richtig wäre: ${ex.correct.join(' · ')}`;
@@ -582,7 +680,9 @@ function Feedback({ entry, card, rec, answer, result, combo, infiniteSaved, onOv
   }
   const read = kind === 'retell';
   const title = kind === 'retell' ? card.item.topic : card.question.prompt;
-  const mark = (ok) => ({ border: `2px solid ${ok ? 'var(--spur-green)' : 'var(--spur-coral)'}`, background: ok ? 'var(--state-correct-soft)' : 'var(--state-wrong-soft)' });
+  const mark = (ok) => (ok && helpedRight
+    ? { border: '2px solid var(--spur-amber)', background: 'var(--accent-xp-soft)' }
+    : { border: `2px solid ${ok ? 'var(--spur-green)' : 'var(--spur-coral)'}`, background: ok ? 'var(--state-correct-soft)' : 'var(--state-wrong-soft)' });
   let yourAnswer;
   if (kind === 'match') {
     yourAnswer = (
@@ -630,7 +730,7 @@ function Feedback({ entry, card, rec, answer, result, combo, infiniteSaved, onOv
             <Icon name="shield" size={18} />Kein Herz verloren — heute unendlich
           </span>
         )}
-        {kind === 'recall' && result.grade !== 'good' && (
+        {kind === 'recall' && result.grade !== 'good' && !result.helped && (
           <button type="button" onClick={onOverride}
             style={{ alignSelf: 'flex-start', background: 'none', border: 'none', padding: '6px 0', cursor: 'pointer', font: 'var(--type-label)', color: 'var(--text-link)', textDecoration: result.override ? 'none' : 'underline', textUnderlineOffset: 3 }}>
             {result.override ? 'Zählt als gemerkt.' : 'Meine Antwort meinte dasselbe — als gemerkt zählen'}
@@ -641,7 +741,7 @@ function Feedback({ entry, card, rec, answer, result, combo, infiniteSaved, onOv
         <div className="fb-mascot" style={{ display: 'flex', justifyContent: 'center', marginBottom: -14, position: 'relative', zIndex: 2 }}>
           <span key={pose} style={{ display: 'inline-flex', animation: 'spur-popin 460ms cubic-bezier(.34,1.56,.64,1) both' }}><Mascot pose={pose} size={96} /></span>
         </div>
-        <FeedbackPanel state={state} detail={detail} source={source} sourceLabel={sourceLabel} onAction={onNext} />
+        <FeedbackPanel state={state} title={helpedRight ? 'Richtig, mit Hilfe.' : undefined} detail={detail} source={source} sourceLabel={sourceLabel} onAction={onNext} />
       </div>
     </>
   );
@@ -656,7 +756,10 @@ export function Lesson({ session, onFinish, onExit }) {
   const [pos, setPos] = useState(0);
   const entry = entries[pos];
   const card = index.cards.get(entry.cardId);
-  const [phase, setPhase] = useState(() => firstPhase(entry, card));
+  const phaseAt = (list, i) => firstPhase(list[i], index.cards.get(list[i].cardId), list[i - 1], list[i - 1] && index.cards.get(list[i - 1].cardId));
+  const [phase, setPhase] = useState(() => phaseAt(session.entries, 0));
+  // "Stelle anhören" benutzt: richtig zählt dann nur als teilweise (gelb).
+  const [helped, setHelped] = useState(false);
   const [answer, setAnswer] = useState('');
   const [checks, setChecks] = useState([]);
   const [result, setResult] = useState(null);
@@ -696,7 +799,8 @@ export function Lesson({ session, onFinish, onExit }) {
   const tone = card.track;
   const progress = (pos + (phase === 'feedback' || phase === 'interval' ? 1 : 0)) / entries.length;
 
-  const showFeedback = (r) => {
+  const showFeedback = (raw) => {
+    const r = helped ? { ...raw, rawGrade: raw.grade, helped: true, grade: raw.grade === 'good' ? 'partial' : raw.grade } : raw;
     setResult(r);
     setPhase('feedback');
     committed.current = false;
@@ -760,13 +864,13 @@ export function Lesson({ session, onFinish, onExit }) {
       setEntries(list);
     }
     if (pos + 1 >= list.length) return finish();
-    const next = list[pos + 1];
     setPos(pos + 1);
     setAnswer('');
     setChecks([]);
     setResult(null);
+    setHelped(false);
     setIntervalInfo(null);
-    setPhase(firstPhase(next, index.cards.get(next.cardId)));
+    setPhase(phaseAt(list, pos + 1));
     return undefined;
   };
 
@@ -810,17 +914,26 @@ export function Lesson({ session, onFinish, onExit }) {
     onExit();
   };
 
+  // "Nur hören/lesen": nach dem Original ist die Session vorbei.
+  const sourceOnly = entry.mode === 'source';
+  const afterSource = () => (sourceOnly ? onExit() : setPhase(exercisePhase(card)));
+  const help = entry.fromMemory && card.track === 'listen'
+    ? <HelpListen key={`help-${pos}`} card={card} used={helped} onUse={() => setHelped(true)} />
+    : null;
+
   let view;
-  if (phase === 'listen-audio') {
-    view = <ListenOnly entry={entry} card={card} onNext={() => setPhase(exercisePhase(card))} />;
+  if (phase === 'intro') {
+    view = <StoryIntro entries={entries} pos={pos} card={card} rec={rec} cards={index.cards} onNext={() => setPhase(exercisePhase(card))} />;
+  } else if (phase === 'listen-audio') {
+    view = <ListenOnly entry={entry} card={card} sourceOnly={sourceOnly} onNext={afterSource} />;
   } else if (phase === 'question') {
-    view = <RecallQuestion entry={entry} card={card} rec={rec} answer={answer} setAnswer={setAnswer} onCheck={check} />;
+    view = <RecallQuestion entry={entry} card={card} rec={rec} answer={answer} setAnswer={setAnswer} onCheck={check} help={help} />;
   } else if (phase === 'match') {
-    view = <MatchExercise key={entry.cardId + pos} entry={entry} card={card} rec={rec} onCheck={showFeedback} />;
+    view = <MatchExercise key={entry.cardId + pos} entry={entry} card={card} rec={rec} onCheck={showFeedback} help={help} />;
   } else if (phase === 'sequence') {
-    view = <SequenceExercise key={entry.cardId + pos} entry={entry} card={card} rec={rec} onCheck={showFeedback} />;
+    view = <SequenceExercise key={entry.cardId + pos} entry={entry} card={card} rec={rec} onCheck={showFeedback} help={help} />;
   } else if (phase === 'read-text') {
-    view = <ReadText entry={entry} card={card} tts={s.tts} onClose={() => setPhase(exercisePhase(card))} />;
+    view = <ReadText entry={entry} card={card} tts={s.tts} sourceOnly={sourceOnly} onClose={afterSource} />;
   } else if (phase === 'read-recall') {
     view = <ReadRecall entry={entry} card={card} rec={rec} answer={answer} setAnswer={setAnswer} onCompare={() => { setChecks(card.item.keyPoints.map(() => false)); setPhase('keypoints'); }} />;
   } else if (phase === 'keypoints') {
@@ -840,7 +953,7 @@ export function Lesson({ session, onFinish, onExit }) {
       {/* Kopfzeile klappt vor dem Intervall-Schritt weich weg, statt zu verschwinden. */}
       <div className={`collapsible${phase === 'interval' ? ' is-collapsed' : ''}`} aria-hidden={phase === 'interval' || undefined}>
         <div>
-          <LessonHeader progress={progress} tone={tone} hearts={Math.max(0, shownHearts)} infinite={infinite} heartShake={shake} onClose={() => setAbort(true)} />
+          <LessonHeader progress={progress} tone={tone} hearts={Math.max(0, shownHearts)} infinite={infinite} heartShake={shake} onClose={() => (sourceOnly ? quit() : setAbort(true))} />
         </div>
       </div>
       {/* Jeder Schritt (Hören, Frage, Feedback …) blendet sanft ein. */}

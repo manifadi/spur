@@ -206,11 +206,16 @@ export function hasAnyProgress(state) {
 /* ------------------------------------------------------------------------ */
 /* Sessions                                                                  */
 /* ------------------------------------------------------------------------ */
-// Entry: { cardId, mode: 'new'|'review'|'practice'|'replay', showSource }
+// Entry: { cardId, mode: 'new'|'review'|'practice'|'replay'|'source', showSource, fromMemory? }
 //  new      neue Karte, zählt fürs Scheduling, kostet bei "kaum etwas" ein Herz
 //  review   fällige Wiederholung — nie mit Originaltext, kostet nie ein Herz
 //  practice freiwillig, nicht fällig — ohne Originaltext, verschiebt nichts
 //  replay   "Nochmal hören/lesen" einer erledigten Lektion, mit Original
+//  source   "Nur hören/lesen": nur das Original, keine Fragen
+// fromMemory: Fragen zu einer früher gehörten Geschichte (nicht gerade eben gehört). Davor
+//  kommt ein Zwischenscreen ("Prüfen wir, was du noch … weißt"), und die passende Stelle
+//  lässt sich nochmal anhören. Wer das tut und richtig liegt, bekommt "richtig mit Hilfe"
+//  (zählt wie teilweise).
 
 /** Verzahnt zwei Listen abwechselnd (Interleaving der Spuren). */
 export function interleave(a, b) {
@@ -230,7 +235,7 @@ function byTrack(index, ids) {
 
 function reviewEntry(state, id, today) {
   const r = state.cards[id];
-  return { cardId: id, mode: r && r.stage >= 0 && isDue(r, today) ? 'review' : 'practice', showSource: false };
+  return { cardId: id, mode: r && r.stage >= 0 && isDue(r, today) ? 'review' : 'practice', showSource: false, fromMemory: true };
 }
 
 /**
@@ -262,8 +267,27 @@ export function buildLessonSession(index, state, lessonId, now = new Date(), mod
   return { kind: replay ? 'replay' : 'lesson', lessonId, part: part.n, parts: parts.length, entries: [...feld, ...reviews] };
 }
 
+/**
+ * Ein Teil einer erledigten Lektion, frei gewählt:
+ *  full   Original + alle Fragen (wie "Nochmal hören/lesen", Intervalle bleiben)
+ *  quiz   nur die Fragen, aus dem Gedächtnis (fällige zählen als Wiederholung, sonst Übung)
+ *  source nur das Original, ohne Fragen
+ */
+export function buildPartSession(index, state, lessonId, partN, mode, now = new Date()) {
+  if (mode === 'full') return buildLessonSession(index, state, lessonId, now, 'replay', partN);
+  const today = dayKey(now);
+  const parts = lessonParts(index, lessonId);
+  const part = parts.find((p) => p.n === partN) || parts[0];
+  const feld = (i) => ({ n: i + 1, of: part.cardIds.length, part: part.n, parts: parts.length });
+  if (mode === 'source') {
+    return { kind: 'source', lessonId, part: part.n, parts: parts.length, entries: [{ cardId: part.cardIds[0], mode: 'source', showSource: true, feld: feld(0) }] };
+  }
+  const entries = part.cardIds.map((id, i) => ({ ...reviewEntry(state, id, today), feld: feld(i) }));
+  return { kind: 'quiz', lessonId, part: part.n, parts: parts.length, entries };
+}
+
 /** Für "Nochmal hören/lesen": der Teil, der am längsten nicht mehr dran war. */
-function leastRecentPart(state, parts) {
+export function leastRecentPart(state, parts) {
   const last = (p) => p.cardIds.map((id) => state.cards[id]?.last || '').sort().pop() || '';
   return [...parts].sort((a, b) => (last(a) < last(b) ? -1 : last(a) > last(b) ? 1 : a.n - b.n))[0];
 }
@@ -452,7 +476,7 @@ function hasPopupPool(index, state, chapterId) {
 export function buildPopupSession(index, state, chapterId, rng = Math.random) {
   const pool = popupPool(index, state, chapterId);
   for (let i = pool.length - 1; i > 0; i--) { const j = Math.floor(rng() * (i + 1)); [pool[i], pool[j]] = [pool[j], pool[i]]; }
-  const entries = pool.slice(0, 3).map((id, i, a) => ({ cardId: id, mode: 'popup', showSource: false, feld: { n: i + 1, of: a.length } }));
+  const entries = pool.slice(0, 3).map((id, i, a) => ({ cardId: id, mode: 'popup', showSource: false, fromMemory: true, feld: { n: i + 1, of: a.length } }));
   return { kind: 'popup', lessonId: null, chapterId, entries };
 }
 

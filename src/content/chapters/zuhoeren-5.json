@@ -54,6 +54,20 @@
         ]
        ],
        "solution": "Aus Kanada."
+      },
+      {
+       "after": "Die landen um halb drei.",
+       "prompt": "Wann landen die Cousins?",
+       "answers": [
+        [
+         "halb drei",
+         "2:30",
+         "14:30",
+         "2 30",
+         "14 30"
+        ]
+       ],
+       "solution": "Um halb drei."
       }
      ],
      "subExercises": [
@@ -149,6 +163,19 @@
         ]
        ],
        "solution": "Über den Chiemsee."
+      },
+      {
+       "after": "Samen statt Blumen. Typisch Oma.",
+       "prompt": "Was bringt Pia zum Fest mit?",
+       "answers": [
+        [
+         "Fotowand",
+         "Fotos",
+         "Bilder",
+         "Foto"
+        ]
+       ],
+       "solution": "Die Fotowand."
       }
      ],
      "subExercises": [
@@ -262,6 +289,17 @@
         ]
        ],
        "solution": "Zweimal."
+      },
+      {
+       "after": "wenn das Wetter hält.",
+       "prompt": "Für wie viele Personen hat der Ballonkorb Platz?",
+       "answers": [
+        [
+         "vier",
+         "4"
+        ]
+       ],
+       "solution": "Für vier."
       }
      ],
      "subExercises": [
@@ -471,6 +509,21 @@
         ]
        ],
        "solution": "Zwei Tage."
+      },
+      {
+       "after": "die ich kenne.",
+       "prompt": "Wie lange arbeitet Deniz seine Nachfolgerin noch ein?",
+       "answers": [
+        [
+         "drei",
+         "3"
+        ],
+        [
+         "Wochen",
+         "Woche"
+        ]
+       ],
+       "solution": "Drei Wochen."
       }
      ],
      "subExercises": [
@@ -573,6 +626,16 @@
         ]
        ],
        "solution": "Rentner."
+      },
+      {
+       "after": "Viel Erfolg im neuen Job.",
+       "prompt": "Was stand auf dem Zettel vom Fundbüro?",
+       "answers": [
+        [
+         "Erfolg"
+        ]
+       ],
+       "solution": "Viel Erfolg im neuen Job."
       }
      ],
      "subExercises": [
@@ -684,6 +747,19 @@
         ]
        ],
        "solution": "Einen halben Meter."
+      },
+      {
+       "after": "in einer Bar am Hafen.",
+       "prompt": "Wie saßen sie am Ende in der Bar am Hafen?",
+       "answers": [
+        [
+         "nasse",
+         "nassen",
+         "nass",
+         "nasse Füße"
+        ]
+       ],
+       "solution": "Mit nassen Füßen."
       }
      ],
      "subExercises": [
@@ -996,6 +1072,18 @@
         ]
        ],
        "solution": "30 Euro."
+      },
+      {
+       "after": "Sie haben dieses Jahr frei.",
+       "prompt": "Wer macht dieses Jahr den Grill?",
+       "answers": [
+        [
+         "Handball",
+         "Handballabteilung",
+         "Handballer"
+        ]
+       ],
+       "solution": "Die Handballabteilung."
       }
      ],
      "subExercises": [

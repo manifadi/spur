@@ -55,6 +55,19 @@
         ]
        ],
        "solution": "Zwei Paar."
+      },
+      {
+       "after": "einmal zu Fuß überqueren.",
+       "prompt": "Welche Brücke will Paul zu Fuß überqueren?",
+       "answers": [
+        [
+         "Dom Luis",
+         "Luis",
+         "Dom Luiz",
+         "Luiz"
+        ]
+       ],
+       "solution": "Die Brücke Dom Luís."
       }
      ],
      "subExercises": [
@@ -151,6 +164,18 @@
         ]
        ],
        "solution": "In Ribeira."
+      },
+      {
+       "after": "Für die Weinberge.",
+       "prompt": "Wofür braucht Aylin ein drittes Paar Schuhe?",
+       "answers": [
+        [
+         "Weinberge",
+         "Weinberg",
+         "Wein"
+        ]
+       ],
+       "solution": "Für die Weinberge."
       }
      ],
      "subExercises": [
@@ -246,6 +271,17 @@
         ]
        ],
        "solution": "Für Aylins Schuhe."
+      },
+      {
+       "after": "nur weil ich ihm fünf Euro gegeben habe.",
+       "prompt": "Wie viel Geld hat Aylin dem Straßenmusiker gegeben?",
+       "answers": [
+        [
+         "fünf",
+         "5"
+        ]
+       ],
+       "solution": "Fünf Euro."
       }
      ],
      "subExercises": [
@@ -364,6 +400,20 @@
         ]
        ],
        "solution": "Sarah und Malte."
+      },
+      {
+       "after": "und einer mit Eis.",
+       "prompt": "Was gibt es statt Buffet?",
+       "answers": [
+        [
+         "Foodtrucks",
+         "Foodtruck",
+         "Food Trucks",
+         "Food Truck",
+         "Trucks"
+        ]
+       ],
+       "solution": "Foodtrucks."
       }
      ],
      "subExercises": [
@@ -568,6 +618,19 @@
         ]
        ],
        "solution": "Drei Kugeln."
+      },
+      {
+       "after": "genau beim Ja-Wort angefangen zu regnen.",
+       "prompt": "Wann hat es angefangen zu regnen?",
+       "answers": [
+        [
+         "Ja Wort",
+         "Jawort",
+         "Trauung",
+         "Ja sagen"
+        ]
+       ],
+       "solution": "Genau beim Ja-Wort."
       }
      ],
      "subExercises": [
@@ -689,6 +752,18 @@
         ]
        ],
        "solution": "Der Apfelbaum."
+      },
+      {
+       "after": "aber diesmal nur eine Flasche.",
+       "prompt": "Was bringt Oma an Ostern mit?",
+       "answers": [
+        [
+         "Eierlikör",
+         "Eierlikoer",
+         "Likör"
+        ]
+       ],
+       "solution": "Eierlikör."
       }
      ],
      "subExercises": [
@@ -810,6 +885,18 @@
         ]
        ],
        "solution": "Grün."
+      },
+      {
+       "after": "Papa hat ihn im Kofferraum.",
+       "prompt": "Was hat Papa im Kofferraum?",
+       "answers": [
+        [
+         "Rasenmäher",
+         "Rasenmaeher",
+         "Mäher"
+        ]
+       ],
+       "solution": "Den Rasenmäher."
       }
      ],
      "subExercises": [
@@ -1042,6 +1129,19 @@
         ]
        ],
        "solution": "Er ist zu dünn."
+      },
+      {
+       "after": "sagt mir bitte bis Donnerstag Bescheid.",
+       "prompt": "Wo findet das Teamessen statt?",
+       "answers": [
+        [
+         "Griechen",
+         "Grieche",
+         "griechisch",
+         "Griechischen"
+        ]
+       ],
+       "solution": "Beim Griechen am Bahnhof."
       }
      ],
      "subExercises": [
@@ -1159,6 +1259,17 @@
         ]
        ],
        "solution": "In Hamburg."
+      },
+      {
+       "after": "dann geht sie morgen an den Kunden.",
+       "prompt": "Bis wann soll Tobias die Preisliste schicken?",
+       "answers": [
+        [
+         "Abend",
+         "abends"
+        ]
+       ],
+       "solution": "Bis heute Abend."
       }
      ],
      "subExercises": [
@@ -1277,6 +1388,19 @@
         ]
        ],
        "solution": "Dick."
+      },
+      {
+       "after": "mit Sekt und Brezeln.",
+       "prompt": "Wer hilft um zehn beim Kartontragen?",
+       "answers": [
+        [
+         "Umzugsunternehmen",
+         "Umzugsfirma",
+         "Umzug",
+         "Möbelpacker"
+        ]
+       ],
+       "solution": "Ein Umzugsunternehmen."
       }
      ],
      "subExercises": [

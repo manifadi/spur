@@ -8,7 +8,7 @@ import { Lesson } from './screens/Lesson.jsx';
 import { SessionEnd, StreakMilestone, InfinityUnlocked, ChapterDone } from './screens/Celebrations.jsx';
 import { AllDone, StreakBroken, HeartsEmpty } from './screens/States.jsx';
 import {
-  buildLessonSession, buildDueSession, buildCheckpointSession, buildReviewSession, buildVoluntarySession,
+  buildLessonSession, buildPartSession, buildDueSession, buildCheckpointSession, buildReviewSession, buildVoluntarySession,
   canStartNew, dueCardIds, doneTodayCount, hasAnyProgress, markLessonDone, isMastered, buildPopupSession,
 } from './engine/game.js';
 
@@ -127,8 +127,10 @@ function Main() {
     setRoute({ name: 'lesson', session, key: Date.now() });
   }, [index, update, home]);
 
-  const openNode = useCallback((node) => {
+  const openNode = useCallback((node, choice) => {
     const now = new Date();
+    // Erledigtes Level, Teil und Modus gewählt (alles / nur Fragen / nur hören).
+    if (choice) return startSession(buildPartSession(index, state, node.id, choice.part, choice.mode, now));
     if (node.lesson.type === 'checkpoint') return startSession(buildCheckpointSession(index, state, node.id, now));
     // Feld mit noch offenen Teilübungen (z. B. neu hinzugekommene): erst die offenen üben.
     const hasOpen = node.cardIds.some((id) => !isMastered(state.cards[id]));

@@ -25,6 +25,16 @@
         ]
        ],
        "solution": "Vor Fulda."
+      },
+      {
+       "after": "Da würde ich die Finger von lassen.",
+       "prompt": "Wem gehört die Milch mit dem gelben Zettel?",
+       "answers": [
+        [
+         "Sandra"
+        ]
+       ],
+       "solution": "Sandra."
       }
      ],
      "subExercises": [
@@ -109,6 +119,16 @@
         ]
        ],
        "solution": "Am Fenster."
+      },
+      {
+       "after": "Die Kaffeemaschine läuft wieder.",
+       "prompt": "Wann war der Techniker für die Kaffeemaschine da?",
+       "answers": [
+        [
+         "heute"
+        ]
+       ],
+       "solution": "Heute schon."
       }
      ],
      "subExercises": [
@@ -287,6 +307,16 @@
         ]
        ],
        "solution": "Über der Pizzeria."
+      },
+      {
+       "after": "Nora hat sich extra freigenommen.",
+       "prompt": "Was haben alle am Ende auf dem Boden gegessen?",
+       "answers": [
+        [
+         "Pizza"
+        ]
+       ],
+       "solution": "Pizza."
       }
      ],
      "subExercises": [
@@ -366,6 +396,18 @@
         ]
        ],
        "solution": "Aus dem alten Regal."
+      },
+      {
+       "after": "Nora macht ihre berühmte Gemüselasagne.",
+       "prompt": "Ab wie viel Uhr ist die Einweihungsparty?",
+       "answers": [
+        [
+         "sieben",
+         "7",
+         "19"
+        ]
+       ],
+       "solution": "Ab sieben."
       }
      ],
      "subExercises": [
@@ -533,6 +575,16 @@
         ]
        ],
        "solution": "Steine."
+      },
+      {
+       "after": "Er klingelt bei allen, so gegen zehn.",
+       "prompt": "Warum kommt der Hausmeister?",
+       "answers": [
+        [
+         "Heizung"
+        ]
+       ],
+       "solution": "Wegen der tropfenden Heizung."
       }
      ],
      "subExercises": [
@@ -607,6 +659,17 @@
         ]
        ],
        "solution": "Um halb neun."
+      },
+      {
+       "after": "Dafür gibt's jetzt einen neuen Stand mit Oliven, gleich am Eingang.",
+       "prompt": "Was gibt es am neuen Stand?",
+       "answers": [
+        [
+         "Oliven",
+         "Olive"
+        ]
+       ],
+       "solution": "Oliven."
       }
      ],
      "subExercises": [
@@ -685,6 +748,19 @@
         ]
        ],
        "solution": "Ihre Schwester."
+      },
+      {
+       "after": "Setzen Sie sich nicht in die erste Reihe.",
+       "prompt": "Wo soll man sich in der Kirche nicht hinsetzen?",
+       "answers": [
+        [
+         "erste",
+         "ersten",
+         "vorne",
+         "vorn"
+        ]
+       ],
+       "solution": "Nicht in die erste Reihe."
       }
      ],
      "subExercises": [

@@ -25,7 +25,8 @@
    {
     "file": "audio/f26c04f697f47214.mp3",
     "who": "Emre",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/597f014825442725.mp3",
@@ -237,7 +238,8 @@
    {
     "file": "audio/352f962d3ce9a9f6.mp3",
     "who": "Kolja",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/e2b04eff4e0a4de1.mp3",
@@ -345,7 +347,13 @@
     "quiz": 0
    },
    {
-    "file": "audio/4a2cb2b9ab94d075.mp3",
+    "file": "audio/2ca14f219e10dd6f.mp3",
+    "who": null,
+    "gap": 300,
+    "quiz": 1
+   },
+   {
+    "file": "audio/81c7100d35402a98.mp3",
     "who": null,
     "gap": 300
    }
@@ -360,7 +368,13 @@
     "quiz": 0
    },
    {
-    "file": "audio/eab1e30dc0d2cfbe.mp3",
+    "file": "audio/9b24d84ce32ce6cf.mp3",
+    "who": null,
+    "gap": 300,
+    "quiz": 1
+   },
+   {
+    "file": "audio/cafe3279dc3c8278.mp3",
     "who": null,
     "gap": 300
    }
@@ -390,7 +404,13 @@
     "quiz": 0
    },
    {
-    "file": "audio/24c9da8483ff827f.mp3",
+    "file": "audio/25829a3e20958251.mp3",
+    "who": null,
+    "gap": 300,
+    "quiz": 1
+   },
+   {
+    "file": "audio/94336dffd87dce09.mp3",
     "who": null,
     "gap": 300
    }
@@ -405,7 +425,13 @@
     "quiz": 0
    },
    {
-    "file": "audio/c9b437001de27b01.mp3",
+    "file": "audio/dd3b93294426b19e.mp3",
+    "who": null,
+    "gap": 300,
+    "quiz": 1
+   },
+   {
+    "file": "audio/0d16460f79c40641.mp3",
     "who": null,
     "gap": 300
    }
@@ -435,7 +461,13 @@
     "quiz": 0
    },
    {
-    "file": "audio/0563b2c5e59685f6.mp3",
+    "file": "audio/281dc59b84455278.mp3",
+    "who": null,
+    "gap": 300,
+    "quiz": 1
+   },
+   {
+    "file": "audio/b4ce5599d8fde1a0.mp3",
     "who": null,
     "gap": 300
    }
@@ -450,7 +482,13 @@
     "quiz": 0
    },
    {
-    "file": "audio/e1f2704462813d15.mp3",
+    "file": "audio/6c10606521c86f69.mp3",
+    "who": null,
+    "gap": 300,
+    "quiz": 1
+   },
+   {
+    "file": "audio/7a5df5c7be798c99.mp3",
     "who": null,
     "gap": 300
    }
@@ -465,7 +503,13 @@
     "quiz": 0
    },
    {
-    "file": "audio/2df2c0fb6e2b4d44.mp3",
+    "file": "audio/35dfff5f4eccc8d8.mp3",
+    "who": null,
+    "gap": 300,
+    "quiz": 1
+   },
+   {
+    "file": "audio/01d7bab61e8d9335.mp3",
     "who": null,
     "gap": 300
    }
@@ -480,7 +524,13 @@
     "quiz": 0
    },
    {
-    "file": "audio/b42ce67e9ea9bab3.mp3",
+    "file": "audio/3aa96ca58ba01847.mp3",
+    "who": null,
+    "gap": 300,
+    "quiz": 1
+   },
+   {
+    "file": "audio/db1a634a4755db9f.mp3",
     "who": null,
     "gap": 300
    }
@@ -510,7 +560,13 @@
     "quiz": 0
    },
    {
-    "file": "audio/3cafaee64c3c27eb.mp3",
+    "file": "audio/d7c5fb2abb4d670c.mp3",
+    "who": null,
+    "gap": 300,
+    "quiz": 1
+   },
+   {
+    "file": "audio/cea9f7defe0652d4.mp3",
     "who": null,
     "gap": 300
    }
@@ -525,7 +581,13 @@
     "quiz": 0
    },
    {
-    "file": "audio/75636cd84837f543.mp3",
+    "file": "audio/cd11e4e089063ba6.mp3",
+    "who": null,
+    "gap": 300,
+    "quiz": 1
+   },
+   {
+    "file": "audio/80d7a113e57b43fa.mp3",
     "who": null,
     "gap": 300
    }
@@ -540,7 +602,13 @@
     "quiz": 0
    },
    {
-    "file": "audio/ed24c3d65943f1f7.mp3",
+    "file": "audio/6ee06957e54e7754.mp3",
+    "who": null,
+    "gap": 300,
+    "quiz": 1
+   },
+   {
+    "file": "audio/e8833e63f80ee7fc.mp3",
     "who": null,
     "gap": 300
    }
@@ -555,7 +623,13 @@
     "quiz": 0
    },
    {
-    "file": "audio/7abf53e659b1be1a.mp3",
+    "file": "audio/3d55de17f32fa9e3.mp3",
+    "who": null,
+    "gap": 300,
+    "quiz": 1
+   },
+   {
+    "file": "audio/290dd46766d6bfb3.mp3",
     "who": null,
     "gap": 300
    }
@@ -570,7 +644,13 @@
     "quiz": 0
    },
    {
-    "file": "audio/627441944e2058c7.mp3",
+    "file": "audio/c3295017deb65ebb.mp3",
+    "who": null,
+    "gap": 300,
+    "quiz": 1
+   },
+   {
+    "file": "audio/7a24eee9a4178316.mp3",
     "who": null,
     "gap": 300
    }
@@ -585,7 +665,13 @@
     "quiz": 0
    },
    {
-    "file": "audio/2503ea12ec9840a8.mp3",
+    "file": "audio/65fc1125e38114c4.mp3",
+    "who": null,
+    "gap": 300,
+    "quiz": 1
+   },
+   {
+    "file": "audio/94fc586390a7f38e.mp3",
     "who": null,
     "gap": 300
    }
@@ -600,7 +686,13 @@
     "quiz": 0
    },
    {
-    "file": "audio/d6ede42440842bf3.mp3",
+    "file": "audio/179d45e4bf686fa8.mp3",
+    "who": null,
+    "gap": 300,
+    "quiz": 1
+   },
+   {
+    "file": "audio/9d0c5e2ec4576302.mp3",
     "who": null,
     "gap": 300
    }
@@ -632,7 +724,8 @@
    {
     "file": "audio/d07069fa19ba8bdb.mp3",
     "who": "Paul",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/bd826b615b577009.mp3",
@@ -672,7 +765,8 @@
    {
     "file": "audio/00cebe39ba2f169a.mp3",
     "who": "Aylin",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/77ea70730bd7bed3.mp3",
@@ -712,7 +806,8 @@
    {
     "file": "audio/20e6110037df98a7.mp3",
     "who": "Aylin",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/e7589d547a3bdfaf.mp3",
@@ -752,7 +847,8 @@
    {
     "file": "audio/a051a340a1d40274.mp3",
     "who": "Kim",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/3cf2e9f2fa6e71aa.mp3",
@@ -817,7 +913,8 @@
    {
     "file": "audio/d10aed69b91eb25d.mp3",
     "who": "Deniz",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/f1d5dd65643d6588.mp3",
@@ -862,7 +959,8 @@
    {
     "file": "audio/1b346f1a4e845909.mp3",
     "who": "Oma Ilse",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/f8f84ba9f801b47c.mp3",
@@ -902,7 +1000,8 @@
    {
     "file": "audio/0b54f9132a82026b.mp3",
     "who": "Leon",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/0d3bbd829e94973a.mp3",
@@ -987,7 +1086,8 @@
    {
     "file": "audio/5cac934025b964e6.mp3",
     "who": "Jana",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/cfc95d2ce7d5f276.mp3",
@@ -1032,7 +1132,8 @@
    {
     "file": "audio/222996f415a0ec94.mp3",
     "who": "Jana",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/7dd142e3c16abe5d.mp3",
@@ -1072,7 +1173,8 @@
    {
     "file": "audio/f6cc9288bca7875f.mp3",
     "who": "Jana",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/b7b39dd310a1970d.mp3",
@@ -1112,7 +1214,8 @@
    {
     "file": "audio/9fa9195afe9d1804.mp3",
     "who": "Ben",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/25f61540b3b5fafa.mp3",
@@ -1157,7 +1260,8 @@
    {
     "file": "audio/0759636c7137e395.mp3",
     "who": "Marta",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/d0f2601ef342f0bf.mp3",
@@ -1197,7 +1301,8 @@
    {
     "file": "audio/e5f5d718840fb208.mp3",
     "who": "Marta",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/384afa6d03316cd0.mp3",
@@ -1237,7 +1342,8 @@
    {
     "file": "audio/ed9699fe73c634ff.mp3",
     "who": "Frau Demir",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/110265cc941754f5.mp3",
@@ -1282,7 +1388,8 @@
    {
     "file": "audio/93cb2536d634fdc9.mp3",
     "who": "Frau Demir",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/fb45ec8a2ac4bc8a.mp3",
@@ -1362,7 +1469,8 @@
    {
     "file": "audio/0d9fa7f6920b5b9a.mp3",
     "who": "Meister Kowalski",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/ad182f8470f5b06f.mp3",
@@ -1502,7 +1610,8 @@
    {
     "file": "audio/bbd9da497eb8e239.mp3",
     "who": "Jonte",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/fa22f9c10aaca11e.mp3",
@@ -1537,7 +1646,8 @@
    {
     "file": "audio/29214ec0931d6df1.mp3",
     "who": "Lea",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/17b46682b77d18f1.mp3",
@@ -1577,7 +1687,8 @@
    {
     "file": "audio/a87638546adf6f71.mp3",
     "who": "Lea",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/bd74b118445c0a16.mp3",
@@ -1622,7 +1733,8 @@
    {
     "file": "audio/19fc8a714c9d01bb.mp3",
     "who": "Tante Vera",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/57b5b7c6319c721e.mp3",
@@ -1662,7 +1774,8 @@
    {
     "file": "audio/24bc7dea03b0c9e5.mp3",
     "who": "Pia",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/1aeea0a674ca77a0.mp3",
@@ -1702,7 +1815,8 @@
    {
     "file": "audio/e9a647c4be21accf.mp3",
     "who": "Tante Vera",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/b19b2f86ab17db65.mp3",
@@ -1782,7 +1896,8 @@
    {
     "file": "audio/75de4dcf8bba21b0.mp3",
     "who": "Carla",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/c9ca46bc80d884ea.mp3",
@@ -1822,7 +1937,8 @@
    {
     "file": "audio/ed90a9102fad5125.mp3",
     "who": "Deniz",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/5cc5cc40e8db53f6.mp3",
@@ -1852,7 +1968,8 @@
    {
     "file": "audio/a3b3e04e3caa1252.mp3",
     "who": "Jakob",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/a2ea42d04d7979b7.mp3",
@@ -1972,7 +2089,8 @@
    {
     "file": "audio/883d92fee0ebbb10.mp3",
     "who": "Frau Albrecht",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/8f111670b98fcad5.mp3",
@@ -2077,7 +2195,8 @@
    {
     "file": "audio/8113eb7811e93240.mp3",
     "who": "Aylin",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/1ae53acd68aec1b3.mp3",
@@ -2117,7 +2236,8 @@
    {
     "file": "audio/51af541eee78cf33.mp3",
     "who": "Aylin",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/23336fee1f857e33.mp3",
@@ -2177,7 +2297,8 @@
    {
     "file": "audio/ef4e2e92ad3d955b.mp3",
     "who": "Aylin",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/64c422f3c637e157.mp3",
@@ -2212,7 +2333,8 @@
    {
     "file": "audio/fac401fd39f10f0b.mp3",
     "who": "Kolja",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/1d440d647b2314a6.mp3",
@@ -2272,7 +2394,8 @@
    {
     "file": "audio/51fc9ab5f4de35fa.mp3",
     "who": "Kolja",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/d0d85b5d81914e01.mp3",
@@ -2307,7 +2430,8 @@
    {
     "file": "audio/60d0c91f50e3775f.mp3",
     "who": "Kolja",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/48e3b1faa993b020.mp3",
@@ -2347,7 +2471,8 @@
    {
     "file": "audio/e2cf175f75f6226b.mp3",
     "who": "Oma Ilse",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/ac36b3520f84ef83.mp3",
@@ -2397,7 +2522,8 @@
    {
     "file": "audio/42a07b4a6bf8f258.mp3",
     "who": "Leon",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/c585873cd37e15eb.mp3",
@@ -2442,7 +2568,8 @@
    {
     "file": "audio/6f5ae3213b1410a9.mp3",
     "who": "Leon",
-    "gap": 380
+    "gap": 380,
+    "quiz": 1
    },
    {
     "file": "audio/7320bdabf5dd922a.mp3",

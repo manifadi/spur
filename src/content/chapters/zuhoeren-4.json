@@ -54,6 +54,17 @@
         ]
        ],
        "solution": "Wegen Yusuf."
+      },
+      {
+       "after": "Ihr werdet es lieben.",
+       "prompt": "Wie viele Fotos hat Ben dabei?",
+       "answers": [
+        [
+         "zweihundert",
+         "200"
+        ]
+       ],
+       "solution": "Zweihundert."
       }
      ],
      "subExercises": [
@@ -156,6 +167,19 @@
         ]
        ],
        "solution": "Aus dem Büro."
+      },
+      {
+       "after": "Dann will ich einen Kirschbaum für den Hof.",
+       "prompt": "Welchen Baum wünscht sich Marta?",
+       "answers": [
+        [
+         "Kirschbaum",
+         "Kirsche",
+         "Kirsch",
+         "Kirschen"
+        ]
+       ],
+       "solution": "Einen Kirschbaum."
       }
      ],
      "subExercises": [
@@ -261,6 +285,17 @@
         ]
        ],
        "solution": "Gelb."
+      },
+      {
+       "after": "wie viele Fotos kommen noch?",
+       "prompt": "Wo liegt der Brunost?",
+       "answers": [
+        [
+         "Kühlschrank",
+         "Kuehlschrank"
+        ]
+       ],
+       "solution": "Im Kühlschrank."
       }
      ],
      "subExercises": [
@@ -375,6 +410,18 @@
         ]
        ],
        "solution": "In einer Jugendherberge."
+      },
+      {
+       "after": "bis zu den Osterferien bei mir.",
+       "prompt": "Was ist Herr Brandt von Beruf?",
+       "answers": [
+        [
+         "Sportlehrer",
+         "Sport",
+         "Lehrer"
+        ]
+       ],
+       "solution": "Sportlehrer."
       }
      ],
      "subExercises": [
@@ -492,6 +539,16 @@
         ]
        ],
        "solution": "Krankenschwester."
+      },
+      {
+       "after": "der zeigt den Kindern seine Netze.",
+       "prompt": "Mit wem machen die Kinder einen Ausflug?",
+       "answers": [
+        [
+         "Fischer"
+        ]
+       ],
+       "solution": "Mit einem Fischer."
       }
      ],
      "subExercises": [
@@ -726,6 +783,17 @@
         ]
        ],
        "solution": "Vom Hitzeschutzblech."
+      },
+      {
+       "after": "dann müssen neue her.",
+       "prompt": "Wie lange halten die Winterreifen noch?",
+       "answers": [
+        [
+         "zwei",
+         "2"
+        ]
+       ],
+       "solution": "Noch zwei Winter."
       }
      ],
      "subExercises": [
@@ -1085,6 +1153,19 @@
         ]
        ],
        "solution": "Drei Zimmer."
+      },
+      {
+       "after": "wirkt ziemlich belebt.",
+       "prompt": "Wie heißen die beiden Kaninchen?",
+       "answers": [
+        [
+         "Fritz"
+        ],
+        [
+         "Frieda"
+        ]
+       ],
+       "solution": "Fritz und Frieda."
       }
      ],
      "subExercises": [
@@ -1191,6 +1272,16 @@
         ]
        ],
        "solution": "Drei Jahre."
+      },
+      {
+       "after": "Und ab wann wäre die Wohnung frei?",
+       "prompt": "Bis wann braucht Frau Sommer eine Antwort?",
+       "answers": [
+        [
+         "Freitag"
+        ]
+       ],
+       "solution": "Bis Freitag."
       }
      ],
      "subExercises": [
@@ -1300,6 +1391,16 @@
         ]
        ],
        "solution": "Der Eigentümer."
+      },
+      {
+       "after": "in ein Gehege.",
+       "prompt": "Wohin sollen die Kaninchen?",
+       "answers": [
+        [
+         "Balkon"
+        ]
+       ],
+       "solution": "Auf den Balkon."
       }
      ],
      "subExercises": [

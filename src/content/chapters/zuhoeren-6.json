@@ -59,6 +59,17 @@
         ]
        ],
        "solution": "Sechs Tage."
+      },
+      {
+       "after": "Wir trinken Leitungswasser.",
+       "prompt": "Was kann man für den Großeinkauf leihen?",
+       "answers": [
+        [
+         "Lastenrad",
+         "Lastenfahrrad"
+        ]
+       ],
+       "solution": "Ein Lastenrad."
       }
      ],
      "subExercises": [
@@ -175,6 +186,19 @@
         ]
        ],
        "solution": "Weil er keinen Parkplatz mehr suchen muss."
+      },
+      {
+       "after": "Am Wochenende muss man eben vorher reservieren.",
+       "prompt": "Was muss man beim Carsharing am Wochenende machen?",
+       "answers": [
+        [
+         "reservieren",
+         "Reservierung",
+         "buchen",
+         "vorher"
+        ]
+       ],
+       "solution": "Vorher reservieren."
       }
      ],
      "subExercises": [
@@ -290,6 +314,18 @@
         ]
        ],
        "solution": "Elfmal."
+      },
+      {
+       "after": "und du kannst es besuchen.",
+       "prompt": "Für wie viel Geld bekommt Jannik das Auto?",
+       "answers": [
+        [
+         "tausend",
+         "1000",
+         "eintausend"
+        ]
+       ],
+       "solution": "Für tausend Euro."
       }
      ],
      "subExercises": [
@@ -410,6 +446,16 @@
         ]
        ],
        "solution": "Eine Stunde und zwanzig Minuten."
+      },
+      {
+       "after": "nicht die Hälfte des Teams.",
+       "prompt": "Aus welcher Abteilung ist Lukas?",
+       "answers": [
+        [
+         "Vertrieb"
+        ]
+       ],
+       "solution": "Aus dem Vertrieb."
       }
      ],
      "subExercises": [
@@ -533,6 +579,20 @@
         ]
        ],
        "solution": "Drei."
+      },
+      {
+       "after": "das Büro schöner machen willst.",
+       "prompt": "In welchem Stock ist der alte Besprechungsraum?",
+       "answers": [
+        [
+         "dritten",
+         "dritte",
+         "dritter",
+         "3",
+         "drei"
+        ]
+       ],
+       "solution": "Im dritten Stock."
       }
      ],
      "subExercises": [
@@ -652,6 +712,18 @@
         ]
        ],
        "solution": "Grün."
+      },
+      {
+       "after": "Das war mein Vorschlag.",
+       "prompt": "Wer bezahlt das gemeinsame Frühstück?",
+       "answers": [
+        [
+         "Firma",
+         "Arbeitgeber",
+         "Chefin"
+        ]
+       ],
+       "solution": "Die Firma."
       }
      ],
      "subExercises": [
@@ -780,6 +852,17 @@
         ]
        ],
        "solution": "Im Flur."
+      },
+      {
+       "after": "die kann ich ohne Lupe gar nicht lesen.",
+       "prompt": "Wer zeigt Oma bisher die Bilder?",
+       "answers": [
+        [
+         "Brenner",
+         "Nachbarin"
+        ]
+       ],
+       "solution": "Frau Brenner."
       }
      ],
      "subExercises": [
@@ -898,6 +981,18 @@
         ]
        ],
        "solution": "Ihr Daumen."
+      },
+      {
+       "after": "Hast du jemanden angerufen?",
+       "prompt": "Welches Telefon hat beim Stromausfall noch funktioniert?",
+       "answers": [
+        [
+         "Smartphone",
+         "Handy",
+         "Leons"
+        ]
+       ],
+       "solution": "Leons altes Smartphone."
       }
      ],
      "subExercises": [
@@ -1012,6 +1107,19 @@
         ]
        ],
        "solution": "Opa Günter."
+      },
+      {
+       "after": "Und das alte Telefon im Flur?",
+       "prompt": "Wo ist Opas Kürbis der größte?",
+       "answers": [
+        [
+         "Kleingarten",
+         "Kleingartenanlage",
+         "Garten",
+         "Schrebergarten"
+        ]
+       ],
+       "solution": "In der ganzen Kleingartenanlage."
       }
      ],
      "subExercises": [

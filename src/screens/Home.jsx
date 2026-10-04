@@ -9,7 +9,7 @@ import { GoalRing, HeartsMeter, InfinityPill, PathNode, StreakPill, XPPill } fro
 import { SettingsSheet } from './Settings.jsx';
 import {
   buildPath, doneTodayCount, dueCardIds, hasAnyProgress, isInfinite, nextLessonAfter, daysSinceFirstSeen, isMastered, pickPopup,
-  lessonParts, isPartDone,
+  lessonParts, isPartDone, leastRecentPart,
 } from '../engine/game.js';
 import { dayKey, daysBetween } from '../engine/dates.js';
 import { Sheet } from '../ds/feedback.jsx';
@@ -100,8 +100,9 @@ function nodeInfo(node, state, index) {
     const today = dayKey(now);
     const due = node.cardIds.filter((id) => { const r = state.cards[id]; return r && r.stage >= 0 && r.due <= today; }).length;
     const d = daysSinceFirstSeen(state, node.cardIds, now);
-    if (t === 'read') return { title: 'Fällige Wiedergabe', meta: `${fragen(due)} · gelesen ${daysAgoText(d)}`, cta: 'Wiedergeben', variant: 'read' };
-    return { title: 'Fällige Wiederholung', meta: `${fragen(due)} · zuletzt ${daysAgoText(d)}`, cta: 'Wiederholen', variant: 'listen' };
+    const allDone = lessonParts(index, node.id).every((p) => isPartDone(state, p));
+    if (t === 'read') return { title: 'Fällige Wiedergabe', meta: `${fragen(due)} · gelesen ${daysAgoText(d)}`, cta: 'Wiedergeben', variant: 'read', chooser: allDone ? 'collapsed' : false };
+    return { title: 'Fällige Wiederholung', meta: `${fragen(due)} · zuletzt ${daysAgoText(d)}`, cta: 'Wiederholen', variant: 'listen', chooser: allDone ? 'collapsed' : false };
   }
   if (next) {
     // Offener Teil: "Teil 2 von 4 · 1 Gespräch · 3 Fragen · ca. 3 Minuten"
@@ -115,7 +116,67 @@ function nodeInfo(node, state, index) {
   }
   const at = state.progress.lessonsDone[node.id];
   const d = at ? daysBetween(dayKey(new Date(at)), dayKey(now)) : daysSinceFirstSeen(state, node.cardIds, now);
-  return { title: node.lesson.title, meta: `${of} ${of === 1 ? 'Teil' : 'Teile'} · abgeschlossen ${daysAgoText(d)}`, cta: t === 'read' ? 'Einen Teil nochmal lesen' : 'Einen Teil nochmal hören', variant };
+  return { title: node.lesson.title, meta: `${of} ${of === 1 ? 'Teil' : 'Teile'} · abgeschlossen ${daysAgoText(d)}`, chooser: true, variant };
+}
+
+/**
+ * Erledigtes Level: erst einen Teil wählen, dann wie (alles / nur Fragen / nur hören).
+ * Bei fälligen Karten steht die fällige Wiederholung obenan, die Auswahl klappt darunter auf.
+ */
+function PartChooser({ node, state, index, collapsed, onChoose }) {
+  const parts = lessonParts(index, node.id);
+  const [part, setPart] = useState(() => (leastRecentPart(state, parts) || parts[0]).n);
+  const [open, setOpen] = useState(!collapsed);
+  const read = node.track === 'read';
+  const tone = node.track === 'mixed' ? 'primary' : node.track;
+  const now = new Date();
+  const ago = (p) => {
+    const last = p.cardIds.map((id) => state.cards[id]?.last || '').sort().pop();
+    return last ? daysAgoText(daysBetween(dayKey(new Date(last)), dayKey(now))) : '';
+  };
+  const partRead = (p) => p.item.type === 'text';
+  const sel = parts.find((p) => p.n === part) || parts[0];
+  if (!open) {
+    return (
+      <button type="button" onClick={() => setOpen(true)}
+        style={{ marginTop: 10, width: '100%', background: 'none', border: 'none', padding: '6px 0', cursor: 'pointer', font: 'var(--type-label)', color: 'var(--text-link)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}>
+        Oder einen Teil frei wählen <Icon name="chevron-right" size={16} />
+      </button>
+    );
+  }
+  return (
+    <div className="stack a-fade" style={{ gap: 12, marginTop: collapsed ? 12 : 0 }}>
+      {parts.length > 1 && (
+        <div role="radiogroup" aria-label="Teil" className="stack" style={{ gap: 6 }}>
+          {parts.map((p) => {
+            const on = p.n === part;
+            return (
+              <button key={p.n} type="button" role="radio" aria-checked={on} onClick={() => setPart(p.n)}
+                style={{ display: 'flex', alignItems: 'center', gap: 10, width: '100%', minHeight: 48, padding: '8px 12px', cursor: 'pointer', textAlign: 'left',
+                  borderRadius: 'var(--radius-md)', border: `2px solid ${on ? `var(--track-${read ? 'read' : 'listen'})` : 'var(--border-default)'}`,
+                  background: on ? `var(--track-${read ? 'read' : 'listen'}-soft)` : 'var(--surface-card)',
+                  transition: 'background var(--dur-fast) var(--ease-out-soft), border-color var(--dur-fast) var(--ease-out-soft)' }}>
+                <span style={{ color: on ? `var(--track-${read ? 'read' : 'listen'})` : 'var(--spur-locked)', display: 'inline-flex' }}><Icon name={on ? 'check-circle-2' : 'circle'} size={20} /></span>
+                <span style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+                  <span style={{ font: 'var(--type-body)', fontWeight: 700, color: 'var(--text-ink)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Teil {p.n} · {p.item.title}</span>
+                  {ago(p) && <span style={{ font: 'var(--type-label)', fontWeight: 500, color: 'var(--text-muted)' }}>zuletzt {ago(p)}</span>}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      )}
+      <div className="stack" style={{ gap: 8 }}>
+        <Button variant={tone} full icon={partRead(sel) ? 'book-open' : 'play'} onClick={() => onChoose({ part, mode: 'full' })}>
+          {partRead(sel) ? 'Lesen + Fragen' : 'Hören + Fragen'}
+        </Button>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <Button variant="secondary" size="md" full icon="target" onClick={() => onChoose({ part, mode: 'quiz' })}>Nur Fragen</Button>
+          <Button variant="secondary" size="md" full icon={partRead(sel) ? 'book' : 'ear'} onClick={() => onChoose({ part, mode: 'source' })}>{partRead(sel) ? 'Nur lesen' : 'Nur hören'}</Button>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 /* ---- Kapitel-Banner --------------------------------------------------------- */
@@ -448,7 +509,11 @@ export function Home({ anim, onOpenNode, onPopupTest }) {
               </span>
               <IconButton icon="x" label="Schließen" size={44} onClick={() => setSelected(null)} />
             </div>
-            <Button variant={info.variant} full autoFocus onClick={() => { const n = sel; setSelected(null); onOpenNode(n); }}>{info.cta}</Button>
+            {info.cta && <Button variant={info.variant} full autoFocus onClick={() => { const n = sel; setSelected(null); onOpenNode(n); }}>{info.cta}</Button>}
+            {info.chooser && (
+              <PartChooser node={sel} state={state} index={index} collapsed={info.chooser === 'collapsed'}
+                onChoose={(choice) => { const n = sel; setSelected(null); onOpenNode(n, choice); }} />
+            )}
           </div>
         </div>
       )}

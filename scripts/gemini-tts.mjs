@@ -129,8 +129,9 @@ async function request(content, speechConfig, wavPath) {
   return wavPath;
 }
 
-const toMp3 = (src, dest, from, to) => ffmpeg([...(from != null ? ['-ss', from.toFixed(3)] : []), ...(to != null ? ['-to', to.toFixed(3)] : []),
-  '-i', src, '-codec:a', 'libmp3lame', '-b:a', '48k', '-ac', '1', dest]);
+/** Ausschnitt [from, to] als MP3 (48 kbit/s) oder, bei Ziel *.wav, verlustfrei als WAV. */
+export const toMp3 = (src, dest, from, to) => ffmpeg([...(from != null ? ['-ss', from.toFixed(3)] : []), ...(to != null ? ['-to', to.toFixed(3)] : []),
+  '-i', src, ...(dest.endsWith('.wav') ? ['-c:a', 'pcm_s16le'] : ['-codec:a', 'libmp3lame', '-b:a', '48k']), '-ac', '1', dest]);
 
 /** Ein Abschnitt → MP3 unter dest. */
 export async function synth({ text, voice, style }, dest) {
@@ -163,10 +164,10 @@ export async function synthBatch(turns, wavPath) {
   return request(content, config, wavPath);
 }
 
-/** Stille-Stellen einer Datei: [{ start, end }] in Sekunden, plus Gesamtdauer. */
-async function silences(wav) {
+/** Stille-Stellen einer Datei (ab minDur Sekunden): [{ start, end }] in Sekunden, plus Gesamtdauer. */
+async function silences(wav, minDur = 0.25) {
   const out = await new Promise((resolve, reject) => {
-    const p = spawn('ffmpeg', ['-hide_banner', '-i', wav, '-af', 'silencedetect=noise=-38dB:d=0.25', '-f', 'null', '-'], { stdio: ['ignore', 'ignore', 'pipe'] });
+    const p = spawn('ffmpeg', ['-hide_banner', '-i', wav, '-af', `silencedetect=noise=-38dB:d=${minDur}`, '-f', 'null', '-'], { stdio: ['ignore', 'ignore', 'pipe'] });
     let err = '';
     p.stderr.on('data', (d) => { err += d; });
     p.on('error', reject);
@@ -251,9 +252,11 @@ export async function verifySegments(files, texts, offset = 0) {
  * Abschnitts (nach Wortzahl) zusammen am besten passen. Danach prüft Whisper jeden Abschnitt;
  * passt einer nicht, gibt es einen Fehler, statt falsch zu schneiden.
  */
-export async function splitBatch(wav, texts, dests) {
-  const { list, total } = await silences(wav);
+export async function splitBatch(wav, texts, dests, { fine = false } = {}) {
   const n = texts.length;
+  if (n === 1) { await toMp3(wav, dests[0]); return { total: null, cuts: [], verified: false }; }
+  // fine: Schnitt zwischen Sätzen derselben Stimme, dort sind die Pausen oft nur 0,1–0,2 s lang.
+  const { list, total } = await silences(wav, fine ? 0.08 : 0.25);
   const words = texts.map((t) => t.split(/\s+/).length);
   const sum = words.reduce((a, b) => a + b, 0);
   // Stille am Anfang/Ende zählt nicht als Schnitt.
@@ -298,12 +301,15 @@ export async function splitBatch(wav, texts, dests) {
       if (check[b].ok && check[b + 1].ok) continue;
       const lo = b === 0 ? 0 : cuts[b - 1].end;
       const hi = b + 1 < n - 1 ? cuts[b + 1].start : total;
+      // Die Pausen in der Nähe der erwarteten Stelle (nach Wortzahl) zuerst probieren.
+      const expect = lo + (hi - lo) * (words[b] / (words[b] + words[b + 1]));
+      const dist = (x) => Math.abs((x.start + x.end) / 2 - expect);
       const options = list.filter((x) => x.start > lo + 0.3 && x.end < hi - 0.3 && x !== cuts[b])
-        .sort((x, y) => (y.end - y.start) - (x.end - x.start)).slice(0, 8);
+        .sort((x, y) => dist(x) - dist(y)).slice(0, 10);
       let top = { cut: cuts[b], r: [check[b], check[b + 1]], score: check[b].score + check[b + 1].score };
       for (const o of options) {
         cuts[b] = o;
-        const tmp = [0, 1].map((d) => dests[b + d].replace(/\.mp3$/, '.try.mp3'));
+        const tmp = [0, 1].map((d) => dests[b + d].replace(/(\.\w+)$/, '.try$1'));
         await cut(b, tmp[0]);
         await cut(b + 1, tmp[1]);
         const r = await verifySegments(tmp, [texts[b], texts[b + 1]], b);

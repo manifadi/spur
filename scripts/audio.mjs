@@ -61,6 +61,11 @@ const sha = (parts) => createHash('sha1').update(parts.join('|')).digest('hex').
 /**
  * Alle Abschnitte, Level für Level. Jeder Abschnitt kennt seine edge- und seine Gemini-Datei.
  * Gemini-Stimmen werden pro Level vergeben, damit eine Figur in allen Teilen gleich klingt.
+ *
+ * Aufnahme-Einheiten (units) und Abspiel-Abschnitte (segs) sind getrennt: Gemini spricht
+ * Einheiten, die App spielt Abschnitte. Bei Monologen bleibt die Einheit an der ersten
+ * Zwischenfrage geteilt (so bleiben vorhandene Aufnahmen gültig); jede weitere Pause wird
+ * lokal aus der Einheit geschnitten. Neue Zwischenfragen kosten so keine neue Anfrage.
  */
 function buildLevels() {
   const chapters = loadChapters().sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
@@ -74,32 +79,39 @@ function buildLevels() {
       // Alle Figuren des Levels in einer gemeinsamen Besetzung.
       const who = lesson.items.flatMap((it) => (it.type !== 'dialog' ? [] : it.lines ? it.lines.map((l) => l.who) : [nameOf(it)]));
       const gemCast = who.length ? gemini.castDialog({ lines: [...new Set(who)].map((w) => ({ who: w })) }) : {};
-      const segs = [];
+      const units = [];
       for (const item of lesson.items) {
-        const push = (text, who, gap, edge, gem, quiz) => {
+        const seg = (text, who, gap, edge, gem, quiz) => {
           const t = speakable(text);
-          segs.push({
+          return {
             itemId: item.id, text: t, who, gap, quiz,
             edgeFile: `${sha([edge.voice, edge.rate, edge.pitch, t])}.mp3`, edge,
             gemFile: `${sha(['gemini', gem.voice, gem.style, t])}.mp3`, gem,
-          });
+          };
         };
+        const unit = (subs) => ({ text: subs.length === 1 ? subs[0].text : speakable(subs.raw), gem: subs[0].gem, subs });
         if (item.type === 'dialog') {
           const cast = castDialog(item);
-          for (const p of audioParts(item)) {
+          const segs = audioParts(item).map((p) => {
             const speaker = p.who || nameOf(item);
             const line = item.lines?.find((l) => l.who === p.who && l.text === p.text);
             const g = gemCast[speaker];
             const style = [g.style, line?.tone || item.tone].filter(Boolean).join(', ');
-            push(p.text, p.who, item.lines ? 380 : 300, item.lines ? cast[p.who] : cast._, { speaker, voice: g.voice, style }, p.quiz);
-          }
+            return seg(p.text, p.who, item.lines ? 380 : 300, item.lines ? cast[p.who] : cast._, { speaker, voice: g.voice, style }, p.quiz);
+          });
+          if (item.lines) { segs.forEach((s) => units.push(unit([s]))); continue; }
+          // Monolog: Einheiten nur an der ersten Zwischenfrage geteilt.
+          const recParts = audioParts({ ...item, popQuiz: (item.popQuiz || []).slice(0, 1) });
+          const cut = segs.findIndex((x) => x.quiz === 0) + 1;
+          const groups = recParts.length > 1 ? [segs.slice(0, cut), segs.slice(cut)] : [segs];
+          groups.forEach((subs, i) => { subs.raw = recParts[i].text; units.push(unit(subs)); });
         } else {
           const gem = { speaker: 'Miro', voice: gemini.NARRATOR.voice, style: gemini.NARRATOR.style };
-          push(`${item.title}.`, null, 600, NARRATOR, gem);
-          item.paragraphs.forEach((p) => push(p, null, 450, NARRATOR, gem));
+          units.push(unit([seg(`${item.title}.`, null, 600, NARRATOR, gem)]));
+          item.paragraphs.forEach((p) => units.push(unit([seg(p, null, 450, NARRATOR, gem)])));
         }
       }
-      levels.push({ id: lesson.id, segs });
+      levels.push({ id: lesson.id, units, segs: units.flatMap((u) => u.subs) });
     }
   }
   return levels;
@@ -113,19 +125,20 @@ const gemDone = (itemId) => items.get(itemId).every((s) => have(s.gemFile));
 
 /* ---- Gemini: Level für Level ---------------------------------------------------- */
 
-/** Abschnitte eines Levels in Anfragen zu höchstens 2 Stimmen aufteilen (die häufigsten zusammen). */
-function batches(segs) {
+/** Einheiten eines Levels in Anfragen zu höchstens 2 Stimmen aufteilen (die häufigsten zusammen). */
+function batches(units) {
   const count = new Map();
-  for (const s of segs) count.set(s.gem.speaker, (count.get(s.gem.speaker) || 0) + 1);
+  for (const u of units) count.set(u.gem.speaker, (count.get(u.gem.speaker) || 0) + 1);
   const speakers = [...count.keys()].sort((a, b) => count.get(b) - count.get(a));
   const groups = [];
   for (let i = 0; i < speakers.length; i += 2) groups.push(new Set(speakers.slice(i, i + 2)));
-  return groups.map((g) => segs.filter((s) => g.has(s.gem.speaker)));
+  return groups.map((g) => units.filter((u) => g.has(u.gem.speaker)));
 }
+const unitDone = (u) => u.subs.every((s) => have(s.gemFile));
 
 /** Eine Anfrage (aus dem Cache, wenn schon da) sprechen lassen und in Dateien schneiden. */
-async function renderBatch(segs, log, { cachedOnly = false } = {}) {
-  const turns = segs.map((s) => ({ text: s.text, speaker: s.gem.speaker.replace(/[^A-Za-z]/g, '') || 'Sprecher', voice: s.gem.voice, style: s.gem.style }));
+async function renderBatch(units, log, { cachedOnly = false } = {}) {
+  const turns = units.map((u) => ({ text: u.text, speaker: u.gem.speaker.replace(/[^A-Za-z]/g, '') || 'Sprecher', voice: u.gem.voice, style: u.gem.style }));
   const wav = join(cacheDir, `${sha([gemini.MODEL, JSON.stringify(turns)])}.wav`);
   if (!existsSync(wav) && cachedOnly) return false;
   if (!existsSync(wav)) {
@@ -139,17 +152,28 @@ async function renderBatch(segs, log, { cachedOnly = false } = {}) {
   const tmpDir = join(cacheDir, 'cut');
   rmSync(tmpDir, { recursive: true, force: true });
   mkdirSync(tmpDir, { recursive: true });
-  const dests = segs.map((s, i) => join(tmpDir, `${i}-${s.gemFile}`));
-  await gemini.splitBatch(wav, segs.map((s) => s.text), dests);
-  segs.forEach((s, i) => copyFileSync(dests[i], join(outDir, s.gemFile)));
-  rmSync(tmpDir, { recursive: true, force: true });
+  try {
+    const unitWavs = units.map((_, i) => join(tmpDir, `u${i}.wav`));
+    await gemini.splitBatch(wav, units.map((u) => u.text), unitWavs);
+    const out = [];
+    for (const [i, u] of units.entries()) {
+      const dests = u.subs.map((s, j) => join(tmpDir, `u${i}-${j}-${s.gemFile}`));
+      // Weitere Zwischenfragen im Monolog: die Einheit lokal an der Satzgrenze teilen.
+      if (u.subs.length > 1) log(`teile Einheit ${i + 1} in ${u.subs.length} Abschnitte …`);
+      await gemini.splitBatch(unitWavs[i], u.subs.map((s) => s.text), dests, { fine: true });
+      u.subs.forEach((s, j) => out.push([dests[j], s.gemFile]));
+    }
+    for (const [from, file] of out) copyFileSync(from, join(outDir, file));
+  } finally {
+    rmSync(tmpDir, { recursive: true, force: true });
+  }
   return true;
 }
 
 async function runGemini() {
   if (!gemini.canVerify()) console.warn('Hinweis: whisper-cli oder Modell fehlt, Schnitte werden NICHT geprüft (brew install whisper-cpp, Modell nach ~/.cache/whisper).');
   const open = levels.filter((l) => (!only || only.includes(l.id)) && l.segs.some((s) => !have(s.gemFile)));
-  const plan = open.map((l) => ({ l, n: batches(l.segs).filter((b) => b.some((s) => !have(s.gemFile))).length }));
+  const plan = open.map((l) => ({ l, n: batches(l.units).filter((b) => b.some((u) => !unitDone(u))).length }));
   const doneCount = levels.filter((l) => l.segs.every((s) => have(s.gemFile))).length;
   console.log(`Gemini: ${doneCount} von ${levels.length} Leveln fertig, ${open.length} offen${only ? ' (gefiltert)' : ''} (${plan.reduce((a, p) => a + p.n, 0)} Anfragen).`);
   if (planOnly) { plan.forEach((p) => console.log(`  ${p.l.id}: ${p.n} Anfrage(n)`)); return; }
@@ -159,17 +183,17 @@ async function runGemini() {
     const log = (m) => console.log(`  ${l.id}: ${m}`);
     try {
       // Immer das ganze Level zusammenstellen, damit die Aufnahme im Cache wieder passt.
-      for (const b of batches(l.segs)) {
-        if (b.every((s) => have(s.gemFile))) continue;
+      for (const b of batches(l.units)) {
+        if (b.every(unitDone)) continue;
         try {
           await renderBatch(b, log);
         } catch (e) {
           if (gemini.isDailyLimit(e) || !e.problems) throw e;
           log(`Level-Aufnahme nicht sauber schneidbar:\n      ${e.problems.join('\n      ')}`);
           // Teil für Teil: schon vorhandene Einzelaufnahmen immer nutzen, neue nur mit --retry-items.
-          for (const itemId of [...new Set(b.map((s) => s.itemId))]) {
-            const part = b.filter((s) => s.itemId === itemId);
-            if (part.every((s) => have(s.gemFile))) continue;
+          for (const itemId of [...new Set(b.map((u) => u.subs[0].itemId))]) {
+            const part = b.filter((u) => u.subs[0].itemId === itemId);
+            if (part.every(unitDone)) continue;
             try {
               if (!(await renderBatch(part, log, { cachedOnly: !retryItems }))) log(`${itemId} offen (mit --retry-items einzeln neu anfragen)`);
             } catch (e2) {

@@ -119,7 +119,7 @@ Datei, liest die Gerätestimme.
 | Prinzip | Umsetzung |
 |---|---|
 | Spaced Repetition (Ebbinghaus) | Intervalle 1 · 2 · 4 · 8 · 16 · 30 · 60 Tage. Gut erinnert → eine Stufe weiter, teilweise → Stufe bleibt, kaum etwas → Stufe 0. Neue Karten starten bei Stufe −1 (sofort fällig). `src/engine/srs.js` |
-| Retrieval Practice | Fällige Wiederholungen zeigen nie den Originaltext, nur Frage bzw. Thema. Erst nach der Antwort kommt das Original als Gedächtnisstütze. |
+| Retrieval Practice | Fällige Wiederholungen zeigen nie den Originaltext, nur Frage bzw. Thema. Erst nach der Antwort kommt das Original als Gedächtnisstütze. Wer bei einer Hör-Frage die passende Stelle nachhört, bekommt höchstens „richtig mit Hilfe“ (zählt wie teilweise). |
 | Desirable Difficulty (Bjork) | Kapitel werden länger und dichter: von 3 Details in 2 Sätzen bis zu 6 Details in Gesprächen mit mehreren Personen, von 3 bis zu 6 Kernpunkten. Ab Kapitel 3 gemischte Checkpoints. |
 | Interleaving | Neue Lektionen mischen bis zu 3 fällige Karten der anderen Spur ein. Folgefragen zu einem Gespräch kommen erst später in der Session („Ich frage später nach“). Bei „Beides“ wechseln sich die Kapitel ab. |
 
@@ -147,13 +147,39 @@ Ein Tippen auf den Knoten startet genau den nächsten offenen Teil: erst hören 
 die Fragen dieses Teils.
 
 **Zwischenfragen:** Beim ersten Hören eines Gesprächs hält das Audio nach etwa 10–15 Sekunden
-einmal an. Von unten fährt eine kurze Frage hoch, z. B. „Wo hat Thomas die Plätze freigehalten?“.
+an, bei Gesprächen ab ~35 Sekunden etwa 25–30 Sekunden später ein zweites Mal. Von unten fährt
+eine kurze Frage hoch, z. B. „Wo hat Thomas die Plätze freigehalten?“.
 Nach dem Prüfen sieht man kurz, ob es richtig war, dann fährt das Sheet wieder hinunter und das
 Audio läuft weiter. Bei der zweiten Wiedergabe wird nicht nochmal gefragt. Zwischenfragen sind
 nur ein Aufmerksamkeits-Check und zählen nicht für Intervalle, Herzen oder Federn. Im Inhalt
 stehen sie als `popQuiz` am Dialog. `after` ist die Textstelle, nach der angehalten wird: bei
 Gesprächen nach der Zeile, die sie enthält, bei Monologen genau dort (muss ein Satzende sein,
-der Monolog wird beim Vertonen an dieser Stelle in zwei Audio-Abschnitte geteilt).
+der Monolog wird beim Vertonen an dieser Stelle in Audio-Abschnitte geteilt). Bei „Nur hören“
+gibt es keine Zwischenfragen.
+
+**Erledigte Level nochmal:** Ein Tippen auf ein abgeschlossenes Level öffnet eine Auswahl: erst
+den Teil wählen (vorausgewählt ist der, der am längsten her ist), dann den Modus:
+
+| Modus | Ablauf | Wirkung |
+|---|---|---|
+| Hören + Fragen (bzw. Lesen + Fragen) | Original mit Zwischenfragen, dann alle Fragen | Übung, Intervalle bleiben |
+| Nur Fragen | Fragen aus dem Gedächtnis, mit „Stelle anhören“ | fällige zählen als Wiederholung, sonst Übung |
+| Nur hören (bzw. Nur lesen) | nur das Original, beliebig oft | keine |
+
+Bei fälligen Leveln steht „Wiederholen“ obenan, die freie Auswahl klappt darunter auf.
+
+**Fragen zu früheren Geschichten** (fällige Wiederholungen, „Nur Fragen“, Checkpoints, eingestreute
+Wiederholungen, Pop-up-Tests): Vor der ersten Frage zu einer Geschichte kommt ein Zwischenscreen
+„Prüfen wir, was du noch von „Noras Umzug“ weißt.“ mit Teil, Figuren, wann gehört und Anzahl
+Fragen. Bei Hör-Fragen spielt „Stelle nochmal anhören“ genau die Zeile(n) mit der Antwort
+(gefunden über das `quote` der Frage, bei kurzen Antworten samt der Zeile davor; ohne Zitat das
+ganze Gespräch). Die Wertung:
+
+| Rahmen | Bedeutung | Zählt als |
+|---|---|---|
+| grün | richtig, ohne Hilfe | gut gemerkt (+10 Federn, Intervall wächst) |
+| gelb | richtig, aber Stelle nachgehört | teilweise (+5, Intervall bleibt) |
+| rot | falsch | kaum etwas (+2, zurück auf Stufe 0) |
 
 **Streitgespräche** (Kapitel „Zwei Meinungen“): Zwei Figuren vertreten gegensätzliche
 Standpunkte und einigen sich über drei Teile hinweg. Gefragt wird auch, wer welches Argument
@@ -207,7 +233,7 @@ alte und die neue ID in `src/content/migrations.json` ein. Verlauf und Intervall
 nächsten Start mit.
 
 Mitgeliefert: 12 Kapitel mit 34 Leveln, 102 Teilen und 376 Fragen. Davon sind 253 Freitext,
-33 Nacherzählen, 20 Reihenfolge und 70 Auswahl. Dazu kommen 69 Zwischenfragen, eine pro Gespräch. Ein Teil hat 82–193 Wörter (Schnitt 124).
+33 Nacherzählen, 20 Reihenfolge und 70 Auswahl. Dazu kommen 121 Zwischenfragen in den 69 Gesprächen. Ein Teil hat 82–193 Wörter (Schnitt 124).
 
 ## Pfad
 

@@ -25,6 +25,17 @@
         ]
        ],
        "solution": "Grün."
+      },
+      {
+       "after": "und sie hat den ganzen Abend nur geniest.",
+       "prompt": "Welche Blumen hat Mira letztes Jahr bekommen?",
+       "answers": [
+        [
+         "Lilien",
+         "Lilie"
+        ]
+       ],
+       "solution": "Lilien."
       }
      ],
      "subExercises": [
@@ -177,6 +188,18 @@
         ]
        ],
        "solution": "Beim dritten."
+      },
+      {
+       "after": "der Rasen war sowieso hässlich.",
+       "prompt": "Was hat Miras Vater über den Rasen gesagt?",
+       "answers": [
+        [
+         "hässlich",
+         "haesslich",
+         "häßlich"
+        ]
+       ],
+       "solution": "Er war sowieso hässlich."
       }
      ],
      "subExercises": [
@@ -263,6 +286,16 @@
         ]
        ],
        "solution": "Auf Mallorca."
+      },
+      {
+       "after": "Drei Wochen hat das gedauert.",
+       "prompt": "Wohin muss die Person nach dem Arzttermin noch?",
+       "answers": [
+        [
+         "Apotheke"
+        ]
+       ],
+       "solution": "Zur Apotheke am Markt."
       }
      ],
      "subExercises": [
@@ -356,6 +389,17 @@
         ]
        ],
        "solution": "Für eine Schulung."
+      },
+      {
+       "after": "übernachten tue ich im Hotel am Hauptbahnhof.",
+       "prompt": "Wie lange dauert die Schulung?",
+       "answers": [
+        [
+         "zwei",
+         "2"
+        ]
+       ],
+       "solution": "Zwei Tage."
       }
      ],
      "subExercises": [
@@ -438,6 +482,18 @@
         ]
        ],
        "solution": "In Erfurt."
+      },
+      {
+       "after": "dass ich ihre Präsentation noch nicht gelesen habe.",
+       "prompt": "Was hat Thomas von Sandra noch nicht gelesen?",
+       "answers": [
+        [
+         "Präsentation",
+         "Praesentation",
+         "Vortrag"
+        ]
+       ],
+       "solution": "Ihre Präsentation."
       }
      ],
      "subExercises": [
@@ -529,6 +585,16 @@
         ]
        ],
        "solution": "Herr Wagner."
+      },
+      {
+       "after": "Die spielt Geige!",
+       "prompt": "Wie heißt die Tochter der neuen Nachbarn?",
+       "answers": [
+        [
+         "Amara"
+        ]
+       ],
+       "solution": "Amara."
       }
      ],
      "subExercises": [
@@ -613,6 +679,16 @@
         ]
        ],
        "solution": "In der Hafenstraße."
+      },
+      {
+       "after": "Bruno lag die ganze Zeit unter meinem Tisch und hat geschnarcht.",
+       "prompt": "Wo lag Bruno die ganze Zeit?",
+       "answers": [
+        [
+         "Tisch"
+        ]
+       ],
+       "solution": "Unter dem Tisch."
       }
      ],
      "subExercises": [
@@ -696,6 +772,18 @@
         ]
        ],
        "solution": "Gelb."
+      },
+      {
+       "after": "also hab ich mit dem Handy gefilmt.",
+       "prompt": "Womit wurde das Vorspiel gefilmt?",
+       "answers": [
+        [
+         "Handy",
+         "Smartphone",
+         "Telefon"
+        ]
+       ],
+       "solution": "Mit dem Handy."
       }
      ],
      "subExercises": [
