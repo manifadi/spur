@@ -25,19 +25,20 @@ function tx(mode, fn) {
   }));
 }
 
-export async function loadState() {
+// key: eigener Spielstand, z. B. fürs Testlevel (/testlevel), damit der echte unberührt bleibt.
+export async function loadState(key = KEY) {
   try {
-    return (await tx('readonly', (s) => s.get(KEY))) || null;
+    return (await tx('readonly', (s) => s.get(key))) || null;
   } catch {
-    try { return JSON.parse(localStorage.getItem('spur-state') || 'null'); } catch { return null; }
+    try { return JSON.parse(localStorage.getItem(`spur-${key}`) || 'null'); } catch { return null; }
   }
 }
 
-export async function saveState(state) {
+export async function saveState(state, key = KEY) {
   try {
-    await tx('readwrite', (s) => s.put(state, KEY));
+    await tx('readwrite', (s) => s.put(state, key));
   } catch {
-    try { localStorage.setItem('spur-state', JSON.stringify(state)); } catch { /* voll oder gesperrt */ }
+    try { localStorage.setItem(`spur-${key}`, JSON.stringify(state)); } catch { /* voll oder gesperrt */ }
   }
 }
 

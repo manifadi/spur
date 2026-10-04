@@ -212,6 +212,36 @@ function SpeakerAvatar({ speaker, active, size }) {
 
 const MAX_PLAYS = 2;
 
+/* ---- Spickzettel (nur im Testlevel, /testlevel) ------------------------------------
+   Zeigt die Lösung und wie man "teilweise" auslöst. In der echten App ist dev null. */
+function DevHint(props) {
+  // Im Build fällt der Spickzettel komplett weg.
+  return import.meta.env.DEV ? <DevHintInner {...props} /> : null;
+}
+
+function DevHintInner({ ex, kind }) {
+  const { dev } = useStore();
+  if (!dev?.hints || !ex) return null;
+  let lines;
+  if (kind === 'match') {
+    lines = [`Richtig: ${ex.correct.join(' · ')}`, ex.correct.length > 1 ? `Teilweise: nur „${ex.correct[0]}“ wählen` : 'Falsch: etwas anderes wählen'];
+  } else if (kind === 'sequence') {
+    lines = [`Reihenfolge: ${ex.events.map((e, i) => `${i + 1}. ${e}`).join('  ')}`, 'Teilweise: die ersten zwei richtig, den Rest vertauschen'];
+  } else if (kind === 'retell') {
+    lines = ['Kernpunkte danach abhaken: alle = gut, etwa die Hälfte = teilweise, keiner = falsch'];
+  } else {
+    const first = (ex.answers || []).map((g) => g[0]);
+    lines = [`Lösung: ${ex.solution}`, first.length > 1 ? `Teilweise: nur „${first[0]}“` : 'Falsch: z. B. „weiß nicht“'];
+  }
+  return (
+    <div style={{ border: '2px dashed var(--spur-amber-shade)', borderRadius: 'var(--radius-md)', background: 'var(--accent-xp-soft)', padding: '8px 12px',
+      font: 'var(--type-label)', fontWeight: 600, color: 'var(--text-ink)', display: 'flex', flexDirection: 'column', gap: 2 }}>
+      <span className="overline" style={{ color: 'var(--spur-amber-shade)' }}>Test · Spickzettel</span>
+      {lines.map((l) => <span key={l}>{l}</span>)}
+    </div>
+  );
+}
+
 /* ---- Zwischenfrage beim Hören --------------------------------------------------
    Das Audio hält an, die Frage fährt von unten hoch. Nach dem Prüfen sieht man kurz,
    ob es richtig war, dann fährt das Sheet wieder hinunter und es geht weiter.
@@ -248,6 +278,7 @@ function QuizBody({ quiz, sound, onDone }) {
   return (
     <div ref={box} className="stack" style={{ gap: 14 }}>
       <h3 style={{ font: 'var(--type-headline)', color: 'var(--text-ink)', textWrap: 'pretty' }}>{quiz.prompt}</h3>
+      {!grade && <DevHint ex={quiz} kind="recall" />}
       <TextField value={answer} onChange={(e) => setAnswer(e.target.value)} rows={2} state={r ? r.state : 'default'} disabled={!!grade}
         placeholder="Kurz aus dem Kopf …" enterKeyHint="done"
         onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); if (answer.trim()) check(); } }} />
@@ -461,6 +492,7 @@ function RecallQuestion({ entry, card, rec, answer, setAnswer, onCheck, help }) 
             <p style={{ font: 'var(--type-body)', color: 'var(--text-muted)' }}>{contextLine(entry, card, rec)}</p>
           </div>
         </div>
+        <DevHint ex={card.ex} kind="recall" />
         {help || <LockHint>{read ? 'Das Buch bleibt zu — antworte aus dem Kopf.' : 'Der Originaltext bleibt aus — das ist der Sinn der Sache.'}</LockHint>}
         <TextField value={answer} onChange={(e) => setAnswer(e.target.value)} rows={4} placeholder="Schreib auf, woran du dich erinnerst …" hint="Stichworte reichen." />
       </div>
@@ -486,6 +518,7 @@ function MatchExercise({ entry, card, rec, onCheck, help }) {
           <p style={{ font: 'var(--type-body)', color: 'var(--text-muted)' }}>{contextLine(entry, card, rec)} {multi ? 'Mehrere Antworten sind richtig.' : 'Eine Antwort ist richtig.'}</p>
         </div>
         {help}
+        <DevHint ex={ex} kind="match" />
         <div role="group" aria-label="Antworten" style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
           {options.map((o) => {
             const on = sel.includes(o);
@@ -526,6 +559,7 @@ function SequenceExercise({ entry, card, rec, onCheck, help }) {
           <p style={{ font: 'var(--type-body)', color: 'var(--text-muted)' }}>Tipp die Ereignisse der Reihe nach an. Nochmal tippen nimmt eins zurück.</p>
         </div>
         {help}
+        <DevHint ex={ex} kind="sequence" />
         <div className="stack" style={{ gap: 10 }}>
           {shuffled.map((e) => {
             const n = order.indexOf(e);
@@ -596,6 +630,7 @@ function ReadRecall({ entry, card, rec, answer, setAnswer, onCompare }) {
           <h2 style={{ font: 'var(--type-title)' }}>{item.topic}</h2>
           <p style={{ font: 'var(--type-body)', color: 'var(--text-muted)' }}>{meta}</p>
         </div>
+        <DevHint ex={{}} kind="retell" />
         <LockHint>Das Buch bleibt zu. Erzähl es frei.</LockHint>
         <TextField value={answer} onChange={(e) => setAnswer(e.target.value)} rows={7} placeholder="Erzähl den Text so, wie du ihn jemandem erklären würdest …" hint="Reihenfolge ist egal." />
       </div>

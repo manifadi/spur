@@ -25,14 +25,18 @@ function applyTheme(theme) {
   try { localStorage.setItem('spur-theme', theme); } catch { /* ignore */ }
 }
 
-export function StoreProvider({ children }) {
+/**
+ * index/storageKey/dev/initial nur fürs Testlevel (src/dev/): eigene Inhalte, eigener Spielstand
+ * (initial: Startzustand, wenn noch keiner gespeichert ist), dev.hints zeigt einen Spickzettel.
+ */
+export function StoreProvider({ children, index = INDEX, storageKey, dev = null, initial = null }) {
   const [state, setState] = useState(null);
   const saveTimer = useRef(0);
   const latest = useRef(null);
 
   useEffect(() => {
     let alive = true;
-    loadState().then((saved) => { if (alive) setState(hydrate(saved, new Date(), MIGRATIONS.renames)); });
+    loadState(storageKey).then((saved) => { if (alive) setState(hydrate(saved || initial?.(), new Date(), MIGRATIONS.renames)); });
     requestPersistence();
     return () => { alive = false; };
   }, []);
@@ -42,20 +46,20 @@ export function StoreProvider({ children }) {
     if (!state) return undefined;
     latest.current = state;
     clearTimeout(saveTimer.current);
-    saveTimer.current = setTimeout(() => saveState(state), 150);
+    saveTimer.current = setTimeout(() => saveState(state, storageKey), 150);
     return undefined;
   }, [state]);
 
   useEffect(() => {
     const flush = () => {
-      if (latest.current) saveState(latest.current);
+      if (latest.current) saveState(latest.current, storageKey);
       if (document.visibilityState === 'visible') setState((s) => (s ? tick(s) : s));
     };
     document.addEventListener('visibilitychange', flush);
     window.addEventListener('pagehide', flush);
     const id = setInterval(() => {
       setState((s) => (s ? tick(s) : s));
-      if (latest.current) checkReminder(latest.current);
+      if (latest.current && !dev) checkReminder(latest.current);
     }, 30000);
     return () => { document.removeEventListener('visibilitychange', flush); window.removeEventListener('pagehide', flush); clearInterval(id); };
   }, []);
@@ -75,12 +79,12 @@ export function StoreProvider({ children }) {
 
   /** "Fortschritt zurücksetzen" löscht alles außer den Einstellungen. */
   const resetProgress = useCallback(async () => {
-    await clearState();
+    if (!storageKey) await clearState();
     setState((s) => ({ ...initialState(), onboarded: true, settings: s.settings, progress: freshProgress() }));
   }, []);
 
   if (!state) return children(null);
-  return <Ctx.Provider value={{ state, index: INDEX, update, setSettings, resetProgress }}>{children(state)}</Ctx.Provider>;
+  return <Ctx.Provider value={{ state, index, update, setSettings, resetProgress, dev }}>{children(state)}</Ctx.Provider>;
 }
 
 export function useStore() {

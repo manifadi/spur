@@ -235,6 +235,24 @@ nächsten Start mit.
 Mitgeliefert: 12 Kapitel mit 34 Leveln, 102 Teilen und 376 Fragen. Davon sind 253 Freitext,
 33 Nacherzählen, 20 Reihenfolge und 70 Auswahl. Dazu kommen 121 Zwischenfragen in den 69 Gesprächen. Ein Teil hat 82–193 Wörter (Schnitt 124).
 
+## Testlevel (nur lokal)
+
+Mit `npm run dev` gibt es unter **http://localhost:5173/testlevel** eine Test-Version der App:
+
+- **Eigener Spielstand** (IndexedDB-Schlüssel `test-state`), der echte Fortschritt bleibt unberührt.
+- **Zwei Test-Kapitel** aus echten Gesprächen und Texten samt Audios: Gespräche mit zwei Stimmen
+  und Zwischenfragen, ein Monolog, Freitext mit Teilpunkten, Auswahl, Reihenfolge, ein
+  Streitgespräch, Lesetexte mit Nacherzählen und ein Checkpoint (`src/dev/testlevel.jsx`).
+- **🧪-Menü** unten links springt direkt in jede Situation: neu anfangen, alles fällig
+  (Zwischenscreen, „Stelle anhören“, Intervall-Schritt), alles erledigt (Teil-Auswahl), kurz
+  vor Kapitelende, Pop-up-Test, Tagesziel geschafft, Herzen leer, Streak-Meilenstein, Streak
+  gerissen, Onboarding.
+- **Spickzettel** (im Menü abschaltbar): zeigt bei jeder Frage die Lösung und wie man
+  „teilweise“ auslöst, damit sich grün, gelb und rot gezielt testen lassen.
+
+`main.jsx` lädt das Testlevel nur, wenn `import.meta.env.DEV` gilt. Im Build (Vercel) fällt der
+Zweig samt `src/dev/` und Spickzettel komplett weg.
+
 ## Pfad
 
 - **Sticky Kapitel-Leiste:** Beim Scrollen zeigt eine schmale Leiste unter der Statusleiste,

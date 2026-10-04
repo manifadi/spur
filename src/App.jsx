@@ -210,8 +210,11 @@ function Main() {
   return <div key={route.name + (route.key || '')} className="screen-wrap">{screen}</div>;
 }
 
-export default function App() {
+/** index/storageKey/dev/DevPanel nur fürs Testlevel (src/dev/testlevel.jsx, nur im Dev-Server). */
+export default function App({ index, storageKey, dev, initial, DevPanel }) {
   useVisualViewport();
+  // Testlevel: Szenario gewechselt → Hauptbereich neu aufbauen (Startbildschirm neu bestimmen).
+  const [epoch, setEpoch] = useState(0);
   const [minSplash, setMinSplash] = useState(true);
   useEffect(() => {
     // Splash bis Daten und Schrift da sind, höchstens 1,5 s.
@@ -221,8 +224,13 @@ export default function App() {
   }, []);
   return (
     <div className="app">
-      <StoreProvider>
-        {(state) => (!state || minSplash ? <Splash /> : <Main />)}
+      <StoreProvider index={index} storageKey={storageKey} dev={dev} initial={initial}>
+        {(state) => (!state || minSplash ? <Splash /> : (
+          <>
+            <Main key={epoch} />
+            {DevPanel && <DevPanel restart={() => setEpoch((e) => e + 1)} />}
+          </>
+        ))}
       </StoreProvider>
     </div>
   );
