@@ -115,6 +115,23 @@
         "Tisch abräumen",
         "Bens Fotos aus Norwegen"
        ]
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Yusuf",
+       "prompt": "Ein paar Tage später triffst du Yusuf. Was fragst du ihn?",
+       "options": [
+        "Steht dein Wein immer noch bei dir im Flur?",
+        "Steht dein Fahrrad immer noch bei Marta im Hof?",
+        "Hast du dein Tiramisu mit Amaretto gemacht?",
+        "Hat dir der Koriander im Curry geschmeckt?"
+       ],
+       "correct": [
+        "Steht dein Wein immer noch bei dir im Flur?"
+       ],
+       "quote": "„Ich hab übrigens den Wein vergessen, der steht noch bei mir im Flur.“"
       }
      ],
      "worldRefs": {
@@ -226,6 +243,23 @@
         "Einen Baum"
        ],
        "quote": "„… ich darf mir jedes Jahr einen Baum aussuchen …“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Yusuf",
+       "prompt": "Im Juni triffst du Yusuf. Was fragst du ihn?",
+       "options": [
+        "Wie läuft es in der Baumschule in Pinneberg?",
+        "Wie läuft es in der Gärtnerei in Elmshorn?",
+        "Wie läuft es im neuen Büro?",
+        "Fährst du jetzt jeden Tag mit dem Auto hin?"
+       ],
+       "correct": [
+        "Wie läuft es in der Baumschule in Pinneberg?"
+       ],
+       "quote": "„Ich fange im Mai bei einer Baumschule in Pinneberg an.“"
       }
      ],
      "worldRefs": {
@@ -351,6 +385,23 @@
        ],
        "solution": "Ab Foto vierzig.",
        "quote": "„Aber ab Foto vierzig kommen Elche.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Ben",
+       "prompt": "Eine Woche später triffst du Ben. Worauf sprichst du ihn an?",
+       "options": [
+        "Hast du noch Brunost aus Norwegen übrig?",
+        "Hast du noch Elchsalami aus Schweden übrig?",
+        "Wie war die Kreuzfahrt durch die Fjorde?",
+        "Wie war es bei eurer Vermieterin in Oslo?"
+       ],
+       "correct": [
+        "Hast du noch Brunost aus Norwegen übrig?"
+       ],
+       "quote": "„Ich hab euch ein Stück mitgebracht, es liegt im Kühlschrank.“"
       }
      ],
      "worldRefs": {
@@ -478,6 +529,23 @@
         "Gesucht wird ein Elternteil mit Erste-Hilfe-Kenntnissen"
        ],
        "quote": "„… bei Herrn Oswald im Sekretariat abgeben. … einen Elternteil mit Erste-Hilfe-Kenntnissen.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Frau Demir",
+       "prompt": "Nach den Osterferien triffst du Frau Demir. Was fragst du sie?",
+       "options": [
+        "Haben Sie jemanden mit Erste-Hilfe-Kurs für die Fahrt gefunden?",
+        "Haben Sie jemanden mit Rettungsschwimmer-Schein gefunden?",
+        "Fährt Herr Brandt, der Musiklehrer, auch mit?",
+        "Geht die Klassenfahrt immer noch nach Sylt?"
+       ],
+       "correct": [
+        "Haben Sie jemanden mit Erste-Hilfe-Kurs für die Fahrt gefunden?"
+       ],
+       "quote": "„Außerdem suchen wir noch einen Elternteil mit Erste-Hilfe-Kenntnissen.“"
       }
      ],
      "worldRefs": {
@@ -607,6 +675,23 @@
        ],
        "solution": "Auf dem Parkplatz hinter der Turnhalle.",
        "quote": "„… auf dem Parkplatz hinter der Turnhalle.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Frau Petrović",
+       "prompt": "Am Abend vor der Abfahrt triffst du Frau Petrović. Worauf sprichst du sie an?",
+       "options": [
+        "Haben Sie die Reiseapotheke schon gepackt?",
+        "Haben Sie die Angeln schon eingepackt?",
+        "Treffen wir uns morgen um acht vor der Schule?",
+        "Fahren Sie als Lehrerin mit?"
+       ],
+       "correct": [
+        "Haben Sie die Reiseapotheke schon gepackt?"
+       ],
+       "quote": "„Ich bin Krankenschwester, das passt ja. Ich bringe die Reiseapotheke mit.“"
       }
      ],
      "worldRefs": {
@@ -717,6 +802,23 @@
        ],
        "solution": "Werwolf.",
        "quote": "„… haben sie stattdessen Werwolf gespielt …“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Herr Lindqvist",
+       "prompt": "Ein paar Tage später triffst du Herrn Lindqvist. Worauf sprichst du ihn an?",
+       "options": [
+        "Macht Ihr Sohn jetzt überall Palstek-Knoten?",
+        "Angelt Ihr Sohn jetzt jeden Tag?",
+        "Wie geht es dem gebrochenen Arm Ihres Sohnes?",
+        "Hat es auf Rügen die ganze Woche geregnet?"
+       ],
+       "correct": [
+        "Macht Ihr Sohn jetzt überall Palstek-Knoten?"
+       ],
+       "quote": "„Seitdem ist jeder Schnürsenkel in der Klasse ein Palstek.“"
       }
      ],
      "worldRefs": {
@@ -858,6 +960,23 @@
         "Bremsbeläge tauschen"
        ],
        "quote": "„Das Klappern hinten kam vom Hitzeschutzblech … Den machen wir gleich mit, das Birnchen kostet nur acht Euro.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Frau Heller",
+       "prompt": "Ein paar Tage später triffst du Frau Heller. Was fragst du sie?",
+       "options": [
+        "Bremst Ihr Auto mit den neuen Belägen wieder gut?",
+        "Fährt Ihr Auto mit dem neuen Auspuff wieder leiser?",
+        "Haben Sie schon neue Winterreifen gekauft?",
+        "Hat Timo Ihren Wagen noch gewaschen?"
+       ],
+       "correct": [
+        "Bremst Ihr Auto mit den neuen Belägen wieder gut?"
+       ],
+       "quote": "„Die Bremsbeläge vorne sind runter, die tauschen wir.“"
       }
      ],
      "worldRefs": {
@@ -978,6 +1097,23 @@
         "Das Kartengerät ist kaputt"
        ],
        "quote": "„Heute leider nicht, das Gerät ist kaputt.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Frau Heller",
+       "prompt": "Eine Woche später triffst du Frau Heller. Worauf sprichst du sie an?",
+       "options": [
+        "Ist die Rechnung von der Werkstatt mit der Post gekommen?",
+        "Hat die Kartenzahlung in der Werkstatt geklappt?",
+        "Riecht das Wischwasser immer noch nach Lavendel?",
+        "Wie fährt sich Ihr neuer roter Kombi?"
+       ],
+       "correct": [
+        "Ist die Rechnung von der Werkstatt mit der Post gekommen?"
+       ],
+       "quote": "„Bar oder Überweisung, die Rechnung schicke ich Ihnen per Post.“"
       }
      ],
      "worldRefs": {
@@ -1092,6 +1228,23 @@
        ],
        "solution": "Einen roten Käfer, einen Oldtimer.",
        "quote": "„Den roten Käfer?“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Azubi Timo",
+       "prompt": "Zwei Wochen später triffst du Timo. Was fragst du ihn?",
+       "options": [
+        "Und, machst du die Inspektionen jetzt selbst?",
+        "Und, hast du den roten Käfer selbst repariert?",
+        "Und, hast du die Abschlussprüfung bestanden?",
+        "Und, war die Mechanik der schwerste Teil?"
+       ],
+       "correct": [
+        "Und, machst du die Inspektionen jetzt selbst?"
+       ],
+       "quote": "„Timo, ab Montag machst du die Inspektionen selbst.“"
       }
      ],
      "worldRefs": {
@@ -1219,6 +1372,23 @@
        ],
        "solution": "Zwei Kaninchen.",
        "quote": "„Wir haben zwei Kaninchen, Fritz und Frieda.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Lea",
+       "prompt": "Ein paar Tage später triffst du Lea. Was fragst du sie?",
+       "options": [
+        "Nehmt ihr die Wohnung mit dem Westbalkon?",
+        "Nehmt ihr die Wohnung mit dem Südbalkon?",
+        "Wie geht es euren zwei Katzen?",
+        "Ist die Wohnung mit Gasheizung nicht teuer?"
+       ],
+       "correct": [
+        "Nehmt ihr die Wohnung mit dem Westbalkon?"
+       ],
+       "quote": "„Die Wohnung hat 68 Quadratmeter, drei Zimmer und einen Balkon nach Westen — also Abendsonne.“"
       }
      ],
      "worldRefs": {
@@ -1332,6 +1502,23 @@
        ],
        "solution": "Drei Kaltmieten.",
        "quote": "„Die Kaution beträgt drei Kaltmieten.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Jonte",
+       "prompt": "Am Samstag triffst du Jonte. Was fragst du ihn?",
+       "options": [
+        "Habt ihr Frau Sommer bis Freitag wegen der Küche Bescheid gegeben?",
+        "Habt ihr Frau Sommer bis Montag wegen der Küche Bescheid gegeben?",
+        "Zieht ihr schon zum ersten Oktober ein?",
+        "Habt ihr euch für die Küche mit dem Gasherd entschieden?"
+       ],
+       "correct": [
+        "Habt ihr Frau Sommer bis Freitag wegen der Küche Bescheid gegeben?"
+       ],
+       "quote": "„Überlegen Sie es sich in Ruhe, ich brauche Ihre Antwort bis Freitag.“"
       }
      ],
      "worldRefs": {
@@ -1466,6 +1653,23 @@
         ]
        ],
        "solution": "In Salbeigrün.",
+       "quote": "„Lea will das Schlafzimmer in Salbeigrün.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Lea",
+       "prompt": "Im Dezember besuchst du Lea und Jonte. Worauf sprichst du sie an?",
+       "options": [
+        "Ist das Schlafzimmer jetzt salbeigrün geworden?",
+        "Ist das Schlafzimmer jetzt orange geworden?",
+        "Ist das Schlafzimmer jetzt himmelblau geworden?",
+        "Habt ihr die Spülmaschine der Vormieterin behalten?"
+       ],
+       "correct": [
+        "Ist das Schlafzimmer jetzt salbeigrün geworden?"
+       ],
        "quote": "„Lea will das Schlafzimmer in Salbeigrün.“"
       }
      ],

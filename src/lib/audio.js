@@ -14,7 +14,7 @@ export function hasAudio(itemId) {
  * bis resume() aufgerufen wird.
  * only: Indizes der Abschnitte, die gespielt werden sollen (Standard: alle).
  */
-export function playItem(itemId, { onEnd, onError, onBlocked, onSegment, onQuiz, only } = {}) {
+export function playItem(itemId, { onEnd, onError, onBlocked, onSegment, onQuiz, onProgress, only } = {}) {
   // only: nur diese Abschnitte (Indizes), z. B. "Stelle anhören" bei einer Wiederholung.
   const all = AUDIO[itemId]?.segments || [];
   const segments = only ? all.filter((_, i) => only.includes(i)) : all;
@@ -23,7 +23,14 @@ export function playItem(itemId, { onEnd, onError, onBlocked, onSegment, onQuiz,
   let i = 0;
   let stopped = false;
   let timer = 0;
-  const finish = (fn) => { if (stopped) return; stopped = true; clearTimeout(timer); audio.pause(); audio.removeAttribute('src'); fn?.(); };
+  let raf = 0;
+  // onProgress(index, anteil): wie weit der laufende Abschnitt ist (für den Fortschrittsring).
+  const tick = () => {
+    if (stopped) return;
+    if (audio.duration > 0) onProgress?.(i - 1, Math.min(1, audio.currentTime / audio.duration));
+    raf = requestAnimationFrame(tick);
+  };
+  const finish = (fn) => { if (stopped) return; stopped = true; clearTimeout(timer); cancelAnimationFrame(raf); audio.pause(); audio.removeAttribute('src'); fn?.(); };
 
   const next = () => {
     if (stopped) return;
@@ -45,6 +52,7 @@ export function playItem(itemId, { onEnd, onError, onBlocked, onSegment, onQuiz,
     else go();
   };
   audio.onerror = () => finish(onError);
+  if (onProgress) raf = requestAnimationFrame(tick);
   next();
   return () => finish(onEnd);
 }

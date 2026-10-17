@@ -99,6 +99,23 @@
         "Einen italienischen Kochkurs"
        ],
        "quote": "„Wir legen zusammen für einen Kochkurs, italienisch …“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Mira",
+       "prompt": "Im November triffst du Mira. Worauf sprichst du sie an?",
+       "options": [
+        "Wie war dein italienischer Kochkurs?",
+        "Wie war dein thailändischer Kochkurs?",
+        "Wie war dein Tanzkurs?",
+        "Hast du dich über die Lilien gefreut?"
+       ],
+       "correct": [
+        "Wie war dein italienischer Kochkurs?"
+       ],
+       "quote": "„Wir legen zusammen für einen Kochkurs, italienisch, der ist im Oktober.“"
       }
      ],
      "worldRefs": {
@@ -162,6 +179,23 @@
         "Grillen",
         "Feuerschale im Dunkeln"
        ]
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Felix",
+       "prompt": "Auf der Feier kommst du mit Felix ins Gespräch. Was sagst du zu ihm?",
+       "options": [
+        "Du bist doch eigentlich Zahnarzt, oder?",
+        "Du bist doch eigentlich Tierarzt, oder?",
+        "Du bist doch Miras Bruder, oder?",
+        "Spielst du heute Schlagzeug?"
+       ],
+       "correct": [
+        "Du bist doch eigentlich Zahnarzt, oder?"
+       ],
+       "quote": "„Der ist eigentlich Zahnarzt, aber am Wochenende tut er so, als wäre er ein Rockstar.“"
       }
      ],
      "worldRefs": {
@@ -257,6 +291,23 @@
        ],
        "solution": "In einer Bar.",
        "quote": "„Nächstes Jahr feiert sie trotzdem lieber in einer Bar.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Miras Vater",
+       "prompt": "Ein paar Wochen später triffst du Miras Vater. Worauf sprichst du ihn an?",
+       "options": [
+        "Ist der Rasen nach dem Brandfleck wieder nachgewachsen?",
+        "Ist die Hecke nach dem Feuer wieder nachgewachsen?",
+        "Singen Sie immer noch so gern Elvis?",
+        "Haben Sie den Grill reparieren lassen?"
+       ],
+       "correct": [
+        "Ist der Rasen nach dem Brandfleck wieder nachgewachsen?"
+       ],
+       "quote": "„Und rate mal: Um Mitternacht hat die Feuerschale den Rasen angesengt …“"
       }
      ],
      "worldRefs": {
@@ -362,6 +413,23 @@
        ],
        "solution": "Versichertenkarte und Impfpass.",
        "quote": "„Mitbringen soll ich die Versichertenkarte und den Impfpass …“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Sandra",
+       "prompt": "Am Donnerstag kommt Sandra mittags zurück ins Büro. Was fragst du sie?",
+       "options": [
+        "Wie war es bei Frau Dr. Kaya?",
+        "Wie war es bei Frau Dr. Albers?",
+        "Wie war die Zahnreinigung?",
+        "Hast du die Tabletten in der Apotheke am Bahnhof bekommen?"
+       ],
+       "correct": [
+        "Wie war es bei Frau Dr. Kaya?"
+       ],
+       "quote": "„… also komme ich zu ihrer Vertretung, Frau Dr. Kaya.“"
       }
      ],
      "worldRefs": {
@@ -457,6 +525,23 @@
        ],
        "solution": "In Erfurt.",
        "quote": "„Umsteigen muss ich nur einmal, in Erfurt …“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Thomas",
+       "prompt": "Am Montag nach der Dienstreise triffst du Thomas. Was fragst du ihn?",
+       "options": [
+        "Wie war die Schulung in Leipzig?",
+        "Wie war die Schulung in Dresden?",
+        "Wie war dein Urlaub an der Ostsee?",
+        "Hat das Umsteigen in Kassel geklappt?"
+       ],
+       "correct": [
+        "Wie war die Schulung in Leipzig?"
+       ],
+       "quote": "„Für die Schulung nächste Woche fahre ich mit dem Zug. Mein Zug nach Leipzig fährt um 7:12 von Gleis 5.“"
       }
      ],
      "worldRefs": {
@@ -552,6 +637,23 @@
         "Die Straßenbahn vor dem Fenster"
        ],
        "quote": "„… das Fenster geht auf die Straßenbahn raus …“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Thomas",
+       "prompt": "Am Montag ist Thomas zurück aus Leipzig. Was fragst du ihn?",
+       "options": [
+        "Hast du Sandras Präsentation im Zug noch gelesen?",
+        "Hast du Janas Präsentation im Zug noch gelesen?",
+        "Hast du im Hotel gut geschlafen, so ruhig zum Hof raus?",
+        "Wie waren die Quizfragen von Herrn Weber?"
+       ],
+       "correct": [
+        "Hast du Sandras Präsentation im Zug noch gelesen?"
+       ],
+       "quote": "„Sagt Sandra bitte, dass ich ihre Präsentation noch nicht gelesen habe. Ich mache das im Zug am Freitag.“"
       }
      ],
      "worldRefs": {
@@ -653,6 +755,23 @@
        ],
        "solution": "Vor dem Aufzug.",
        "quote": "„… einen Hund namens Bruno …, der hat Angst vor dem Aufzug.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Frau Okafor",
+       "prompt": "Ein paar Tage später triffst du die neue Nachbarin aus dem dritten Stock. Worauf sprichst du sie an?",
+       "options": [
+        "Nimmt Bruno immer noch lieber die Treppe?",
+        "Wie geht es Ihrer Katze?",
+        "Übt Amara noch fleißig Klavier?",
+        "Sie sind doch Ärztin, oder?"
+       ],
+       "correct": [
+        "Nimmt Bruno immer noch lieber die Treppe?"
+       ],
+       "quote": "„… der hat Angst vor dem Aufzug.“"
       }
      ],
      "worldRefs": {
@@ -745,6 +864,23 @@
        ],
        "solution": "„Alle meine Entchen“.",
        "quote": "„… ‚Alle meine Entchen‘. Zweimal.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Grace",
+       "prompt": "Ein paar Tage später triffst du Grace Okafor vor dem Haus. Worauf sprichst du sie an?",
+       "options": [
+        "Wann ist eigentlich Amaras Vorspiel in der Musikschule?",
+        "Wie läuft Amaras Fußballtraining?",
+        "Vermissen Sie Bremen manchmal?",
+        "Verraten Sie mir das Rezept für Ihren Apfelkuchen?"
+       ],
+       "correct": [
+        "Wann ist eigentlich Amaras Vorspiel in der Musikschule?"
+       ],
+       "quote": "„Nächsten Monat hat sie ihr erstes Vorspiel in der Musikschule.“"
       }
      ],
      "worldRefs": {
@@ -841,6 +977,23 @@
         "Er hatte Dienst"
        ],
        "quote": "„Emeka hatte Dienst, der konnte nicht kommen …“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Emeka",
+       "prompt": "Ein paar Tage nach dem Vorspiel triffst du Emeka Okafor im Hof. Worauf sprichst du ihn an?",
+       "options": [
+        "Haben Sie das Video von Amaras Vorspiel gesehen?",
+        "Wie fanden Sie Amaras Vorspiel? Sie saßen ja in der ersten Reihe.",
+        "Hat Amara wirklich ein Menuett von Mozart gespielt?",
+        "Wie war Ihr Urlaub?"
+       ],
+       "correct": [
+        "Haben Sie das Video von Amaras Vorspiel gesehen?"
+       ],
+       "quote": "„Emeka hatte Dienst, der konnte nicht kommen, also hab ich mit dem Handy gefilmt.“"
       }
      ],
      "worldRefs": {

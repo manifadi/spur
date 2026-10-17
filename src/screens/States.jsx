@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useStore } from '../store.jsx';
 import { Button } from '../ds/Button.jsx';
+import { Icon } from '../ds/Icon.jsx';
 import { Mascot } from '../ds/feedback.jsx';
 import { GoalRing, HeartsMeter, StatTile, StreakPill } from '../ds/progress.jsx';
 import { PathHeader } from './Home.jsx';
 import { SettingsSheet } from './Settings.jsx';
-import { doneTodayCount, msToNextHeart, nextDueDay } from '../engine/game.js';
+import { doneTodayCount, msToNextHeart, nextDueDay, nextOpenPart, lessonParts } from '../engine/game.js';
 import { cap, days, formatDuration, numWord } from '../lib/format.js';
 
 const center = { flex: 1, minHeight: 0, overflowY: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'safe center', textAlign: 'center', padding: '16px var(--gutter-screen)' };
@@ -14,13 +15,14 @@ const lead = { font: 'var(--type-body-l)', color: 'var(--text-muted)', maxWidth:
 const foot = { padding: '0 var(--gutter-screen) calc(28px + env(safe-area-inset-bottom))', display: 'flex', flexDirection: 'column', gap: 10 };
 
 /** 2c Alles erledigt: Tagesziel voll, nichts mehr fällig. */
-export function AllDone({ onVoluntary, onPath, anim }) {
+export function AllDone({ onVoluntary, onPath, onContinue, next: nextNode, anim }) {
   const { state, index } = useStore();
   const [menu, setMenu] = useState(false);
   const goal = state.settings.dailyGoal;
   const done = doneTodayCount(state.progress);
   const next = nextDueDay(index, state);
   let text = 'Neue Karten warten auf dem Pfad, wenn du magst. Miro legt sich solange hin.';
+  const goalLabel = done >= goal ? <Icon name="check" size={26} strokeWidth={3} color="var(--spur-green)" /> : `${done}/${goal}`;
   if (next) {
     const when = next.inDays === 1 ? 'morgen' : next.inDays === 2 ? 'übermorgen' : `in ${next.inDays} Tagen`;
     text = `Die nächsten ${next.count === 1 ? 'Karte wird' : `${numWord(next.count)} Karten werden`} ${when} fällig. Miro legt sich solange hin.`;
@@ -33,9 +35,16 @@ export function AllDone({ onVoluntary, onPath, anim }) {
         <Mascot pose="sleepy" size={130} />
         <h2 style={h2}>Für heute ist alles gemerkt.</h2>
         <p style={{ ...lead, margin: '0 0 26px' }}>{text}</p>
-        <GoalRing value={1} size={64} thickness={8} tone="correct" caption="Tagesziel">{done}/{goal}</GoalRing>
+        <GoalRing value={1} size={64} thickness={8} tone="correct" caption="Tagesziel">{goalLabel}</GoalRing>
       </div>
       <div style={foot}>
+        {nextNode && (() => {
+          // Angefangenes Level: direkt mit dem nächsten Teil weitermachen.
+          const part = nextOpenPart(index, state, nextNode.id);
+          const of = lessonParts(index, nextNode.id).length;
+          const label = part && of > 1 && part.n > 1 ? `Weiter mit Teil ${part.n} von „${nextNode.lesson.title}“` : `Weiter mit „${nextNode.lesson.title}“`;
+          return <Button variant={nextNode.track === 'read' ? 'read' : nextNode.track === 'listen' ? 'listen' : 'primary'} full onClick={onContinue}>{label}</Button>;
+        })()}
         <Button variant="secondary" full onClick={onVoluntary}>Freiwillige Runde</Button>
         <Button variant="ghost" size="md" full onClick={onPath}>Zum Pfad</Button>
       </div>

@@ -1,14 +1,13 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useStore } from '../store.jsx';
 import { Icon } from '../ds/Icon.jsx';
 import { Button } from '../ds/Button.jsx';
 import { Badge, Card } from '../ds/core.jsx';
 import { Mascot } from '../ds/feedback.jsx';
-import { StatTile } from '../ds/progress.jsx';
+import { GoalRing } from '../ds/progress.jsx';
 import { chapterNumber, nextChapterAfter } from '../engine/game.js';
 import { addDays, dayKey, weekdayMon } from '../engine/dates.js';
 import { prefersReducedMotion, useCountUp, EASE } from '../lib/motion.js';
-import { days as daysText } from '../lib/format.js';
 import { sounds } from '../lib/sound.js';
 
 const rise = (delay, ms = 320) => ({ animation: `spur-rise ${ms}ms ${EASE.soft} ${delay}ms both` });
@@ -27,70 +26,98 @@ const FEATHERS = Array.from({ length: 9 }, (_, i) => {
   };
 });
 
+/** Ergebnis-Kachel wie bei Duolingo: farbiger Rahmen mit Überschrift, darunter der Wert. */
+function ResultTile({ label, color, icon, value, delay }) {
+  return (
+    <div style={{ flex: 1, minWidth: 0, borderRadius: 'var(--radius-md)', background: color, border: `2px solid ${color}`, overflow: 'hidden', ...popin(delay, 460) }}>
+      <div style={{ font: 'var(--type-overline)', textTransform: 'uppercase', letterSpacing: 'var(--tracking-wide)', color: color === 'var(--spur-amber)' ? '#2B1C06' : '#fff', padding: '6px 4px 5px', textAlign: 'center', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{label}</div>
+      <div style={{ background: 'var(--surface-card)', borderRadius: 'calc(var(--radius-md) - 3px)', padding: '12px 6px 13px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, color }}>
+        <Icon name={icon} size={20} strokeWidth={2.4} />
+        <span style={{ font: 'var(--type-headline)', fontWeight: 700, color: 'var(--text-ink)', fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' }}>{value}</span>
+      </div>
+    </div>
+  );
+}
+
+const clock = (ms) => {
+  const sec = Math.max(1, Math.round((ms || 0) / 1000));
+  return `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, '0')}`;
+};
+
 /** 3d / 1i Lektionsende. Federregen nur bei 100 % und ohne "Bewegung reduzieren". */
 export function SessionEnd({ result, onNext }) {
   const { state } = useStore();
-  const p = state.progress;
   const acc = result.total ? Math.round(((result.good + result.partial * 0.5) / result.total) * 100) : 0;
   const perfect = acc === 100 && !prefersReducedMotion() && result.kind !== 'popup';
-  const xp = useCountUp(result.xp, { delay: perfect ? 500 : 300, duration: perfect ? 1000 : 900 });
+  const xp = useCountUp(result.xp, { delay: perfect ? 700 : 500, duration: 900 });
   useEffect(() => { if (state.settings.sounds) sounds.done(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const pd = result.partDone;
-  const headline = result.lessonDone ? 'Level geschafft' : pd && pd.of > 1 ? `Teil ${pd.n} von ${pd.of} geschafft` : 'Lektion geschafft';
-  const streakLabel = p.streak > 1 && p.streak >= p.longestStreak ? 'Streak — dein längster' : 'Streak';
+  const headline = result.kind === 'popup' ? 'Kurzer Test geschafft!'
+    : result.lessonDone ? 'Level geschafft!'
+    : pd && pd.of > 1 ? `Teil ${pd.n} von ${pd.of} geschafft!`
+    : perfect ? 'Alles gemerkt!' : 'Runde geschafft!';
   let line;
   if (result.good === result.total) line = result.total === 1 ? 'Die Karte saß.' : `Alle ${result.total} Karten saßen.`;
   else if (result.good === 0) line = 'Heute war es zäh. Genau dafür kommen die Karten wieder — ganz ohne Vorwurf.';
   else line = `${result.good} von ${result.total} Karten saßen. Der Rest kommt bald wieder.`;
+  const praise = acc >= 90 ? 'Stark' : acc >= 60 ? 'Gut' : 'Genauigkeit';
 
-  if (perfect) {
-    return (
-      <div className="screen">
+  return (
+    <div className="screen">
+      {perfect && (
         <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 1 }} aria-hidden="true">
           {FEATHERS.map((f, i) => (
             <span key={i} style={f.outer}><span style={f.inner}><Icon name="feather" size={f.size} fill="var(--accent-xp-soft)" /></span></span>
           ))}
         </div>
-        <div style={center}>
-          <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', width: 190, height: 190, flex: '0 0 auto', marginBottom: 10 }}>
-            <span style={{ display: 'inline-flex', animation: `spur-jump 760ms ${EASE.jump} 300ms 2 both` }}>
-              <Mascot pose="cheering" size={130} />
-            </span>
-          </div>
-          <span className="overline" style={{ color: 'var(--text-muted)', marginBottom: 8, ...rise(400, 300) }}>{headline}</span>
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, ...popin(450) }} aria-label={`plus ${result.xp} Federn`}>
-            <span style={{ font: 'var(--type-stat)', color: 'var(--spur-amber)', letterSpacing: 'var(--tracking-tight)' }}>+{xp}</span>
-            <span style={{ font: 'var(--type-headline)', color: 'var(--text-muted)' }}>Federn</span>
-          </div>
-          <div className="stack" style={{ gap: 12, width: '100%', marginTop: 28 }}>
-            <div style={rise(1300)}><StatTile icon="target" value="100%" label="Alles richtig" tone="correct" /></div>
-            <div style={rise(1450)}><StatTile icon="flame" value={daysText(p.streak)} label={streakLabel} tone="amber" /></div>
-          </div>
+      )}
+      <div style={center}>
+        <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', width: 190, height: 180, flex: '0 0 auto', marginBottom: 6 }}>
+          <span className="rm-hide" aria-hidden="true" style={{ position: 'absolute', width: 160, height: 160, borderRadius: '50%', background: 'var(--accent-xp-soft)', ...popin(150, 520) }} />
+          <span style={{ position: 'relative', display: 'inline-flex', animation: perfect ? `spur-jump 760ms ${EASE.jump} 300ms 2 both` : `spur-popin 520ms ${EASE.bounce} 100ms both` }}>
+            <Mascot pose={perfect ? 'cheering' : 'proud'} size={130} />
+          </span>
         </div>
-        <div style={bottom(1700)}><Button full onClick={onNext}>Weiter</Button></div>
+        <h1 style={{ font: 'var(--weight-bold) 30px/1.15 var(--font-display)', color: 'var(--spur-amber)', letterSpacing: 'var(--tracking-tight)', textWrap: 'balance', ...rise(350) }}>{headline}</h1>
+        <p style={{ font: 'var(--type-body-l)', color: 'var(--text-muted)', margin: '8px 0 26px', maxWidth: 300, ...rise(450) }}>{line}</p>
+        <div style={{ display: 'flex', gap: 10, width: '100%' }} aria-label={`plus ${result.xp} Federn, ${acc} Prozent, Dauer ${clock(result.ms)}`}>
+          <ResultTile label="Federn" color="var(--spur-amber)" icon="feather" value={`+${xp}`} delay={600} />
+          <ResultTile label={praise} color="var(--spur-green)" icon="target" value={`${acc}%`} delay={720} />
+          <ResultTile label="Zeit" color="var(--spur-dove)" icon="timer" value={clock(result.ms)} delay={840} />
+        </div>
       </div>
-    );
-  }
+      <div style={bottom(1000)}><Button full onClick={onNext}>Weiter</Button></div>
+    </div>
+  );
+}
 
+/* ---- Tagesziel geschafft ---------------------------------------------------------- */
+export function DailyGoal({ onNext }) {
+  const { state } = useStore();
+  const goal = state.settings.dailyGoal;
+  const [fill, setFill] = useState(prefersReducedMotion() ? 1 : 0);
+  useEffect(() => {
+    const t = setTimeout(() => setFill(1), 450);
+    if (state.settings.sounds) setTimeout(() => sounds.fanfare(), 900);
+    return () => clearTimeout(t);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <div className="screen">
       <div style={center}>
-        <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', width: 190, height: 190, flex: '0 0 auto', marginBottom: 10 }}>
-          <Mascot pose="proud" size={130} />
+        <div style={{ position: 'relative', width: 200, height: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', flex: '0 0 auto' }}>
+          <span className="rm-hide" aria-hidden="true" style={{ position: 'absolute', width: 170, height: 170, borderRadius: '50%', border: '6px solid var(--spur-green)', animation: `spur-burst 700ms ${EASE.soft} 1250ms both` }} />
+          <GoalRing value={fill} size={176} thickness={14} tone="correct" style={popin(0, 520)}>
+            <span style={{ display: 'inline-flex', marginTop: 6 }}><Mascot pose="cheering" size={112} interactive={false} /></span>
+          </GoalRing>
         </div>
-        <span className="overline" style={{ color: 'var(--text-muted)', marginBottom: 8 }}>{result.kind === 'popup' ? 'Kurzer Test' : result.partDone ? headline : 'Session beendet'}</span>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }} aria-label={`plus ${result.xp} Federn`}>
-          <span style={{ font: 'var(--type-stat)', color: 'var(--spur-amber)', letterSpacing: 'var(--tracking-tight)' }}>+{xp}</span>
-          <span style={{ font: 'var(--type-headline)', color: 'var(--text-muted)' }}>Federn</span>
-        </div>
-        <p style={{ font: 'var(--type-body-l)', color: 'var(--text-muted)', margin: '10px 0 28px', maxWidth: 290 }}>{line}</p>
-        <div className="stack" style={{ gap: 12, width: '100%' }}>
-          <StatTile icon="target" value={`${acc}%`} label="Genauigkeit" tone="correct" />
-          <StatTile icon="flame" value={daysText(p.streak)} label={streakLabel} tone="amber" />
+        <div className="stack" style={{ alignItems: 'center', gap: 8, marginTop: 22, ...rise(1300) }}>
+          <span className="overline" style={{ color: 'var(--spur-green-shade)' }}>Tagesziel · {goal} {goal === 1 ? 'Karte' : 'Karten'}</span>
+          <h2 style={{ font: 'var(--type-title)', textWrap: 'balance' }}>Tagesziel geschafft!</h2>
+          <p style={{ font: 'var(--type-body-l)', color: 'var(--text-muted)', maxWidth: 290 }}>Alles, was du heute noch machst, ist Zugabe. Miro ist zufrieden.</p>
         </div>
       </div>
-      <div style={{ padding: '24px var(--gutter-screen) calc(28px + env(safe-area-inset-bottom))' }}><Button full onClick={onNext}>Fertig</Button></div>
+      <div style={bottom(1500)}><Button variant="correct" full onClick={onNext}>Weiter</Button></div>
     </div>
   );
 }
@@ -119,9 +146,15 @@ const MILESTONE_TEXT = {
   100: '100 Tage am Stück. Miro zieht den Hut — wenn er einen hätte.',
 };
 
-export function StreakMilestone({ days, onNext }) {
+const DAILY_TEXT = (days) => (days === 1 ? 'Der erste Tag. Morgen machen wir zwei draus.'
+  : days === 2 ? 'Zwei Tage am Stück. So fängt jede Gewohnheit an.'
+  : `${days} Tage am Stück. Miro zählt mit.`);
+
+/** Streak-Screen: einmal am Tag nach der ersten Runde (daily), groß bei Meilensteinen. */
+export function StreakMilestone({ days, daily = false, onNext }) {
   const { state } = useStore();
   const reduced = prefersReducedMotion();
+  useEffect(() => { if (state.settings.sounds) setTimeout(() => sounds.fanfare(), 850); }, []); // eslint-disable-line react-hooks/exhaustive-deps
   const week = useMemo(() => {
     const today = dayKey();
     const monday = addDays(today, -weekdayMon(today));
@@ -146,7 +179,7 @@ export function StreakMilestone({ days, onNext }) {
           <span style={{ position: 'absolute', inset: 0, font: 'var(--weight-bold) 80px/88px var(--font-display)', color: 'var(--text-ink)', animation: `spur-outup 360ms cubic-bezier(.55,0,.6,1) 800ms both` }}>{days - 1}</span>
           <span style={{ position: 'absolute', inset: 0, font: 'var(--weight-bold) 80px/88px var(--font-display)', color: 'var(--text-ink)', animation: `spur-inup 420ms ${EASE.bounce} 900ms both` }}>{days}</span>
         </div>
-        <span style={{ font: 'var(--type-headline)', color: 'var(--text-muted)', marginTop: 2 }}>Tage am Stück</span>
+        <span style={{ font: 'var(--type-headline)', color: 'var(--text-muted)', marginTop: 2 }}>{days === 1 ? 'Tag am Stück' : 'Tage am Stück'}</span>
         <div style={{ display: 'flex', gap: 8, marginTop: 30 }}>
           {week.map((w) => (
             <span key={w.key} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
@@ -159,7 +192,7 @@ export function StreakMilestone({ days, onNext }) {
           ))}
         </div>
         <p style={{ font: 'var(--type-body-l)', color: 'var(--text-muted)', margin: '26px 0 0', maxWidth: 290, ...rise(1700) }}>
-          {MILESTONE_TEXT[days] || `${days} Tage am Stück. Schön, dass du dranbleibst.`}
+          {(!daily && MILESTONE_TEXT[days]) || DAILY_TEXT(days)}
         </p>
       </div>
       <div style={{ ...bottom(1900), width: '100%', padding: '24px 0 calc(28px + env(safe-area-inset-bottom))' }}><Button full onClick={onNext}>Weiter</Button></div>

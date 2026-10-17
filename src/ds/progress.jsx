@@ -42,7 +42,7 @@ function SegmentRing({ total, done, color, size, fresh }) {
   );
 }
 
-export function PathNode({ state = 'locked', track = 'listen', icon, label, ariaLabel, size = 68, segments, onClick, style, ...rest }) {
+export function PathNode({ state = 'locked', track = 'listen', icon, label, ariaLabel, size = 68, segments, bubble, onClick, style, ...rest }) {
   const [down, setDown] = useState(false);
   const segmented = segments && segments.total > 1;
   const ringSize = size + (segmented ? 38 : 22);
@@ -55,8 +55,20 @@ export function PathNode({ state = 'locked', track = 'listen', icon, label, aria
   }[state];
   const interactive = state !== 'locked';
   return (
-    <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: 8, ...style }}>
+    <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: 8, paddingTop: bubble && state === 'current' ? 30 : 0, ...style }}>
       <span style={{ position: 'relative', display: 'inline-flex', marginBottom: state === 'current' ? (segmented ? 18 : 12) : segmented ? 8 : 0 }}>
+      {bubble && state === 'current' && (
+        // "Start"-Blase über dem aktuellen Knoten (wie bei Duolingo), wippt sanft.
+        <span aria-hidden="true" style={{ position: 'absolute', bottom: '100%', left: '50%', transform: 'translateX(-50%)', marginBottom: segmented ? 30 : 22, zIndex: 3, pointerEvents: 'none' }}>
+          <span className="a-bob rm-static" style={{ position: 'relative', display: 'inline-block', padding: '7px 13px 6px', borderRadius: 12, background: 'var(--surface-card)',
+            border: '2px solid var(--border-default)', font: 'var(--type-overline)', fontSize: 13, textTransform: 'uppercase', letterSpacing: 'var(--tracking-wide)',
+            color: t.bg, whiteSpace: 'nowrap', boxShadow: '0 3px 0 var(--border-default)' }}>
+            {bubble}
+            <span style={{ position: 'absolute', left: '50%', bottom: -8, width: 12, height: 12, background: 'var(--surface-card)', borderRight: '2px solid var(--border-default)',
+              borderBottom: '2px solid var(--border-default)', transform: 'translateX(-50%) rotate(45deg)' }} />
+          </span>
+        </span>
+      )}
       {segmented && <SegmentRing total={segments.total} done={state === 'done' || state === 'due' ? segments.total : segments.done} size={size} fresh={segments.fresh}
         color={state === 'locked' ? 'var(--spur-locked)' : t.bg} />}
       {state === 'current' && (
@@ -139,17 +151,17 @@ export function InfinityHearts() {
   );
 }
 
-/** ∞-Pille im Pfad-Header (3a) mit wanderndem Glanz. */
-export function InfinityPill({ onClick }) {
+/** ∞-Pille im Pfad-Header (3a) mit wanderndem Glanz. Sitzt im antippbaren Kopfzeilen-Knopf. */
+export function InfinityPill() {
   return (
-    <button type="button" onClick={onClick} aria-label="Aufmerksamkeit unendlich" className="rm-static"
+    <span role="img" aria-label="Aufmerksamkeit unendlich" className="rm-static"
       style={{ display: 'flex', alignItems: 'center', gap: 4, height: 32, padding: '0 10px 0 8px', borderRadius: 999,
-        border: '2px solid var(--spur-amber)', cursor: 'pointer', color: 'var(--state-heart)',
+        border: '2px solid var(--spur-amber)', color: 'var(--state-heart)',
         background: 'linear-gradient(100deg,var(--accent-xp-soft) 30%,var(--surface-card) 50%,var(--accent-xp-soft) 70%)',
         backgroundSize: '220% 100%', animation: 'spur-shimmer 2800ms linear infinite' }}>
       <Icon name="heart" size={18} fill="currentColor" strokeWidth={2.6} />
       <Icon name="infinity" size={20} strokeWidth={2.6} />
-    </button>
+    </span>
   );
 }
 

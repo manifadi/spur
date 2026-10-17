@@ -9,14 +9,14 @@ import { LessonHeader } from '../ds/progress.jsx';
 import { IntervalStep } from './IntervalStep.jsx';
 import { gradeKeyPoints, gradeListen, gradeMatch, gradeSequence } from '../engine/answer.js';
 import { commitAnswer, isInfinite, isPartDone, lessonParts, markLessonDone } from '../engine/game.js';
-import { XP } from '../engine/srs.js';
+import { XP, INTERVALS, applyGrade } from '../engine/srs.js';
 import { dayKey, daysBetween } from '../engine/dates.js';
 import { readSeconds } from '../engine/content.js';
 import { speakSegments, stopSpeaking } from '../lib/tts.js';
-import { dialogSpeakers, deviceSegments, answerSegments } from '../lib/voice.js';
+import { dialogSpeakers, deviceSegments, answerSegments, personByName, segmentWeights } from '../lib/voice.js';
 import { hasAudio, playItem } from '../lib/audio.js';
 import { sounds } from '../lib/sound.js';
-import { daysAgoText } from '../lib/format.js';
+import { daysAgoText, numWord } from '../lib/format.js';
 
 const body = { flex: 1, minHeight: 0, overflowY: 'auto', padding: '10px var(--gutter-screen) 16px', display: 'flex', flexDirection: 'column', gap: 16 };
 const lockBox = { display: 'flex', alignItems: 'center', gap: 12, background: 'var(--surface-locked)', borderRadius: 'var(--radius-md)', padding: '14px 16px' };
@@ -64,6 +64,7 @@ function LockHint({ children }) {
 
 function CardBadge({ entry, card, seenBefore }) {
   if (entry.mode === 'retry') return <Badge tone={card.track === 'read' ? 'read' : 'listen'} icon="rotate-ccw" style={{ alignSelf: 'flex-start' }}>Zweiter Versuch</Badge>;
+  if (card.ex?.followUp && entry.mode !== 'source') return <Badge tone="listen" icon="message-circle" style={{ alignSelf: 'flex-start' }}>Wiedersehen</Badge>;
   if (entry.mode === 'source') return <Badge tone={card.track} icon={card.track === 'read' ? 'book-open' : 'ear'} style={{ alignSelf: 'flex-start' }}>{card.track === 'read' ? 'Nur lesen' : 'Nur hören'}</Badge>;
   if (entry.mode === 'practice' && entry.fromMemory && entry.feld) return <Badge tone={card.track === 'read' ? 'read' : 'listen'} icon="history" style={{ alignSelf: 'flex-start' }}>Aus dem Gedächtnis</Badge>;
   if (entry.mode === 'practice' && entry.feld) return <Badge tone={card.track === 'read' ? 'read' : 'listen'} icon="rotate-ccw" style={{ alignSelf: 'flex-start' }}>Teil nochmal</Badge>;
@@ -132,6 +133,16 @@ function DialogText({ item }) {
  */
 function useSpeech(item, auto = false, onQuiz = null) {
   const [playing, setPlaying] = useState(false);
+  // Fortschritt 0–1 über alle gespielten Abschnitte, gewichtet nach Textlänge.
+  const [progress, setProgress] = useState(0);
+  const weights = useRef({ list: [], total: 1 });
+  const onProgress = (i, frac) => {
+    const { list, total } = weights.current;
+    let done = 0;
+    for (let k = 0; k < i && k < list.length; k++) done += list[k];
+    const v = Math.min(1, (done + (list[i] || 0) * frac) / total);
+    setProgress((cur) => (Math.abs(cur - v) > 0.002 || v === 1 ? v : cur));
+  };
   // Zwischenfragen: Ohne Handler läuft die Wiedergabe einfach weiter.
   const quizRef = useRef(onQuiz);
   quizRef.current = onQuiz;
@@ -144,6 +155,7 @@ function useSpeech(item, auto = false, onQuiz = null) {
     const segs = deviceSegments(item);
     stop.current = speakSegments(only ? segs.filter((_, i) => only.includes(i)) : segs, {
       onSegment: (w) => setWho(w),
+      onProgress,
       onQuiz: quiz,
       onEnd: done,
       onError: () => { done(); if (manual) setError(true); },
@@ -154,10 +166,15 @@ function useSpeech(item, auto = false, onQuiz = null) {
     stop.current();
     setError(false);
     setPlaying(true);
+    const all = segmentWeights(item);
+    const list = only ? all.filter((_, i) => only.includes(i)) : all;
+    weights.current = { list, total: list.reduce((a, b) => a + b, 0) || 1 };
+    setProgress(0);
     if (!hasAudio(item.id)) return viaDevice(manual, only);
     stop.current = playItem(item.id, {
       only,
       onSegment: (w) => setWho(w),
+      onProgress,
       onQuiz: quiz,
       onEnd: done,
       onBlocked: done, // Autoplay gesperrt (iOS): Antippen genügt
@@ -171,7 +188,7 @@ function useSpeech(item, auto = false, onQuiz = null) {
     if (auto) start(false);
     return () => { stop.current(); stopSpeaking(); };
   }, [item.id]); // eslint-disable-line react-hooks/exhaustive-deps
-  return { playing, error, who, toggle, start, stop: stopNow, retry: () => start(true) };
+  return { playing, error, who, progress, toggle, start, stop: stopNow, retry: () => start(true) };
 }
 
 function TtsError({ onRetry, onShowText }) {
@@ -191,17 +208,30 @@ function TtsError({ onRetry, onShowText }) {
 }
 
 /* ---- Figur als Avatar (Initialen), aktiv sprechend = sanftes Atmen ---------- */
-function SpeakerAvatar({ speaker, active, size }) {
+const NEUTRAL_TONE = { solid: 'var(--spur-ink-muted)', soft: 'var(--surface-sunken)', shade: 'var(--text-muted)', fg: '#fff' };
+
+/** Rundes Porträt mit Initialen in der Farbe der Figur (unten mit "Kante" wie die Knöpfe). */
+export function PersonAvatar({ person, active = false, size = 64, dim = false, pulse = true }) {
+  const t = person.tone || NEUTRAL_TONE;
   return (
-    <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, width: size + 24 }}>
-      <span style={{ position: 'relative', width: size, height: size }}>
-        {active && <span aria-hidden="true" className="rm-static" style={{ position: 'absolute', inset: -8, borderRadius: '50%', border: '3px solid var(--track-listen)', animation: 'spur-speak 900ms var(--ease-sine) infinite alternate' }} />}
-        <span style={{ position: 'absolute', inset: 0, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
-          background: active ? 'var(--track-listen)' : 'var(--track-listen-soft)', color: active ? '#fff' : 'var(--track-listen-shade)',
-          font: 'var(--type-title)', fontSize: Math.round(size * 0.34), transition: 'background var(--dur-fast) var(--ease-out-soft), color var(--dur-fast) var(--ease-out-soft)' }}>
-          {speaker.initials}
-        </span>
+    <span style={{ position: 'relative', width: size, height: size, flex: '0 0 auto', display: 'inline-flex',
+      transform: active ? 'scale(1.06)' : 'scale(1)', transition: 'transform var(--dur-base) var(--ease-bounce)' }}>
+      {active && pulse && <span aria-hidden="true" className="rm-static" style={{ position: 'absolute', inset: -8, borderRadius: '50%', border: `3px solid ${t.solid}`, animation: 'spur-speak 900ms var(--ease-sine) infinite alternate' }} />}
+      <span style={{ position: 'absolute', inset: 0, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
+        background: active ? t.solid : t.soft, color: active ? t.fg : t.shade, opacity: dim ? 0.55 : 1,
+        boxShadow: `0 ${Math.max(3, Math.round(size / 16))}px 0 ${active ? t.shade : 'var(--border-default)'}`,
+        font: 'var(--type-title)', fontSize: Math.round(size * 0.34), letterSpacing: '.02em',
+        transition: 'background var(--dur-fast) var(--ease-out-soft), color var(--dur-fast) var(--ease-out-soft), box-shadow var(--dur-fast) var(--ease-out-soft), opacity var(--dur-fast) var(--ease-out-soft)' }}>
+        {person.initials}
       </span>
+    </span>
+  );
+}
+
+function SpeakerAvatar({ speaker, active, size, dim }) {
+  return (
+    <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, width: size + 28 }}>
+      <PersonAvatar person={speaker} active={active} size={size} dim={dim} />
       <span style={{ font: 'var(--type-label)', fontWeight: 700, color: active ? 'var(--text-ink)' : 'var(--text-muted)', textAlign: 'center', lineHeight: 1.25 }}>
         {speaker.name}
         {speaker.relation && <span style={{ display: 'block', fontWeight: 500, color: 'var(--text-subtle)' }}>{speaker.relation}</span>}
@@ -300,19 +330,52 @@ function QuizBody({ quiz, sound, onDone }) {
   );
 }
 
+/* ---- Play-Knopf mit Fortschrittsring ---------------------------------------------- */
+function PlayButton({ playing, paused, disabled, again, progress, showRing, onClick, size = 88 }) {
+  const ring = size + 22;
+  const r = ring / 2 - 4;
+  const c = 2 * Math.PI * r;
+  return (
+    <span style={{ position: 'relative', width: ring, height: ring, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flex: '0 0 auto' }}>
+      <svg aria-hidden="true" width={ring} height={ring} style={{ position: 'absolute', inset: 0, transform: 'rotate(-90deg)', opacity: showRing ? 1 : 0, transition: 'opacity var(--dur-base) var(--ease-out-soft)' }}>
+        <circle cx={ring / 2} cy={ring / 2} r={r} fill="none" stroke="var(--surface-locked)" strokeWidth={6} />
+        <circle cx={ring / 2} cy={ring / 2} r={r} fill="none" stroke="var(--track-listen)" strokeWidth={6} strokeLinecap="round"
+          strokeDasharray={c} strokeDashoffset={c * (1 - progress)} opacity={progress > 0.005 ? 1 : 0} />
+      </svg>
+      <button type="button" onClick={onClick} disabled={disabled}
+        aria-label={playing ? 'Wiedergabe stoppen' : again ? 'Nochmal abspielen' : 'Gespräch abspielen'}
+        style={{ position: 'relative', width: size, height: size, borderRadius: '50%', border: 'none', cursor: disabled ? 'not-allowed' : 'pointer',
+          background: disabled ? 'var(--surface-locked)' : 'var(--track-listen)', color: disabled ? 'var(--text-subtle)' : '#fff',
+          boxShadow: disabled ? 'none' : '0 6px 0 var(--track-listen-shade)', marginTop: -6,
+          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4,
+          transition: 'background var(--dur-fast) var(--ease-out-soft), color var(--dur-fast) var(--ease-out-soft), box-shadow var(--dur-fast) var(--ease-out-soft)' }}>
+        <span key={playing ? (paused ? 'pause' : 'eq') : again ? 'again' : 'play'} className="a-fade" style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+          {playing && paused
+            ? <Icon name="pause" size={34} strokeWidth={2.4} fill="currentColor" />
+            : playing
+            ? [0, 140, 280, 420].map((d) => <span key={d} className="rm-static" style={{ width: 5, height: 16, borderRadius: 999, background: '#fff', animation: `spur-eq 700ms ease-in-out ${d}ms infinite` }} />)
+            : <Icon name={again ? 'rotate-ccw' : 'play'} size={34} strokeWidth={2.4} fill={again ? 'none' : 'currentColor'} style={again ? undefined : { marginLeft: 4 }} />}
+        </span>
+      </button>
+    </span>
+  );
+}
+
 /* ---- Schritt 1: Nur zuhören (neue Karten) ------------------------------------
    Kein Text, keine Frage — nur die Stimmen. Höchstens zwei Wiedergaben, "Weiter"
    erst nach der ersten. Bei fälligen Wiederholungen gibt es diesen Schritt nicht. */
 function ListenOnly({ entry, card, onNext, sourceOnly = false }) {
   const { state } = useStore();
+  const sound = state.settings.sounds;
   // "Nur hören": ohne Zwischenfragen, beliebig oft.
   const quizzes = sourceOnly ? [] : card.item.popQuiz || [];
   const maxPlays = sourceOnly ? Infinity : MAX_PLAYS;
   const [pop, setPop] = useState(null); // { n, resume } während eine Zwischenfrage offen ist
   const answered = useRef(new Set()); // beim zweiten Hören nicht nochmal fragen
   const speech = useSpeech(card.item, false, (n, resume) => {
-    if (!quizzes[n] || answered.current.has(n)) resume();
-    else setPop({ n, resume });
+    if (!quizzes[n] || answered.current.has(n)) { resume(); return; }
+    if (sound) sounds.pop();
+    setPop({ n, resume });
   });
   const closeQuiz = () => {
     if (!pop) return;
@@ -339,52 +402,53 @@ function ListenOnly({ entry, card, onNext, sourceOnly = false }) {
     speech.start(true);
   };
   const activeName = speech.playing && !pop ? (speech.who || (speakers.length === 1 ? speakers[0].name : null)) : null;
-  const size = speakers.length > 2 ? 64 : speakers.length === 2 ? 76 : 96;
+  const size = speakers.length > 2 ? 64 : speakers.length === 2 ? 80 : 96;
+  const lead = sourceOnly
+    ? 'Keine Fragen, keine Wertung. So oft du magst.'
+    : `${quizzes.length > 1 ? `Zwischendurch kommen ${numWord(quizzes.length)} kurze Fragen.` : quizzes.length ? 'Zwischendurch kommt eine kurze Frage.' : 'Die Fragen kommen danach.'} Den Text siehst du nicht — nur die Stimmen zählen.`;
   return (
     <>
-      <div style={{ ...body, alignItems: 'center', textAlign: 'center', justifyContent: 'safe center', gap: 'clamp(12px, 3dvh, 22px)' }}>
-        <span style={{ alignSelf: 'flex-start' }}><CardBadge entry={entry} card={card} /></span>
-        <div className="stack" style={{ gap: 6, alignItems: 'center' }}>
-          <PartLine entry={entry} card={card} tone="listen" />
-          <h2 style={{ font: 'var(--type-title)' }}>{sourceOnly ? 'Einfach zuhören.' : 'Hör genau hin.'}</h2>
-          <p style={{ font: 'var(--type-body)', color: 'var(--text-muted)', maxWidth: 300 }}>
-            {sourceOnly
-              ? 'Keine Fragen, keine Wertung. So oft du magst.'
-              : `${quizzes.length > 1 ? 'Zwischendurch kommen kurze Fragen, die anderen danach.' : quizzes.length ? 'Zwischendurch kommt eine kurze Frage, die anderen danach.' : 'Die Fragen kommen danach.'} Den Text siehst du nicht — nur die Stimmen zählen.`}
-          </p>
-        </div>
-        {speakers.length ? (
-          <div style={{ display: 'flex', justifyContent: 'center', gap: 8, flexWrap: 'wrap' }}>
-            {speakers.map((sp) => <SpeakerAvatar key={sp.id} speaker={sp} size={size} active={activeName === sp.name} />)}
-          </div>
-        ) : (
-          <span className={speech.playing ? 'a-bob' : undefined}><Mascot pose="listening" size={110} /></span>
-        )}
-        {speech.error && !showText && <div className="a-fade" style={{ width: '100%' }}><TtsError onRetry={() => { speech.retry(); }} onShowText={() => { setShowText(true); setHeard(true); }} /></div>}
-        {showText && (
-          <Card tone="listen" padding={16} elevated={false} className="a-fade" style={{ textAlign: 'left', width: '100%' }}><DialogText item={card.item} /></Card>
-        )}
-        <div className="stack" style={{ alignItems: 'center', gap: 10 }}>
-          <button type="button" onClick={play} disabled={!speech.playing && left <= 0}
-            aria-label={speech.playing ? 'Wiedergabe stoppen' : 'Gespräch abspielen'}
-            style={{ width: 84, height: 84, borderRadius: '50%', border: 'none', cursor: !speech.playing && left <= 0 ? 'not-allowed' : 'pointer',
-              background: !speech.playing && left <= 0 ? 'var(--surface-locked)' : 'var(--track-listen)',
-              color: !speech.playing && left <= 0 ? 'var(--text-subtle)' : '#fff',
-              boxShadow: !speech.playing && left <= 0 ? 'none' : '0 6px 0 var(--track-listen-shade)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4,
-              transition: 'background var(--dur-fast) var(--ease-out-soft), color var(--dur-fast) var(--ease-out-soft), box-shadow var(--dur-fast) var(--ease-out-soft)' }}>
-            <span key={speech.playing ? 'eq' : plays > 0 ? 'again' : 'play'} className="a-fade" style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-              {speech.playing && pop
-                ? <Icon name="pause" size={36} strokeWidth={2.4} fill="currentColor" />
-                : speech.playing
-                ? [0, 140, 280, 420].map((d) => <span key={d} className="rm-static" style={{ width: 5, height: 16, borderRadius: 999, background: '#fff', animation: `spur-eq 700ms ease-in-out ${d}ms infinite` }} />)
-                : <Icon name={plays > 0 ? 'rotate-ccw' : 'play'} size={36} strokeWidth={2.4} fill={plays > 0 ? 'none' : 'currentColor'} />}
+      <div style={{ ...body, gap: 0 }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10 }}>
+          <CardBadge entry={entry} card={card} />
+          {!sourceOnly && quizzes.length > 0 && (
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, font: 'var(--type-label)', fontWeight: 700, color: 'var(--text-muted)' }}>
+              <Icon name="zap" size={15} />{quizzes.length === 1 ? '1 Zwischenfrage' : `${quizzes.length} Zwischenfragen`}
             </span>
-          </button>
-          <span aria-live="polite" style={{ font: 'var(--type-label)', fontWeight: 600, color: 'var(--text-muted)' }}>
-            {sourceOnly ? (plays === 0 ? 'Antippen zum Abspielen.' : 'Nochmal? Einfach antippen.')
-              : plays === 0 ? `Du kannst es ${MAX_PLAYS}× hören.` : left > 0 ? `${plays} von ${MAX_PLAYS} Wiedergaben` : 'Beide Wiedergaben genutzt.'}
-          </span>
+          )}
+        </div>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'safe center', textAlign: 'center', gap: 'clamp(16px, 3.4dvh, 30px)', padding: '12px 0 4px' }}>
+          <div className="stack" style={{ gap: 6, alignItems: 'center' }}>
+            <PartLine entry={entry} card={card} tone="listen" />
+            <h2 style={{ font: 'var(--type-title)' }}>{sourceOnly ? 'Einfach zuhören.' : 'Hör genau hin.'}</h2>
+            <p style={{ font: 'var(--type-body)', color: 'var(--text-muted)', maxWidth: 310 }}>{lead}</p>
+          </div>
+          {speakers.length ? (
+            <div style={{ display: 'flex', justifyContent: 'center', gap: speakers.length > 2 ? 4 : 14, flexWrap: 'wrap' }}>
+              {speakers.map((sp) => <SpeakerAvatar key={sp.id} speaker={sp} size={size} active={activeName === sp.name} dim={!!activeName && activeName !== sp.name} />)}
+            </div>
+          ) : (
+            <span className={speech.playing ? 'a-bob' : undefined}><Mascot pose="listening" size={110} /></span>
+          )}
+          {speech.error && !showText && <div className="a-fade" style={{ width: '100%' }}><TtsError onRetry={() => { speech.retry(); }} onShowText={() => { setShowText(true); setHeard(true); }} /></div>}
+          {showText && (
+            <Card tone="listen" padding={16} elevated={false} className="a-fade" style={{ textAlign: 'left', width: '100%' }}><DialogText item={card.item} /></Card>
+          )}
+          <div className="stack" style={{ alignItems: 'center', gap: 8 }}>
+            <PlayButton playing={speech.playing} paused={!!pop} disabled={!speech.playing && left <= 0} again={plays > 0}
+              progress={speech.progress} showRing={plays > 0} onClick={play} />
+            <span aria-live="polite" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, font: 'var(--type-label)', fontWeight: 600, color: 'var(--text-muted)' }}>
+              {!sourceOnly && (
+                <span aria-hidden="true" style={{ display: 'inline-flex', gap: 4 }}>
+                  {Array.from({ length: MAX_PLAYS }, (_, i) => (
+                    <span key={i} style={{ width: 8, height: 8, borderRadius: '50%', background: i < left ? 'var(--track-listen)' : 'var(--surface-locked)', transition: 'background var(--dur-base) var(--ease-out-soft)' }} />
+                  ))}
+                </span>
+              )}
+              {sourceOnly ? (plays === 0 ? 'Antippen zum Abspielen.' : 'Nochmal? Einfach antippen.')
+                : plays === 0 ? `Du kannst es ${MAX_PLAYS}× hören.` : left > 0 ? `Noch ${left}× hören` : 'Beide Wiedergaben genutzt.'}
+            </span>
+          </div>
         </div>
       </div>
       <div className="lesson-cta">
@@ -393,7 +457,7 @@ function ListenOnly({ entry, card, onNext, sourceOnly = false }) {
           : <Button variant="listen" full disabled={!heard || speech.playing} onClick={() => { speech.stop(); onNext(); }}>Weiter zu den Fragen</Button>}
       </div>
       <Sheet open={!!pop} title="Kurze Zwischenfrage" closable={false}>
-        {pop && <QuizBody key={pop.n} quiz={quizzes[pop.n]} sound={state.settings.sounds} onDone={closeQuiz} />}
+        {pop && <QuizBody key={pop.n} quiz={quizzes[pop.n]} sound={sound} onDone={closeQuiz} />}
       </Sheet>
     </>
   );
@@ -479,7 +543,7 @@ function contextLine(entry, card, rec) {
   return `Aus dem Gespräch ${when}.`;
 }
 
-function RecallQuestion({ entry, card, rec, answer, setAnswer, onCheck, help }) {
+function RecallQuestion({ entry, card, rec, answer, setAnswer, onCheck, onSkip, help, showLock }) {
   const read = card.track === 'read';
   return (
     <>
@@ -493,21 +557,71 @@ function RecallQuestion({ entry, card, rec, answer, setAnswer, onCheck, help }) 
           </div>
         </div>
         <DevHint ex={card.ex} kind="recall" />
-        {help || <LockHint>{read ? 'Das Buch bleibt zu — antworte aus dem Kopf.' : 'Der Originaltext bleibt aus — das ist der Sinn der Sache.'}</LockHint>}
-        <TextField value={answer} onChange={(e) => setAnswer(e.target.value)} rows={4} placeholder="Schreib auf, woran du dich erinnerst …" hint="Stichworte reichen." />
+        {help || (showLock && <LockHint>{read ? 'Das Buch bleibt zu — antworte aus dem Kopf.' : 'Der Originaltext bleibt aus — das ist der Sinn der Sache.'}</LockHint>)}
+        <TextField value={answer} onChange={(e) => setAnswer(e.target.value)} rows={3} placeholder="Schreib auf, woran du dich erinnerst …" hint="Stichworte reichen." enterKeyHint="done"
+          // Enter prüft (kurze Antworten), Umschalt+Enter macht eine neue Zeile.
+          onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) { e.preventDefault(); if (answer.trim()) onCheck(); } }} />
       </div>
-      <div className="lesson-cta"><Button variant={read ? 'read' : 'primary'} full disabled={!answer.trim()} onClick={onCheck}>Prüfen</Button></div>
+      <div className="lesson-cta" style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+        <Button variant={read ? 'read' : 'primary'} full disabled={!answer.trim()} onClick={onCheck}>Prüfen</Button>
+        <Button variant="ghost" size="md" full onClick={onSkip}>Weiß ich nicht mehr</Button>
+      </div>
     </>
   );
 }
 
 /* ---- detail_match: Antwort-Chips -------------------------------------------- */
-function MatchExercise({ entry, card, rec, onCheck, help }) {
+/* ---- Wiedersehen: Du triffst die Person ein paar Tage später. Worauf sprichst du sie an? ---- */
+function FollowUpExercise({ entry, card, onCheck, help, sound }) {
+  const ex = card.ex;
+  const options = seededShuffle(ex.options, card.id);
+  const [sel, setSel] = useState(null);
+  const person = personByName(ex.meet || dialogSpeakers(card.item)[0]?.name || '');
+  const t = person.tone || { solid: 'var(--track-listen)', soft: 'var(--track-listen-soft)', shade: 'var(--track-listen-shade)' };
+  return (
+    <>
+      <div style={{ ...body, gap: 18 }}>
+        <ExerciseTop entry={entry} card={card} seenBefore={entry.mode !== 'new'} />
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+          <span className="a-popin" style={{ display: 'inline-flex', animationDelay: '80ms' }}><PersonAvatar person={person} size={60} active pulse={false} /></span>
+          <div className="stack" style={{ gap: 2, minWidth: 0 }}>
+            <span style={{ font: 'var(--type-headline)', color: 'var(--text-ink)' }}>{person.name}</span>
+            {person.relation && <span style={{ font: 'var(--type-label)', fontWeight: 500, color: 'var(--text-muted)' }}>{person.relation}</span>}
+          </div>
+        </div>
+        <div className="stack" style={{ gap: 6 }}>
+          <h2 style={{ font: 'var(--type-title)', textWrap: 'pretty' }}>{ex.prompt}</h2>
+          <p style={{ font: 'var(--type-body)', color: 'var(--text-muted)' }}>Nur eine Frage passt zu dem, was erzählt wurde.</p>
+        </div>
+        {help}
+        <DevHint ex={ex} kind="match" />
+        <div role="radiogroup" aria-label="Was du sagst" className="stack" style={{ gap: 10 }}>
+          {options.map((o, i) => {
+            const on = sel === o;
+            return (
+              <button key={o} type="button" role="radio" aria-checked={on} onClick={() => { setSel(o); if (sound) sounds.select(); }} className="a-rise"
+                style={{ position: 'relative', alignSelf: 'flex-end', maxWidth: '92%', padding: '12px 16px', borderRadius: '18px 18px 6px 18px', cursor: 'pointer', textAlign: 'left',
+                  font: 'var(--type-body)', fontSize: 'var(--text-body-l)', fontWeight: 600, lineHeight: 1.35, animationDelay: `${120 + i * 60}ms`,
+                  border: `2px solid ${on ? t.solid : 'var(--border-default)'}`, background: on ? t.soft : 'var(--surface-card)', color: 'var(--text-ink)',
+                  boxShadow: on ? `0 3px 0 ${t.solid}` : '0 3px 0 var(--border-default)',
+                  transition: 'background var(--dur-fast) var(--ease-out-soft), border-color var(--dur-fast) var(--ease-out-soft), box-shadow var(--dur-fast) var(--ease-out-soft)' }}>
+                {o}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+      <div className="lesson-cta"><Button variant="primary" full disabled={!sel} onClick={() => onCheck({ ...gradeMatch([sel], ex.correct), selected: [sel] })}>Ansprechen</Button></div>
+    </>
+  );
+}
+
+function MatchExercise({ entry, card, rec, onCheck, help, sound }) {
   const ex = card.ex;
   const multi = ex.correct.length > 1;
   const options = seededShuffle(ex.options, card.id);
   const [sel, setSel] = useState([]);
-  const toggle = (o) => setSel((cur) => (cur.includes(o) ? cur.filter((x) => x !== o) : multi ? [...cur, o] : [o]));
+  const toggle = (o) => { setSel((cur) => (cur.includes(o) ? cur.filter((x) => x !== o) : multi ? [...cur, o] : [o])); if (sound) sounds.select(); };
   const tone = card.track === 'read' ? 'read' : 'listen';
   return (
     <>
@@ -542,12 +656,12 @@ function MatchExercise({ entry, card, rec, onCheck, help }) {
 }
 
 /* ---- sequence_events: Ereignisse in Reihenfolge antippen --------------------- */
-function SequenceExercise({ entry, card, rec, onCheck, help }) {
+function SequenceExercise({ entry, card, rec, onCheck, help, sound }) {
   const ex = card.ex;
   let shuffled = seededShuffle(ex.events, card.id);
   if (shuffled.every((e, i) => e === ex.events[i])) shuffled = [...shuffled.slice(1), shuffled[0]];
   const [order, setOrder] = useState([]);
-  const tap = (e) => setOrder((cur) => (cur.includes(e) ? cur.filter((x) => x !== e) : [...cur, e]));
+  const tap = (e) => { setOrder((cur) => (cur.includes(e) ? cur.filter((x) => x !== e) : [...cur, e])); if (sound) sounds.select(); };
   const tone = card.track === 'read' ? 'read' : 'listen';
   const done = order.length === ex.events.length;
   return (
@@ -569,7 +683,8 @@ function SequenceExercise({ entry, card, rec, onCheck, help }) {
                 style={{ display: 'flex', alignItems: 'center', gap: 12, width: '100%', padding: '12px 14px', minHeight: 56, cursor: 'pointer', textAlign: 'left',
                   borderRadius: 'var(--radius-md)', border: `2px solid ${on ? `var(--track-${tone})` : 'var(--border-default)'}`,
                   background: on ? `var(--track-${tone}-soft)` : 'var(--surface-card)', color: 'var(--text-ink)',
-                  transition: 'background var(--dur-fast) var(--ease-out-soft), border-color var(--dur-fast) var(--ease-out-soft)' }}>
+                  boxShadow: on ? `0 3px 0 var(--track-${tone})` : '0 3px 0 var(--border-default)',
+                  transition: 'background var(--dur-fast) var(--ease-out-soft), border-color var(--dur-fast) var(--ease-out-soft), box-shadow var(--dur-fast) var(--ease-out-soft)' }}>
                 <span style={{ width: 30, height: 30, borderRadius: '50%', flex: '0 0 auto', display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
                   font: 'var(--type-label)', fontWeight: 700, background: on ? `var(--track-${tone})` : 'var(--surface-locked)', color: on ? '#fff' : 'var(--text-subtle)',
                   transition: 'background var(--dur-fast) var(--ease-out-soft)' }}>
@@ -682,6 +797,10 @@ function KeyPoints({ entry, card, answer, checks, setChecks, onDone }) {
 }
 
 /* ---- 1g / 1h Feedback --------------------------------------------------------- */
+// Abwechslung im Feedback-Titel (stabil je Karte, damit er beim erneuten Rendern nicht springt).
+const PRAISE = { correct: ['Gemerkt!', 'Genau!', 'Sitzt!', 'Stark!', 'Richtig!'], wrong: ['Beim nächsten Mal sitzt es.', 'Knapp daneben.', 'Das kommt wieder.'] };
+const pickTitle = (list, seed) => { let h = 0; for (const c of seed) h = (h * 31 + c.charCodeAt(0)) >>> 0; return list[h % list.length]; };
+
 function Feedback({ entry, card, rec, answer, result, combo, infiniteSaved, onOverride, onNext }) {
   const grade = result.override ? 'good' : result.grade;
   const kind = card.kind;
@@ -693,7 +812,16 @@ function Feedback({ entry, card, rec, answer, result, combo, infiniteSaved, onOv
   let detail;
   let source = null;
   let sourceLabel = 'Im Original';
-  if (kind === 'retell') {
+  let title = helpedRight ? 'Richtig, mit Hilfe.' : state === 'correct' ? pickTitle(PRAISE.correct, card.id) : state === 'wrong' ? pickTitle(PRAISE.wrong, card.id) : undefined;
+  const followUp = !!card.ex?.followUp;
+  if (followUp) {
+    const who = card.ex.meet || 'Die Person';
+    if (helpedRight) detail = 'Du hast die Stelle nachgehört. Das zählt als teilweise gemerkt.';
+    else if (grade === 'good') { title = 'Gutes Gespräch!'; detail = `${who} freut sich, dass du daran gedacht hast${after}`; }
+    else { title = 'Das wurde so nicht erzählt.'; detail = `Besser: „${card.ex.correct[0]}“`; }
+    source = card.ex.quote;
+    sourceLabel = 'Erzählt wurde';
+  } else if (kind === 'retell') {
     const missing = card.item.keyPoints.filter((_, i) => !result.checks[i]);
     detail = grade === 'good'
       ? `${result.hits} von ${result.total} Kernpunkten${after}`
@@ -714,7 +842,13 @@ function Feedback({ entry, card, rec, answer, result, combo, infiniteSaved, onOv
     if (grade !== 'good' && q.quote) source = q.quote;
   }
   const read = kind === 'retell';
-  const title = kind === 'retell' ? card.item.topic : card.question.prompt;
+  const heading = kind === 'retell' ? card.item.topic : card.question.prompt;
+  // Wann die Karte wiederkommt (nur bei Karten, deren Intervall sich ändert).
+  let nextTime = null;
+  if (entry.mode === 'new' || entry.mode === 'review') {
+    const days = INTERVALS[applyGrade(rec, grade, new Date()).stage];
+    nextTime = days === 1 ? 'morgen' : `in ${days} Tagen`;
+  }
   const mark = (ok) => (ok && helpedRight
     ? { border: '2px solid var(--spur-amber)', background: 'var(--accent-xp-soft)' }
     : { border: `2px solid ${ok ? 'var(--spur-green)' : 'var(--spur-coral)'}`, background: ok ? 'var(--state-correct-soft)' : 'var(--state-wrong-soft)' });
@@ -738,17 +872,22 @@ function Feedback({ entry, card, rec, answer, result, combo, infiniteSaved, onOv
       </div>
     );
   } else {
-    yourAnswer = <TextField value={answer} state={state} rows={read ? 4 : 2} disabled label={read ? 'Deine Wiedergabe' : undefined} />;
+    yourAnswer = <TextField value={answer} state={state} rows={read ? 4 : 2} disabled label={read ? 'Deine Wiedergabe' : undefined} placeholder={answer ? undefined : 'Weiß ich nicht mehr.'} />;
   }
   const pose = grade === 'good' ? 'cheering' : grade === 'partial' ? 'neutral' : 'disappointed';
   return (
     <>
       <div style={body}>
         <ExerciseTop entry={entry} card={card} seenBefore={entry.mode !== 'new'} />
-        <h2 style={{ font: 'var(--type-title)', textWrap: 'pretty' }}>{title}</h2>
+        <h2 style={{ font: 'var(--type-title)', textWrap: 'pretty' }}>{heading}</h2>
         {yourAnswer}
         <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 10 }}>
           <Badge tone="amber" variant="solid" icon="feather" style={{ alignSelf: 'flex-start', animation: 'spur-popin 420ms cubic-bezier(.34,1.56,.64,1) 200ms both' }}>+{XP[grade]} Federn</Badge>
+          {nextTime && (
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, font: 'var(--type-label)', fontWeight: 600, color: 'var(--text-muted)', animation: 'spur-rise 320ms cubic-bezier(.22,.8,.3,1) 320ms both' }}>
+              <Icon name="calendar" size={15} />Nächstes Mal: {nextTime}
+            </span>
+          )}
           {combo >= 3 && grade === 'good' && (
             <span style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <span style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 14px 8px 10px', borderRadius: 999, background: 'var(--accent-xp-soft)', color: 'var(--badge-amber-fg, var(--spur-amber-shade))', font: 'var(--type-label)', fontWeight: 700, animation: 'spur-popin 460ms cubic-bezier(.34,1.56,.64,1) 400ms both' }}>
@@ -765,7 +904,7 @@ function Feedback({ entry, card, rec, answer, result, combo, infiniteSaved, onOv
             <Icon name="shield" size={18} />Kein Herz verloren — heute unendlich
           </span>
         )}
-        {kind === 'recall' && result.grade !== 'good' && !result.helped && (
+        {kind === 'recall' && result.grade !== 'good' && !result.helped && !result.skipped && (
           <button type="button" onClick={onOverride}
             style={{ alignSelf: 'flex-start', background: 'none', border: 'none', padding: '6px 0', cursor: 'pointer', font: 'var(--type-label)', color: 'var(--text-link)', textDecoration: result.override ? 'none' : 'underline', textUnderlineOffset: 3 }}>
             {result.override ? 'Zählt als gemerkt.' : 'Meine Antwort meinte dasselbe — als gemerkt zählen'}
@@ -776,7 +915,7 @@ function Feedback({ entry, card, rec, answer, result, combo, infiniteSaved, onOv
         <div className="fb-mascot" style={{ display: 'flex', justifyContent: 'center', marginBottom: -14, position: 'relative', zIndex: 2 }}>
           <span key={pose} style={{ display: 'inline-flex', animation: 'spur-popin 460ms cubic-bezier(.34,1.56,.64,1) both' }}><Mascot pose={pose} size={96} /></span>
         </div>
-        <FeedbackPanel state={state} title={helpedRight ? 'Richtig, mit Hilfe.' : undefined} detail={detail} source={source} sourceLabel={sourceLabel} onAction={onNext} />
+        <FeedbackPanel state={state} title={title} detail={detail} source={source} sourceLabel={sourceLabel} onAction={onNext} />
       </div>
     </>
   );
@@ -806,6 +945,12 @@ export function Lesson({ session, onFinish, onExit }) {
   const agg = useRef({ milestone: null, lessonDone: null, chapterDone: null, goalReached: false, streakUp: false, xpBefore: state.progress.xp });
   const committed = useRef(false);
   const lastAfter = useRef(null);
+  // Die große Intervall-Animation nur bei der ersten richtigen Wiederholung einer Runde;
+  // danach steht "Nächstes Mal: in X Tagen" direkt im Feedback.
+  const intervalShown = useRef(false);
+  const startedAt = useRef(Date.now());
+  // Der Hinweis "Der Originaltext bleibt aus" nur bei der ersten Freitext-Frage der Runde.
+  const firstRecall = entries.findIndex((e) => index.cards.get(e.cardId).kind === 'recall');
   const partBefore = useRef(null);
   if (partBefore.current == null) {
     const part = session.part ? lessonParts(index, session.lessonId)[session.part - 1] : null;
@@ -841,10 +986,11 @@ export function Lesson({ session, onFinish, onExit }) {
     committed.current = false;
     if (r.grade === 'poor' && entry.mode === 'new' && !infinite && state.progress.hearts > 0) setShake((n) => n + 1);
     if (s.sounds) sounds[r.grade]?.();
-    if (r.grade === 'good' && navigator.vibrate) try { navigator.vibrate(12); } catch { /* ignore */ }
+    if (navigator.vibrate) try { navigator.vibrate(r.grade === 'good' ? 12 : r.grade === 'poor' ? [18, 60, 18] : 0); } catch { /* ignore */ }
   };
 
   const check = () => showFeedback(gradeListen(answer, card.question.answers));
+  const skip = () => { setAnswer(''); showFeedback({ grade: 'poor', hits: 0, total: card.question.answers.length, matched: [], skipped: true }); };
 
   const keyPointsDone = () => {
     const hits = checks.filter(Boolean).length;
@@ -888,7 +1034,7 @@ export function Lesson({ session, onFinish, onExit }) {
     const pb = partBefore.current;
     const partDone = pb && !pb.done && lastAfter.current && isPartDone(lastAfter.current, pb.part)
       ? { lessonId: session.lessonId, n: session.part, of: session.parts } : null;
-    onFinish({ ...stats.current, ...agg.current, partDone, kind: session.kind });
+    onFinish({ ...stats.current, ...agg.current, partDone, kind: session.kind, ms: Date.now() - startedAt.current, streak: (lastAfter.current || state).progress.streak });
   };
 
   const advance = (after) => {
@@ -915,7 +1061,8 @@ export function Lesson({ session, onFinish, onExit }) {
     if (c && c.grade === 'poor' && entry.feld && entry.mode === 'new') {
       setEntries((cur) => [...cur, { cardId: entry.cardId, mode: 'retry', showSource: false, feld: { ...entry.feld, n: entry.feld.n } }]);
     }
-    if (c && entry.mode === 'review' && c.grade === 'good' && c.events.prevStage >= 0) {
+    if (c && entry.mode === 'review' && c.grade === 'good' && c.events.prevStage >= 0 && !intervalShown.current) {
+      intervalShown.current = true;
       setIntervalInfo({ from: c.events.prevStage, to: c.events.newStage, after: c.after });
       setPhase('interval');
       return;
@@ -936,7 +1083,7 @@ export function Lesson({ session, onFinish, onExit }) {
         const cards = { ...cur.cards };
         for (const [id, rec] of Object.entries(snap.cards)) { if (rec) cards[id] = rec; else delete cards[id]; }
         const p = { ...cur.progress, xp: Math.max(0, cur.progress.xp - snap.xp) };
-        if (p.doneTodayDay === dayKey()) p.doneToday = Math.max(0, p.doneToday - snap.answered);
+        if (p.doneTodayDay === dayKey()) { p.doneToday = Math.max(0, p.doneToday - snap.answered); p.xpToday = Math.max(0, (p.xpToday || 0) - snap.xp); }
         p.lessonsDone = { ...p.lessonsDone };
         if (snap.lessonDone) p.lessonsDone[session.lessonId] = snap.lessonDone; else delete p.lessonsDone[session.lessonId];
         p.chaptersDone = { ...p.chaptersDone };
@@ -962,11 +1109,13 @@ export function Lesson({ session, onFinish, onExit }) {
   } else if (phase === 'listen-audio') {
     view = <ListenOnly entry={entry} card={card} sourceOnly={sourceOnly} onNext={afterSource} />;
   } else if (phase === 'question') {
-    view = <RecallQuestion entry={entry} card={card} rec={rec} answer={answer} setAnswer={setAnswer} onCheck={check} help={help} />;
+    view = <RecallQuestion entry={entry} card={card} rec={rec} answer={answer} setAnswer={setAnswer} onCheck={check} onSkip={skip} help={help} showLock={pos === firstRecall} />;
+  } else if (phase === 'match' && card.ex.followUp) {
+    view = <FollowUpExercise key={entry.cardId + pos} entry={entry} card={card} onCheck={showFeedback} help={help} sound={s.sounds} />;
   } else if (phase === 'match') {
-    view = <MatchExercise key={entry.cardId + pos} entry={entry} card={card} rec={rec} onCheck={showFeedback} help={help} />;
+    view = <MatchExercise key={entry.cardId + pos} entry={entry} card={card} rec={rec} onCheck={showFeedback} help={help} sound={s.sounds} />;
   } else if (phase === 'sequence') {
-    view = <SequenceExercise key={entry.cardId + pos} entry={entry} card={card} rec={rec} onCheck={showFeedback} help={help} />;
+    view = <SequenceExercise key={entry.cardId + pos} entry={entry} card={card} rec={rec} onCheck={showFeedback} help={help} sound={s.sounds} />;
   } else if (phase === 'read-text') {
     view = <ReadText entry={entry} card={card} tts={s.tts} sourceOnly={sourceOnly} onClose={afterSource} />;
   } else if (phase === 'read-recall') {

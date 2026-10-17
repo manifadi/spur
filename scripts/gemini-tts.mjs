@@ -223,6 +223,133 @@ function lcs(a, b) {
   return prev[b.length];
 }
 
+/** Wörter einer Datei mit Zeitstempeln (Sekunden): [{ text, from, to }]. */
+async function transcribeWords(file) {
+  await new Promise((resolve, reject) => {
+    const p = spawn('whisper-cli', ['-m', WHISPER_MODEL, '-l', 'de', '-np', '-ml', '1', '-sow', '-oj', '-f', file], { stdio: 'ignore' });
+    p.on('error', reject);
+    p.on('close', (code) => (code === 0 ? resolve() : reject(new Error(`whisper-cli exit ${code}`))));
+  });
+  const json = `${file}.json`;
+  const data = existsSync(json) ? JSON.parse(readFileSync(json, 'utf8')) : { transcription: [] };
+  rmSync(json, { force: true });
+  return (data.transcription || [])
+    .map((w) => ({ text: w.text || '', from: (w.offsets?.from ?? 0) / 1000, to: (w.offsets?.to ?? 0) / 1000 }))
+    .filter((w) => letters(w.text));
+}
+
+/**
+ * Ordnet die Zeichen des Skripts den gehörten Zeichen zu (längste gemeinsame Teilfolge mit
+ * Rückverfolgung). @returns {Int32Array} für jedes Skript-Zeichen den Index im Gehörten oder -1.
+ */
+function alignChars(a, b) {
+  const n = a.length;
+  const m = b.length;
+  const dir = new Uint8Array((n + 1) * (m + 1)); // 1 = diagonal, 2 = oben, 3 = links
+  let prev = new Uint16Array(m + 1);
+  for (let i = 1; i <= n; i++) {
+    const cur = new Uint16Array(m + 1);
+    for (let j = 1; j <= m; j++) {
+      if (a[i - 1] === b[j - 1]) { cur[j] = prev[j - 1] + 1; dir[i * (m + 1) + j] = 1; }
+      else if (prev[j] >= cur[j - 1]) { cur[j] = prev[j]; dir[i * (m + 1) + j] = 2; }
+      else { cur[j] = cur[j - 1]; dir[i * (m + 1) + j] = 3; }
+    }
+    prev = cur;
+  }
+  const map = new Int32Array(n).fill(-1);
+  for (let i = n, j = m; i > 0 && j > 0;) {
+    const d = dir[i * (m + 1) + j];
+    if (d === 1) { map[i - 1] = j - 1; i--; j--; } else if (d === 2) i--; else j--;
+  }
+  return map;
+}
+
+/**
+ * Wo im Gehörten steht diese Zeile am besten? Semiglobale Ausrichtung: die Zeile ganz, vom
+ * Gehörten ein beliebiges Stück (Treffer +2, sonst −1). Bei gleich guten Stellen (eine Zeile
+ * doppelt gesprochen) gewinnt die, die näher an `expect` endet.
+ * @returns {{ start: number, end: number }} Zeichenbereich im Gehörten (end exklusiv)
+ */
+function fitLine(a, b, expect) {
+  const n = a.length;
+  const m = b.length;
+  const dir = new Uint8Array((n + 1) * (m + 1));
+  let prev = new Int32Array(m + 1); // Zeile 0: Start im Gehörten ist frei
+  for (let i = 1; i <= n; i++) {
+    const cur = new Int32Array(m + 1);
+    cur[0] = -i;
+    dir[i * (m + 1)] = 2;
+    for (let j = 1; j <= m; j++) {
+      const d = prev[j - 1] + (a[i - 1] === b[j - 1] ? 2 : -1);
+      const up = prev[j] - 1;
+      const left = cur[j - 1] - 1;
+      if (d >= up && d >= left) { cur[j] = d; dir[i * (m + 1) + j] = 1; }
+      else if (up >= left) { cur[j] = up; dir[i * (m + 1) + j] = 2; }
+      else { cur[j] = left; dir[i * (m + 1) + j] = 3; }
+    }
+    prev = cur;
+  }
+  let end = 0;
+  let top = -Infinity;
+  for (let j = 0; j <= m; j++) {
+    const v = prev[j] - 0.002 * Math.abs(j - expect);
+    if (v > top) { top = v; end = j; }
+  }
+  let i = n;
+  let j = end;
+  while (i > 0 && j > 0) {
+    const d = dir[i * (m + 1) + j];
+    if (d === 1) { i--; j--; } else if (d === 2) i--; else j--;
+  }
+  return { start: j, end };
+}
+
+/**
+ * Zweite Strategie, wenn die Schnitte nach Pausenlänge und Wortzahl nicht passen (z. B. weil
+ * Gemini mitten in einer Zeile Luft holt, eine Zeile doppelt spricht oder beim Sprecherwechsel
+ * kaum Pause macht): Whisper schreibt die ganze Aufnahme mit Wort-Zeitstempeln mit, das Skript
+ * wird Zeichen für Zeichen daran ausgerichtet, und jeder Abschnitt wird einzeln von seinem
+ * ersten bis zu seinem letzten Wort geschnitten (an den nächsten Pausen). Doppelt Gesprochenes
+ * zwischen zwei Abschnitten fällt dabei einfach weg.
+ * @returns {{ from: number, to: number }[] | null} Zeitbereich je Abschnitt in Sekunden
+ */
+async function alignedRanges(wav, texts, total) {
+  const words = await transcribeWords(wav);
+  if (!words.length) return null;
+  // Auch kurze Pausen (ab 0,08 s): Bei schnellem Sprecherwechsel ist die Lücke manchmal winzig.
+  const pauses = (await silences(wav, 0.08)).list;
+  let heard = '';
+  const owner = [];
+  words.forEach((w, wi) => { const l = letters(w.text); heard += l; for (let k = 0; k < l.length; k++) owner.push(wi); });
+  const parts = texts.map(letters);
+  // Grobe Lage jeder Zeile aus der Gesamtausrichtung, dann die genaue Stelle je Zeile.
+  const map = alignChars(parts.join(''), heard);
+  const ranges = [];
+  let pos = 0;
+  for (const part of parts) {
+    let expect = -1;
+    for (let i = pos + part.length - 1; i >= pos && expect < 0; i--) if (map[i] >= 0) expect = map[i] + 1;
+    if (expect < 0) expect = Math.round(heard.length * ((pos + part.length) / Math.max(1, map.length)));
+    pos += part.length;
+    const { start, end } = fitLine(part, heard, expect);
+    if (end <= start) return null;
+    ranges.push({ from: words[owner[start]].from, to: words[owner[end - 1]].to });
+  }
+  // An den Rändern in die nächste Pause legen (Whisper liegt gern ein paar Zehntel daneben).
+  const pad = 0.12;
+  const near = (t, w) => pauses.filter((x) => x.end > t - w && x.start < t + w)
+    .sort((x, y) => Math.abs((x.start + x.end) / 2 - t) - (x.end - x.start) * 0.5 - (Math.abs((y.start + y.end) / 2 - t) - (y.end - y.start) * 0.5))[0];
+  const out = ranges.map((r, i) => {
+    const a = i === 0 ? null : near(r.from, 0.6);
+    const b = i === ranges.length - 1 ? null : near(r.to, 0.6);
+    return { from: i === 0 ? 0 : a ? Math.max(0, a.end - pad) : Math.max(0, r.from - 0.1), to: i === ranges.length - 1 ? total : b ? b.start + pad : r.to + 0.1 };
+  });
+  // Bereiche dürfen sich nicht überlappen.
+  for (let i = 1; i < out.length; i++) if (out[i].from < out[i - 1].to) { const m = (out[i].from + out[i - 1].to) / 2; out[i - 1].to = m; out[i].from = m; }
+  if (process.env.DEBUG_CUTS) out.forEach((r, i) => console.log(`  [align] ${i + 1}: ${r.from.toFixed(2)}–${r.to.toFixed(2)} | ${texts[i].slice(0, 40)}`));
+  return out.every((r) => r.to > r.from) ? out : null;
+}
+
 /**
  * Prüft geschnittene Abschnitte: Was Whisper in jedem hört, muss zur Zeile passen (in beide
  * Richtungen, sonst ist ein Stück der Nachbarzeile mit drin oder etwas fehlt).
@@ -230,7 +357,7 @@ function lcs(a, b) {
  */
 export async function verifySegments(files, texts, offset = 0) {
   const heard = await transcribeFiles(files);
-  return heard.map((h, i) => {
+  const judge = (h, i) => {
     // Zeichenweise, damit "49"/"neunundvierzig" und "dazurechnen"/"dazu rechnen" gleich zählen.
     const a = letters(texts[i]);
     const b = letters(h);
@@ -241,8 +368,44 @@ export async function verifySegments(files, texts, offset = 0) {
     // ein falscher Schnitt fällt ohnehin an der langen Nachbarzeile auf.
     const min = texts[i].split(/\s+/).length <= 4 ? 0.5 : 0.8;
     const ok = recall >= min && precision >= min;
-    return { ok, score: recall + precision, msg: ok ? '' : `Abschnitt ${offset + i + 1}: erwartet "${texts[i].slice(0, 50)}…", gehört "${h.trim().slice(0, 50)}…"` };
-  });
+    return { ok, score: recall + precision, recall, precision, msg: ok ? '' : `Abschnitt ${offset + i + 1}: erwartet "${texts[i].slice(0, 50)}…", gehört "${h.trim().slice(0, 50)}…"` };
+  };
+  const out = heard.map(judge);
+  // Zweitmeinung: Whisper verschluckt bei längeren Stücken manchmal einen kurzen Satzanfang
+  // ("Punkt zwei, das Sommerfest."), obwohl er klar zu hören ist. Fehlt nur etwas (alles
+  // Gehörte passt), das Stück an seinen Pausen in Teile zerlegen und einzeln mitschreiben.
+  for (const [i, r] of out.entries()) {
+    if (r.ok || r.precision < 0.8) continue;
+    const pieces = await splitForSecondOpinion(files[i]);
+    if (pieces.length < 2) continue;
+    const again = judge((await transcribeFiles(pieces)).join(' '), i);
+    pieces.forEach((f) => rmSync(f, { force: true }));
+    if (again.score > r.score) out[i] = again;
+  }
+  return out;
+}
+
+/** Zerlegt eine Datei an inneren Pausen in 2–3 etwa gleich lange Stücke (WAV) für die Zweitmeinung. */
+async function splitForSecondOpinion(file) {
+  const { list, total } = await silences(file, 0.15);
+  const inner = list.filter((x) => x.start > 0.5 && x.end < total - 0.5);
+  if (!inner.length || total < 2.5) return [];
+  const k = total > 9 ? 3 : 2;
+  const cuts = [];
+  for (let c = 1; c < k; c++) {
+    const want = (total * c) / k;
+    const best = inner.reduce((a, x) => (Math.abs((x.start + x.end) / 2 - want) < Math.abs((a.start + a.end) / 2 - want) ? x : a));
+    if (!cuts.includes(best)) cuts.push(best);
+  }
+  cuts.sort((a, b) => a.start - b.start);
+  const bounds = [0, ...cuts.map((x) => (x.start + x.end) / 2), total];
+  const out = [];
+  for (let i = 0; i + 1 < bounds.length; i++) {
+    const f = file.replace(/(\.\w+)$/, `.p${i}.wav`);
+    await toMp3(file, f, i === 0 ? null : bounds[i], i + 2 === bounds.length ? null : bounds[i + 1]);
+    out.push(f);
+  }
+  return out;
 }
 
 /**
@@ -292,40 +455,58 @@ export async function splitBatch(wav, texts, dests, { fine = false } = {}) {
   for (let i = 0; i < n; i++) await cut(i);
   if (!canVerify()) return { total, cuts, verified: false };
   let check = await verifySegments(dests, texts);
-  // Reparatur: Für jeden Schnitt neben einem falschen Abschnitt die anderen Pausen zwischen den
-  // Nachbarschnitten durchprobieren und die nehmen, bei der beide Abschnitte am besten passen.
-  // Zwei Durchgänge, weil ein Abschnitt an beiden Enden falsch geschnitten sein kann.
-  for (let pass = 0; pass < 2 && check.some((c) => !c.ok); pass++) {
-    const bad = [...new Set(check.flatMap((c, i) => (c.ok ? [] : [i - 1, i])))].filter((x) => x >= 0 && x < n - 1).sort((x, y) => x - y);
-    for (const b of bad) {
-      if (check[b].ok && check[b + 1].ok) continue;
-      const lo = b === 0 ? 0 : cuts[b - 1].end;
-      const hi = b + 1 < n - 1 ? cuts[b + 1].start : total;
-      // Die Pausen in der Nähe der erwarteten Stelle (nach Wortzahl) zuerst probieren.
-      const expect = lo + (hi - lo) * (words[b] / (words[b] + words[b + 1]));
-      const dist = (x) => Math.abs((x.start + x.end) / 2 - expect);
-      const options = list.filter((x) => x.start > lo + 0.3 && x.end < hi - 0.3 && x !== cuts[b])
-        .sort((x, y) => dist(x) - dist(y)).slice(0, 10);
-      let top = { cut: cuts[b], r: [check[b], check[b + 1]], score: check[b].score + check[b + 1].score };
-      for (const o of options) {
-        cuts[b] = o;
-        const tmp = [0, 1].map((d) => dests[b + d].replace(/(\.\w+)$/, '.try$1'));
-        await cut(b, tmp[0]);
-        await cut(b + 1, tmp[1]);
-        const r = await verifySegments(tmp, [texts[b], texts[b + 1]], b);
-        tmp.forEach((f) => rmSync(f, { force: true }));
-        if (r[0].score + r[1].score > top.score) top = { cut: o, r, score: r[0].score + r[1].score };
-        if (r[0].ok && r[1].ok) break;
-      }
-      cuts[b] = top.cut;
-      [check[b], check[b + 1]] = top.r;
-      await cut(b);
-      await cut(b + 1);
+  await repair();
+  if (check.some((c) => !c.ok)) {
+    // Zweite Strategie: jeden Abschnitt an der Mitschrift ausgerichtet einzeln schneiden.
+    const ranges = await alignedRanges(wav, texts, total);
+    if (ranges) {
+      for (let i = 0; i < n; i++) await toMp3(wav, dests[i], i === 0 ? null : ranges[i].from, i === n - 1 ? null : ranges[i].to);
+      check = await verifySegments(dests, texts);
+      if (check.every((c) => c.ok)) return { total, ranges, verified: true };
+      // Klappt das nur teilweise: Schnittstellen aus den Bereichen ableiten und wie gehabt reparieren.
+      cuts.splice(0, cuts.length, ...ranges.slice(1).map((r, i) => ({ start: ranges[i].to - pad, end: r.from + pad })));
+      for (let i = 0; i < n; i++) await cut(i);
+      check = await verifySegments(dests, texts);
+      await repair();
     }
   }
   const problems = check.filter((c) => !c.ok).map((c) => c.msg);
   if (problems.length) throw Object.assign(new Error(`falsch geschnitten:\n  ${problems.join('\n  ')}`), { problems });
   return { total, cuts, verified: true };
+
+  // Reparatur: Für jeden Schnitt neben einem falschen Abschnitt die anderen Pausen zwischen den
+  // Nachbarschnitten durchprobieren und die nehmen, bei der beide Abschnitte am besten passen.
+  // Zwei Durchgänge, weil ein Abschnitt an beiden Enden falsch geschnitten sein kann.
+  async function repair() {
+    for (let pass = 0; pass < 2 && check.some((c) => !c.ok); pass++) {
+      const bad = [...new Set(check.flatMap((c, i) => (c.ok ? [] : [i - 1, i])))].filter((x) => x >= 0 && x < n - 1).sort((x, y) => x - y);
+      for (const b of bad) {
+        if (check[b].ok && check[b + 1].ok) continue;
+        const lo = b === 0 ? 0 : cuts[b - 1].end;
+        const hi = b + 1 < n - 1 ? cuts[b + 1].start : total;
+        // Die Pausen in der Nähe der erwarteten Stelle (nach Wortzahl) zuerst probieren.
+        const expect = lo + (hi - lo) * (words[b] / (words[b] + words[b + 1]));
+        const dist = (x) => Math.abs((x.start + x.end) / 2 - expect);
+        const options = list.filter((x) => x.start > lo + 0.3 && x.end < hi - 0.3 && x !== cuts[b])
+          .sort((x, y) => dist(x) - dist(y)).slice(0, 10);
+        let top = { cut: cuts[b], r: [check[b], check[b + 1]], score: check[b].score + check[b + 1].score };
+        for (const o of options) {
+          cuts[b] = o;
+          const tmp = [0, 1].map((d) => dests[b + d].replace(/(\.\w+)$/, '.try$1'));
+          await cut(b, tmp[0]);
+          await cut(b + 1, tmp[1]);
+          const r = await verifySegments(tmp, [texts[b], texts[b + 1]], b);
+          tmp.forEach((f) => rmSync(f, { force: true }));
+          if (r[0].score + r[1].score > top.score) top = { cut: o, r, score: r[0].score + r[1].score };
+          if (r[0].ok && r[1].ok) break;
+        }
+        cuts[b] = top.cut;
+        [check[b], check[b + 1]] = top.r;
+        await cut(b);
+        await cut(b + 1);
+      }
+    }
+  }
 }
 
 /** Tageskontingent aufgebraucht? Dann lohnt kein weiterer Versuch heute. */

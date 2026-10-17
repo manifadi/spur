@@ -92,6 +92,23 @@
         "Am Donnerstag"
        ],
        "quote": "„… der Techniker kommt erst am Donnerstag.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Thomas",
+       "prompt": "Am nächsten Morgen triffst du Thomas wieder in der Kaffeeküche. Was fragst du ihn?",
+       "options": [
+        "Wie lief der Termin mit der Buchhaltung?",
+        "Wie lief das Gespräch mit dem Chef?",
+        "Stand dein Zug wieder vor Kassel?",
+        "Wie war dein Zahnarzttermin?"
+       ],
+       "correct": [
+        "Wie lief der Termin mit der Buchhaltung?"
+       ],
+       "quote": "„Ich bin heute Nachmittag im Termin mit der Buchhaltung, bis mindestens vier.“"
       }
      ],
      "worldRefs": {
@@ -190,6 +207,23 @@
        ],
        "solution": "Jemand hat den Wassertank mit Sprudel aufgefüllt.",
        "quote": "„… jemand hat den Wassertank mit Sprudel aufgefüllt.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Thomas",
+       "prompt": "Später am Nachmittag kommt Thomas an deinem Schreibtisch vorbei. Was fragst du ihn?",
+       "options": [
+        "Hat Sandra das mit dem Sprudel im Wassertank zugegeben?",
+        "Hat Sandra das mit der Milch im Wassertank zugegeben?",
+        "Hat der Techniker auch die Spülmaschine repariert?",
+        "Hat Jana dir den grünen Ordner zurückgegeben?"
+       ],
+       "correct": [
+        "Hat Sandra das mit dem Sprudel im Wassertank zugegeben?"
+       ],
+       "quote": "„Er meinte, jemand hat den Wassertank mit Sprudel aufgefüllt.“"
       }
      ],
      "worldRefs": {
@@ -276,6 +310,23 @@
        ],
        "solution": "Von ihrer Oma.",
        "quote": "„… das Rezept hab ich von meiner Oma.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Sandra",
+       "prompt": "Am nächsten Morgen kommt Sandra um neun ins Büro. Was fragst du sie?",
+       "options": [
+        "Was hat der Tierarzt zu Pepper gesagt?",
+        "Was hat der Tierarzt zu Pebbles gesagt?",
+        "Wie war das Feierabendbier gestern?",
+        "Hat die Linsensuppe von deiner Oma geschmeckt?"
+       ],
+       "correct": [
+        "Was hat der Tierarzt zu Pepper gesagt?"
+       ],
+       "quote": "„Meine Katze Pepper muss um sechs zum Tierarzt, sie frisst seit zwei Tagen kaum was.“"
       }
      ],
      "worldRefs": {
@@ -373,6 +424,23 @@
        ],
        "solution": "Über den Balkon.",
        "quote": "„Das Sofa hat nicht durchs Treppenhaus gepasst, das musste über den Balkon rein.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Nora",
+       "prompt": "Ein paar Tage später triffst du Nora. Worauf sprichst du sie an?",
+       "options": [
+        "Läuft das Internet in der neuen Wohnung schon?",
+        "Funktioniert der Aufzug in der neuen Wohnung schon?",
+        "Wie gefällt dir die Wohnung über der Pizzeria?",
+        "Hat dein Bruder Jonas den Umzug verpasst?"
+       ],
+       "correct": [
+        "Läuft das Internet in der neuen Wohnung schon?"
+       ],
+       "quote": "„Am Montag kommt noch der Techniker für das Internet …“"
       }
      ],
      "worldRefs": {
@@ -465,6 +533,23 @@
        ],
        "solution": "Kowalczyk, der Name vom Vormieter.",
        "quote": "„Da steht Kowalczyk drauf.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Nora",
+       "prompt": "Am Tag vor ihrer Party triffst du Nora im Supermarkt. Worauf sprichst du sie an?",
+       "options": [
+        "Ich hab gehört, du wünschst dir Kräuter für den Balkon?",
+        "Ich hab gehört, du wünschst dir Bücher fürs neue Regal?",
+        "Ich hab gehört, die Party ist schon am Freitag?",
+        "Ich hab gehört, du machst deine berühmte Fischsuppe?"
+       ],
+       "correct": [
+        "Ich hab gehört, du wünschst dir Kräuter für den Balkon?"
+       ],
+       "quote": "„Und sie wünscht sich keine Geschenke, sondern Pflanzen für den Balkon.“"
       }
      ],
      "worldRefs": {
@@ -545,6 +630,23 @@
        ],
        "solution": "Sieben.",
        "quote": "„Nora hat jetzt übrigens sieben Töpfe Basilikum.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Nora",
+       "prompt": "Eine Woche nach der Party triffst du Nora beim Bäcker. Worauf sprichst du sie an?",
+       "options": [
+        "Und, hast du das Pesto fürs ganze Haus gemacht?",
+        "Und, hast du die Tomatensoße fürs ganze Haus gemacht?",
+        "Hat sich Frau Sievers über den Lärm beschwert?",
+        "Wie geht es deinen sieben Rosmarintöpfen?"
+       ],
+       "correct": [
+        "Und, hast du das Pesto fürs ganze Haus gemacht?"
+       ],
+       "quote": "„Nächste Woche macht sie Pesto für das ganze Haus.“"
       }
      ],
      "worldRefs": {
@@ -631,6 +733,23 @@
         "Mittwochs"
        ],
        "quote": "„Außer mittwochs, da ist Chor.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Frau Berger",
+       "prompt": "Ein paar Tage später triffst du Frau Berger im Treppenhaus. Worauf sprichst du sie an?",
+       "options": [
+        "Hat der Hausmeister die tropfende Heizung repariert?",
+        "Hat der Hausmeister die kaputte Klingel repariert?",
+        "Wie war Ihr Yogakurs am Mittwoch?",
+        "Wie war Ihr Kegelabend am Dienstag?"
+       ],
+       "correct": [
+        "Hat der Hausmeister die tropfende Heizung repariert?"
+       ],
+       "quote": "„Der Hausmeister kommt am Dienstag wegen der tropfenden Heizung im Flur.“"
       }
      ],
      "worldRefs": {
@@ -723,6 +842,23 @@
        ],
        "solution": "Aus Kreta.",
        "quote": "„Der Mann kommt aus Kreta …“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Frau Berger",
+       "prompt": "Zwei Wochen später triffst du Frau Berger wieder auf dem Markt. Worauf sprichst du sie an?",
+       "options": [
+        "Haben Sie den Käsestand an der neuen Stelle beim Brunnen gefunden?",
+        "Haben Sie den Käsestand an der neuen Stelle beim Rathaus gefunden?",
+        "Hat Ihnen der Bergkäse geschmeckt?",
+        "Waren die Oliven aus Sizilien gut?"
+       ],
+       "correct": [
+        "Haben Sie den Käsestand an der neuen Stelle beim Brunnen gefunden?"
+       ],
+       "quote": "„… dann steht er gegenüber vom Brunnen, neben dem Blumenstand.“"
       }
      ],
      "worldRefs": {
@@ -818,6 +954,23 @@
        ],
        "solution": "Käsekuchen mit Rosinen.",
        "quote": "„Ich mache Käsekuchen, natürlich mit Rosinen.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Frau Berger",
+       "prompt": "Am Montag nach dem Konzert triffst du Frau Berger im Treppenhaus. Worauf sprichst du sie an?",
+       "options": [
+        "Wie war Ihr Konzert in der Markuskirche?",
+        "Wie war Ihr Konzert in der Lukaskirche?",
+        "Wie war Ihr Konzert im Stadtpark?",
+        "Ist Ihr Apfelkuchen gut angekommen?"
+       ],
+       "correct": [
+        "Wie war Ihr Konzert in der Markuskirche?"
+       ],
+       "quote": "„Unser Chor singt in der Markuskirche, um fünf!“"
       }
      ],
      "worldRefs": {

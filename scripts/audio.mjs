@@ -8,6 +8,8 @@
 //   npm run audio -- --engine=gemini --plan    nur zeigen, was noch fehlt
 //   npm run audio -- --engine=gemini --only=z6-auto,z6-buero   nur bestimmte Level
 //   npm run audio -- --engine=gemini --retry-items   nicht schneidbare Level Teil für Teil neu anfragen
+//   npm run audio -- --engine=gemini --cached        nur vorhandene Aufnahmen neu schneiden, keine Anfrage
+//   DEBUG_CUTS=1 npm run audio -- …                zeigt die an der Mitschrift ausgerichteten Schnitte
 //
 // Zwei Stimm-Quellen:
 // - Gemini (Google AI Studio, kostenloser Key in .env.local): lebendige Stimmen. Ein ganzes
@@ -42,6 +44,8 @@ const maxLevels = Number(arg('max') || Infinity);
 const planOnly = process.argv.includes('--plan');
 // Lässt sich eine Level-Aufnahme nicht sauber schneiden, Teil für Teil neu anfragen (kostet Anfragen).
 const retryItems = process.argv.includes('--retry-items');
+// Nur Aufnahmen aus .audio-cache/ schneiden (z. B. nach einem verbesserten Schnitt), nie anfragen.
+const cachedOnly = process.argv.includes('--cached');
 const only = arg('only')?.split(',');
 const CMD = (process.env.EDGE_TTS || 'uvx edge-tts').split(' ');
 const PARALLEL = 4;
@@ -186,7 +190,7 @@ async function runGemini() {
       for (const b of batches(l.units)) {
         if (b.every(unitDone)) continue;
         try {
-          await renderBatch(b, log);
+          if (!(await renderBatch(b, log, { cachedOnly }))) { log('keine Aufnahme im Cache, übersprungen.'); continue; }
         } catch (e) {
           if (gemini.isDailyLimit(e) || !e.problems) throw e;
           log(`Level-Aufnahme nicht sauber schneidbar:\n      ${e.problems.join('\n      ')}`);
@@ -195,7 +199,7 @@ async function runGemini() {
             const part = b.filter((u) => u.subs[0].itemId === itemId);
             if (part.every(unitDone)) continue;
             try {
-              if (!(await renderBatch(part, log, { cachedOnly: !retryItems }))) log(`${itemId} offen (mit --retry-items einzeln neu anfragen)`);
+              if (!(await renderBatch(part, log, { cachedOnly: cachedOnly || !retryItems }))) log(`${itemId} offen (mit --retry-items einzeln neu anfragen)`);
             } catch (e2) {
               if (gemini.isDailyLimit(e2)) throw e2;
               log(`${itemId} übersprungen: ${e2.message}`);

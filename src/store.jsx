@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { loadState, saveState, clearState, requestPersistence } from './engine/storage.js';
-import { hydrate, tick, initialState, freshProgress } from './engine/game.js';
+import { hydrate, tick, initialState, freshProgress, seedOptionalCards } from './engine/game.js';
 import { INDEX } from './content/index.js';
 import MIGRATIONS from './content/migrations.json';
 import { checkReminder } from './lib/reminders.js';
@@ -36,7 +36,12 @@ export function StoreProvider({ children, index = INDEX, storageKey, dev = null,
 
   useEffect(() => {
     let alive = true;
-    loadState(storageKey).then((saved) => { if (alive) setState(hydrate(saved || initial?.(), new Date(), MIGRATIONS.renames)); });
+    loadState(storageKey).then((saved) => {
+      if (!alive) return;
+      const now = new Date();
+      // Neue Wiedersehen-Fragen in schon geschafften Teilen werden zu fälligen Wiederholungen.
+      setState(seedOptionalCards(index, hydrate(saved || initial?.(), now, MIGRATIONS.renames), now));
+    });
     requestPersistence();
     return () => { alive = false; };
   }, []);

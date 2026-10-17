@@ -115,6 +115,23 @@
         "Plattenspieler entdeckt",
         "Stempeluhr für Sophie gefunden"
        ]
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Emre",
+       "prompt": "Eine Woche später triffst du Emre. Was fragst du ihn?",
+       "options": [
+        "Ist die neue Nadel für deinen Plattenspieler schon da?",
+        "Ist der neue Riemen für deinen Plattenspieler schon da?",
+        "Hast du die Platten von Udo Lindenberg schon gehört?",
+        "Hat sich deine Mutter über die Stempeluhr gefreut?"
+       ],
+       "correct": [
+        "Ist die neue Nadel für deinen Plattenspieler schon da?"
+       ],
+       "quote": "„Die Nadel fehlt, die bestelle ich nach.“"
       }
      ],
      "worldRefs": {
@@ -207,6 +224,23 @@
        ],
        "solution": "Als Wecker.",
        "quote": "„Eine Stempeluhr als Wecker.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Sophie",
+       "prompt": "Ein paar Tage später triffst du Sophie. Was fragst du sie?",
+       "options": [
+        "Funktioniert die Glocke an deiner Stempeluhr schon wieder?",
+        "Funktioniert das Pendel an deiner Kuckucksuhr schon wieder?",
+        "Kommt deine Stempeluhr nicht aus Bielefeld?",
+        "Sammelst du jetzt auch Plattenspieler?"
+       ],
+       "correct": [
+        "Funktioniert die Glocke an deiner Stempeluhr schon wieder?"
+       ],
+       "quote": "„Wenn die Glocke wieder geht, kannst du sie ja morgens als Wecker benutzen.“"
       }
      ],
      "worldRefs": {
@@ -318,6 +352,23 @@
        ],
        "solution": "„Griechischer Wein“.",
        "quote": "„Ich kann jetzt ‚Griechischer Wein‘ auswendig.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Sophie",
+       "prompt": "Nach dem Sonntag triffst du Sophie. Was fragst du sie?",
+       "options": [
+        "Habt ihr am Kanal eine Stempelkarte für die Uhr gefunden?",
+        "Habt ihr am Kanal eine zweite Stempeluhr gefunden?",
+        "Habt ihr am Bahnhof eine Stempelkarte gefunden?",
+        "Kann Emre jetzt wirklich „Ein bisschen Frieden“ auswendig?"
+       ],
+       "correct": [
+        "Habt ihr am Kanal eine Stempelkarte für die Uhr gefunden?"
+       ],
+       "quote": "„Nächsten Sonntag ist wieder Flohmarkt am Kanal. Diesmal suchen wir eine Stempelkarte für die Uhr.“"
       }
      ],
      "worldRefs": {
@@ -624,6 +675,23 @@
        ],
        "solution": "Donnerstags, wegen des Markts.",
        "quote": "„Nur donnerstags nicht, da ist Markt …“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Kolja",
+       "prompt": "Am Donnerstag triffst du Kolja vor dem Büro. Worauf sprichst du ihn an?",
+       "options": [
+        "Steht dein Rad heute wieder am Kino?",
+        "Steht dein Rad heute wieder am Bahnhof?",
+        "Steht dein Rad heute wieder hinter der Bäckerei?",
+        "Hast du heute schon dein Brötchen beim Bäcker gekauft?"
+       ],
+       "correct": [
+        "Steht dein Rad heute wieder am Kino?"
+       ],
+       "quote": "„Nur donnerstags nicht, da ist Markt und der Hof ist voller Lieferwagen. Dann stelle ich es am Kino ab.“"
       }
      ],
      "worldRefs": {
@@ -736,6 +804,23 @@
        ],
        "solution": "Die Linie 12.",
        "quote": "„Nimm lieber die 12.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Kolja",
+       "prompt": "Am nächsten Morgen triffst du Kolja. Was fragst du ihn?",
+       "options": [
+        "Hast du den Reifen gestern Abend noch geflickt?",
+        "Hast du die Bremse gestern Abend noch repariert?",
+        "Bist du mit der Linie 7 gut durchgekommen?",
+        "Hast du Herrn Stein sein Rennrad zurückgegeben?"
+       ],
+       "correct": [
+        "Hast du den Reifen gestern Abend noch geflickt?"
+       ],
+       "quote": "„Heute Abend flicke ich den Reifen in der Garage.“"
       }
      ],
      "worldRefs": {
@@ -851,6 +936,23 @@
        ],
        "solution": "Zwölf Monate.",
        "quote": "„… genau zwölf Monate Busticket.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Herr Stein",
+       "prompt": "Ein paar Tage später triffst du Herrn Stein in der Bäckerei. Worauf sprichst du ihn an?",
+       "options": [
+        "Fährt Ihre Tochter jetzt mit Koljas altem Rad zur Schule?",
+        "Fährt Ihr Sohn jetzt mit Koljas altem Rad zur Schule?",
+        "Fährt Ihre Tochter jetzt mit Koljas neuem Rad zur Schule?",
+        "Fahren Sie immer noch jeden Samstag Mountainbike?"
+       ],
+       "correct": [
+        "Fährt Ihre Tochter jetzt mit Koljas altem Rad zur Schule?"
+       ],
+       "quote": "„Hab ich Herrn Steins Tochter geschenkt, die ist vierzehn und fährt damit jetzt zur Schule.“"
       }
      ],
      "worldRefs": {

@@ -11,6 +11,7 @@ import {
   schedulePopup, pickPopup, buildPopupSession, hydrate, markLessonDone, lessonParts, isPartDone, buildPartSession,
 } from './game.js';
 import { gradeMatch, gradeSequence } from './answer.js';
+import { seedOptionalCards, groupByItem, buildReviewSession } from './game.js';
 
 const index = buildIndex(loadChapters());
 const at = (s) => new Date(s);
@@ -71,7 +72,9 @@ test('Level-Session spielt genau einen Teil: Original zuerst, Zähler "Teil X ·
   assert.equal(session.entries[0].showSource, true);
   assert.ok(session.entries.slice(1).every((e) => !e.showSource));
   assert.ok(session.entries.every((e) => e.cardId.startsWith('z1-umzug-d:')));
-  assert.deepEqual(session.entries.map((e) => e.feld), [1, 2, 3, 4].map((n) => ({ n, of: 4, part: 1, parts: 3 })));
+  // 4 Fragen + die optionale Wiedersehen-Frage als letzte
+  assert.deepEqual(session.entries.map((e) => e.feld), [1, 2, 3, 4, 5].map((n) => ({ n, of: 5, part: 1, parts: 3 })));
+  assert.equal(session.entries.at(-1).cardId, 'z1-umzug-d:w1');
 });
 
 test('Ringsegment = Teil: Teil geschafft füllt ein Segment, Level erst nach allen Teilen fertig', () => {
@@ -81,14 +84,17 @@ test('Ringsegment = Teil: Teil geschafft füllt ein Segment, Level erst nach all
   assert.equal(parts.length, 3);
   const [p1, p2] = parts;
   let r;
-  for (const id of p1.cardIds.slice(0, -1)) s = commitAnswer(index, s, { cardId: id, mode: 'new' }, 'good', now).state;
+  const last = p1.required.at(-1);
+  for (const id of p1.required.slice(0, -1)) s = commitAnswer(index, s, { cardId: id, mode: 'new' }, 'good', now).state;
+  s = commitAnswer(index, s, { cardId: last, mode: 'new' }, 'poor', now).state;
+  // Die optionale Wiedersehen-Frage daneben zu tippen hält den Teil nicht auf.
   s = commitAnswer(index, s, { cardId: p1.cardIds.at(-1), mode: 'new' }, 'poor', now).state;
   assert.deepEqual(lessonSegments(index, s, 'z1-buero'), { total: 3, done: 0 });
   // Zweiter Versuch am Ende der Session meistert die Frage, ohne das Intervall zu ändern
-  const before = s.cards[p1.cardIds.at(-1)].due;
-  r = commitAnswer(index, s, { cardId: p1.cardIds.at(-1), mode: 'retry' }, 'good', now);
+  const before = s.cards[last].due;
+  r = commitAnswer(index, s, { cardId: last, mode: 'retry' }, 'good', now);
   s = r.state;
-  assert.equal(s.cards[p1.cardIds.at(-1)].due, before);
+  assert.equal(s.cards[last].due, before);
   assert.equal(isPartDone(s, p1), true);
   assert.deepEqual(lessonSegments(index, s, 'z1-buero'), { total: 3, done: 1 });
   assert.equal(isLessonComplete(index, s, 'z1-buero'), false);
@@ -211,9 +217,13 @@ test('7-Tage-Streak schaltet unendliche Aufmerksamkeit bis Mitternacht frei', ()
 test('Lektion fertig → nächster Knoten current, Karten werden fällig und erscheinen als due', () => {
   const d1 = at('2026-09-23T10:00:00');
   let s = initialState();
-  let events;
-  for (const id of index.lessons.get('z1-buero').cardIds) ({ state: s, events } = commitAnswer(index, s, { cardId: id, mode: 'new' }, 'good', d1));
-  assert.equal(events.lessonDone, 'z1-buero');
+  let done = null;
+  for (const id of index.lessons.get('z1-buero').cardIds) {
+    const r = commitAnswer(index, s, { cardId: id, mode: 'new' }, 'good', d1);
+    s = r.state;
+    done = done || r.events.lessonDone;
+  }
+  assert.equal(done, 'z1-buero');
   let path = buildPath(index, s, d1);
   assert.equal(path[0].nodes[0].status, 'done');
   assert.equal(path[0].nodes[1].status, 'current');
@@ -279,4 +289,53 @@ test('Erledigter Teil frei gewählt: alles, nur Fragen (aus dem Gedächtnis), nu
 
   // Fällige Wiederholungen und Pop-up-Tests kommen ebenfalls aus dem Gedächtnis.
   assert.ok(buildDueSession(index, s, lessonId, now).entries.every((e) => e.fromMemory));
+});
+
+test('Wiedersehen-Fragen: optional, zählen nicht für "Teil geschafft"', () => {
+  const card = index.cards.get('z1-kaffeekueche-d:w1');
+  assert.equal(card.optional, true);
+  assert.equal(card.kind, 'match');
+  assert.equal(card.ex.correct.length, 1);
+  const info = index.lessons.get('z1-buero');
+  assert.ok(info.cardIds.includes('z1-kaffeekueche-d:w1'));
+  assert.ok(!info.requiredIds.includes('z1-kaffeekueche-d:w1'));
+});
+
+test('Neue Wiedersehen-Fragen in geschafften Teilen werden verteilt fällig, offene Teile bleiben unberührt', () => {
+  const d1 = at('2026-09-01T10:00:00');
+  let s = initialState();
+  // Alle Pflichtfragen von z1-buero gemeistert (wie vor der Einführung der Wiedersehen-Fragen)
+  for (const id of index.lessons.get('z1-buero').requiredIds) s = commitAnswer(index, s, { cardId: id, mode: 'new' }, 'good', d1).state;
+  // Von z1-umzug nur Teil 1 halb
+  s = commitAnswer(index, s, { cardId: 'z1-umzug-d:q1', mode: 'new' }, 'good', d1).state;
+  const now = at('2026-10-17T09:00:00');
+  const seeded = seedOptionalCards(index, s, now);
+  const w = ['z1-kaffeekueche-d:w1', 'z1-buero-d2:w1', 'z1-feierabend-d:w1'];
+  assert.ok(w.every((id) => seeded.cards[id] && seeded.cards[id].stage === 0));
+  // höchstens 2 pro Tag: zwei heute, eine morgen
+  assert.deepEqual(w.map((id) => seeded.cards[id].due).sort(), ['2026-10-17', '2026-10-17', '2026-10-18']);
+  assert.equal(seeded.cards['z1-umzug-d:w1'], undefined);
+  // Das Level bleibt geschafft, der Teil geht nicht wieder auf
+  assert.equal(isLessonComplete(index, seeded, 'z1-buero'), true);
+  assert.equal(lessonSegments(index, seeded, 'z1-buero').done, 3);
+  // Kein zweites Mal
+  assert.equal(seedOptionalCards(index, seeded, now), seeded);
+  // Die fälligen erscheinen als Wiederholung mit Zwischenscreen ("aus dem Gedächtnis")
+  const session = buildReviewSession(index, seeded, now);
+  assert.ok(session.entries.some((e) => e.cardId === 'z1-kaffeekueche-d:w1' && e.mode === 'review' && e.fromMemory));
+});
+
+test('Wiederholungen bündeln die Fragen einer Geschichte (ein Zwischenscreen pro Geschichte)', () => {
+  const ids = ['z1-umzug-d:q2', 'z1-paket-d:m1', 'z1-umzug-d:q1', 'z1-paket-d:q1', 'z1-umzug-d:w1'];
+  assert.deepEqual(groupByItem(index, ids), [['z1-umzug-d:q1', 'z1-umzug-d:q2', 'z1-umzug-d:w1'], ['z1-paket-d:q1', 'z1-paket-d:m1']]);
+  const d1 = at('2026-09-23T10:00:00');
+  let s = initialState();
+  for (const id of index.lessons.get('z1-buero').cardIds) s = commitAnswer(index, s, { cardId: id, mode: 'new' }, 'good', d1).state;
+  const due = buildDueSession(index, s, 'z1-buero', at('2026-09-24T10:00:00'));
+  const items = due.entries.map((e) => index.cards.get(e.cardId).item.id);
+  // Jede Geschichte kommt genau einmal als zusammenhängender Block
+  const blocks = items.filter((id, i) => id !== items[i - 1]);
+  assert.equal(new Set(blocks).size, blocks.length);
+  // Runden bleiben kurz: ganze Geschichten, höchstens etwa 10 Fragen (13 fällig → 2 Geschichten)
+  assert.ok(due.entries.length <= 10 && due.entries.length >= 8);
 });

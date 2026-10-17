@@ -110,6 +110,23 @@
         "Flug um sechs Uhr",
         "Schlüssel holen in Porto"
        ]
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Paul",
+       "prompt": "Nach dem Urlaub triffst du Paul. Was fragst du ihn?",
+       "options": [
+        "Wie war Porto? Seid ihr über die Brücke gelaufen?",
+        "Wie war Lissabon? Seid ihr über die Brücke gelaufen?",
+        "Wie war der Flug ab Köln?",
+        "Wie teuer war das Taxi um vier zum Flughafen?"
+       ],
+       "correct": [
+        "Wie war Porto? Seid ihr über die Brücke gelaufen?"
+       ],
+       "quote": "„… und am Nachmittag wollte ich die Brücke Dom Luís einmal zu Fuß überqueren.“"
       }
      ],
      "worldRefs": {
@@ -218,6 +235,23 @@
         "Frisches Brot"
        ],
        "quote": "„… bringt angeblich jeden Morgen frisches Brot vorbei.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Aylin",
+       "prompt": "Nach dem Urlaub triffst du Aylin. Was fragst du sie?",
+       "options": [
+        "Habt ihr im Douro-Tal Portwein beim Winzer probiert?",
+        "Habt ihr in Lissabon Portwein beim Winzer probiert?",
+        "Habt ihr im Douro-Tal eine Fahrradtour gemacht?",
+        "Wart ihr in der Pizzeria, die Dona Rosa empfohlen hat?"
+       ],
+       "correct": [
+        "Habt ihr im Douro-Tal Portwein beim Winzer probiert?"
+       ],
+       "quote": "„… und du wolltest ja unbedingt mal Portwein direkt beim Winzer probieren.“"
       }
      ],
      "worldRefs": {
@@ -342,6 +376,23 @@
        ],
        "solution": "Um 9:25.",
        "quote": "„Morgen geht der Zug ins Douro-Tal um 9:25.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Aylin",
+       "prompt": "Zurück aus Porto triffst du Aylin. Worauf sprichst du sie an?",
+       "options": [
+        "Hast du alle Bäckereien von Dona Rosas Karte geschafft?",
+        "Hast du alle Museen von Dona Rosas Liste geschafft?",
+        "Hat dir der Gitarrist noch ein Lied gespielt?",
+        "Hattest du oben auf dem Turm keine Höhenangst?"
+       ],
+       "correct": [
+        "Hast du alle Bäckereien von Dona Rosas Karte geschafft?"
+       ],
+       "quote": "„Sie hat uns sogar eine Karte vom Viertel gemalt, mit Kreuzen bei den besten Bäckereien.“"
       }
      ],
      "worldRefs": {
@@ -472,6 +523,23 @@
         "Maltes Onkel"
        ],
        "quote": "„… Maltes Onkel, der ist Standesbeamter in Celle.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Deniz",
+       "prompt": "Ein paar Tage später triffst du Deniz. Was fragst du ihn?",
+       "options": [
+        "Freust du dich auf die Foodtrucks bei der Hochzeit?",
+        "Freust du dich auf das Buffet bei der Hochzeit?",
+        "Hast du schon einen Anzug für die Hochzeit?",
+        "Ist die Hochzeit immer noch im September?"
+       ],
+       "correct": [
+        "Freust du dich auf die Foodtrucks bei der Hochzeit?"
+       ],
+       "quote": "„Und das Beste: Es gibt kein Buffet, sondern Foodtrucks.“"
       }
      ],
      "worldRefs": {
@@ -569,6 +637,23 @@
         "Um halb zwei"
        ],
        "quote": "„… wir sollten um halb zwei da sein, weil es nur einen kleinen Parkplatz gibt.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Sarah",
+       "prompt": "Ein paar Wochen nach der Hochzeit triffst du Sarah. Was fragst du sie?",
+       "options": [
+        "Wie war eure Hochzeitsreise nach Island?",
+        "Wie war eure Hochzeitsreise nach Norwegen?",
+        "Wie war eure Hochzeitsreise nach Mallorca?",
+        "Hat dein Bruder eine schöne Rede gehalten?"
+       ],
+       "correct": [
+        "Wie war eure Hochzeitsreise nach Island?"
+       ],
+       "quote": "„Die beiden wünschen sich einen Zuschuss für die Hochzeitsreise nach Island.“"
       }
      ],
      "worldRefs": {
@@ -691,6 +776,23 @@
         ]
        ],
        "solution": "Maltes Oma.",
+       "quote": "„Gefangen hat ihn übrigens Maltes Oma.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Malte",
+       "prompt": "Ein paar Tage nach der Hochzeit triffst du Malte. Worauf sprichst du ihn an?",
+       "options": [
+        "Deine Oma hat den Brautstrauß gefangen, oder?",
+        "Deine Schwester hat den Brautstrauß gefangen, oder?",
+        "Schade, dass das Pferd den Brautstrauß gefressen hat.",
+        "Gut, dass es beim Ja-Wort trocken geblieben ist."
+       ],
+       "correct": [
+        "Deine Oma hat den Brautstrauß gefangen, oder?"
+       ],
        "quote": "„Gefangen hat ihn übrigens Maltes Oma.“"
       }
      ],
@@ -827,6 +929,23 @@
        ],
        "solution": "Seinen Zahnarzttermin.",
        "quote": "„Wenn Opa Günter seinen Zahnarzttermin bis dahin hinter sich hat …“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Oma Ilse",
+       "prompt": "Eine Woche später rufst du Oma Ilse an. Was fragst du sie?",
+       "options": [
+        "Wie war die Wassergymnastik am Dienstag?",
+        "Wie war die Wassergymnastik am Donnerstag?",
+        "Wie war der Yogakurs mit Frau Brenner?",
+        "Hat Opa den Rasenmäher schon zurückgebracht?"
+       ],
+       "correct": [
+        "Wie war die Wassergymnastik am Dienstag?"
+       ],
+       "quote": "„Dienstags geh ich jetzt zur Wassergymnastik, mit Frau Brenner von nebenan.“"
       }
      ],
      "worldRefs": {
@@ -959,6 +1078,23 @@
        ],
        "solution": "Apfelstrudel.",
        "quote": "„… und hinterher Apfelstrudel …“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Opa Günter",
+       "prompt": "Nach Ostern triffst du Opa Günter. Worauf sprichst du ihn an?",
+       "options": [
+        "Und, die zwei Füllungen beim Zahnarzt gut überstanden?",
+        "Und, die Weisheitszahn-OP gut überstanden?",
+        "Habt ihr die Schokoeier vom letzten Jahr gefunden?",
+        "Hat der Lachs an Ostern geschmeckt?"
+       ],
+       "correct": [
+        "Und, die zwei Füllungen beim Zahnarzt gut überstanden?"
+       ],
+       "quote": "„Den Zahnarzt hat er übrigens hinter sich, zwei Füllungen.“"
       }
      ],
      "worldRefs": {
@@ -1069,6 +1205,23 @@
        ],
        "solution": "In den Kamin.",
        "quote": "„Die kommen in den Kamin.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Oma Ilse",
+       "prompt": "Ein paar Wochen später rufst du Oma Ilse an. Was fragst du sie?",
+       "options": [
+        "Blühen die Apfelzweige schon in der Küche?",
+        "Blühen die Kirschzweige schon in der Küche?",
+        "Hast du aus den Ästen einen Zaun gebaut?",
+        "Ist der Apfelbaum jetzt eigentlich dreißig Jahre alt?"
+       ],
+       "correct": [
+        "Blühen die Apfelzweige schon in der Küche?"
+       ],
+       "quote": "„Und ein paar Zweige stelle ich ins Wasser, dann blühen sie in der Küche …“"
       }
      ],
      "worldRefs": {
@@ -1201,6 +1354,23 @@
        ],
        "solution": "Für elf.",
        "quote": "„Ich hab für elf Leute reserviert …“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Tobias",
+       "prompt": "Am Mittwoch triffst du Tobias im Flur. Was fragst du ihn?",
+       "options": [
+        "Bist du mit der Preisliste fertig geworden?",
+        "Bist du mit der Budgetplanung fertig geworden?",
+        "Bist du mit der Kundenpräsentation fertig geworden?",
+        "Hast du beim Italiener für Freitag reserviert?"
+       ],
+       "correct": [
+        "Bist du mit der Preisliste fertig geworden?"
+       ],
+       "quote": "„Tobias, du prüfst bitte bis Mittwoch die Preisliste.“"
       }
      ],
      "worldRefs": {
@@ -1328,6 +1498,23 @@
        ],
        "solution": "Ein Kalkproblem.",
        "quote": "„Es war ein Kalkproblem.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Marco",
+       "prompt": "Nach dem Teamessen triffst du Marco. Worauf sprichst du ihn an?",
+       "options": [
+        "Gab es das Baklava für dich ohne Nüsse?",
+        "Gab es das Tiramisu für dich ohne Alkohol?",
+        "Gab es für dich genug ohne Gluten?",
+        "Wie war es in Hamburg?"
+       ],
+       "correct": [
+        "Gab es das Baklava für dich ohne Nüsse?"
+       ],
+       "quote": "„Und ich hab gehört, Marco ist allergisch gegen Nüsse.“"
       }
      ],
      "worldRefs": {
@@ -1458,6 +1645,23 @@
         ]
        ],
        "solution": "Fünfhundert.",
+       "quote": "„Die ersten fünfhundert Stück sind schon verkauft.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Tobias",
+       "prompt": "Am Nachmittag des Launchs triffst du Tobias. Was sagst du zu ihm?",
+       "options": [
+        "Fünfhundert Stück schon verkauft, nicht schlecht, oder?",
+        "Fünftausend Stück schon verkauft, nicht schlecht, oder?",
+        "Gut, dass der Lastwagen in den Hof gepasst hat.",
+        "Schade, dass es keine Brezeln gab."
+       ],
+       "correct": [
+        "Fünfhundert Stück schon verkauft, nicht schlecht, oder?"
+       ],
        "quote": "„Die ersten fünfhundert Stück sind schon verkauft.“"
       }
      ],

@@ -8,12 +8,12 @@ import { Mascot, SpeechBubble } from '../ds/feedback.jsx';
 import { GoalRing, HeartsMeter, InfinityPill, PathNode, StreakPill, XPPill } from '../ds/progress.jsx';
 import { SettingsSheet } from './Settings.jsx';
 import {
-  buildPath, doneTodayCount, dueCardIds, hasAnyProgress, isInfinite, nextLessonAfter, daysSinceFirstSeen, isMastered, pickPopup,
-  lessonParts, isPartDone, leastRecentPart,
+  buildPath, doneTodayCount, dueCardIds, hasAnyProgress, isInfinite, nextLessonAfter, daysSinceFirstSeen, pickPopup,
+  lessonParts, isPartDone, leastRecentPart, msToNextHeart, xpTodayCount, memoryStats, MAX_HEARTS,
 } from '../engine/game.js';
-import { dayKey, daysBetween } from '../engine/dates.js';
+import { addDays, dayKey, daysBetween, weekdayMon } from '../engine/dates.js';
 import { Sheet } from '../ds/feedback.jsx';
-import { cap, daysAgoText, numWord } from '../lib/format.js';
+import { cap, daysAgoText, numWord, formatDuration, days as daysText } from '../lib/format.js';
 import { prefersReducedMotion, useCountUp, usePresence, EASE } from '../lib/motion.js';
 
 const OFFSETS = [0, 56, 82, 40, -14, -56, -82, -40];
@@ -30,12 +30,47 @@ function useNarrow() {
 }
 
 /* ---- Kopfzeile -------------------------------------------------------------- */
+/** Woche Mo–So: geübte Tage mit Haken, heute hervorgehoben. */
+function WeekRow({ practiced, today }) {
+  const monday = addDays(today, -weekdayMon(today));
+  return (
+    <div style={{ display: 'flex', justifyContent: 'space-between', gap: 6 }}>
+      {['M', 'D', 'M', 'D', 'F', 'S', 'S'].map((d, i) => {
+        const key = addDays(monday, i);
+        const done = practiced.has(key);
+        const isToday = key === today;
+        return (
+          <span key={key} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 5, flex: 1 }}>
+            <span style={{ width: 34, height: 34, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
+              background: done ? 'var(--state-streak)' : 'var(--surface-locked)', color: '#fff',
+              boxShadow: isToday ? '0 0 0 3px var(--surface-card), 0 0 0 5px var(--state-streak)' : 'none' }}>
+              {done && <Icon name={isToday ? 'flame' : 'check'} size={16} strokeWidth={3} fill={isToday ? 'currentColor' : 'none'} />}
+            </span>
+            <span style={{ font: 'var(--type-label)', fontWeight: 700, color: isToday ? 'var(--text-ink)' : 'var(--text-subtle)' }}>{d}</span>
+          </span>
+        );
+      })}
+    </div>
+  );
+}
+
+/** Antippbarer Wert in der Kopfzeile (Streak, Federn, Herzen): klappt eine Info darunter auf. */
+function HeaderStat({ active, label, onClick, children }) {
+  return (
+    <button type="button" onClick={onClick} aria-label={label} aria-expanded={active}
+      style={{ display: 'inline-flex', alignItems: 'center', height: 40, padding: '0 8px', borderRadius: 'var(--radius-pill)', border: 'none', cursor: 'pointer',
+        background: active ? 'var(--surface-sunken)' : 'transparent', transition: 'background var(--dur-fast) var(--ease-out-soft)' }}>
+      {children}
+    </button>
+  );
+}
+
 export function PathHeader({ xpFrom, xpDelay = 300, streakBump = false, onMenu }) {
-  const { state } = useStore();
+  const { state, index } = useStore();
   const p = state.progress;
   const infinite = isInfinite(p);
-  const [tip, setTip] = useState(false);
-  const [tipShown, tipLeaving] = usePresence(tip, 220);
+  const [panel, setPanel] = useState(null);
+  const [panelShown, panelLeaving] = usePresence(panel, 200);
   const [bump, setBump] = useState(0);
   const xp = useCountUp(p.xp, { from: xpFrom ?? p.xp, delay: xpDelay, run: xpFrom != null && xpFrom !== p.xp });
   useEffect(() => {
@@ -43,25 +78,85 @@ export function PathHeader({ xpFrom, xpDelay = 300, streakBump = false, onMenu }
     const t = setTimeout(() => setBump(1), 400);
     return () => clearTimeout(t);
   }, [streakBump]);
-  useEffect(() => {
-    if (!tip) return undefined;
-    const t = setTimeout(() => setTip(false), 4000);
-    return () => clearTimeout(t);
-  }, [tip]);
+  const toggle = (k) => setPanel((cur) => (cur === k ? null : k));
+  const today = dayKey();
+  const practicedToday = p.lastActiveDay === today;
+
+  let content = null;
+  if (panelShown === 'streak') {
+    content = (
+      <>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+          <span style={{ color: p.streak > 0 ? 'var(--state-streak)' : 'var(--text-subtle)', display: 'inline-flex' }}><Icon name="flame" size={40} strokeWidth={2.2} fill={p.streak > 0 ? 'var(--accent-xp-soft)' : 'none'} /></span>
+          <span className="stack" style={{ gap: 2 }}>
+            <span style={{ font: 'var(--type-title)', color: 'var(--text-ink)' }}>{p.streak > 0 ? `${daysText(p.streak)} Streak` : 'Noch kein Streak'}</span>
+            <span style={{ font: 'var(--type-body)', color: 'var(--text-muted)' }}>{practicedToday ? 'Heute schon geübt. Der Streak ist sicher.' : p.streak > 0 ? 'Eine Karte heute, und er läuft weiter.' : 'Eine Karte am Tag genügt.'}</span>
+          </span>
+        </div>
+        <WeekRow practiced={new Set(p.practicedDays || [])} today={today} />
+        {p.longestStreak > 1 && <span style={{ font: 'var(--type-label)', fontWeight: 600, color: 'var(--text-subtle)' }}>Längster Streak: {daysText(p.longestStreak)}</span>}
+      </>
+    );
+  } else if (panelShown === 'xp') {
+    const mem = memoryStats(index, state);
+    content = (
+      <>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+          <XPPill xp={p.xp} size="lg" />
+          <span style={{ font: 'var(--type-body)', color: 'var(--text-muted)' }}>Federn insgesamt · heute +{xpTodayCount(p)}</span>
+        </div>
+        <div style={{ display: 'flex', gap: 10 }}>
+          <div style={{ flex: 1, padding: '12px 14px', borderRadius: 'var(--radius-md)', background: 'var(--surface-sunken)' }}>
+            <div style={{ font: 'var(--type-title)', color: 'var(--text-ink)' }}>{mem.known}</div>
+            <div style={{ font: 'var(--type-label)', fontWeight: 500, color: 'var(--text-muted)' }}>Fragen im Gedächtnis</div>
+          </div>
+          <div style={{ flex: 1, padding: '12px 14px', borderRadius: 'var(--radius-md)', background: 'var(--state-correct-soft)' }}>
+            <div style={{ font: 'var(--type-title)', color: 'var(--text-ink)' }}>{mem.longTerm}</div>
+            <div style={{ font: 'var(--type-label)', fontWeight: 500, color: 'var(--text-muted)' }}>davon langfristig (16+ Tage)</div>
+          </div>
+        </div>
+      </>
+    );
+  } else if (panelShown === 'hearts') {
+    const wait = msToNextHeart(p);
+    content = (
+      <>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+          {infinite ? <span style={{ color: 'var(--state-heart)', display: 'inline-flex', gap: 4 }}><Icon name="heart" size={30} fill="currentColor" /><Icon name="infinity" size={32} strokeWidth={2.6} /></span> : <HeartsMeter value={p.hearts} size={26} />}
+          <span style={{ font: 'var(--type-headline)', color: 'var(--text-ink)' }}>
+            {infinite ? 'Unendlich bis Mitternacht' : p.hearts >= MAX_HEARTS ? 'Volle Aufmerksamkeit' : `Nächstes Herz in ${formatDuration(wait)}`}
+          </span>
+        </div>
+        <span style={{ font: 'var(--type-body)', color: 'var(--text-muted)' }}>
+          {infinite ? `Belohnung für ${daysText(p.streak)} am Stück. Fehler kosten heute nichts.` : 'Ein Herz geht nur verloren, wenn bei einer neuen Frage kaum etwas hängen bleibt. Wiederholungen kosten nie eins.'}
+        </span>
+      </>
+    );
+  }
+
   return (
     <header className="path-header">
-      <div style={{ display: 'flex', alignItems: 'center', gap: 16, minWidth: 0 }}>
-        <StreakPill days={p.streak} active={p.streak > 0} bump={bump} />
-        <XPPill xp={xp} />
-        {infinite ? <InfinityPill onClick={() => setTip((t) => !t)} /> : <HeartsMeter value={p.hearts} size={18} />}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 4, minWidth: 0, marginLeft: -8 }}>
+        <HeaderStat active={panel === 'streak'} label={`Streak ${p.streak} Tage`} onClick={() => toggle('streak')}><StreakPill days={p.streak} active={p.streak > 0} bump={bump} /></HeaderStat>
+        <HeaderStat active={panel === 'xp'} label={`${p.xp} Federn`} onClick={() => toggle('xp')}><XPPill xp={xp} /></HeaderStat>
+        <HeaderStat active={panel === 'hearts'} label={infinite ? 'Aufmerksamkeit unendlich' : `Aufmerksamkeit ${p.hearts} von ${MAX_HEARTS}`} onClick={() => toggle('hearts')}>
+          {infinite ? <InfinityPill /> : <HeartsMeter value={p.hearts} size={18} />}
+        </HeaderStat>
       </div>
-      <IconButton icon="menu" label="Menü" size={44} onClick={onMenu} />
-      {tipShown && (
-        <div role="tooltip" className={tipLeaving ? 'a-leave' : 'a-rise'} style={{ position: 'absolute', top: 'calc(60px + env(safe-area-inset-top))', left: 110, width: 'min(230px, calc(100% - 110px - var(--gutter-screen)))', background: '#1F2130', color: '#fff',
-          borderRadius: 'var(--radius-md)', padding: '12px 14px', boxShadow: 'var(--shadow-raised)', animationDuration: '200ms' }}>
-          <span style={{ display: 'block', font: 'var(--type-headline)', fontSize: 'var(--text-body)', marginBottom: 2 }}>Unendlich bis Mitternacht</span>
-          <span style={{ display: 'block', font: 'var(--type-label)', fontWeight: 500, color: 'rgba(255,255,255,.75)' }}>Belohnung für {p.streak} Tage am Stück. Fehler kosten heute nichts.</span>
-        </div>
+      <IconButton icon="menu" label="Menü" size={44} onClick={() => { setPanel(null); onMenu(); }} />
+      {panelShown && (
+        <>
+          <div aria-hidden="true" onClick={() => setPanel(null)}
+            style={{ position: 'absolute', top: '100%', left: 0, right: 0, height: '100dvh', background: 'var(--overlay-scrim)',
+              animation: panelLeaving ? 'spur-scrim-out 200ms var(--ease-out-soft) both' : 'spur-scrim-in 200ms var(--ease-out-soft) both', opacity: 0.5 }} />
+          <div role="dialog" aria-label={panelShown === 'streak' ? 'Streak' : panelShown === 'xp' ? 'Federn' : 'Aufmerksamkeit'} key={panelShown}
+            className={panelLeaving ? 'a-leave' : 'a-drop'}
+            style={{ position: 'absolute', top: '100%', left: 0, right: 0, background: 'var(--surface-card)', borderBottom: '2px solid var(--border-default)',
+              borderBottomLeftRadius: 'var(--radius-xl)', borderBottomRightRadius: 'var(--radius-xl)', boxShadow: 'var(--shadow-raised)',
+              padding: '18px var(--gutter-screen) 22px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+            {content}
+          </div>
+        </>
       )}
     </header>
   );
@@ -101,8 +196,8 @@ function nodeInfo(node, state, index) {
     const due = node.cardIds.filter((id) => { const r = state.cards[id]; return r && r.stage >= 0 && r.due <= today; }).length;
     const d = daysSinceFirstSeen(state, node.cardIds, now);
     const allDone = lessonParts(index, node.id).every((p) => isPartDone(state, p));
-    if (t === 'read') return { title: 'Fällige Wiedergabe', meta: `${fragen(due)} · gelesen ${daysAgoText(d)}`, cta: 'Wiedergeben', variant: 'read', chooser: allDone ? 'collapsed' : false };
-    return { title: 'Fällige Wiederholung', meta: `${fragen(due)} · zuletzt ${daysAgoText(d)}`, cta: 'Wiederholen', variant: 'listen', chooser: allDone ? 'collapsed' : false };
+    if (t === 'read') return { title: node.lesson.title, meta: `Fällige Wiedergabe · ${fragen(due)} · gelesen ${daysAgoText(d)}`, cta: 'Wiedergeben', variant: 'read', chooser: allDone ? 'collapsed' : false };
+    return { title: node.lesson.title, meta: `Fällige Wiederholung · ${fragen(due)} · zuletzt ${daysAgoText(d)}`, cta: 'Wiederholen', variant: 'listen', chooser: allDone ? 'collapsed' : false };
   }
   if (next) {
     // Offener Teil: "Teil 2 von 4 · 1 Gespräch · 3 Fragen · ca. 3 Minuten"
@@ -181,7 +276,8 @@ function PartChooser({ node, state, index, collapsed, onChoose }) {
 
 /* ---- Kapitel-Banner --------------------------------------------------------- */
 function ChapterBanner({ group }) {
-  const { chapter, number, complete } = group;
+  const { chapter, number, complete, nodes } = group;
+  const doneN = nodes.filter((x) => x.status === 'done' || x.status === 'due').length;
   if (complete) {
     return (
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, padding: 14, borderRadius: 'var(--radius-lg)', background: 'var(--spur-amber)', boxShadow: 'var(--shadow-edge-amber)' }}>
@@ -199,9 +295,10 @@ function ChapterBanner({ group }) {
   const shade = tone === 'read' ? 'var(--track-read-shade)' : tone === 'listen' ? 'var(--track-listen-shade)' : 'var(--spur-indigo)';
   return (
     <Card tone={tone} padding={14} elevated={false} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
-      <span style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+      <span style={{ display: 'flex', flexDirection: 'column', gap: 2, minWidth: 0 }}>
         <span className="overline" style={{ color: shade }}>Kapitel {number}</span>
         <span style={{ font: 'var(--type-headline)', color: 'var(--text-ink)' }}>{chapter.title}</span>
+        <span style={{ font: 'var(--type-label)', fontWeight: 500, color: 'var(--text-muted)' }}>{doneN} von {nodes.length} geschafft</span>
       </span>
       <Badge tone={tone} variant="solid" size="sm">{TRACK_NAME[tone]}</Badge>
     </Card>
@@ -209,8 +306,9 @@ function ChapterBanner({ group }) {
 }
 
 /* ---- Knoten mit Überblendung (3e) ------------------------------------------ */
-function NodeView({ node, from, delay, freshPart, onTap, nodeRef }) {
-  const common = { track: node.track === 'mixed' ? 'mixed' : node.track, icon: node.lesson.type === 'checkpoint' ? 'target' : undefined };
+function NodeView({ node, from, delay, freshPart, onTap, nodeRef, started }) {
+  const common = { track: node.track === 'mixed' ? 'mixed' : node.track, icon: node.lesson.type === 'checkpoint' ? 'target' : undefined,
+    bubble: node.status === 'current' ? (started ? 'Weiter' : 'Start') : null };
   const label = node.lesson.type === 'checkpoint' && node.status !== 'locked' ? 'Checkpoint' : node.label;
   const tap = node.status === 'locked' ? undefined : (e) => { e.stopPropagation(); onTap(node); };
   const aria = `${node.lesson.title}${node.status === 'locked' ? ', gesperrt' : node.status === 'due' ? ', fällig' : node.status === 'done' ? ', erledigt' : ''}`;
@@ -248,6 +346,7 @@ export function Home({ anim, onOpenNode, onPopupTest }) {
   const wrapRef = useRef(null);
   const nodeEls = useRef(new Map());
   const sectionEls = useRef(new Map());
+  const bannerEls = useRef(new Map());
   const [sticky, setSticky] = useState(null);
   const [targetVisible, setTargetVisible] = useState(true);
   const [popup, setPopup] = useState(null);
@@ -312,21 +411,22 @@ export function Home({ anim, onOpenNode, onPopupTest }) {
     return () => { clearTimeout(t1); clearTimeout(t2); };
   }, [anim?.key]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Sticky Kapitel-Leiste: Welches Kapitel liegt gerade oben im Sichtbereich?
-  // IntersectionObserver auf die Kapitel-Abschnitte mit einem schmalen Band unter der Leiste.
+  // Sticky Kapitel-Leiste: erst, wenn das Banner eines Kapitels ganz nach oben weggescrollt ist
+  // (sonst stünde der Titel doppelt da). Es gilt das zuletzt weggescrollte Banner.
   useEffect(() => {
     const root = scrollRef.current;
     if (!root || typeof IntersectionObserver === 'undefined') return undefined;
-    const inBand = new Set();
+    const passed = new Set();
     const order = groups.map((g) => g.chapter.id);
     const io = new IntersectionObserver((entries) => {
       for (const e of entries) {
-        const id = e.target.dataset.chapter;
-        if (e.isIntersecting) inBand.add(id); else inBand.delete(id);
+        const id = e.target.dataset.banner;
+        const top = e.rootBounds ? e.rootBounds.top : root.getBoundingClientRect().top;
+        if (!e.isIntersecting && e.boundingClientRect.bottom <= top + 1) passed.add(id); else passed.delete(id);
       }
-      setSticky(order.find((id) => inBand.has(id)) || null);
-    }, { root, rootMargin: `-44px 0px -${Math.max(0, root.clientHeight - 46)}px 0px`, threshold: 0 });
-    sectionEls.current.forEach((el) => el && io.observe(el));
+      setSticky([...order].reverse().find((id) => passed.has(id)) || null);
+    }, { root, threshold: 0 });
+    bannerEls.current.forEach((el) => el && io.observe(el));
     return () => io.disconnect();
   }, [groups]);
 
@@ -434,7 +534,9 @@ export function Home({ anim, onOpenNode, onPopupTest }) {
       })()}
       <div ref={scrollRef} className="screen-body" style={{ position: 'absolute', inset: 0, paddingBottom: 140 }} onClick={() => selected && setSelected(null)}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '16px var(--gutter-screen) 6px' }}>
-          <GoalRing value={done / goal} size={64} thickness={8} caption="Tagesziel" tone={done >= goal ? 'correct' : 'amber'}>{done}/{goal}</GoalRing>
+          <GoalRing value={done / goal} size={64} thickness={8} caption="Tagesziel" tone={done >= goal ? 'correct' : 'amber'}>
+            {done >= goal ? <Icon name="check" size={26} strokeWidth={3} color="var(--spur-green)" /> : `${done}/${goal}`}
+          </GoalRing>
           <SpeechBubble tail="left" tone="lavender" style={{ flex: 1 }}>{bubbleText(index, state)}</SpeechBubble>
         </div>
 
@@ -456,7 +558,8 @@ export function Home({ anim, onOpenNode, onPopupTest }) {
           {groups.map((g) => (
             <section key={g.chapter.id} aria-label={`Kapitel ${g.number}: ${g.chapter.title}`} data-chapter={g.chapter.id}
               ref={(el) => { if (el) sectionEls.current.set(g.chapter.id, el); else sectionEls.current.delete(g.chapter.id); }}>
-              <div style={{ margin: '24px var(--gutter-screen) 0', position: 'relative' }}>
+              <div data-banner={g.chapter.id} ref={(el) => { if (el) bannerEls.current.set(g.chapter.id, el); else bannerEls.current.delete(g.chapter.id); }}
+                style={{ margin: '24px var(--gutter-screen) 0', position: 'relative' }}>
                 <ChapterBanner group={g} />
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--node-gap)', marginTop: 28 }}>
@@ -467,6 +570,7 @@ export function Home({ anim, onOpenNode, onPopupTest }) {
                       delay={animState?.doneId === node.id ? 500 : 2400}
                       freshPart={!reduced && anim?.partDone?.lessonId === node.id && !anim.lessonDone ? anim.partDone.n : null}
                       onTap={(n) => setSelected(n)}
+                      started={node.cardIds.some((id) => state.cards[id])}
                       nodeRef={(el) => { if (el) nodeEls.current.set(node.id, el); else nodeEls.current.delete(node.id); }} />
                   </div>
                 ))}

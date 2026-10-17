@@ -109,6 +109,23 @@
        ],
        "solution": "Onkel Rüdiger.",
        "quote": "„Onkel Rüdiger — aber nur fünf Minuten …“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Ole",
+       "prompt": "Nach dem Fest triffst du Ole. Was fragst du ihn?",
+       "options": [
+        "Hast du die Cousins aus Kanada pünktlich vom Flughafen abgeholt?",
+        "Hast du die Cousins aus Australien pünktlich vom Flughafen abgeholt?",
+        "Hast du die Cousins aus Kanada pünktlich vom Bahnhof abgeholt?",
+        "Hast du die Rede für Opa gut hinbekommen?"
+       ],
+       "correct": [
+        "Hast du die Cousins aus Kanada pünktlich vom Flughafen abgeholt?"
+       ],
+       "quote": "„Und du, Ole, du holst die Cousins am Nachmittag vom Flughafen ab.“"
       }
      ],
      "worldRefs": {
@@ -232,6 +249,23 @@
         "Gutschein beim Nachtisch",
         "Tanzen"
        ]
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Oma",
+       "prompt": "Im Frühling besuchst du Oma. Worauf sprichst du sie an?",
+       "options": [
+        "Was wächst denn schon aus den Samen für deinen Kräutergarten?",
+        "Wie halten sich die Blumen vom Fest?",
+        "Hast du die Rosen vom Fest eingepflanzt?",
+        "Freust du dich auf die Ballonfahrt über den Bodensee?"
+       ],
+       "correct": [
+        "Was wächst denn schon aus den Samen für deinen Kräutergarten?"
+       ],
+       "quote": "„Ach, und Oma möchte keine Blumen, sondern lieber Samen für ihren Kräutergarten.“"
       }
      ],
      "worldRefs": {
@@ -352,6 +386,23 @@
         "Schnittlauch",
         "Salbei"
        ]
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Opa",
+       "prompt": "Im Juni triffst du Opa. Was fragst du ihn?",
+       "options": [
+        "Wie war die Ballonfahrt mit Oma im Mai?",
+        "Wie war die Ballonfahrt mit Onkel Rüdiger im Mai?",
+        "Wie war die Ballonfahrt mit Oma im August?",
+        "Hängt euer Hochzeitsfoto jetzt im Wohnzimmer?"
+       ],
+       "correct": [
+        "Wie war die Ballonfahrt mit Oma im Mai?"
+       ],
+       "quote": "„Der Termin ist im Mai, wenn das Wetter hält.“"
       }
      ],
      "worldRefs": {
@@ -460,6 +511,23 @@
        ],
        "solution": "Zehn Prozent mehr Gehalt.",
        "quote": "„… dann hat er mir zehn Prozent mehr Gehalt angeboten.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Deniz",
+       "prompt": "Im Oktober triffst du Deniz. Was fragst du ihn?",
+       "options": [
+        "Wie läuft es bei der Stiftung mit den Lesepaten?",
+        "Wie läuft es bei der Stiftung mit den Sportpaten?",
+        "Wie läuft es im Kindergarten?",
+        "Hast du die Gehaltserhöhung von Herrn Wendt angenommen?"
+       ],
+       "correct": [
+        "Wie läuft es bei der Stiftung mit den Lesepaten?"
+       ],
+       "quote": "„Ich plane Lesepatenschaften.“"
       }
      ],
      "worldRefs": {
@@ -566,6 +634,23 @@
         "Waffeln"
        ],
        "quote": "„Am letzten Tag gibt's Waffeln — das ist bei uns Tradition …“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Deniz",
+       "prompt": "Nach seinem letzten Arbeitstag triffst du Deniz. Worauf sprichst du ihn an?",
+       "options": [
+        "Wie kamen deine Abschiedswaffeln an?",
+        "Wie kam dein Abschiedskuchen an?",
+        "Freust du dich auf die Konferenz in Dresden?",
+        "Wie ist das neue Büro in Berlin-Mitte?"
+       ],
+       "correct": [
+        "Wie kamen deine Abschiedswaffeln an?"
+       ],
+       "quote": "„Am letzten Tag gibt's Waffeln — das ist bei uns Tradition, wer geht, backt.“"
       }
      ],
      "worldRefs": {
@@ -692,6 +777,23 @@
         "Er hat seinen Laptop im Zug liegen lassen"
        ],
        "quote": "„Ich hab meinen Laptop im Zug liegen lassen.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Deniz",
+       "prompt": "Ein paar Wochen später triffst du Deniz wieder. Was fragst du ihn?",
+       "options": [
+        "Liest der Kapitän immer noch die Schatzinsel vor?",
+        "Liest der Kapitän immer noch Pippi Langstrumpf vor?",
+        "Liest der Feuerwehrmann immer noch die Schatzinsel vor?",
+        "Ist dein Handy wieder aufgetaucht?"
+       ],
+       "correct": [
+        "Liest der Kapitän immer noch die Schatzinsel vor?"
+       ],
+       "quote": "„Er liest am liebsten ‚Die Schatzinsel‘, mit verstellten Stimmen.“"
       }
      ],
      "worldRefs": {
@@ -813,6 +915,23 @@
         "Durch einen Tunnel mit Stirnlampe",
         "In einer Bar am Hafen"
        ]
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Jakob",
+       "prompt": "Eine Woche später triffst du Jakob. Was fragst du ihn?",
+       "options": [
+        "Haben sich deine Knie von den Levadas erholt?",
+        "Hat sich dein Rücken von den Levadas erholt?",
+        "Haben sich deine Knie vom Skifahren erholt?",
+        "Hattet ihr am Pico Ruivo eine tolle Fernsicht?"
+       ],
+       "correct": [
+        "Haben sich deine Knie von den Levadas erholt?"
+       ],
+       "quote": "„Am zweiten Tag nur zwölf, weil meine Knie nicht mehr wollten.“"
       }
      ],
      "worldRefs": {
@@ -904,6 +1023,23 @@
        ],
        "solution": "In Lissabon.",
        "quote": "„… mein Rucksack ist beim Rückflug in Lissabon hängen geblieben.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Jakob",
+       "prompt": "Ein paar Tage später triffst du Jakob. Worauf sprichst du ihn an?",
+       "options": [
+        "Riecht dein Rucksack immer noch nach Ziegenkäse?",
+        "Riecht dein Koffer immer noch nach Fisch?",
+        "Hat dir der Schäfer Antonio wirklich Käse geschenkt?",
+        "War es in Funchal wirklich so kalt?"
+       ],
+       "correct": [
+        "Riecht dein Rucksack immer noch nach Ziegenkäse?"
+       ],
+       "quote": "„Der kam drei Tage später, mit dem Käse drin.“"
       }
      ],
      "worldRefs": {
@@ -1017,6 +1153,23 @@
        ],
        "solution": "Um vier Uhr.",
        "quote": "„Wir sind um vier Uhr aufgestanden.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Nele",
+       "prompt": "Ein paar Wochen später triffst du Nele. Was fragst du sie?",
+       "options": [
+        "Kommst du nächstes Mal mit nach Madeira?",
+        "Kommst du nächstes Mal mit nach Mallorca?",
+        "Hast du dir wirklich alle vierhundert Fotos angeschaut?",
+        "Hat die Ziege Luna wirklich Jakobs Karte gefressen?"
+       ],
+       "correct": [
+        "Kommst du nächstes Mal mit nach Madeira?"
+       ],
+       "quote": "„Okay, das ist wirklich schön. Vielleicht komme ich nächstes Mal doch mit.“"
       }
      ],
      "worldRefs": {
@@ -1142,6 +1295,23 @@
        ],
        "solution": "Frau Nowak.",
        "quote": "„Frau Nowak organisiert die Tombola …“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Herr Kraus",
+       "prompt": "Beim Sommerfest triffst du Herrn Kraus. Was sagst du zu ihm?",
+       "options": [
+        "Schön, dass Sie dieses Jahr mal nicht grillen müssen!",
+        "Schön, dass Sie dieses Jahr die Kasse machen!",
+        "Schön, dass Sie dieses Jahr die Tombola machen!",
+        "Haben Sie das Fahrrad für die Tombola gespendet?"
+       ],
+       "correct": [
+        "Schön, dass Sie dieses Jahr mal nicht grillen müssen!"
+       ],
+       "quote": "„Die Handballabteilung, Herr Kraus. Sie haben dieses Jahr frei.“"
       }
      ],
      "worldRefs": {
@@ -1232,6 +1402,23 @@
        "correct": [
         "Die Ehrenmitgliedschaft",
         "Eine Bank mit seinem Namen"
+       ],
+       "quote": "„Er bekommt zum Abschied die Ehrenmitgliedschaft. Und eine Bank am Spielfeldrand mit seinem Namen.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Herr Vogel",
+       "prompt": "Ein paar Wochen später triffst du Herrn Vogel. Worauf sprichst du ihn an?",
+       "options": [
+        "Gefällt Ihnen Ihre Bank am Spielfeldrand?",
+        "Gefällt Ihnen Ihr Pokal in der Vitrine?",
+        "Gefällt Ihnen Ihre Bank vor dem Vereinsheim?",
+        "Wie fühlt es sich an nach zwölf Jahren als Platzwart?"
+       ],
+       "correct": [
+        "Gefällt Ihnen Ihre Bank am Spielfeldrand?"
        ],
        "quote": "„Er bekommt zum Abschied die Ehrenmitgliedschaft. Und eine Bank am Spielfeldrand mit seinem Namen.“"
       }
@@ -1348,6 +1535,23 @@
        ],
        "solution": "Frau Nowak.",
        "quote": "„… einen neuen Platzwart: Frau Nowak.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Frau Nowak",
+       "prompt": "Im September triffst du Frau Nowak auf dem Sportplatz. Worauf sprichst du sie an?",
+       "options": [
+        "Wie läuft es als neue Platzwartin?",
+        "Wie läuft es als neue Kassenwartin?",
+        "Wie läuft es als neue Vorsitzende?",
+        "Glückwunsch zum Fahrrad aus der Tombola!"
+       ],
+       "correct": [
+        "Wie läuft es als neue Platzwartin?"
+       ],
+       "quote": "„Und wir haben einen neuen Platzwart: Frau Nowak. Sie fängt im September an.“"
       }
      ],
      "worldRefs": {

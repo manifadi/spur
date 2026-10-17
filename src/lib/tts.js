@@ -33,7 +33,7 @@ function pickVoice({ gender, hints = [] } = {}) {
  * onQuiz(n, resume): nach einem Abschnitt mit Zwischenfrage anhalten, bis resume() kommt.
  * @returns {() => void} Stopp-Funktion
  */
-export function speakSegments(segments, { onEnd, onError, onSegment, onQuiz } = {}) {
+export function speakSegments(segments, { onEnd, onError, onSegment, onQuiz, onProgress } = {}) {
   if (!ttsSupported() || !segments.length) { onError?.(); return () => {}; }
   const synth = window.speechSynthesis;
   synth.cancel();
@@ -57,7 +57,9 @@ export function speakSegments(segments, { onEnd, onError, onSegment, onQuiz } = 
     let started = false;
     // Startet die Wiedergabe gar nicht, gilt das als Fehler (z. B. keine Stimme installiert).
     startTimer = setTimeout(() => { if (!started) { synth.cancel(); finish(onError); } }, 4000);
-    u.onstart = () => { started = true; clearTimeout(startTimer); };
+    u.onstart = () => { started = true; clearTimeout(startTimer); onProgress?.(i - 1, 0); };
+    // Wortgrenzen liefern den Fortschritt innerhalb des Abschnitts (nicht jeder Browser kann das).
+    u.onboundary = (e) => onProgress?.(i - 1, Math.min(1, (e.charIndex || 0) / Math.max(1, seg.text.length)));
     u.onend = () => {
       const go = () => { if (!done) timer = setTimeout(next, seg.gap ?? 250); };
       if (seg.quiz != null && onQuiz) onQuiz(seg.quiz, go);

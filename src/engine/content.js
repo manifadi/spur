@@ -16,6 +16,11 @@
 //                                                                                   Selbstbewertung über keyPoints
 //          sequence_events { id, type, prompt, events[] (richtige Reihenfolge) }
 //          detail_match    { id, type, prompt, options[], correct[], quote }
+//          detail_match    { id: 'w1', type, followUp: true, prompt, options[], correct[1], quote }
+//                          "Wiedersehen": Du triffst die Figur ein paar Tage später. Worauf sprichst
+//                          du sie an? Genau eine Option greift auf, was sie wirklich erzählt hat.
+//                          Nur bei Dialogen, immer als letzte Frage eines Teils, und optional:
+//                          Für "Teil geschafft" zählt sie nicht mit.
 //
 // Jede Teilübung ist eine eigene Karte (id "item:übung") mit eigenem Spaced-Repetition-Verlauf.
 
@@ -52,17 +57,21 @@ export function buildIndex(chapters) {
   for (const chapter of sorted) {
     for (const lesson of chapter.lessons) {
       const cardIds = [];
+      const requiredIds = [];
       for (const item of lesson.items || []) {
         items.set(item.id, { item, lesson, chapter });
         const track = itemTrack(item);
         (item.subExercises || []).forEach((ex, qi) => {
           const id = `${item.id}:${ex.id}`;
+          const optional = !!ex.followUp;
           // "question" bleibt als Alias für die Übung (prompt/answers/solution/quote).
-          cards.set(id, { id, track, item, ex, question: ex, kind: exerciseKind(ex), qIndex: qi, lesson, chapter });
+          cards.set(id, { id, track, item, ex, question: ex, kind: exerciseKind(ex), qIndex: qi, lesson, chapter, optional });
           cardIds.push(id);
+          if (!optional) requiredIds.push(id);
         });
       }
-      lessons.set(lesson.id, { lesson, chapter, cardIds, track: lessonTrack(lesson, chapter) });
+      // requiredIds: ohne die optionalen "Wiedersehen"-Fragen (zählen nicht für "geschafft").
+      lessons.set(lesson.id, { lesson, chapter, cardIds, requiredIds, track: lessonTrack(lesson, chapter) });
     }
   }
   return { chapters: sorted, lessons, cards, items };
@@ -172,14 +181,20 @@ export function validateChapters(chapters) {
             if (kind === 'retell' && !it.keyPoints?.length) errors.push(`${where}: Nacherzählen braucht keyPoints am Text`);
             if (kind === 'sequence' && (!ex.prompt || !(ex.events?.length >= 3 && ex.events.length <= 4))) errors.push(`${where}: sequence_events braucht prompt und 3–4 events`);
             if (kind === 'match' && (!ex.prompt || !ex.options?.length || !ex.correct?.length || ex.correct.some((c) => !ex.options.includes(c)))) errors.push(`${where}: detail_match braucht options und correct ⊆ options`);
+            if (ex.followUp) {
+              if (it.type !== 'dialog' || kind !== 'match') errors.push(`${where}: Wiedersehen-Frage nur als detail_match bei Dialogen`);
+              else if (ex.correct.length !== 1 || ex.options.length < 3 || !ex.quote) errors.push(`${where}: Wiedersehen-Frage braucht genau eine richtige Option, mind. 3 Optionen und ein quote`);
+              if (ex !== it.subExercises[it.subExercises.length - 1]) errors.push(`${where}: Wiedersehen-Frage muss die letzte Frage sein`);
+            }
           }
         } else errors.push(`Item ${it.id}: unbekannter type "${it.type}"`);
       }
       const parts = (l.items || []).length;
       if (parts < 3 || parts > 4) errors.push(`Feld ${l.id}: ${parts} Teile (erlaubt 3–4)`);
       for (const it of l.items || []) {
-        const n = it.subExercises?.length || 0;
-        if (n < 3 || n > 4) errors.push(`Teil ${it.id}: ${n} Fragen (erlaubt 3–4)`);
+        // Die optionale Wiedersehen-Frage kommt zu den 3–4 Fragen dazu.
+        const n = (it.subExercises || []).filter((ex) => !ex.followUp).length;
+        if (n < 3 || n > 4) errors.push(`Teil ${it.id}: ${n} Fragen (erlaubt 3–4, ohne Wiedersehen)`);
       }
     }
   }

@@ -7,8 +7,44 @@ import { normalize } from '../engine/answer.js';
 
 export const WORLD = buildWorld(WORLD_DATA);
 
+/**
+ * Feste Farbe je Figur (aus den Token-Farben), damit man Stimmen auch optisch auseinanderhält:
+ * "Wer hat was gesagt?" Im selben Gespräch bekommen zwei Figuren nie dieselbe Farbe.
+ */
+const TONES = [
+  { solid: 'var(--spur-dove)', soft: 'var(--spur-dove-soft)', shade: 'var(--spur-dove-shade)', fg: '#fff' },
+  { solid: 'var(--spur-terracotta)', soft: 'var(--spur-terracotta-soft)', shade: 'var(--spur-terracotta-shade)', fg: '#fff' },
+  { solid: 'var(--spur-green)', soft: 'var(--spur-green-soft)', shade: 'var(--spur-green-shade)', fg: '#fff' },
+  { solid: 'var(--spur-indigo)', soft: 'var(--spur-lavender)', shade: 'var(--spur-indigo-shade)', fg: '#fff' },
+  { solid: 'var(--spur-coral)', soft: 'var(--spur-coral-soft)', shade: 'var(--spur-coral-shade)', fg: '#fff' },
+  { solid: 'var(--spur-amber)', soft: 'var(--spur-amber-soft)', shade: 'var(--spur-amber-shade)', fg: '#2B1C06' },
+];
+const toneIndex = (id) => { let h = 0; for (const c of String(id)) h = (h * 31 + c.charCodeAt(0)) >>> 0; return h % TONES.length; };
+
+export function personTone(id) {
+  return TONES[toneIndex(id)];
+}
+
+/** Figur aus der Welt (über Namen) oder eine nur erwähnte Person ("Nora"). */
+export function personByName(name) {
+  const c = WORLD.byName.get(name);
+  if (c) return { id: c.id, name: c.name, relation: c.relationToUser || null, initials: initials(c.name), tone: personTone(c.id) };
+  return { id: name, name, relation: null, initials: initials(name), tone: null };
+}
+
 export function dialogSpeakers(item) {
-  return speakersOf(WORLD, item).map((c) => ({ id: c.id, name: c.name, relation: c.relationToUser || null, initials: initials(c.name), personality: c.personality }));
+  const used = new Set();
+  return speakersOf(WORLD, item).map((c) => {
+    let t = toneIndex(c.id);
+    while (used.has(t) && used.size < TONES.length) t = (t + 1) % TONES.length;
+    used.add(t);
+    return { id: c.id, name: c.name, relation: c.relationToUser || null, initials: initials(c.name), personality: c.personality, tone: TONES[t] };
+  });
+}
+
+/** Gewicht je Vorlese-Abschnitt (Textlänge), für einen gleichmäßigen Fortschrittsring. */
+export function segmentWeights(item) {
+  return deviceSegments(item).map((s) => Math.max(1, s.text.length));
 }
 
 /** Abschnitte für speakSegments: je Zeile das Profil der sprechenden Figur. */

@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { useStore } from '../store.jsx';
 import { Button } from '../ds/Button.jsx';
 import { OptionTile } from '../ds/core.jsx';
-import { Mascot } from '../ds/feedback.jsx';
+import { Mascot, SpeechBubble } from '../ds/feedback.jsx';
+import { Icon } from '../ds/Icon.jsx';
 import { ProgressBar } from '../ds/progress.jsx';
 import { requestNotificationPermission, registerBackgroundReminder } from '../lib/reminders.js';
 
@@ -22,10 +23,16 @@ const h1 = { font: 'var(--weight-semibold) 32px/1.18 var(--font-display)', color
 const sub = { font: 'var(--type-body)', color: 'var(--text-muted)', margin: '0 0 24px' };
 const page = { display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0, overflowY: 'auto', padding: 'calc(28px + env(safe-area-inset-top)) var(--gutter-screen) calc(24px + env(safe-area-inset-bottom))' };
 
-/** 1a Onboarding in 4 Schritten: Spur · Häufigkeit · Erinnerung · Pfad wird gebaut. */
+const IDEAS = [
+  { icon: 'ear', tone: 'listen', title: 'Zuhören ohne Text', text: 'Echte Stimmen, kurze Gespräche. Zwischendurch fragt Miro nach.' },
+  { icon: 'message-circle', tone: 'listen', title: 'Wiedersehen', text: 'Ein paar Tage später: Worauf sprichst du die Person an?' },
+  { icon: 'history', tone: 'amber', title: 'Im richtigen Abstand', text: 'Was sitzt, kommt seltener. Was wackelt, kommt bald wieder.' },
+];
+
+/** 1a Onboarding: Willkommen · Spur · Häufigkeit · Erinnerung · Pfad wird gebaut. */
 export function Onboarding({ onDone }) {
   const { update } = useStore();
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(-1);
   const [track, setTrack] = useState(null);
   const [freq, setFreq] = useState(null);
   const [time, setTime] = useState('19:30');
@@ -72,6 +79,35 @@ export function Onboarding({ onDone }) {
 
   return (
     <div className="screen">
+      {step === -1 && (
+        <div className="phase-in" style={{ ...page, justifyContent: 'safe center' }}>
+          <div style={{ display: 'flex', alignItems: 'flex-end', gap: 10, marginBottom: 22 }}>
+            <span className="a-bob rm-static" style={{ display: 'inline-flex' }}><Mascot pose="cheering" size={112} /></span>
+            <SpeechBubble tail="left" tone="lavender" style={{ flex: 1, marginBottom: 28 }}>Hallo, ich bin Miro. Ich merk mir alles.</SpeechBubble>
+          </div>
+          <h1 style={h1}>Merk dir, was Leute dir erzählen.</h1>
+          <p style={{ ...sub, fontSize: 'var(--text-body-l)', lineHeight: 'var(--leading-normal)' }}>
+            Eine Kollegin erwähnt nebenbei, dass sie am Wochenende wandern geht. Beim nächsten Treffen fragst du: „Und, wie war’s?“ Genau das trainierst du hier, ein paar Minuten am Tag.
+          </p>
+          <div className="stack" style={{ gap: 12 }}>
+            {IDEAS.map((x, i) => (
+              <div key={x.title} className="a-rise" style={{ display: 'flex', alignItems: 'center', gap: 14, animationDelay: `${150 + i * 90}ms` }}>
+                <span style={{ width: 44, height: 44, borderRadius: 'var(--radius-md)', flex: '0 0 auto', display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                  background: x.tone === 'amber' ? 'var(--accent-xp-soft)' : 'var(--track-listen-soft)', color: x.tone === 'amber' ? 'var(--spur-amber-shade)' : 'var(--track-listen)' }}>
+                  <Icon name={x.icon} size={22} />
+                </span>
+                <span className="stack" style={{ gap: 1 }}>
+                  <span style={{ font: 'var(--type-body)', fontWeight: 700, color: 'var(--text-ink)' }}>{x.title}</span>
+                  <span style={{ font: 'var(--type-label)', fontWeight: 500, color: 'var(--text-muted)' }}>{x.text}</span>
+                </span>
+              </div>
+            ))}
+          </div>
+          <div style={{ flex: 1, minHeight: 24 }} />
+          <Button full onClick={() => setStep(0)}>Los geht’s</Button>
+        </div>
+      )}
+
       {step === 0 && (
         <div className="phase-in" style={page}>
           <Dots step={0} />

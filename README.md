@@ -3,7 +3,9 @@
 Progressive Web App für einen einzelnen Nutzer, komplett lokal: kein Server, kein Konto, kein Tracking.
 Trainiert zwei Fähigkeiten in täglichen Kurz-Sessions:
 
-- **Zuhören** – beiläufige Details aus Gesprächen behalten und nach Tagen ohne Vorwarnung abrufen
+- **Zuhören** – beiläufige Details aus Gesprächen behalten und nach Tagen ohne Vorwarnung abrufen.
+  Dazu gehört das **Wiedersehen**: Ein paar Tage später triffst du die Person wieder. Worauf
+  sprichst du sie an? (Sie hat erzählt, dass sie wandern geht, also: „Und, wie war’s?“)
 - **Lesen** – einen Sachtext frei wiedergeben und sich selbst anhand von Kernpunkten bewerten
 
 Design, Farben, Typografie, Komponenten und Copy stammen 1:1 aus dem Claude-Design-Export
@@ -45,8 +47,11 @@ aus dem PNG-Master neu (`npm run icons`). Danach neu bauen.
   Neue Gespräche kommen in Schwierigkeits-Reihenfolge dazu, danach wird jede Karte nur nach ihren
   eigenen Intervallen fällig, unabhängig von allem anderen. Checkpoints wiederholen nur ihre Spur.
 - **Zuhören in zwei Schritten:** Bei neuen Gesprächen gibt es zuerst nur Stimmen. Die sprechenden
-  Figuren erscheinen als Avatare, die aktive Figur atmet. Es gibt höchstens 2 Wiedergaben, kein Text
-  und keine Frage. Danach kommen die Fragen. Bei fälligen Wiederholungen entfällt der Hör-Schritt.
+  Figuren erscheinen als Porträts in ihrer festen Farbe (im selben Gespräch nie dieselbe), die
+  aktive Figur leuchtet und atmet, die andere tritt zurück. Ein Ring um den Play-Knopf zeigt, wie
+  weit das Gespräch ist, zwei Punkte die verbleibenden Wiedergaben. Es gibt höchstens 2
+  Wiedergaben, kein Text und keine Frage. Danach kommen die Fragen. Bei fälligen Wiederholungen
+  entfällt der Hör-Schritt.
   Nur wenn Vorlesen komplett scheitert, lässt sich der Text ausnahmsweise einblenden.
 
 ### Archetypen
@@ -83,6 +88,7 @@ npm run audio                                   # edge-tts: nur Neues/Geänderte
 npm run audio -- --engine=gemini                # Gemini, so viele Level wie das Kontingent hergibt
 npm run audio -- --engine=gemini --plan         # zeigt, welche Level noch offen sind
 npm run audio -- --engine=gemini --max=3        # höchstens 3 Level
+npm run audio -- --engine=gemini --cached       # nur vorhandene Aufnahmen neu schneiden, keine Anfrage
 ```
 
 **So spart Gemini Anfragen:** Das Gratis-Kontingent liegt bei ca. 10 Anfragen pro Tag. Deshalb
@@ -91,8 +97,15 @@ gesprochen, mit beiden Stimmen im Gesprächsmodus. Danach schneidet `scripts/gem
 die Aufnahme an den Pausen in die einzelnen Zeilen: Die Schnitte werden so gewählt, dass
 Pausenlänge und erwartete Länge jeder Zeile zusammen passen. Anschließend schreibt
 [whisper.cpp](https://github.com/ggerganov/whisper.cpp) jeden Abschnitt lokal mit und
-vergleicht ihn mit dem Skript. Falsche Schnitte werden an anderen Pausen repariert. Klappt das
-nicht, wird das Level Teil für Teil neu angefragt, nie falsch geschnitten gespeichert. Level mit
+vergleicht ihn mit dem Skript. Falsche Schnitte werden an anderen Pausen repariert. Reicht das
+nicht (Gemini holt mitten in einer Zeile Luft, spricht eine Zeile doppelt oder macht beim
+Sprecherwechsel kaum Pause), schreibt Whisper die ganze Aufnahme mit Wort-Zeitstempeln mit, das
+Skript wird daran ausgerichtet und jeder Abschnitt einzeln von seinem ersten bis zum letzten Wort
+geschnitten (doppelt Gesprochenes fällt weg). Weil Whisper bei längeren Stücken manchmal einen
+kurzen Satzanfang verschluckt, gibt es bei der Prüfung eine Zweitmeinung (das Stück in Teilen
+mitschreiben). Klappt alles nicht, bleibt das Level offen (mit `--retry-items` Teil für Teil neu
+anfragen), nie falsch geschnitten gespeichert. Nach einer Verbesserung am Schnitt holt
+`--cached` aus den Aufnahmen im Cache, was geht, ohne eine einzige Anfrage. Level mit
 drei Figuren brauchen zwei Anfragen (höchstens zwei Stimmen pro Anfrage). Insgesamt sind es ca.
 40 Anfragen für die ganze App. Ein neuer Lauf macht dort weiter, wo der letzte aufgehört hat.
 Rohaufnahmen bleiben in `.audio-cache/` (nicht im Git), damit nie doppelt angefragt wird.
@@ -121,7 +134,8 @@ Datei, liest die Gerätestimme.
 | Spaced Repetition (Ebbinghaus) | Intervalle 1 · 2 · 4 · 8 · 16 · 30 · 60 Tage. Gut erinnert → eine Stufe weiter, teilweise → Stufe bleibt, kaum etwas → Stufe 0. Neue Karten starten bei Stufe −1 (sofort fällig). `src/engine/srs.js` |
 | Retrieval Practice | Fällige Wiederholungen zeigen nie den Originaltext, nur Frage bzw. Thema. Erst nach der Antwort kommt das Original als Gedächtnisstütze. Wer bei einer Hör-Frage die passende Stelle nachhört, bekommt höchstens „richtig mit Hilfe“ (zählt wie teilweise). |
 | Desirable Difficulty (Bjork) | Kapitel werden länger und dichter: von 3 Details in 2 Sätzen bis zu 6 Details in Gesprächen mit mehreren Personen, von 3 bis zu 6 Kernpunkten. Ab Kapitel 3 gemischte Checkpoints. |
-| Interleaving | Neue Lektionen mischen bis zu 3 fällige Karten der anderen Spur ein. Folgefragen zu einem Gespräch kommen erst später in der Session („Ich frage später nach“). Bei „Beides“ wechseln sich die Kapitel ab. |
+| Interleaving | Neue Lektionen mischen bis zu 3 fällige Karten der anderen Spur ein. Folgefragen zu einem Gespräch kommen erst später in der Session („Ich frage später nach“). Bei „Beides“ wechseln sich die Kapitel ab. Gemischt wird nach ganzen Geschichten: Die Fragen zu einem Gespräch kommen am Stück, mit einem Zwischenscreen pro Geschichte. |
+| Transfer in den Alltag | Zu jedem Gespräch gibt es eine **Wiedersehen**-Frage: „Eine Woche später triffst du Emre. Was fragst du ihn?“ Nur eine Antwort greift auf, was er wirklich erzählt hat, die anderen sind falsch erinnerte Details („Riemen“ statt „Nadel“). Als eigene Karte kommt sie Tage später wieder, also genau dann, wenn man die Person im echten Leben wiedersehen würde. |
 
 Antwortprüfung beim Zuhören: Groß-/Kleinschreibung und Umlaute werden normalisiert. Ein
 Schlüsselwort zählt auch mit einem Tippfehler (Levenshtein ≤ 1, Buchstabendreher inklusive).
@@ -136,8 +150,17 @@ sie im Feedback selbst als gemerkt zählen.
 - **Herzen:** maximal 5. Nur eine neue Karte mit „kaum etwas“ kostet ein Herz, Wiederholungen nie.
   Ein Herz kommt alle 2 Stunden zurück. Bei 0 Herzen bleiben Wiederholungen immer möglich.
 - **Meilensteine** 7, 14, 30, 50, 100 … Tage: Flammen-Screen und unendliche Aufmerksamkeit bis Mitternacht.
-- **Tagesziel** 1 / 3 / 5 / 8 Karten (3 empfohlen). Ist es erreicht und nichts mehr fällig, kommt
-  „Für heute ist alles gemerkt“ mit „Freiwillige Runde“.
+- **Tagesziel** 1 / 3 / 5 / 8 Karten (3 empfohlen). Wird es erreicht, feiert ein eigener Screen
+  „Tagesziel geschafft!“, danach geht es zurück zum Pfad (nie in eine Sackgasse, auch mitten in
+  einem Level). Öffnet man die App mit erreichtem Ziel und ohne Fälliges, kommt „Für heute ist
+  alles gemerkt“ mit „Weiter mit …“ (angefangenes Level), „Freiwillige Runde“ und „Zum Pfad“.
+- **Nach einer Runde:** Ergebnis (Federn · Genauigkeit · Zeit) → Streak-Screen (einmal am Tag,
+  groß mit ∞ bei Meilensteinen) → Tagesziel geschafft → Kapitel geschafft → Pfad, wo sich das
+  Segment füllt.
+- **Kopfzeile:** Streak, Federn und Herzen lassen sich antippen. Darunter klappt eine Tafel auf:
+  Woche mit geübten Tagen und längstem Streak, Federn heute und insgesamt mit „Fragen im
+  Gedächtnis / davon langfristig (ab 16 Tagen Abstand)“, Herzen mit Zeit bis zum nächsten.
+- **Töne** sind standardmäßig an (kleine Web-Audio-Akkorde, keine Dateien), abschaltbar.
 
 ## Level, Teile und Inhalte
 
@@ -185,6 +208,22 @@ ganze Gespräch). Die Wertung:
 Standpunkte und einigen sich über drei Teile hinweg. Gefragt wird auch, wer welches Argument
 gebracht hat.
 
+**Wiedersehen-Fragen** (`detail_match` mit `followUp: true`, id `w1`, immer die letzte Frage eines
+Gesprächs): Die Person (`meet`) erscheint als Porträt, die Antworten sind Sprechblasen. Sie sind
+optional: Für „Teil geschafft“ zählen sie nicht mit, damit ein falsch getipptes Wiedersehen kein
+Level blockiert. Bei Spielständen von vor ihrer Einführung gehen schon geschaffte Teile deshalb
+nicht wieder auf: Beim Start werden ihre Wiedersehen-Fragen zu fälligen Wiederholungen, höchstens
+zwei pro Tag, älteste Geschichten zuerst (`seedOptionalCards` in `src/engine/game.js`).
+
+**Wiederholungsrunden** bleiben kurz: ganze Geschichten, insgesamt etwa 10 Fragen. Was übrig ist,
+bleibt fällig und kommt in der nächsten Runde. Die große Intervall-Animation („der Abstand
+verdoppelt sich“) gibt es nur bei der ersten richtigen Wiederholung einer Runde, danach steht
+„Nächstes Mal: in 8 Tagen“ direkt im Feedback.
+
+**Beim Antworten:** Enter prüft eine Freitext-Antwort (Umschalt+Enter für eine neue Zeile).
+„Weiß ich nicht mehr“ zählt wie „kaum etwas“, ohne dass man Unsinn tippen muss. Der Hinweis „Der
+Originaltext bleibt aus“ steht nur bei der ersten Freitext-Frage einer Runde.
+
 Ein Teil ist geschafft, wenn alle seine Fragen gemeistert sind, also mindestens teilweise
 richtig beantwortet. Ist eine Frage daneben, kommt am Ende der Runde ein zweiter Versuch. Er
 kostet kein Herz und ändert kein Intervall. Klappt auch der nicht, wird der Teil beim nächsten
@@ -198,6 +237,7 @@ Jede Frage hat ihren eigenen Spaced-Repetition-Verlauf.
 | `recall_text` ohne `answers` (id `retell`) | Text frei nacherzählen, Selbstbewertung über `keyPoints` | jeder Lesetext |
 | `sequence_events` | 3–4 Ereignisse in die richtige Reihenfolge tippen | gelegentlich |
 | `detail_match` | Antwort-Chips, eine oder mehrere richtig | gelegentlich |
+| `detail_match` mit `followUp` | Wiedersehen: Worauf sprichst du die Person an? | eine pro Gespräch (optional) |
 
 Am Knoten zeigt ein **Segment-Ring** den Stand: ein Bogen pro Teil. Geschaffte Teile sind voll
 in der Spurfarbe, offene zu 28 %. Nach einem geschafften Teil füllt sich das Segment auf dem
@@ -217,7 +257,10 @@ neue Datei, danach `npm run check:content` und `npm run audio`.
         "subExercises": [                              // 3–4 Fragen pro Teil
           { "id": "q1", "type": "recall_text", "prompt": "Frage?", "answers": [["Jonas", "Bruder"]], "solution": "…", "quote": "„…“" },
           { "id": "s1", "type": "sequence_events", "prompt": "Was passierte zuerst?", "events": ["…", "…", "…"] },
-          { "id": "m1", "type": "detail_match", "prompt": "…", "options": ["…", "…", "…"], "correct": ["…"], "quote": "„…“" }
+          { "id": "m1", "type": "detail_match", "prompt": "…", "options": ["…", "…", "…"], "correct": ["…"], "quote": "„…“" },
+          { "id": "w1", "type": "detail_match", "followUp": true, "meet": "Frau Berger",   // immer zuletzt, optional
+            "prompt": "Ein paar Tage später triffst du Frau Berger. Worauf sprichst du sie an?",
+            "options": ["Richtig erinnert …", "Falsches Detail …", "…"], "correct": ["Richtig erinnert …"], "quote": "„…“" }
         ],
         "worldRefs": { "charactersReferenced": [], "locationsReferenced": [] } },
       { "id": "l6-text-t", "type": "text", "title": "…", "topic": "…", "paragraphs": ["…"], "keyPoints": ["…"],
@@ -232,8 +275,9 @@ Werden Karten-IDs umgebaut, etwa weil ein Gespräch in zwei Teile geteilt wird, 
 alte und die neue ID in `src/content/migrations.json` ein. Verlauf und Intervalle wandern beim
 nächsten Start mit.
 
-Mitgeliefert: 12 Kapitel mit 34 Leveln, 102 Teilen und 376 Fragen. Davon sind 253 Freitext,
-33 Nacherzählen, 20 Reihenfolge und 70 Auswahl. Dazu kommen 121 Zwischenfragen in den 69 Gesprächen. Ein Teil hat 82–193 Wörter (Schnitt 124).
+Mitgeliefert: 12 Kapitel mit 34 Leveln, 102 Teilen und 445 Fragen. Davon sind 253 Freitext,
+33 Nacherzählen, 20 Reihenfolge, 70 Auswahl und 69 Wiedersehen. Dazu kommen 121 Zwischenfragen in
+den 69 Gesprächen. Ein Teil hat 82–193 Wörter (Schnitt 124).
 
 ## Testlevel (nur lokal)
 
@@ -255,9 +299,12 @@ Zweig samt `src/dev/` und Spickzettel komplett weg.
 
 ## Pfad
 
-- **Sticky Kapitel-Leiste:** Beim Scrollen zeigt eine schmale Leiste unter der Statusleiste,
-  in welchem Kapitel du gerade bist. Die Erkennung läuft über einen IntersectionObserver auf
-  die Kapitel-Abschnitte. Antippen springt zum Kapitelanfang.
+- **Start-Blase:** Über dem aktuellen Knoten wippt „Start“ (bzw. „Weiter“, wenn das Level schon
+  angefangen ist). Kapitel-Banner zeigen „x von y geschafft“.
+- **Sticky Kapitel-Leiste:** Sobald das Banner eines Kapitels ganz nach oben weggescrollt ist,
+  zeigt eine schmale Leiste unter der Statusleiste, in welchem Kapitel du gerade bist (vorher
+  stünde der Titel doppelt da). Die Erkennung läuft über einen IntersectionObserver auf die
+  Banner. Antippen springt zum Kapitelanfang.
 - **„Zur aktuellen Position“:** Ist der nächste fällige bzw. unerledigte Knoten außer Sicht,
   erscheint unten rechts ein runder Button, ebenfalls über einen IntersectionObserver erkannt.
   Antippen scrollt sanft zurück.

@@ -8,20 +8,36 @@ export const STREAK_MILESTONES = [7, 14, 30, 50, 100, 150, 200, 365];
 const REVIEWS_PER_LESSON = 3;
 const CHECKPOINT_SIZE = 6;
 const PRACTICE_SIZE = 5;
+/** Nachträglich hinzugekommene Wiedersehen-Fragen in geschafften Teilen: so viele pro Tag fällig. */
+const SEED_PER_DAY = 2;
+/** Eine Wiederholungsrunde bleibt kurz (ganze Geschichten, etwa so viele Fragen). Der Rest kommt in der nächsten Runde. */
+const ROUND_SIZE = 10;
+
+/** Ganze Gruppen (Geschichten) aufnehmen, bis die Runde voll ist; die erste immer. */
+function takeGroups(groups, max) {
+  const out = [];
+  let n = 0;
+  for (const g of groups) {
+    if (out.length && n + g.length > max) break;
+    out.push(g);
+    n += g.length;
+  }
+  return out;
+}
 
 /* ------------------------------------------------------------------------ */
 /* Zustand                                                                   */
 /* ------------------------------------------------------------------------ */
 
 export function defaultSettings() {
-  return { track: 'both', frequency: 'daily', reminder: null, tts: true, sounds: false, theme: 'light', dailyGoal: 3 };
+  return { track: 'both', frequency: 'daily', reminder: null, tts: true, sounds: true, theme: 'light', dailyGoal: 3 };
 }
 
 export function freshProgress() {
   return {
     xp: 0, streak: 0, longestStreak: 0, lastActiveDay: null, practicedDays: [],
     hearts: MAX_HEARTS, heartsRefillAt: null, infiniteUntil: null,
-    doneToday: 0, doneTodayDay: null,
+    doneToday: 0, doneTodayDay: null, xpToday: 0,
     lessonsDone: {}, chaptersDone: {},
     pendingStreakBroken: null, infiniteSeenDay: null,
     popups: {}, lastPopupDay: null,
@@ -48,6 +64,32 @@ export function migrateCards(cards, renames = {}) {
   return changed ? out : cards;
 }
 
+/**
+ * Nachträglich hinzugekommene optionale Fragen (Wiedersehen) in schon geschafften Teilen.
+ * Solche Teile sollen nicht wieder aufgehen und samt Original neu gespielt werden. Die neuen
+ * Fragen kommen stattdessen als fällige Wiederholungen dazu – wie ein Wiedersehen ein paar
+ * Tage später –, verteilt auf die nächsten Tage (älteste Geschichten zuerst).
+ */
+export function seedOptionalCards(index, state, now = new Date()) {
+  const today = dayKey(now);
+  const todo = [];
+  for (const lessonId of index.lessons.keys()) {
+    for (const part of lessonParts(index, lessonId)) {
+      const open = part.cardIds.filter((id) => index.cards.get(id).optional && !state.cards[id]);
+      if (!open.length || !part.required.length || !isPartDone(state, part)) continue;
+      const first = part.required.map((id) => state.cards[id]?.first).filter(Boolean).sort()[0] || now.toISOString();
+      for (const id of open) todo.push({ id, first });
+    }
+  }
+  if (!todo.length) return state;
+  todo.sort((a, b) => (a.first < b.first ? -1 : a.first > b.first ? 1 : 0));
+  const cards = { ...state.cards };
+  todo.forEach(({ id, first }, i) => {
+    cards[id] = { stage: 0, due: addDays(today, Math.floor(i / SEED_PER_DAY)), first, last: null, reps: 0, lapses: 0, history: [] };
+  });
+  return { ...state, cards };
+}
+
 /** Normalisiert geladenen Zustand und holt Zeitabhängiges nach (Herzen, Tageswechsel, Streak-Lücke). */
 export function hydrate(saved, now = new Date(), renames = {}) {
   const base = initialState();
@@ -65,7 +107,7 @@ export function hydrate(saved, now = new Date(), renames = {}) {
 export function tick(state, now = new Date()) {
   let p = regenHearts(state.progress, now);
   const today = dayKey(now);
-  if (p.doneTodayDay !== today && p.doneToday) p = { ...p, doneToday: 0, doneTodayDay: today };
+  if (p.doneTodayDay !== today && (p.doneToday || p.xpToday)) p = { ...p, doneToday: 0, xpToday: 0, doneTodayDay: today };
   if (p.streak > 0 && p.lastActiveDay && daysBetween(p.lastActiveDay, today) > 1) {
     p = { ...p, pendingStreakBroken: { was: p.streak, longest: p.longestStreak }, streak: 0 };
   }
@@ -102,6 +144,23 @@ export function doneTodayCount(p, now = new Date()) {
   return p.doneTodayDay === dayKey(now) ? p.doneToday : 0;
 }
 
+/** Heute gesammelte Federn (zählt am selben Tag wie doneToday). */
+export function xpTodayCount(p, now = new Date()) {
+  return p.doneTodayDay === dayKey(now) ? p.xpToday || 0 : 0;
+}
+
+/** Wie viele Karten im Gedächtnis sind, und wie viele schon im Langzeitgedächtnis (ab 16 Tagen Abstand). */
+export function memoryStats(index, state) {
+  let known = 0;
+  let longTerm = 0;
+  for (const [id, r] of Object.entries(state.cards)) {
+    if (!index.cards.has(id) || r.stage < 0 || !isMastered(r)) continue;
+    known++;
+    if (r.stage >= 4) longTerm++;
+  }
+  return { known, longTerm };
+}
+
 /* ------------------------------------------------------------------------ */
 /* Pfad                                                                      */
 /* ------------------------------------------------------------------------ */
@@ -125,12 +184,12 @@ export function isMastered(rec) {
   return !!rec && (rec.history || []).some((h) => h.g !== 'poor');
 }
 
-/** Ein Feld ist erst abgeschlossen, wenn ALLE seine Teilübungen gemeistert sind. */
+/** Ein Feld ist erst abgeschlossen, wenn ALLE seine Teilübungen gemeistert sind (ohne die optionalen Wiedersehen-Fragen). */
 export function isLessonComplete(index, state, lessonId) {
   if (state.progress.lessonsDone[lessonId]) return true;
   const l = index.lessons.get(lessonId);
   if (!l || l.lesson.type === 'checkpoint') return false;
-  return l.cardIds.every((id) => isMastered(state.cards[id]));
+  return l.requiredIds.every((id) => isMastered(state.cards[id]));
 }
 
 /**
@@ -140,12 +199,15 @@ export function isLessonComplete(index, state, lessonId) {
 export function lessonParts(index, lessonId) {
   const l = index.lessons.get(lessonId);
   if (!l || l.lesson.type === 'checkpoint') return [];
-  return (l.lesson.items || []).map((item, i) => ({ n: i + 1, item, cardIds: cardIdsOfItemIn(l, item) }));
+  return (l.lesson.items || []).map((item, i) => {
+    const cardIds = cardIdsOfItemIn(l, item);
+    return { n: i + 1, item, cardIds, required: cardIds.filter((id) => !index.cards.get(id).optional) };
+  });
 }
 
-/** Ein Teil ist geschafft, wenn alle seine Fragen gemeistert sind. */
+/** Ein Teil ist geschafft, wenn alle seine Fragen gemeistert sind (die Wiedersehen-Frage zählt nicht mit). */
 export function isPartDone(state, part) {
-  return part.cardIds.every((id) => isMastered(state.cards[id]));
+  return (part.required || part.cardIds).every((id) => isMastered(state.cards[id]));
 }
 
 export function nextOpenPart(index, state, lessonId) {
@@ -181,9 +243,9 @@ export function buildPath(index, state, now = new Date()) {
         status = due ? 'due' : 'done';
       } else if (!currentFound[info.track]) { status = 'current'; currentFound[info.track] = true; } else status = 'locked';
       let label = lesson.title;
-      if (status === 'due') label = `Fällig · ${daysSinceFirstSeen(state, info.cardIds, now)} Tage`;
+      if (status === 'due') label = 'Wiederholen';
       if (status === 'locked') { label = firstLockedLabelled ? null : 'Bald'; firstLockedLabelled = true; }
-      return { id: lesson.id, n: n++, lesson, chapter, track: info.track, status, label, cardIds: info.cardIds, segments: lessonSegments(index, state, lesson.id) };
+      return { id: lesson.id, n: n++, lesson, chapter, track: info.track, status, label, cardIds: info.cardIds, requiredIds: info.requiredIds, segments: lessonSegments(index, state, lesson.id) };
     });
     const complete = nodes.every((x) => x.status === 'done' || x.status === 'due');
     return { chapter, number: ci + 1, nodes, complete };
@@ -227,10 +289,26 @@ export function interleave(a, b) {
   return out;
 }
 
+/**
+ * Fragen derselben Geschichte (desselben Teils) hintereinander: in der Reihenfolge, in der
+ * die Teile zuerst vorkommen, innerhalb eines Teils in Fragenreihenfolge. So kommt der
+ * Zwischenscreen "Prüfen wir, was du noch … weißt" einmal pro Geschichte, nicht vor jeder Frage.
+ * @returns {string[][]} Gruppen von Karten-IDs
+ */
+export function groupByItem(index, ids) {
+  const groups = new Map();
+  for (const id of ids) {
+    const key = index.cards.get(id).item.id;
+    (groups.get(key) || groups.set(key, []).get(key)).push(id);
+  }
+  return [...groups.values()].map((g) => g.sort((a, b) => index.cards.get(a).qIndex - index.cards.get(b).qIndex));
+}
+
+/** Zuhören und Lesen im Wechsel, aber immer ganze Geschichten am Stück. */
 function byTrack(index, ids) {
   const listen = ids.filter((id) => index.cards.get(id).track === 'listen');
   const read = ids.filter((id) => index.cards.get(id).track === 'read');
-  return interleave(listen, read);
+  return interleave(groupByItem(index, listen), groupByItem(index, read)).flat();
 }
 
 function reviewEntry(state, id, today) {
@@ -262,8 +340,9 @@ export function buildLessonSession(index, state, lessonId, now = new Date(), mod
   }));
   const otherTrack = info.track === 'listen' ? 'read' : 'listen';
   const due = replay ? [] : dueCardIds(index, state, now).filter((id) => !info.cardIds.includes(id));
-  const reviews = [...due.filter((id) => index.cards.get(id).track === otherTrack), ...due.filter((id) => index.cards.get(id).track !== otherTrack)]
-    .slice(0, REVIEWS_PER_LESSON).map((id) => reviewEntry(state, id, today));
+  const picked = [...due.filter((id) => index.cards.get(id).track === otherTrack), ...due.filter((id) => index.cards.get(id).track !== otherTrack)]
+    .slice(0, REVIEWS_PER_LESSON);
+  const reviews = groupByItem(index, picked).flat().map((id) => reviewEntry(state, id, today));
   return { kind: replay ? 'replay' : 'lesson', lessonId, part: part.n, parts: parts.length, entries: [...feld, ...reviews] };
 }
 
@@ -302,8 +381,10 @@ export function buildDueSession(index, state, lessonId, now = new Date()) {
   const today = dayKey(now);
   const due = dueCardIds(index, state, now);
   const own = due.filter((id) => info.cardIds.includes(id));
-  const other = due.filter((id) => !info.cardIds.includes(id) && index.cards.get(id).track !== info.track).slice(0, 2);
-  const entries = interleave(own, other).map((id) => reviewEntry(state, id, today));
+  // Ein, zwei fällige Karten der anderen Spur, als ganze Geschichte zwischen die eigenen Teile.
+  const other = groupByItem(index, due.filter((id) => !info.cardIds.includes(id) && index.cards.get(id).track !== info.track).slice(0, 2));
+  const ownGroups = takeGroups(groupByItem(index, own), ROUND_SIZE - other.flat().length);
+  const entries = [...ownGroups.slice(0, 1), ...interleave(other, ownGroups.slice(1))].flat().map((id) => reviewEntry(state, id, today));
   return { kind: 'due', lessonId, entries };
 }
 
@@ -330,7 +411,10 @@ export function buildReviewSession(index, state, now = new Date()) {
   const today = dayKey(now);
   let ids = dueCardIds(index, state, now);
   if (!ids.length) ids = seenCards(index, state).slice(0, PRACTICE_SIZE);
-  return { kind: 'reviews', lessonId: null, entries: byTrack(index, ids).map((id) => reviewEntry(state, id, today)) };
+  const listen = groupByItem(index, ids.filter((id) => index.cards.get(id).track === 'listen'));
+  const read = groupByItem(index, ids.filter((id) => index.cards.get(id).track === 'read'));
+  const entries = takeGroups(interleave(listen, read), ROUND_SIZE + 2).flat().map((id) => reviewEntry(state, id, today));
+  return { kind: 'reviews', lessonId: null, entries };
 }
 
 /** "Freiwillige Runde": ein paar bereits gelernte Karten, ohne Zwang. */
@@ -370,7 +454,8 @@ export function commitAnswer(index, state, entry, grade, now = new Date()) {
   // Pop-up-Kurztest: kleine Bonus-Federn, sonst keinerlei Einfluss (kein Streak, kein Tagesziel).
   if (entry.mode === 'popup') {
     events.xp = XP[grade];
-    return { state: { ...state, cards, progress: { ...p, xp: p.xp + XP[grade] } }, events };
+    const xpToday = (p.doneTodayDay === today ? p.xpToday || 0 : 0) + XP[grade];
+    return { state: { ...state, cards, progress: { ...p, xp: p.xp + XP[grade], xpToday, doneToday: p.doneTodayDay === today ? p.doneToday : 0, doneTodayDay: today } }, events };
   }
 
   if (entry.mode === 'new' && grade === 'poor' && !isInfinite(p, now)) {
@@ -384,6 +469,7 @@ export function commitAnswer(index, state, entry, grade, now = new Date()) {
   // Federn, Tagesziel, Streak (einmal pro Kalendertag mit mindestens einer Karte)
   p.xp += XP[grade];
   const before = p.doneTodayDay === today ? p.doneToday : 0;
+  p.xpToday = (p.doneTodayDay === today ? p.xpToday || 0 : 0) + XP[grade];
   p.doneToday = before + 1;
   p.doneTodayDay = today;
   if (before < state.settings.dailyGoal && p.doneToday >= state.settings.dailyGoal) events.goalReached = true;
@@ -476,7 +562,7 @@ function hasPopupPool(index, state, chapterId) {
 export function buildPopupSession(index, state, chapterId, rng = Math.random) {
   const pool = popupPool(index, state, chapterId);
   for (let i = pool.length - 1; i > 0; i--) { const j = Math.floor(rng() * (i + 1)); [pool[i], pool[j]] = [pool[j], pool[i]]; }
-  const entries = pool.slice(0, 3).map((id, i, a) => ({ cardId: id, mode: 'popup', showSource: false, fromMemory: true, feld: { n: i + 1, of: a.length } }));
+  const entries = groupByItem(index, pool.slice(0, 3)).flat().map((id, i, a) => ({ cardId: id, mode: 'popup', showSource: false, fromMemory: true, feld: { n: i + 1, of: a.length } }));
   return { kind: 'popup', lessonId: null, chapterId, entries };
 }
 

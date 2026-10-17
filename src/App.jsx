@@ -5,11 +5,11 @@ import { Splash } from './screens/Splash.jsx';
 import { Onboarding } from './screens/Onboarding.jsx';
 import { Home } from './screens/Home.jsx';
 import { Lesson } from './screens/Lesson.jsx';
-import { SessionEnd, StreakMilestone, InfinityUnlocked, ChapterDone } from './screens/Celebrations.jsx';
+import { SessionEnd, StreakMilestone, InfinityUnlocked, ChapterDone, DailyGoal } from './screens/Celebrations.jsx';
 import { AllDone, StreakBroken, HeartsEmpty } from './screens/States.jsx';
 import {
   buildLessonSession, buildPartSession, buildDueSession, buildCheckpointSession, buildReviewSession, buildVoluntarySession,
-  canStartNew, dueCardIds, doneTodayCount, hasAnyProgress, markLessonDone, isMastered, buildPopupSession,
+  canStartNew, dueCardIds, doneTodayCount, hasAnyProgress, markLessonDone, isMastered, buildPopupSession, buildPath,
 } from './engine/game.js';
 
 const isTextField = (el) => !!el && (el.tagName === 'TEXTAREA' || (el.tagName === 'INPUT' && !['checkbox', 'radio', 'button', 'submit', 'range'].includes(el.type)));
@@ -133,7 +133,7 @@ function Main() {
     if (choice) return startSession(buildPartSession(index, state, node.id, choice.part, choice.mode, now));
     if (node.lesson.type === 'checkpoint') return startSession(buildCheckpointSession(index, state, node.id, now));
     // Feld mit noch offenen Teilübungen (z. B. neu hinzugekommene): erst die offenen üben.
-    const hasOpen = node.cardIds.some((id) => !isMastered(state.cards[id]));
+    const hasOpen = node.requiredIds.some((id) => !isMastered(state.cards[id]));
     if (node.status === 'due') return startSession(buildDueSession(index, state, node.id, now));
     if (node.status === 'done' && hasOpen) {
       if (!canStartNew(state.progress, now)) return go({ name: 'heartsEmpty' });
@@ -148,14 +148,20 @@ function Main() {
   const reviewsOnly = useCallback(() => startSession(buildReviewSession(index, state)), [index, state, startSession]);
   const voluntary = useCallback(() => startSession(buildVoluntarySession(index, state)), [index, state, startSession]);
 
-  /** Nach der Session: Abschluss → Meilenstein → ∞ → Kapitel geschafft → Pfad bzw. "Alles erledigt". */
+  /**
+   * Nach der Session: Abschluss → Streak (einmal am Tag, groß bei Meilensteinen) → ∞ →
+   * Tagesziel geschafft → Kapitel geschafft → zurück zum Pfad (mit Animation).
+   */
   const finishSession = useCallback((result) => {
     const q = [{ name: 'summary', result }];
     if (result.kind === 'popup') { setQueue([]); setRoute(q[0]); return; }
     if (result.milestone) {
       q.push({ name: 'milestone', days: result.milestone });
       q.push({ name: 'infinity', days: result.milestone });
+    } else if (result.streakUp) {
+      q.push({ name: 'milestone', days: result.streak, daily: true });
     }
+    if (result.goalReached) q.push({ name: 'goal' });
     if (result.chapterDone) q.push({ name: 'chapterDone', chapterId: result.chapterDone });
     q.push({ name: 'end', result });
     setQueue(q.slice(1));
@@ -168,12 +174,14 @@ function Main() {
     if (!head) return home();
     if (head.name === 'end') {
       const r = head.result;
-      const anim = { lessonDone: r.lessonDone, chapterDone: r.chapterDone, partDone: r.partDone, xpFrom: r.xpBefore, streakBump: r.streakUp, key: Date.now() };
-      if (r.goalReached && isAllDone(index, state)) return setRoute({ name: 'allDone', anim });
-      return home({ anim });
+      // Immer zurück zum Pfad: Dort füllt sich das Segment, der nächste Teil wartet schon.
+      return home({ anim: { lessonDone: r.lessonDone, chapterDone: r.chapterDone, partDone: r.partDone, xpFrom: r.xpBefore, streakBump: r.streakUp, key: Date.now() } });
     }
     return setRoute(head);
-  }, [queue, home, index, state]);
+  }, [queue, home]);
+
+  // Für "Für heute ist alles gemerkt": Gibt es ein angefangenes oder neues Level?
+  const continueNode = route.name === 'allDone' ? buildPath(index, state).flatMap((g) => g.nodes).find((x) => x.status === 'current' && x.lesson.type !== 'checkpoint') : null;
 
   let screen;
   switch (route.name) {
@@ -187,7 +195,10 @@ function Main() {
       screen = <SessionEnd result={route.result} onNext={nextInQueue} />;
       break;
     case 'milestone':
-      screen = <StreakMilestone days={route.days} onNext={nextInQueue} />;
+      screen = <StreakMilestone days={route.days} daily={route.daily} onNext={nextInQueue} />;
+      break;
+    case 'goal':
+      screen = <DailyGoal onNext={nextInQueue} />;
       break;
     case 'infinity':
       screen = <InfinityUnlocked days={route.days} onNext={nextInQueue} />;
@@ -196,7 +207,7 @@ function Main() {
       screen = <ChapterDone chapterId={route.chapterId} onNext={nextInQueue} />;
       break;
     case 'allDone':
-      screen = <AllDone anim={route.anim} onVoluntary={voluntary} onPath={() => home(route.anim ? { anim: { ...route.anim, xpFrom: undefined, streakBump: false, key: Date.now() } } : {})} />;
+      screen = <AllDone anim={route.anim} next={continueNode} onContinue={() => openNode(continueNode)} onVoluntary={voluntary} onPath={() => home(route.anim ? { anim: { ...route.anim, xpFrom: undefined, streakBump: false, key: Date.now() } } : {})} />;
       break;
     case 'streakBroken':
       screen = <StreakBroken onNext={() => { update((s) => ({ ...s, progress: { ...s.progress, pendingStreakBroken: null } })); home(); }} />;

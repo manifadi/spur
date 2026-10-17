@@ -128,6 +128,23 @@
        ],
        "solution": "Einen Monat ohne Auto ausprobieren.",
        "quote": "„Gut. Einen Monat, ab dem ersten März.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Paul",
+       "prompt": "Mitte März triffst du Paul. Was fragst du ihn?",
+       "options": [
+        "Wie läuft euer Monat ohne Auto?",
+        "Wie läuft euer Monat ohne Fahrrad?",
+        "Wie fährt sich das neue Elektroauto?",
+        "Fahrt ihr am Sonntag mit dem Auto nach Bremen?"
+       ],
+       "correct": [
+        "Wie läuft euer Monat ohne Auto?"
+       ],
+       "quote": "„Lass es uns einen Monat ohne probieren.“"
       }
      ],
      "worldRefs": {
@@ -256,6 +273,23 @@
        ],
        "solution": "In Hannover.",
        "quote": "„… mit einmal Umsteigen in Hannover.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Aylin",
+       "prompt": "Nach dem Wochenende triffst du Aylin. Was fragst du sie?",
+       "options": [
+        "Und, habt ihr bei Pauls Mutter Rouladen gegessen?",
+        "Und, habt ihr bei Pauls Mutter Gulasch gegessen?",
+        "Und, hat das Umsteigen in Köln geklappt?",
+        "Und, war am Samstag ein Carsharing-Auto frei?"
+       ],
+       "correct": [
+        "Und, habt ihr bei Pauls Mutter Rouladen gegessen?"
+       ],
+       "quote": "„Und meine Mutter war enttäuscht, sie hatte schon Rouladen gemacht.“"
       }
      ],
      "worldRefs": {
@@ -380,6 +414,23 @@
        ],
        "solution": "Ein gebrauchtes Lastenrad.",
        "quote": "„… kaufen wir ein gebrauchtes Lastenrad.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Paul",
+       "prompt": "Ein paar Wochen später triffst du Paul. Worauf sprichst du ihn an?",
+       "options": [
+        "Habt ihr euch schon ein gebrauchtes Lastenrad gekauft?",
+        "Habt ihr euch schon ein neues E-Bike gekauft?",
+        "Hat dein Bruder das Auto schon abgeholt?",
+        "Hat sich die neue Regenjacke gelohnt?"
+       ],
+       "correct": [
+        "Habt ihr euch schon ein gebrauchtes Lastenrad gekauft?"
+       ],
+       "quote": "„Und von dem Geld kaufen wir ein gebrauchtes Lastenrad.“"
       }
      ],
      "worldRefs": {
@@ -513,6 +564,23 @@
        ],
        "solution": "Zwei Tage im Büro.",
        "quote": "„Zwei Tage, das wäre ein Kompromiss.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Kolja",
+       "prompt": "Ein paar Tage später triffst du Kolja. Was fragst du ihn?",
+       "options": [
+        "Hast du Jana schon wegen der zwei Bürotage geschrieben?",
+        "Hast du Jana schon wegen der drei Bürotage geschrieben?",
+        "Hast du Selin schon wegen des Logos geschrieben?",
+        "Wie ist es mit deinem langen Arbeitsweg?"
+       ],
+       "correct": [
+        "Hast du Jana schon wegen der zwei Bürotage geschrieben?"
+       ],
+       "quote": "„Zwei Tage. Darüber kann man reden. Schreib du das Jana, auf dich hört sie.“"
       }
      ],
      "worldRefs": {
@@ -649,6 +717,23 @@
        ],
        "solution": "Ein Telefonraum.",
        "quote": "„… den alten Besprechungsraum im dritten Stock zu einem Telefonraum umzubauen.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Ida",
+       "prompt": "Zwei Wochen später triffst du Ida. Was fragst du sie?",
+       "options": [
+        "Ist der Telefonraum im dritten Stock schon fertig?",
+        "Ist der Telefonraum im Keller schon fertig?",
+        "Ist die neue Kaffeeküche im dritten Stock schon fertig?",
+        "Ist der Vertrieb schon wieder ausgezogen?"
+       ],
+       "correct": [
+        "Ist der Telefonraum im dritten Stock schon fertig?"
+       ],
+       "quote": "„Ich hab Jana vorgeschlagen, den alten Besprechungsraum im dritten Stock zu einem Telefonraum umzubauen.“"
       }
      ],
      "worldRefs": {
@@ -785,6 +870,23 @@
        ],
        "solution": "Den Zug um 7:04.",
        "quote": "„Ich nehme ab jetzt den Zug um 7:04.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Ida",
+       "prompt": "Am Dienstag darauf triffst du Ida im Büro. Worauf sprichst du sie an?",
+       "options": [
+        "Hast du den Zug um 7:04 geschafft?",
+        "Hast du den Zug um 8:04 geschafft?",
+        "Bringst du heute das Frühstück mit?",
+        "Ist der rote Teppich im Telefonraum schön?"
+       ],
+       "correct": [
+        "Hast du den Zug um 7:04 geschafft?"
+       ],
+       "quote": "„Dann komme ich nie wieder zuletzt. Ich nehme ab jetzt den Zug um 7:04.“"
       }
      ],
      "worldRefs": {
@@ -924,6 +1026,23 @@
        ],
        "solution": "Beim Kuchenbacken helfen.",
        "quote": "„… wenn du mir am Sonntag beim Kuchenbacken hilfst.“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Leon",
+       "prompt": "Am Montag triffst du Leon. Was fragst du ihn?",
+       "options": [
+        "Hast du Oma am Sonntag beim Kuchenbacken geholfen?",
+        "Hast du Oma am Sonntag beim Fensterputzen geholfen?",
+        "Hat Oma das neue Tablet ausprobiert?",
+        "Hat Oma dir ihr neues Handy gekauft?"
+       ],
+       "correct": [
+        "Hast du Oma am Sonntag beim Kuchenbacken geholfen?"
+       ],
+       "quote": "„Aber nur, wenn du mir am Sonntag beim Kuchenbacken hilfst.“"
       }
      ],
      "worldRefs": {
@@ -1049,6 +1168,23 @@
         "Oma ruft Frau Brenner an",
         "Oma schaut ihr erstes Video"
        ]
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Frau Brenner",
+       "prompt": "Ein paar Tage später triffst du Frau Brenner. Worauf sprichst du sie an?",
+       "options": [
+        "Ich hab gehört, Sie haben mit Ilse beim Stromausfall Rommé gespielt?",
+        "Ich hab gehört, Sie haben mit Ilse beim Stromausfall Schach gespielt?",
+        "Ich hab gehört, Ilse hat Ihnen einen Brief geschrieben?",
+        "Ich hab gehört, Sie haben Ilse ein Tablet geschenkt?"
+       ],
+       "correct": [
+        "Ich hab gehört, Sie haben mit Ilse beim Stromausfall Rommé gespielt?"
+       ],
+       "quote": "„Die kam rüber, und wir haben bei Kerzenlicht Rommé gespielt.“"
       }
      ],
      "worldRefs": {
@@ -1173,6 +1309,23 @@
        ],
        "solution": "Eine Sonnenblume.",
        "quote": "„Frau Brenner schickt mir immer eine Sonnenblume …“"
+      },
+      {
+       "id": "w1",
+       "type": "detail_match",
+       "followUp": true,
+       "meet": "Opa Günter",
+       "prompt": "Ein paar Wochen später triffst du Opa Günter. Worauf sprichst du ihn an?",
+       "options": [
+        "Elf Kilo, dein Kürbis! Der größte in der Anlage, oder?",
+        "Elf Kilo, deine Zucchini! Die größte in der Anlage, oder?",
+        "Dreißig Kilo, dein Kürbis! Der größte in der Anlage, oder?",
+        "Hast du dir jetzt auch ein Tablet gekauft?"
+       ],
+       "correct": [
+        "Elf Kilo, dein Kürbis! Der größte in der Anlage, oder?"
+       ],
+       "quote": "„Elf Kilo, der größte in der ganzen Kleingartenanlage.“"
       }
      ],
      "worldRefs": {
