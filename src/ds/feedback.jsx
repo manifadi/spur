@@ -65,7 +65,7 @@ export function SpeechBubble({ tail = 'left', tone = 'default', children, style,
 }
 
 /* ---- FeedbackPanel ------------------------------------------------------
-   Duolingos Feedback-Leiste: hellgrün bzw. hellrot, Titel in Kräftig mit rundem
+   Feedback-Leiste: hellgrün bzw. hellrot, Titel in Kräftig mit rundem
    Symbol, darunter der farbige WEITER-Knopf. "partial" ist eine Ergänzung für
    "teilweise erinnert" (Gelb), weil die Bewertung drei Stufen hat. */
 const PANEL = {

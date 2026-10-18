@@ -220,7 +220,7 @@ export function XPPill({ xp = 0, size = 'md', style, ...rest }) {
 }
 
 /* ---- LessonHeader ---------------------------------------------------------- */
-/** Wie bei Duolingo: ✕, grüner Fortschrittsbalken, Herz mit Zahl. */
+/** ✕, Fortschrittsbalken in Rabenindigo, Herz mit Zahl. */
 export function LessonHeader({ progress = 0, hearts = 5, infinite = false, heartShake = 0, onClose }) {
   return (
     <header style={{ flex: '0 0 auto', display: 'flex', alignItems: 'center', gap: 12, padding: 'calc(10px + env(safe-area-inset-top)) var(--gutter-screen) 10px', background: 'var(--surface-page)' }}>

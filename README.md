@@ -9,15 +9,16 @@ Trainiert zwei Fähigkeiten in täglichen Kurz-Sessions:
 - **Lesen** – einen Sachtext frei wiedergeben und sich selbst anhand von Kernpunkten bewerten
 
 Aufbau, Komponenten und Copy stammen aus dem Claude-Design-Export (`SPUR App.dc.html`, SPUR
-Design System, `design_handoff_spur_app/README.md`). Farben und Look orientieren sich an
-**Duolingo**: Feather Green als Markenfarbe (alle Haupt-Knöpfe wie PRÜFEN und WEITER), Macaw-Blau
-fürs Zuhören, Beetle-Lila fürs Lesen, Bee-Gelb für Federn und Fälliges, Fox-Orange für den Streak,
-Cardinal-Rot für Herzen und Fehler. Schrift ist Nunito (rund, kräftig). Knöpfe und Antwort-Kacheln
-haben eine dicke Unterkante und senken sich beim Drücken. Gewählte Antworten sind blau, das
-Feedback kommt als hellgrüne bzw. hellrote Leiste von unten. Auf dem Pfad öffnet ein Knoten eine
-Sprechblase in der Spurfarbe (mit „+X Federn“), auch gesperrte Knoten sagen, warum sie zu sind.
-Kapitel-Banner sind voll eingefärbt, mit Fortschrittsring. Dark Mode folgt Duolingos dunklem
-Design (`#131F24`).
+Design System, `design_handoff_spur_app/README.md`). Die Farbwelt kommt von Miro, dem Raben:
+**Rabenindigo** (`#5B4BE1`) als Markenfarbe (alle Haupt-Knöpfe wie PRÜFEN und WEITER, gewählte
+Antworten, Ladebildschirm), Gold aus Schopf und Schnabel für Federn und Fälliges. Die Spuren
+schimmern wie Rabenfedern: Himmelblau fürs Zuhören, Violett fürs Lesen, Indigo für gemischt. Dazu
+Smaragd für „richtig“, Rot für Herzen und Fehler, Orange für den Streak. Aufbau und Bedienung sind
+spielerisch wie bei **Duolingo**: Schrift Nunito (rund, kräftig), Knöpfe und Antwort-Kacheln mit
+dicker Unterkante, die sich beim Drücken senken. Das Feedback kommt als hellgrüne bzw. hellrote
+Leiste von unten. Auf dem Pfad öffnet ein Knoten eine Sprechblase in der Spurfarbe (mit „+X
+Federn“), auch gesperrte Knoten sagen, warum sie zu sind. Kapitel-Banner sind voll eingefärbt, mit
+Fortschrittsring. Der Dark Mode ist eine „Rabennacht“ in tiefem Indigo (`#16152B`).
 
 Die Bewegung folgt Emil Kowalskis Animations-Regeln (Skills unter
 [emilkowalski/skills](https://github.com/emilkowalski/skills)): starke ease-out-Kurven als Tokens

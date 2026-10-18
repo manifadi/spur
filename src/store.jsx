@@ -21,7 +21,7 @@ function applyTheme(theme) {
   document.documentElement.toggleAttribute('data-theme', false);
   if (dark) document.documentElement.setAttribute('data-theme', 'dark');
   const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) meta.setAttribute('content', dark ? '#131F24' : '#FFFFFF'); // = Farbe der Kopfzeile
+  if (meta) meta.setAttribute('content', dark ? '#16152B' : '#FFFFFF'); // = Farbe der Kopfzeile
   try { localStorage.setItem('spur-theme', theme); } catch { /* ignore */ }
 }
 

@@ -1,80 +1,85 @@
 /* SPUR Design System — Tokens.
-   Farben und Typografie folgen Duolingo: Feather Green als Markenfarbe, Macaw (Blau),
-   Cardinal (Rot), Bee (Gelb), Fox (Orange), Beetle (Lila), Humpback (Dunkelblau),
-   dazu die Grautöne Eel/Wolf/Hare/Swan/Polar. Schrift ist Nunito (rund, kräftig), aus
-   dem Bundle (@fontsource/nunito, siehe main.jsx), damit die App offline läuft und keine
-   Drittanbieter-Requests macht. Bewegung nach Emil Kowalski (starke ease-out-Kurven,
-   UI-Animationen unter 300 ms, nur transform und opacity). */
+   Farbwelt nach Miro, dem Raben: Rabenindigo als Markenfarbe (Federkleid), Gold aus
+   Schopf und Schnabel für Federn und Fälliges. Die Spuren schimmern wie Rabenfedern:
+   Himmelblau fürs Zuhören, Violett fürs Lesen, Indigo für gemischt. Dazu Smaragd für
+   "richtig", Rot für Herzen und Fehler, Orange für den Streak, Grautöne mit einem Hauch
+   Indigo. Aufbau (flache Flächen, dicke Unterkanten) und Schrift Nunito (rund, kräftig)
+   sind spielerisch wie Duolingo. Nunito kommt aus dem Bundle (@fontsource/nunito, siehe
+   main.jsx), damit die App offline läuft und keine Drittanbieter-Requests macht. Bewegung
+   nach Emil Kowalski (starke ease-out-Kurven, UI-Animationen unter 300 ms, nur transform
+   und opacity). */
 
 /* ---- colors.css ------------------------------------------------------ */
 :root{
-/* Markenfarbe = "Gemerkt"-Grün, wie bei Duolingo */
---spur-brand:#58CC02;
---spur-brand-shade:#58A700;
---spur-brand-deep:#3F7F00;
---spur-brand-soft:#D7FFB8;
+/* Markenfarbe = Rabenindigo (Miros Gefieder) */
+--spur-brand:#5B4BE1;
+--spur-brand-shade:#4433BD;
+--spur-brand-deep:#2B2183;
+--spur-brand-soft:#ECE9FF;
 
---spur-amber:#FFC800;          /* Bee: Federn, fällig, teilweise */
---spur-amber-shade:#E0A800;
---spur-amber-soft:#FFF5D3;
+--spur-amber:#FFBF1F;          /* Gold (Schopf, Schnabel): Federn, fällig, teilweise */
+--spur-amber-shade:#E3A008;
+--spur-amber-soft:#FFF4D6;
 
---spur-fox:#FF9600;            /* Fox: Streak */
+--spur-fox:#FF9600;            /* Orange: Streak */
 --spur-fox-shade:#E07F00;
 --spur-fox-soft:#FFEDD5;
 
---spur-green:#58CC02;
---spur-green-shade:#58A700;
---spur-green-soft:#D7FFB8;
+--spur-green:#20B879;          /* Smaragd: richtig, gemerkt */
+--spur-green-shade:#17935F;
+--spur-green-soft:#DAF6E8;
 
---spur-coral:#FF4B4B;          /* Cardinal */
+--spur-coral:#FF4B4B;          /* Rot: Herzen, falsch */
 --spur-coral-shade:#EA2B2B;
 --spur-coral-soft:#FFDFE0;
 
---spur-dove:#1CB0F6;           /* Macaw: Zuhören */
---spur-dove-shade:#1899D6;
---spur-dove-soft:#DDF4FF;
+--spur-dove:#1CA2EF;           /* Himmelblau: Zuhören */
+--spur-dove-shade:#1583C6;
+--spur-dove-soft:#DDF2FD;
 
---spur-terracotta:#CE82FF;     /* Beetle: Lesen */
---spur-terracotta-shade:#A568CC;
---spur-terracotta-soft:#F4E3FF;
+--spur-terracotta:#B467F0;     /* Violett: Lesen */
+--spur-terracotta-shade:#9149CC;
+--spur-terracotta-soft:#F3E7FD;
 
 --spur-humpback:#2B70C9;
 --spur-humpback-shade:#1F5AA6;
 --spur-humpback-soft:#DCE8F8;
 
---spur-warmwhite:#FFFFFF;      /* Snow */
+--spur-warmwhite:#FFFFFF;
 --spur-white:#FFFFFF;
---spur-ink:#4B4B4B;            /* Eel */
---spur-ink-muted:#777777;      /* Wolf */
---spur-ink-subtle:#AFAFAF;     /* Hare */
---spur-line:#E5E5E5;           /* Swan */
---spur-line-strong:#E5E5E5;
---spur-locked:#CDCDCD;
---spur-polar:#F7F7F7;          /* Polar */
+--spur-ink:#38364F;
+--spur-ink-muted:#73718A;
+--spur-ink-subtle:#ABA9BE;
+--spur-line:#E7E5F0;
+--spur-line-strong:#E7E5F0;
+--spur-locked:#CDCBDB;
+--spur-polar:#F6F5FC;
 
 --surface-page:var(--spur-warmwhite);
 --surface-card:var(--spur-white);
 --surface-sunken:var(--spur-polar);
 --surface-brand:var(--spur-brand);
 --surface-brand-deep:var(--spur-brand-deep);
---surface-locked:#E5E5E5;
+--surface-locked:#E7E5F0;
+/* Ladebildschirm; gleich in hell und dunkel, = background_color im Manifest (vite.config.js) */
+--surface-splash:#5B4BE1;
 
 --text-ink:var(--spur-ink); /* Farbe; --text-body ist in den Tokens doppelt belegt (Farbe und 15px) */
 --text-muted:var(--spur-ink-muted);
 --text-subtle:var(--spur-ink-subtle);
 --text-inverse:#FFFFFF;
---text-brand:var(--spur-dove);
---text-link:var(--spur-dove);
---text-link-hover:var(--spur-dove-shade);
+--text-brand:var(--spur-brand);
+--text-link:var(--spur-brand);
+--text-link-hover:var(--spur-brand-shade);
 
 --border-default:var(--spur-line);
 --border-strong:var(--spur-line-strong);
 --border-brand:var(--spur-line);
 
-/* Auswahl (angetippte Antwort, gewählte Option): Duolingo-Blau */
---select-bg:#DDF4FF;
---select-line:#84D8FF;
---select-fg:#1899D6;
+/* Auswahl (angetippte Antwort, gewählte Option): Rabenindigo */
+--select-bg:#ECE9FF;
+--select-line:#B5ACFA;
+--select-fg:#5B4BE1;
 
 --accent-xp:var(--spur-amber);
 --accent-xp-soft:var(--spur-amber-soft);
@@ -95,47 +100,49 @@
 --track-mixed-shade:var(--spur-brand-shade);
 --track-mixed-soft:var(--spur-brand-soft);
 
-/* Text auf Gelb (Bee) */
+/* Text auf Gold */
 --on-amber:#4A3500;
 --badge-amber-fg:#9A6500;
 
---focus-ring:var(--spur-dove);
---overlay-scrim:rgba(0,0,0,.5);
+--focus-ring:var(--spur-brand);
+--overlay-scrim:rgba(22,20,48,.55);
 }
 
-/* Dark Mode nach Duolingo: Tiefblau-Grau, Linien statt Flächen. */
+/* Dark Mode "Rabennacht": tiefes Indigo, Linien statt Flächen. */
 [data-theme="dark"]{
---spur-warmwhite:#131F24;
---spur-white:#131F24;
---spur-polar:#202F36;
---spur-ink:#F1F7FB;
---spur-ink-muted:#A0B0B8;
---spur-ink-subtle:#6F818A;
---spur-line:#37464F;
---spur-line-strong:#37464F;
---spur-locked:#52656D;
+--spur-warmwhite:#16152B;
+--spur-white:#16152B;
+--spur-polar:#221F3F;
+--spur-ink:#F2F1FA;
+--spur-ink-muted:#ADAACB;
+--spur-ink-subtle:#77749C;
+--spur-line:#34315A;
+--spur-line-strong:#34315A;
+--spur-locked:#504D7B;
 
---spur-brand:#58CC02;
---spur-brand-shade:#58A700;
---spur-brand-soft:#1F3A1B;
---spur-green-soft:#1F3A1B;
---spur-amber-soft:#3A3217;
---spur-fox-soft:#3A2A16;
---spur-coral-soft:#3B2226;
---spur-dove-soft:#12313F;
---spur-terracotta-soft:#2F2440;
---spur-humpback-soft:#1A2B44;
+--spur-brand:#6A5BF0;
+--spur-brand-shade:#4C3DD0;
+--spur-brand-soft:#2A2558;
+--spur-green-soft:#163A2C;
+--spur-amber-soft:#3B321A;
+--spur-fox-soft:#3B2A17;
+--spur-coral-soft:#3D2230;
+--spur-dove-soft:#15304A;
+--spur-terracotta-soft:#33244D;
+--spur-humpback-soft:#1C2A4A;
 
 --surface-page:var(--spur-warmwhite);
 --surface-card:var(--spur-white);
 --surface-sunken:var(--spur-polar);
---surface-locked:#37464F;
---text-inverse:#131F24;
---select-bg:#12313F;
---select-line:#1F6A8C;
---select-fg:#49C0F8;
---overlay-scrim:rgba(5,10,12,.72);
---badge-amber-fg:#FFC800;
+--surface-locked:#34315A;
+--text-inverse:#16152B;
+--text-link:#A79DFF;
+--text-link-hover:#C3BBFF;
+--select-bg:#29245A;
+--select-line:#5A4EC0;
+--select-fg:#A79DFF;
+--overlay-scrim:rgba(6,5,16,.72);
+--badge-amber-fg:#FFBF1F;
 }
 
 /* ---- typography.css -------------------------------------------------- */
@@ -208,7 +215,7 @@
 
 /* ---- elevation.css --------------------------------------------------- */
 :root{
-/* Duolingo: flach, Tiefe nur über die Unterkante. Weiche Schatten nur für Schwebendes. */
+/* Flach, Tiefe nur über die Unterkante. Weiche Schatten nur für Schwebendes. */
 --edge-depth:4px;
 --edge-depth-lg:6px;
 --shadow-edge-brand:0 var(--edge-depth) 0 var(--spur-brand-shade);
@@ -219,7 +226,7 @@
 --shadow-card:0 2px 0 var(--border-default);
 --shadow-raised:0 2px 0 rgba(0,0,0,.04), 0 16px 32px -18px rgba(0,0,0,.35);
 --shadow-sheet:0 -8px 32px -20px rgba(0,0,0,.35);
---glow-due:0 0 0 6px rgba(255,200,0,.25);
+--glow-due:0 0 0 6px rgba(255,191,31,.25);
 --ring-focus:0 0 0 3px var(--surface-page), 0 0 0 6px var(--focus-ring);
 --border-hair:1px solid var(--border-default);
 --border-card:2px solid var(--border-default);

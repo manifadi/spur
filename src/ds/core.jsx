@@ -57,7 +57,7 @@ export function Badge({ tone = 'neutral', variant = 'soft', icon, children, size
 
 /* ---- TextField --------------------------------------------------------- */
 const FIELD_STATE = {
-  // Duolingo: Eingabefeld grau hinterlegt, beim Schreiben weiß mit blauem Rand.
+  // Eingabefeld grau hinterlegt, beim Schreiben weiß mit indigofarbenem Rand.
   default: { border: 'var(--border-default)', bg: 'var(--surface-sunken)' },
   focus:   { border: 'var(--select-line)', bg: 'var(--surface-card)' },
   correct: { border: 'var(--spur-green)', bg: 'var(--state-correct-soft)' },
@@ -93,7 +93,7 @@ const OPTION_ICON = {
   brand:  { fg: 'var(--spur-brand)', bg: 'var(--spur-brand-soft)' },
 };
 
-/** Auswahl-Kachel (.tile): gewählt in Duolingo-Blau, Druck senkt sie ab. */
+/** Auswahl-Kachel (.tile): gewählt in Rabenindigo, Druck senkt sie ab. */
 export function OptionTile({ icon, title, description, selected = false, tone = 'brand', badge, onSelect, style, ...rest }) {
   const ic = OPTION_ICON[tone] || OPTION_ICON.brand;
   return (

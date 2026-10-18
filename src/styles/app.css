@@ -62,7 +62,7 @@ img{-webkit-user-drag:none}
 .overline{font:var(--type-overline);text-transform:uppercase;letter-spacing:var(--tracking-wide)}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
-/* ---- Buttons (Duolingo): Großbuchstaben, Unterkante als Tiefe ----------------------
+/* ---- Buttons: Großbuchstaben, Unterkante als Tiefe ----------------------
    Drücken senkt den Knopf um genau seine Kante ab (Kante verschwindet). Feedback beim
    Aufsetzen des Fingers über :active, 100 ms ease-out (Emil Kowalski: Buttons müssen
    sofort antworten). Farben kommen als CSS-Variablen aus Button.jsx. */
@@ -81,7 +81,7 @@ img{-webkit-user-drag:none}
 .btn-flat:disabled{background:transparent;opacity:.45}
 
 /* ---- Auswahl-Kacheln (Antworten, Reihenfolge, Optionen) ---------------------------
-   Weiß mit grauer Kante; gewählt in Duolingo-Blau. Drücken senkt sie wie einen Knopf. */
+   Weiß mit grauer Kante; gewählt in Rabenindigo. Drücken senkt sie wie einen Knopf. */
 .tile{background:var(--tile-bg,var(--surface-card));color:var(--tile-fg,var(--text-ink));
   border:2px solid var(--tile-line,var(--border-default));border-radius:var(--radius-md);
   box-shadow:0 var(--tile-depth,4px) 0 var(--tile-line,var(--border-default));cursor:pointer;text-align:left;
