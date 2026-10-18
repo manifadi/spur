@@ -43,7 +43,7 @@ export function AllDone({ onVoluntary, onPath, onContinue, next: nextNode, anim 
           const part = nextOpenPart(index, state, nextNode.id);
           const of = lessonParts(index, nextNode.id).length;
           const label = part && of > 1 && part.n > 1 ? `Weiter mit Teil ${part.n} von „${nextNode.lesson.title}“` : `Weiter mit „${nextNode.lesson.title}“`;
-          return <Button variant={nextNode.track === 'read' ? 'read' : nextNode.track === 'listen' ? 'listen' : 'primary'} full onClick={onContinue}>{label}</Button>;
+          return <Button full onClick={onContinue}>{label}</Button>;
         })()}
         <Button variant="secondary" full onClick={onVoluntary}>Freiwillige Runde</Button>
         <Button variant="ghost" size="md" full onClick={onPath}>Zum Pfad</Button>

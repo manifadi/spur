@@ -29,11 +29,11 @@ const FEATHERS = Array.from({ length: 9 }, (_, i) => {
 /** Ergebnis-Kachel wie bei Duolingo: farbiger Rahmen mit Überschrift, darunter der Wert. */
 function ResultTile({ label, color, icon, value, delay }) {
   return (
-    <div style={{ flex: 1, minWidth: 0, borderRadius: 'var(--radius-md)', background: color, border: `2px solid ${color}`, overflow: 'hidden', ...popin(delay, 460) }}>
-      <div style={{ font: 'var(--type-overline)', textTransform: 'uppercase', letterSpacing: 'var(--tracking-wide)', color: color === 'var(--spur-amber)' ? '#2B1C06' : '#fff', padding: '6px 4px 5px', textAlign: 'center', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{label}</div>
-      <div style={{ background: 'var(--surface-card)', borderRadius: 'calc(var(--radius-md) - 3px)', padding: '12px 6px 13px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, color }}>
+    <div style={{ flex: 1, minWidth: 0, borderRadius: 'var(--radius-lg)', background: color, border: `2px solid ${color}`, overflow: 'hidden', ...popin(delay, 460) }}>
+      <div style={{ font: 'var(--type-overline)', textTransform: 'uppercase', letterSpacing: 'var(--tracking-wide)', color: color === 'var(--spur-amber)' ? 'var(--on-amber)' : '#fff', padding: '6px 4px 5px', textAlign: 'center', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{label}</div>
+      <div style={{ background: 'var(--surface-card)', borderRadius: 'calc(var(--radius-lg) - 3px)', padding: '12px 6px 13px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, color }}>
         <Icon name={icon} size={20} strokeWidth={2.4} />
-        <span style={{ font: 'var(--type-headline)', fontWeight: 700, color: 'var(--text-ink)', fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' }}>{value}</span>
+        <span style={{ font: 'var(--type-headline)', fontWeight: 900, color: color === 'var(--spur-amber)' ? 'var(--spur-amber-shade)' : color, fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' }}>{value}</span>
       </div>
     </div>
   );
@@ -79,7 +79,7 @@ export function SessionEnd({ result, onNext }) {
             <Mascot pose={perfect ? 'cheering' : 'proud'} size={130} />
           </span>
         </div>
-        <h1 style={{ font: 'var(--weight-bold) 30px/1.15 var(--font-display)', color: 'var(--spur-amber)', letterSpacing: 'var(--tracking-tight)', textWrap: 'balance', ...rise(350) }}>{headline}</h1>
+        <h1 style={{ font: 'var(--weight-black) 30px/1.15 var(--font-display)', color: 'var(--spur-amber-shade)', letterSpacing: 'var(--tracking-tight)', textWrap: 'balance', ...rise(350) }}>{headline}</h1>
         <p style={{ font: 'var(--type-body-l)', color: 'var(--text-muted)', margin: '8px 0 26px', maxWidth: 300, ...rise(450) }}>{line}</p>
         <div style={{ display: 'flex', gap: 10, width: '100%' }} aria-label={`plus ${result.xp} Federn, ${acc} Prozent, Dauer ${clock(result.ms)}`}>
           <ResultTile label="Federn" color="var(--spur-amber)" icon="feather" value={`+${xp}`} delay={600} />
@@ -87,7 +87,7 @@ export function SessionEnd({ result, onNext }) {
           <ResultTile label="Zeit" color="var(--spur-dove)" icon="timer" value={clock(result.ms)} delay={840} />
         </div>
       </div>
-      <div style={bottom(1000)}><Button full onClick={onNext}>Weiter</Button></div>
+      <div style={bottom(900)}><Button full onClick={onNext}>Weiter</Button></div>
     </div>
   );
 }
@@ -106,18 +106,18 @@ export function DailyGoal({ onNext }) {
     <div className="screen">
       <div style={center}>
         <div style={{ position: 'relative', width: 200, height: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', flex: '0 0 auto' }}>
-          <span className="rm-hide" aria-hidden="true" style={{ position: 'absolute', width: 170, height: 170, borderRadius: '50%', border: '6px solid var(--spur-green)', animation: `spur-burst 700ms ${EASE.soft} 1250ms both` }} />
+          <span className="rm-hide" aria-hidden="true" style={{ position: 'absolute', width: 170, height: 170, borderRadius: '50%', border: '6px solid var(--spur-green)', animation: `spur-burst 700ms ${EASE.soft} 1050ms both` }} />
           <GoalRing value={fill} size={176} thickness={14} tone="correct" style={popin(0, 520)}>
             <span style={{ display: 'inline-flex', marginTop: 6 }}><Mascot pose="cheering" size={112} interactive={false} /></span>
           </GoalRing>
         </div>
-        <div className="stack" style={{ alignItems: 'center', gap: 8, marginTop: 22, ...rise(1300) }}>
+        <div className="stack" style={{ alignItems: 'center', gap: 8, marginTop: 22, ...rise(950) }}>
           <span className="overline" style={{ color: 'var(--spur-green-shade)' }}>Tagesziel · {goal} {goal === 1 ? 'Karte' : 'Karten'}</span>
           <h2 style={{ font: 'var(--type-title)', textWrap: 'balance' }}>Tagesziel geschafft!</h2>
           <p style={{ font: 'var(--type-body-l)', color: 'var(--text-muted)', maxWidth: 290 }}>Alles, was du heute noch machst, ist Zugabe. Miro ist zufrieden.</p>
         </div>
       </div>
-      <div style={bottom(1500)}><Button variant="correct" full onClick={onNext}>Weiter</Button></div>
+      <div style={bottom(1100)}><Button variant="correct" full onClick={onNext}>Weiter</Button></div>
     </div>
   );
 }
@@ -176,8 +176,8 @@ export function StreakMilestone({ days, daily = false, onNext }) {
           </span>
         </span>
         <div style={{ position: 'relative', height: 88, overflow: 'hidden', marginTop: 14, width: 180 }} aria-label={`${days} Tage am Stück`}>
-          <span style={{ position: 'absolute', inset: 0, font: 'var(--weight-bold) 80px/88px var(--font-display)', color: 'var(--text-ink)', animation: `spur-outup 360ms cubic-bezier(.55,0,.6,1) 800ms both` }}>{days - 1}</span>
-          <span style={{ position: 'absolute', inset: 0, font: 'var(--weight-bold) 80px/88px var(--font-display)', color: 'var(--text-ink)', animation: `spur-inup 420ms ${EASE.bounce} 900ms both` }}>{days}</span>
+          <span style={{ position: 'absolute', inset: 0, font: 'var(--weight-black) 80px/88px var(--font-display)', color: 'var(--state-streak)', animation: `spur-outup 360ms var(--ease-in-out) 800ms both` }}>{days - 1}</span>
+          <span style={{ position: 'absolute', inset: 0, font: 'var(--weight-black) 80px/88px var(--font-display)', color: 'var(--state-streak)', animation: `spur-inup 420ms ${EASE.bounce} 900ms both` }}>{days}</span>
         </div>
         <span style={{ font: 'var(--type-headline)', color: 'var(--text-muted)', marginTop: 2 }}>{days === 1 ? 'Tag am Stück' : 'Tage am Stück'}</span>
         <div style={{ display: 'flex', gap: 8, marginTop: 30 }}>
@@ -185,17 +185,17 @@ export function StreakMilestone({ days, daily = false, onNext }) {
             <span key={w.key} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
               <span style={{ position: 'relative', width: 38, height: 38, borderRadius: '50%', background: 'var(--surface-locked)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 {w.done && <span style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: 'var(--state-streak)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}><Icon name="check" size={18} strokeWidth={3} /></span>}
-                {w.today && <span style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: 'var(--state-streak)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', ...popin(1300, 460) }}><Icon name="flame" size={18} fill="currentColor" /></span>}
+                {w.today && <span style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: 'var(--state-streak)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', ...popin(1100, 460) }}><Icon name="flame" size={18} fill="currentColor" /></span>}
               </span>
               <span style={{ font: 'var(--type-label)', fontWeight: 700, color: 'var(--text-subtle)' }}>{w.d}</span>
             </span>
           ))}
         </div>
-        <p style={{ font: 'var(--type-body-l)', color: 'var(--text-muted)', margin: '26px 0 0', maxWidth: 290, ...rise(1700) }}>
+        <p style={{ font: 'var(--type-body-l)', color: 'var(--text-muted)', margin: '26px 0 0', maxWidth: 290, ...rise(1200) }}>
           {(!daily && MILESTONE_TEXT[days]) || DAILY_TEXT(days)}
         </p>
       </div>
-      <div style={{ ...bottom(1900), width: '100%', padding: '24px 0 calc(28px + env(safe-area-inset-bottom))' }}><Button full onClick={onNext}>Weiter</Button></div>
+      <div style={{ ...bottom(1300), width: '100%', padding: '24px 0 calc(28px + env(safe-area-inset-bottom))' }}><Button full onClick={onNext}>Weiter</Button></div>
     </div>
   );
 }
@@ -216,13 +216,13 @@ export function InfinityUnlocked({ days, onNext }) {
             <span style={{ position: 'absolute', top: 34, color: '#fff', display: 'inline-flex' }}><Icon name="infinity" size={40} strokeWidth={3} /></span>
           </span>
         </div>
-        <div className="stack" style={{ alignItems: 'center', gap: 8, marginTop: 24, ...rise(1850) }}>
+        <div className="stack" style={{ alignItems: 'center', gap: 8, marginTop: 24, ...rise(1500) }}>
           <span className="overline" style={{ color: 'var(--badge-amber-fg, var(--spur-amber-shade))' }}>{days} Tage am Stück</span>
           <h2 style={{ font: 'var(--type-title)', textWrap: 'pretty' }}>Heute hast du unendlich Aufmerksamkeit.</h2>
           <p style={{ font: 'var(--type-body-l)', color: 'var(--text-muted)', maxWidth: 290 }}>Bis Mitternacht kosten Fehler kein Herz. Miro passt auf.</p>
         </div>
       </div>
-      <div style={{ ...bottom(2150), padding: '24px 0 calc(28px + env(safe-area-inset-bottom))' }}><Button full onClick={onNext}>Weiter</Button></div>
+      <div style={{ ...bottom(1650), padding: '24px 0 calc(28px + env(safe-area-inset-bottom))' }}><Button full onClick={onNext}>Weiter</Button></div>
     </div>
   );
 }
@@ -238,8 +238,8 @@ export function ChapterDone({ chapterId, onNext }) {
   const lessons = chapter.lessons.filter((l) => l.type !== 'checkpoint').length;
   const cardsN = chapter.lessons.reduce((n, l) => n + (index.lessons.get(l.id)?.cardIds.length || 0), 0);
   const tone = chapter.track;
-  const shade = tone === 'read' ? 'var(--track-read-shade)' : tone === 'listen' ? 'var(--track-listen-shade)' : 'var(--spur-indigo)';
-  const soft = tone === 'read' ? 'var(--track-read-soft)' : tone === 'listen' ? 'var(--track-listen-soft)' : 'var(--surface-sunken)';
+  const shade = `var(--track-${tone}-shade)`;
+  const soft = `var(--track-${tone}-soft)`;
   const words = ['Null', 'Eine', 'Zwei', 'Drei', 'Vier', 'Fünf', 'Sechs', 'Sieben', 'Acht'];
   return (
     <div className="screen">
@@ -255,8 +255,8 @@ export function ChapterDone({ chapterId, onNext }) {
           </div>
           <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, padding: '0 16px', borderRadius: 'var(--radius-lg)', background: 'var(--spur-amber)', boxShadow: 'var(--shadow-edge-amber)', textAlign: 'left', animation: `spur-softin 420ms ${EASE.bounce} 500ms both` }}>
             <span className="stack" style={{ gap: 2 }}>
-              <span className="overline" style={{ color: '#2B1C06' }}>Kapitel {num} · geschafft</span>
-              <span style={{ font: 'var(--type-headline)', color: '#2B1C06' }}>{chapter.title}</span>
+              <span className="overline" style={{ color: 'var(--on-amber)', opacity: 0.8 }}>Kapitel {num} · geschafft</span>
+              <span style={{ font: 'var(--type-headline)', fontWeight: 900, color: 'var(--on-amber)' }}>{chapter.title}</span>
             </span>
             <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 40, height: 40, borderRadius: '50%', background: '#fff', color: 'var(--spur-amber-shade)' }}><Icon name="check" strokeWidth={3} /></span>
           </div>
@@ -264,10 +264,10 @@ export function ChapterDone({ chapterId, onNext }) {
         <h2 style={{ font: 'var(--type-title)', margin: '24px 0 6px', textWrap: 'pretty', ...rise(1100) }}>{words[lessons] || lessons} Lektionen, {cardsN} Karten im Gedächtnis.</h2>
         <p style={{ font: 'var(--type-body-l)', color: 'var(--text-muted)', maxWidth: 300, ...rise(1200) }}>Die Karten kommen weiter wieder, auch wenn du schon im nächsten Kapitel bist.</p>
         {next && (
-          <div style={{ width: '100%', marginTop: 24, ...rise(1400) }}>
+          <div style={{ width: '100%', marginTop: 24, ...rise(1200) }}>
             <Card tone={next.track} padding={14} elevated={false} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
               <span className="stack" style={{ gap: 2, textAlign: 'left' }}>
-                <span className="overline" style={{ color: next.track === 'read' ? 'var(--track-read-shade)' : next.track === 'listen' ? 'var(--track-listen-shade)' : 'var(--spur-indigo)' }}>Als Nächstes · Kapitel {num + 1}</span>
+                <span className="overline" style={{ color: `var(--track-${next.track}-shade)` }}>Als Nächstes · Kapitel {num + 1}</span>
                 <span style={{ font: 'var(--type-headline)' }}>{next.title}</span>
               </span>
               <Icon name="unlock" />
@@ -275,7 +275,7 @@ export function ChapterDone({ chapterId, onNext }) {
           </div>
         )}
       </div>
-      <div style={bottom(1600)}><Button full onClick={onNext}>{next ? `Weiter zu Kapitel ${num + 1}` : 'Zum Pfad'}</Button></div>
+      <div style={bottom(1300)}><Button full onClick={onNext}>{next ? `Weiter zu Kapitel ${num + 1}` : 'Zum Pfad'}</Button></div>
     </div>
   );
 }

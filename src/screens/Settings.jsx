@@ -23,12 +23,12 @@ const GOALS = [
 const TRACKS = [
   { v: 'listen', title: 'Zuhören', description: 'Beiläufige Details aus Gesprächen behalten', icon: 'ear', tone: 'listen' },
   { v: 'read', title: 'Lesen', description: 'Texte aus dem Kopf wiedergeben', icon: 'book-open', tone: 'read' },
-  { v: 'both', title: 'Beides', description: 'Im Wechsel, ein Pfad', icon: 'sparkles', tone: 'indigo' },
+  { v: 'both', title: 'Beides', description: 'Im Wechsel, ein Pfad', icon: 'sparkles', tone: 'brand' },
 ];
 
-const row = { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, minHeight: 56, padding: '12px 0', background: 'none', border: 'none', borderBottom: '1px solid var(--border-default)', cursor: 'pointer', textAlign: 'left', width: '100%', color: 'var(--text-ink)' };
-const rowLabel = { font: 'var(--type-body)', fontSize: 'var(--text-body-l)', color: 'var(--text-ink)' };
-const rowValue = { display: 'flex', alignItems: 'center', gap: 6, font: 'var(--type-body)', color: 'var(--text-muted)' };
+const row = { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, minHeight: 56, padding: '12px 0', background: 'none', border: 'none', borderBottom: '2px solid var(--border-default)', cursor: 'pointer', textAlign: 'left', width: '100%', color: 'var(--text-ink)' };
+const rowLabel = { font: 'var(--type-body)', fontSize: 'var(--text-body-l)', fontWeight: 800, color: 'var(--text-ink)' };
+const rowValue = { display: 'flex', alignItems: 'center', gap: 6, font: 'var(--type-body)', fontWeight: 700, color: 'var(--text-link)' };
 
 function isDark(theme) {
   return theme === 'dark' || (theme === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
@@ -74,12 +74,12 @@ export function SettingsSheet({ open, onClose }) {
           {TIMES.map((t) => (
             <button key={t.v} type="button" role="radio" aria-checked={s.reminder === t.v} onClick={() => pick(t.v)} style={row}>
               <span style={rowLabel}>{t.label}</span>
-              {s.reminder === t.v && <span style={{ color: 'var(--spur-indigo)', display: 'inline-flex' }}><Icon name="check" /></span>}
+              {s.reminder === t.v && <span style={{ color: 'var(--select-fg)', display: 'inline-flex' }}><Icon name="check" strokeWidth={3} /></span>}
             </button>
           ))}
           <button type="button" role="radio" aria-checked={!s.reminder} onClick={() => pick(null)} style={{ ...row, borderBottom: 'none' }}>
             <span style={{ ...rowLabel, color: 'var(--text-muted)' }}>Gar nicht erinnern</span>
-            {!s.reminder && <span style={{ color: 'var(--spur-indigo)', display: 'inline-flex' }}><Icon name="check" /></span>}
+            {!s.reminder && <span style={{ color: 'var(--select-fg)', display: 'inline-flex' }}><Icon name="check" strokeWidth={3} /></span>}
           </button>
         </div>
         {permNote && <p role="status" style={{ font: 'var(--type-label)', fontWeight: 500, color: 'var(--spur-coral-shade)' }}>{permNote}</p>}
@@ -154,7 +154,7 @@ export function SettingsSheet({ open, onClose }) {
           <Switch checked={isDark(s.theme)} label="Dark Mode" onChange={(v) => setSettings({ theme: v ? 'dark' : 'light' })} />
         </div>
         <button type="button" onClick={() => setView('reset')}
-          style={{ display: 'flex', alignItems: 'center', gap: 10, minHeight: 56, padding: '14px 0 6px', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', width: '100%', color: 'var(--spur-coral)', font: 'var(--type-body)', fontSize: 'var(--text-body-l)' }}>
+          style={{ display: 'flex', alignItems: 'center', gap: 10, minHeight: 56, padding: '14px 0 6px', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', width: '100%', color: 'var(--spur-coral)', font: 'var(--type-body)', fontSize: 'var(--text-body-l)', fontWeight: 800 }}>
           <Icon name="rotate-ccw" />
           Fortschritt zurücksetzen
         </button>

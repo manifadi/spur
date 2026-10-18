@@ -3,9 +3,10 @@ import { useStore } from '../store.jsx';
 import { Icon } from '../ds/Icon.jsx';
 import { Button } from '../ds/Button.jsx';
 import { IconButton } from '../ds/IconButton.jsx';
-import { Badge, Card } from '../ds/core.jsx';
+import { Wordmark } from '../ds/core.jsx';
 import { Mascot, SpeechBubble } from '../ds/feedback.jsx';
-import { GoalRing, HeartsMeter, InfinityPill, PathNode, StreakPill, XPPill } from '../ds/progress.jsx';
+import { GoalRing, HeartCount, HeartsMeter, InfinityPill, PathNode, StreakPill, XPPill } from '../ds/progress.jsx';
+import { XP } from '../engine/srs.js';
 import { SettingsSheet } from './Settings.jsx';
 import {
   buildPath, doneTodayCount, dueCardIds, hasAnyProgress, isInfinite, nextLessonAfter, daysSinceFirstSeen, pickPopup,
@@ -57,9 +58,9 @@ function WeekRow({ practiced, today }) {
 /** Antippbarer Wert in der Kopfzeile (Streak, Federn, Herzen): klappt eine Info darunter auf. */
 function HeaderStat({ active, label, onClick, children }) {
   return (
-    <button type="button" onClick={onClick} aria-label={label} aria-expanded={active}
-      style={{ display: 'inline-flex', alignItems: 'center', height: 40, padding: '0 8px', borderRadius: 'var(--radius-pill)', border: 'none', cursor: 'pointer',
-        background: active ? 'var(--surface-sunken)' : 'transparent', transition: 'background var(--dur-fast) var(--ease-out-soft)' }}>
+    <button type="button" onClick={onClick} aria-label={label} aria-expanded={active} className="press-scale"
+      style={{ display: 'inline-flex', alignItems: 'center', height: 44, padding: '0 10px', borderRadius: 'var(--radius-md)', border: 'none', cursor: 'pointer',
+        background: active ? 'var(--surface-sunken)' : 'transparent' }}>
       {children}
     </button>
   );
@@ -136,19 +137,18 @@ export function PathHeader({ xpFrom, xpDelay = 300, streakBump = false, onMenu }
 
   return (
     <header className="path-header">
-      <div style={{ display: 'flex', alignItems: 'center', gap: 4, minWidth: 0, marginLeft: -8 }}>
-        <HeaderStat active={panel === 'streak'} label={`Streak ${p.streak} Tage`} onClick={() => toggle('streak')}><StreakPill days={p.streak} active={p.streak > 0} bump={bump} /></HeaderStat>
-        <HeaderStat active={panel === 'xp'} label={`${p.xp} Federn`} onClick={() => toggle('xp')}><XPPill xp={xp} /></HeaderStat>
-        <HeaderStat active={panel === 'hearts'} label={infinite ? 'Aufmerksamkeit unendlich' : `Aufmerksamkeit ${p.hearts} von ${MAX_HEARTS}`} onClick={() => toggle('hearts')}>
-          {infinite ? <InfinityPill /> : <HeartsMeter value={p.hearts} size={18} />}
-        </HeaderStat>
-      </div>
-      <IconButton icon="menu" label="Menü" size={44} onClick={() => { setPanel(null); onMenu(); }} />
+      {/* Wie bei Duolingo: Werte gleichmäßig verteilt, jeweils Symbol + Zahl in der eigenen Farbe. */}
+      <HeaderStat active={panel === 'streak'} label={`Streak ${p.streak} Tage`} onClick={() => toggle('streak')}><StreakPill days={p.streak} active={p.streak > 0} bump={bump} /></HeaderStat>
+      <HeaderStat active={panel === 'xp'} label={`${p.xp} Federn`} onClick={() => toggle('xp')}><XPPill xp={xp} /></HeaderStat>
+      <HeaderStat active={panel === 'hearts'} label={infinite ? 'Aufmerksamkeit unendlich' : `Aufmerksamkeit ${p.hearts} von ${MAX_HEARTS}`} onClick={() => toggle('hearts')}>
+        {infinite ? <InfinityPill /> : <HeartCount value={p.hearts} />}
+      </HeaderStat>
+      <IconButton icon="menu" label="Menü" size={44} onClick={() => { setPanel(null); onMenu(); }} style={{ marginRight: -8 }} />
       {panelShown && (
         <>
           <div aria-hidden="true" onClick={() => setPanel(null)}
             style={{ position: 'absolute', top: '100%', left: 0, right: 0, height: '100dvh', background: 'var(--overlay-scrim)',
-              animation: panelLeaving ? 'spur-scrim-out 200ms var(--ease-out-soft) both' : 'spur-scrim-in 200ms var(--ease-out-soft) both', opacity: 0.5 }} />
+              animation: panelLeaving ? 'spur-scrim-out 200ms var(--ease-out) both' : 'spur-scrim-in 200ms var(--ease-out) both', opacity: 0.5 }} />
           <div role="dialog" aria-label={panelShown === 'streak' ? 'Streak' : panelShown === 'xp' ? 'Federn' : 'Aufmerksamkeit'} key={panelShown}
             className={panelLeaving ? 'a-leave' : 'a-drop'}
             style={{ position: 'absolute', top: '100%', left: 0, right: 0, background: 'var(--surface-card)', borderBottom: '2px solid var(--border-default)',
@@ -177,14 +177,18 @@ function bubbleText(index, state) {
   return 'Heute ist nichts fällig. Zeit für was Neues.';
 }
 
+/** Inhalt der Sprechblase am Knoten. tone: Farbe der Blase (Spur, fällig = gelb, gesperrt = grau). xp: Federn, wenn alles sitzt. */
 function nodeInfo(node, state, index) {
   const now = new Date();
   const fragen = (k) => `${k} ${k === 1 ? 'Frage' : 'Fragen'}`;
   const t = node.track;
-  const variant = t === 'mixed' ? 'primary' : t;
-  if (node.lesson.type === 'checkpoint') {
+  const checkpoint = node.lesson.type === 'checkpoint';
+  if (node.status === 'locked') {
+    return { title: checkpoint ? 'Checkpoint' : node.lesson.title, meta: 'Schließ zuerst die Level darüber ab, dann geht das hier auf.', tone: 'locked' };
+  }
+  if (checkpoint) {
     const done = node.status === 'done';
-    return { title: 'Checkpoint', meta: done ? 'Gemischte Wiederholung · erledigt' : 'Gemischte Wiederholung · bis zu 6 Karten', cta: done ? 'Nochmal üben' : 'Los geht’s', variant: 'primary' };
+    return { title: 'Checkpoint', meta: done ? 'Gemischte Wiederholung · erledigt' : 'Gemischte Wiederholung · bis zu 6 Karten', cta: done ? 'Nochmal üben' : 'Los geht’s', tone: t };
   }
   const parts = lessonParts(index, node.id);
   const of = parts.length;
@@ -196,8 +200,10 @@ function nodeInfo(node, state, index) {
     const due = node.cardIds.filter((id) => { const r = state.cards[id]; return r && r.stage >= 0 && r.due <= today; }).length;
     const d = daysSinceFirstSeen(state, node.cardIds, now);
     const allDone = lessonParts(index, node.id).every((p) => isPartDone(state, p));
-    if (t === 'read') return { title: node.lesson.title, meta: `Fällige Wiedergabe · ${fragen(due)} · gelesen ${daysAgoText(d)}`, cta: 'Wiedergeben', variant: 'read', chooser: allDone ? 'collapsed' : false };
-    return { title: node.lesson.title, meta: `Fällige Wiederholung · ${fragen(due)} · zuletzt ${daysAgoText(d)}`, cta: 'Wiederholen', variant: 'listen', chooser: allDone ? 'collapsed' : false };
+    // Keine Federn-Zahl: eine Wiederholungsrunde nimmt nur einen Teil der fälligen Fragen.
+    const base = { title: node.lesson.title, tone: 'due', chooser: allDone ? 'collapsed' : false };
+    if (t === 'read') return { ...base, meta: `Fällige Wiedergabe · ${fragen(due)} · gelesen ${daysAgoText(d)}`, cta: 'Wiedergeben' };
+    return { ...base, meta: `Fällige Wiederholung · ${fragen(due)} · zuletzt ${daysAgoText(d)}`, cta: 'Wiederholen' };
   }
   if (next) {
     // Offener Teil: "Teil 2 von 4 · 1 Gespräch · 3 Fragen · ca. 3 Minuten"
@@ -206,24 +212,32 @@ function nodeInfo(node, state, index) {
       title: node.lesson.title,
       meta: `${label}${media(next)} · ${fragen(next.cardIds.length)} · ca. ${minutes(next)} Minuten`,
       cta: next.n === 1 && !next.cardIds.some((id) => state.cards[id]) ? 'Los geht’s' : `Teil ${next.n} starten`,
-      variant,
+      xp: next.cardIds.length * XP.good,
+      tone: t,
     };
   }
   const at = state.progress.lessonsDone[node.id];
   const d = at ? daysBetween(dayKey(new Date(at)), dayKey(now)) : daysSinceFirstSeen(state, node.cardIds, now);
-  return { title: node.lesson.title, meta: `${of} ${of === 1 ? 'Teil' : 'Teile'} · abgeschlossen ${daysAgoText(d)}`, chooser: true, variant };
+  return { title: node.lesson.title, meta: `${of} ${of === 1 ? 'Teil' : 'Teile'} · abgeschlossen ${daysAgoText(d)}`, chooser: true, tone: t };
 }
+
+/* Farben der Sprechblase: Text, Unterzeile, Akzent auf dem weißen Knopf, Zeilen der Teil-Auswahl. */
+const POP = {
+  listen: { bg: 'var(--track-listen)', fg: '#fff', sub: 'rgba(255,255,255,.88)', accent: 'var(--track-listen)', row: 'rgba(255,255,255,.16)', rowLine: 'rgba(255,255,255,.4)' },
+  read:   { bg: 'var(--track-read)', fg: '#fff', sub: 'rgba(255,255,255,.88)', accent: 'var(--track-read-shade)', row: 'rgba(255,255,255,.16)', rowLine: 'rgba(255,255,255,.4)' },
+  mixed:  { bg: 'var(--track-mixed)', fg: '#fff', sub: 'rgba(255,255,255,.88)', accent: 'var(--track-mixed-shade)', row: 'rgba(255,255,255,.16)', rowLine: 'rgba(255,255,255,.4)' },
+  due:    { bg: 'var(--spur-amber)', fg: 'var(--on-amber)', sub: 'var(--on-amber)', accent: '#9A6500', row: 'rgba(255,255,255,.35)', rowLine: 'rgba(74,53,0,.25)' },
+  locked: { bg: 'var(--surface-sunken)', fg: 'var(--text-muted)', sub: 'var(--text-subtle)', line: 'var(--border-default)' },
+};
 
 /**
  * Erledigtes Level: erst einen Teil wählen, dann wie (alles / nur Fragen / nur hören).
  * Bei fälligen Karten steht die fällige Wiederholung obenan, die Auswahl klappt darunter auf.
  */
-function PartChooser({ node, state, index, collapsed, onChoose }) {
+function PartChooser({ node, state, index, collapsed, colors: c, onChoose }) {
   const parts = lessonParts(index, node.id);
   const [part, setPart] = useState(() => (leastRecentPart(state, parts) || parts[0]).n);
   const [open, setOpen] = useState(!collapsed);
-  const read = node.track === 'read';
-  const tone = node.track === 'mixed' ? 'primary' : node.track;
   const now = new Date();
   const ago = (p) => {
     const last = p.cardIds.map((id) => state.cards[id]?.last || '').sort().pop();
@@ -231,11 +245,12 @@ function PartChooser({ node, state, index, collapsed, onChoose }) {
   };
   const partRead = (p) => p.item.type === 'text';
   const sel = parts.find((p) => p.n === part) || parts[0];
+  const btnColors = { '--btn-accent': c.accent, '--btn-accent-fg': c.fg };
   if (!open) {
     return (
-      <button type="button" onClick={() => setOpen(true)}
-        style={{ marginTop: 10, width: '100%', background: 'none', border: 'none', padding: '6px 0', cursor: 'pointer', font: 'var(--type-label)', color: 'var(--text-link)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}>
-        Oder einen Teil frei wählen <Icon name="chevron-right" size={16} />
+      <button type="button" onClick={() => setOpen(true)} className="press-scale"
+        style={{ marginTop: 10, width: '100%', background: 'none', border: 'none', padding: '6px 0', cursor: 'pointer', font: 'var(--type-label)', fontWeight: 800, color: c.fg, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}>
+        Oder einen Teil frei wählen <Icon name="chevron-right" size={16} strokeWidth={2.8} />
       </button>
     );
   }
@@ -246,62 +261,117 @@ function PartChooser({ node, state, index, collapsed, onChoose }) {
           {parts.map((p) => {
             const on = p.n === part;
             return (
-              <button key={p.n} type="button" role="radio" aria-checked={on} onClick={() => setPart(p.n)}
+              <button key={p.n} type="button" role="radio" aria-checked={on} onClick={() => setPart(p.n)} className="press-scale"
                 style={{ display: 'flex', alignItems: 'center', gap: 10, width: '100%', minHeight: 48, padding: '8px 12px', cursor: 'pointer', textAlign: 'left',
-                  borderRadius: 'var(--radius-md)', border: `2px solid ${on ? `var(--track-${read ? 'read' : 'listen'})` : 'var(--border-default)'}`,
-                  background: on ? `var(--track-${read ? 'read' : 'listen'}-soft)` : 'var(--surface-card)',
-                  transition: 'background var(--dur-fast) var(--ease-out-soft), border-color var(--dur-fast) var(--ease-out-soft)' }}>
-                <span style={{ color: on ? `var(--track-${read ? 'read' : 'listen'})` : 'var(--spur-locked)', display: 'inline-flex' }}><Icon name={on ? 'check-circle-2' : 'circle'} size={20} /></span>
+                  borderRadius: 'var(--radius-md)', border: `2px solid ${on ? '#fff' : c.rowLine}`, background: on ? '#fff' : c.row, color: on ? c.accent : c.fg,
+                  transition: 'transform var(--dur-instant) var(--ease-out), background-color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out)' }}>
+                <span style={{ display: 'inline-flex' }}><Icon name={on ? 'check-circle-2' : 'circle'} size={20} strokeWidth={2.6} /></span>
                 <span style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
-                  <span style={{ font: 'var(--type-body)', fontWeight: 700, color: 'var(--text-ink)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Teil {p.n} · {p.item.title}</span>
-                  {ago(p) && <span style={{ font: 'var(--type-label)', fontWeight: 500, color: 'var(--text-muted)' }}>zuletzt {ago(p)}</span>}
+                  <span style={{ font: 'var(--type-body)', fontWeight: 800, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Teil {p.n} · {p.item.title}</span>
+                  {ago(p) && <span style={{ font: 'var(--type-label)', fontWeight: 600, opacity: 0.85 }}>zuletzt {ago(p)}</span>}
                 </span>
               </button>
             );
           })}
         </div>
       )}
-      <div className="stack" style={{ gap: 8 }}>
-        <Button variant={tone} full icon={partRead(sel) ? 'book-open' : 'play'} onClick={() => onChoose({ part, mode: 'full' })}>
+      <div className="stack" style={{ gap: 10 }}>
+        <Button variant="inverse" full icon={partRead(sel) ? 'book-open' : 'play'} style={btnColors} onClick={() => onChoose({ part, mode: 'full' })}>
           {partRead(sel) ? 'Lesen + Fragen' : 'Hören + Fragen'}
         </Button>
         <div style={{ display: 'flex', gap: 8 }}>
-          <Button variant="secondary" size="md" full icon="target" onClick={() => onChoose({ part, mode: 'quiz' })}>Nur Fragen</Button>
-          <Button variant="secondary" size="md" full icon={partRead(sel) ? 'book' : 'ear'} onClick={() => onChoose({ part, mode: 'source' })}>{partRead(sel) ? 'Nur lesen' : 'Nur hören'}</Button>
+          <Button variant="glass" size="md" full icon="target" style={btnColors} onClick={() => onChoose({ part, mode: 'quiz' })}>Nur Fragen</Button>
+          <Button variant="glass" size="md" full icon={partRead(sel) ? 'book' : 'ear'} style={btnColors} onClick={() => onChoose({ part, mode: 'source' })}>{partRead(sel) ? 'Nur lesen' : 'Nur hören'}</Button>
         </div>
       </div>
     </div>
   );
 }
 
+/**
+ * Sprechblase am Knoten (Duolingo): in der Farbe der Spur, Pfeil zeigt auf den Knoten.
+ * Wächst aus der Pfeilspitze heraus (transform-origin am Pfeil), raus geht es schneller als rein.
+ */
+function NodePopover({ node, info, at, width, leaving, state, index, popRef, onStart, onChoose }) {
+  const c = POP[info.tone] || POP.listen;
+  const W = Math.min(width - 32, 360);
+  const left = Math.max(16, Math.min(width - 16 - W, at.x - W / 2));
+  const arrow = Math.max(24, Math.min(W - 24, at.x - left));
+  const locked = info.tone === 'locked';
+  return (
+    <div ref={popRef} role="dialog" aria-label={info.title} onClick={(e) => e.stopPropagation()} className={leaving ? 'pop-out' : 'pop-in'}
+      style={{ position: 'absolute', top: at.y + 56, left, width: W, zIndex: 8, transformOrigin: `${arrow}px -8px`,
+        background: c.bg, color: c.fg, border: c.line ? `2px solid ${c.line}` : 'none', borderRadius: 'var(--radius-lg)', padding: 16,
+        boxShadow: locked ? 'none' : 'var(--shadow-raised)' }}>
+      <span aria-hidden="true" style={{ position: 'absolute', top: c.line ? -9 : -7, left: arrow - 8, width: 16, height: 16, background: c.bg, borderRadius: 3,
+        borderLeft: c.line ? `2px solid ${c.line}` : 'none', borderTop: c.line ? `2px solid ${c.line}` : 'none', transform: 'rotate(45deg)' }} />
+      <div className="stack" style={{ gap: 4, marginBottom: info.cta || info.chooser || locked ? 14 : 0, position: 'relative' }}>
+        <span style={{ font: 'var(--type-headline)', fontSize: 18, fontWeight: 900 }}>{info.title}</span>
+        <span style={{ font: 'var(--type-body)', fontWeight: 700, color: c.sub }}>{info.meta}</span>
+      </div>
+      {locked && <Button full disabled>Gesperrt</Button>}
+      {info.cta && (
+        <Button variant="inverse" full autoFocus style={{ '--btn-accent': c.accent }} onClick={onStart}>
+          {info.cta}
+          {info.xp > 0 && <span style={{ display: 'inline-flex', alignItems: 'center', gap: 3, marginLeft: 2 }}>+{info.xp}<Wordmark glyphOnly size={16} /></span>}
+        </Button>
+      )}
+      {info.chooser && <PartChooser node={node} state={state} index={index} collapsed={info.chooser === 'collapsed'} colors={c} onChoose={onChoose} />}
+    </div>
+  );
+}
+
 /* ---- Kapitel-Banner --------------------------------------------------------- */
+/** Kleiner Fortschrittsring auf farbigem Grund: "1/3". */
+function MiniRing({ done, total, size = 44 }) {
+  const r = (size - 6) / 2;
+  const c = 2 * Math.PI * r;
+  return (
+    <span role="img" aria-label={`${done} von ${total} geschafft`} style={{ position: 'relative', width: size, height: size, flex: '0 0 auto', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+      <svg width={size} height={size} aria-hidden="true" style={{ position: 'absolute', inset: 0, transform: 'rotate(-90deg)' }}>
+        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="rgba(255,255,255,.3)" strokeWidth={5} />
+        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="#fff" strokeWidth={5} strokeLinecap="round"
+          strokeDasharray={c} strokeDashoffset={c * (1 - (total ? done / total : 0))} opacity={done ? 1 : 0} />
+      </svg>
+      <span aria-hidden="true" style={{ font: 'var(--type-label)', fontSize: 12, fontWeight: 900, color: '#fff' }}>{done}/{total}</span>
+    </span>
+  );
+}
+
+const BANNER = {
+  listen: { bg: 'var(--track-listen)', edge: 'var(--track-listen-shade)' },
+  read:   { bg: 'var(--track-read)', edge: 'var(--track-read-shade)' },
+  mixed:  { bg: 'var(--track-mixed)', edge: 'var(--track-mixed-shade)' },
+};
+
+/** Kapitel-Banner wie Duolingos Einheiten-Kopf: volle Spurfarbe, weiße Schrift, Ring rechts. */
 function ChapterBanner({ group }) {
   const { chapter, number, complete, nodes } = group;
   const doneN = nodes.filter((x) => x.status === 'done' || x.status === 'due').length;
   if (complete) {
     return (
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, padding: 14, borderRadius: 'var(--radius-lg)', background: 'var(--spur-amber)', boxShadow: 'var(--shadow-edge-amber)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, padding: '14px 16px', borderRadius: 'var(--radius-lg)', background: 'var(--spur-amber)', boxShadow: 'var(--shadow-edge-amber)' }}>
         <span style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <span className="overline" style={{ color: '#2B1C06' }}>Kapitel {number} · geschafft</span>
-          <span style={{ font: 'var(--type-headline)', color: '#2B1C06' }}>{chapter.title}</span>
+          <span className="overline" style={{ color: 'var(--on-amber)', opacity: 0.8 }}>Kapitel {number} · geschafft</span>
+          <span style={{ font: 'var(--type-headline)', fontWeight: 900, color: 'var(--on-amber)' }}>{chapter.title}</span>
         </span>
         <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 40, height: 40, borderRadius: '50%', background: '#fff', color: 'var(--spur-amber-shade)', flex: '0 0 auto' }}>
-          <Icon name="check" strokeWidth={3} />
+          <Icon name="check" strokeWidth={3.4} />
         </span>
       </div>
     );
   }
   const tone = chapter.track;
-  const shade = tone === 'read' ? 'var(--track-read-shade)' : tone === 'listen' ? 'var(--track-listen-shade)' : 'var(--spur-indigo)';
+  const b = BANNER[tone] || BANNER.mixed;
   return (
-    <Card tone={tone} padding={14} elevated={false} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
-      <span style={{ display: 'flex', flexDirection: 'column', gap: 2, minWidth: 0 }}>
-        <span className="overline" style={{ color: shade }}>Kapitel {number}</span>
-        <span style={{ font: 'var(--type-headline)', color: 'var(--text-ink)' }}>{chapter.title}</span>
-        <span style={{ font: 'var(--type-label)', fontWeight: 500, color: 'var(--text-muted)' }}>{doneN} von {nodes.length} geschafft</span>
+    <div style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '14px 14px 14px 16px', borderRadius: 'var(--radius-lg)', background: b.bg, boxShadow: `0 4px 0 ${b.edge}`, color: '#fff' }}>
+      <span style={{ display: 'flex', flexDirection: 'column', gap: 3, minWidth: 0, flex: 1 }}>
+        <span className="overline" style={{ color: 'rgba(255,255,255,.85)' }}>Kapitel {number} · {TRACK_NAME[tone]}</span>
+        <span style={{ font: 'var(--type-headline)', fontWeight: 900 }}>{chapter.title}</span>
       </span>
-      <Badge tone={tone} variant="solid" size="sm">{TRACK_NAME[tone]}</Badge>
-    </Card>
+      <span aria-hidden="true" style={{ width: 2, alignSelf: 'stretch', background: b.edge, borderRadius: 1 }} />
+      <MiniRing done={doneN} total={nodes.length} />
+    </div>
   );
 }
 
@@ -310,7 +380,8 @@ function NodeView({ node, from, delay, freshPart, onTap, nodeRef, started }) {
   const common = { track: node.track === 'mixed' ? 'mixed' : node.track, icon: node.lesson.type === 'checkpoint' ? 'target' : undefined,
     bubble: node.status === 'current' ? (started ? 'Weiter' : 'Start') : null };
   const label = node.lesson.type === 'checkpoint' && node.status !== 'locked' ? 'Checkpoint' : node.label;
-  const tap = node.status === 'locked' ? undefined : (e) => { e.stopPropagation(); onTap(node); };
+  // Auch gesperrte Knoten sind antippbar: Die Blase sagt dann, warum (wie bei Duolingo).
+  const tap = (e) => { e.stopPropagation(); onTap(node); };
   const aria = `${node.lesson.title}${node.status === 'locked' ? ', gesperrt' : node.status === 'due' ? ', fällig' : node.status === 'done' ? ', erledigt' : ''}`;
   if (!from || from === node.status) {
     const segments = freshPart ? { ...node.segments, fresh: freshPart } : node.segments;
@@ -445,6 +516,23 @@ export function Home({ anim, onOpenNode, onPopupTest }) {
     el?.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
   };
 
+  // Blase am Knoten: Escape schließt sie; ragt sie unten aus dem Bild, scrollt der Pfad nach.
+  const popRef = useRef(null);
+  useEffect(() => {
+    if (!selected) return undefined;
+    const onKey = (e) => { if (e.key === 'Escape') setSelected(null); };
+    window.addEventListener('keydown', onKey);
+    const t = setTimeout(() => {
+      const el = popRef.current;
+      const sc = scrollRef.current;
+      if (!el || !sc) return;
+      // offsetHeight statt getBoundingClientRect: die Blase skaliert gerade noch herein.
+      const over = el.getBoundingClientRect().top + el.offsetHeight - (sc.getBoundingClientRect().bottom - 16);
+      if (over > 0) sc.scrollBy({ top: over, behavior: reduced ? 'auto' : 'smooth' });
+    }, 30);
+    return () => { window.removeEventListener('keydown', onKey); clearTimeout(t); };
+  }, [selected?.id]); // eslint-disable-line react-hooks/exhaustive-deps
+
   // Zufällige Erinnerungs-Pop-ups: beim Öffnen des Pfads, höchstens eins pro Tag.
   useEffect(() => {
     const t = setTimeout(() => {
@@ -474,7 +562,7 @@ export function Home({ anim, onOpenNode, onPopupTest }) {
         const d = `M${a.x} ${a.y} C ${a.x} ${a.y + dy * 0.55}, ${b.x} ${b.y - dy * 0.55}, ${b.x} ${b.y}`;
         const reached = g.nodes[i + 1].status !== 'locked';
         const animated = animState && g.nodes[i].id === animState.doneId && g.nodes[i + 1].id === animState.nextId;
-        lines.push({ key: g.nodes[i].id, d, reached: reached && !animated, animated });
+        lines.push({ key: g.nodes[i].id, d, reached: reached && !animated, animated, color: `var(--track-${g.nodes[i + 1].track || 'mixed'})` });
       }
     }
   }
@@ -502,7 +590,7 @@ export function Home({ anim, onOpenNode, onPopupTest }) {
 
   // Alles, was eingeblendet wird, blendet auch weich wieder aus.
   const [popupShown] = usePresence(popup, 260);
-  const [sel, selLeaving] = usePresence(selected, 220);
+  const [sel, selLeaving] = usePresence(selected, 140);
   const [toastShown, toastLeaving] = usePresence(toast, 260);
   const [stickyShown, stickyLeaving] = usePresence(sticky, 200);
   const [targetShown, targetLeaving] = usePresence(!targetVisible && !selected && target ? target : null, 220);
@@ -516,28 +604,23 @@ export function Home({ anim, onOpenNode, onPopupTest }) {
       {stickyShown && (() => {
         const g = groups.find((x) => x.chapter.id === stickyShown);
         const tone = g.chapter.track;
-        const soft = tone === 'read' ? 'var(--track-read-soft)' : tone === 'listen' ? 'var(--track-listen-soft)' : 'var(--surface-sunken)';
-        const shade = tone === 'read' ? 'var(--track-read-shade)' : tone === 'listen' ? 'var(--track-listen-shade)' : 'var(--spur-indigo)';
+        const b = BANNER[tone] || BANNER.mixed;
         return (
-          <button type="button" key={stickyShown} className={stickyLeaving ? 'a-leave' : 'a-rise'} onClick={() => sectionEls.current.get(stickyShown)?.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' })}
+          <button type="button" key={stickyShown} className={stickyLeaving ? 'a-leave' : 'a-drop'} onClick={() => sectionEls.current.get(stickyShown)?.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' })}
             aria-label={`Kapitel ${g.number}: ${g.chapter.title}, ${TRACK_NAME[tone]}`}
-            style={{ position: 'absolute', top: 0, left: 0, right: 0, zIndex: 6, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10,
-              height: 44, padding: '0 var(--gutter-screen)', border: 'none', borderBottom: '2px solid var(--border-default)', background: soft, cursor: 'pointer',
-              animationDuration: '200ms', textAlign: 'left' }}>
-            <span style={{ display: 'flex', alignItems: 'baseline', gap: 8, minWidth: 0 }}>
-              <span className="overline" style={{ color: shade, flex: '0 0 auto' }}>Kapitel {g.number}</span>
-              <span style={{ font: 'var(--type-body)', fontWeight: 700, color: 'var(--text-ink)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{g.chapter.title}</span>
-            </span>
-            <Badge tone={tone} variant="solid" size="sm">{TRACK_NAME[tone]}</Badge>
+            style={{ position: 'absolute', top: 0, left: 0, right: 0, zIndex: 6, display: 'flex', alignItems: 'center', gap: 10,
+              height: 46, padding: '0 var(--gutter-screen)', border: 'none', background: b.bg, boxShadow: `0 3px 0 ${b.edge}`, color: '#fff', cursor: 'pointer', textAlign: 'left' }}>
+            <span className="overline" style={{ color: 'rgba(255,255,255,.85)', flex: '0 0 auto' }}>Kapitel {g.number}</span>
+            <span style={{ font: 'var(--type-body)', fontWeight: 900, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{g.chapter.title}</span>
           </button>
         );
       })()}
       <div ref={scrollRef} className="screen-body" style={{ position: 'absolute', inset: 0, paddingBottom: 140 }} onClick={() => selected && setSelected(null)}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '16px var(--gutter-screen) 6px' }}>
           <GoalRing value={done / goal} size={64} thickness={8} caption="Tagesziel" tone={done >= goal ? 'correct' : 'amber'}>
-            {done >= goal ? <Icon name="check" size={26} strokeWidth={3} color="var(--spur-green)" /> : `${done}/${goal}`}
+            {done >= goal ? <Icon name="check" size={26} strokeWidth={3.4} color="var(--spur-green)" /> : `${done}/${goal}`}
           </GoalRing>
-          <SpeechBubble tail="left" tone="lavender" style={{ flex: 1 }}>{bubbleText(index, state)}</SpeechBubble>
+          <SpeechBubble tail="left" style={{ flex: 1 }}>{bubbleText(index, state)}</SpeechBubble>
         </div>
 
         <div ref={wrapRef} style={{ position: 'relative' }}>
@@ -545,10 +628,10 @@ export function Home({ anim, onOpenNode, onPopupTest }) {
             <svg width={geo.w} height={geo.h} style={{ position: 'absolute', left: 0, top: 0, overflow: 'visible', pointerEvents: 'none' }} aria-hidden="true">
               {lines.map((s) => (
                 <g key={s.key}>
-                  <path d={s.d} fill="none" stroke={s.reached ? 'var(--spur-lavender-deep)' : 'var(--surface-locked)'} strokeWidth="6" strokeLinecap="round" />
+                  <path d={s.d} fill="none" stroke={s.reached ? s.color : 'var(--surface-locked)'} strokeOpacity={s.reached ? 0.35 : 1} strokeWidth="8" strokeLinecap="round" />
                   {s.animated && (
-                    <path d={s.d} fill="none" stroke="var(--spur-lavender-deep)" strokeWidth="6" strokeLinecap="round" pathLength="100"
-                      strokeDasharray="100" strokeDashoffset="100" style={{ animation: 'spur-draw 900ms cubic-bezier(.45,.05,.35,1) 1200ms forwards' }} />
+                    <path d={s.d} fill="none" stroke={s.color} strokeOpacity={0.35} strokeWidth="8" strokeLinecap="round" pathLength="100"
+                      strokeDasharray="100" strokeDashoffset="100" style={{ animation: 'spur-draw 900ms var(--ease-in-out) 1200ms forwards' }} />
                   )}
                 </g>
               ))}
@@ -562,14 +645,14 @@ export function Home({ anim, onOpenNode, onPopupTest }) {
                 style={{ margin: '24px var(--gutter-screen) 0', position: 'relative' }}>
                 <ChapterBanner group={g} />
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--node-gap)', marginTop: 28 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--node-gap)', marginTop: g.nodes[0]?.status === 'current' ? 52 : 28 }}>
                 {g.nodes.map((node) => (
                   <div key={node.id} style={{ position: 'relative', transform: `translateX(${offsetOf(node)}px)` }}>
                     <NodeView node={node}
                       from={animState?.doneId === node.id ? 'current' : animState?.nextId === node.id ? 'locked' : null}
                       delay={animState?.doneId === node.id ? 500 : 2400}
                       freshPart={!reduced && anim?.partDone?.lessonId === node.id && !anim.lessonDone ? anim.partDone.n : null}
-                      onTap={(n) => setSelected(n)}
+                      onTap={(n) => setSelected((cur) => (cur?.id === n.id ? null : n))}
                       started={node.cardIds.some((id) => state.cards[id])}
                       nodeRef={(el) => { if (el) nodeEls.current.set(node.id, el); else nodeEls.current.delete(node.id); }} />
                   </div>
@@ -583,6 +666,12 @@ export function Home({ anim, onOpenNode, onPopupTest }) {
               <Mascot pose={animState ? 'cheering' : 'neutral'} size={72} />
             </div>
           )}
+
+          {sel && info && geo?.pos.get(sel.id) && (
+            <NodePopover key={sel.id} node={sel} info={info} at={geo.pos.get(sel.id)} width={geo.w} leaving={selLeaving} state={state} index={index} popRef={popRef}
+              onStart={() => { const n = sel; setSelected(null); onOpenNode(n); }}
+              onChoose={(choice) => { const n = sel; setSelected(null); onOpenNode(n, choice); }} />
+          )}
         </div>
 
         {!current && (
@@ -594,32 +683,15 @@ export function Home({ anim, onOpenNode, onPopupTest }) {
       </div>
 
       {targetShown && (
-        <button type="button" onClick={scrollToTarget} aria-label="Zur aktuellen Position" className={targetLeaving ? 'a-leave' : 'a-popin'}
-          style={{ position: 'absolute', right: 'var(--gutter-screen)', bottom: 'calc(24px + env(safe-area-inset-bottom))', zIndex: 15,
-            width: 56, height: 56, borderRadius: '50%', border: '2px solid var(--border-default)', background: 'var(--surface-card)',
-            color: targetShown.status === 'due' ? 'var(--spur-amber-shade)' : `var(--track-${targetShown.track === 'read' ? 'read' : 'listen'})`,
-            boxShadow: '0 4px 0 var(--border-strong), var(--shadow-raised)', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
-          <Icon name="target" size={26} strokeWidth={2.4} />
-        </button>
-      )}
-
-      {sel && info && (
-        <div key={sel.id} style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: '0 var(--gutter-screen) calc(20px + env(safe-area-inset-bottom))', zIndex: 20 }} className={selLeaving ? 'a-leave' : 'a-rise'}>
-          <div role="dialog" aria-label={info.title} style={{ background: 'var(--surface-card)', border: '2px solid var(--border-default)', borderRadius: 'var(--radius-xl)', boxShadow: 'var(--shadow-raised)', padding: 18 }}>
-            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12, marginBottom: 12 }}>
-              <span style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-                <span style={{ font: 'var(--type-headline)', color: 'var(--text-ink)' }}>{info.title}</span>
-                <span style={{ font: 'var(--type-label)', fontWeight: 500, color: 'var(--text-muted)' }}>{info.meta}</span>
-              </span>
-              <IconButton icon="x" label="Schließen" size={44} onClick={() => setSelected(null)} />
-            </div>
-            {info.cta && <Button variant={info.variant} full autoFocus onClick={() => { const n = sel; setSelected(null); onOpenNode(n); }}>{info.cta}</Button>}
-            {info.chooser && (
-              <PartChooser node={sel} state={state} index={index} collapsed={info.chooser === 'collapsed'}
-                onChoose={(choice) => { const n = sel; setSelected(null); onOpenNode(n, choice); }} />
-            )}
-          </div>
-        </div>
+        // Äußere Hülle animiert das Erscheinen, der Knopf darin das Drücken (sonst überschreibt
+        // die Animation mit fill-mode das :active-transform).
+        <span className={targetLeaving ? 'a-leave' : 'a-popin'} style={{ position: 'absolute', right: 'var(--gutter-screen)', bottom: 'calc(24px + env(safe-area-inset-bottom))', zIndex: 15, display: 'inline-flex' }}>
+          <button type="button" onClick={scrollToTarget} aria-label="Zur aktuellen Position" className="tile"
+            style={{ width: 56, height: 56, borderRadius: '50%', '--tile-fg': targetShown.status === 'due' ? 'var(--spur-amber-shade)' : `var(--track-${targetShown.track || 'mixed'})`,
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Icon name="target" size={26} strokeWidth={2.6} />
+          </button>
+        </span>
       )}
 
       {toastShown && (

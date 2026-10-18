@@ -4,7 +4,7 @@ import { Icon } from '../ds/Icon.jsx';
 import { Button } from '../ds/Button.jsx';
 import { SpeakButton } from '../ds/IconButton.jsx';
 import { Badge, Card, TextField } from '../ds/core.jsx';
-import { FeedbackPanel, Mascot, Sheet } from '../ds/feedback.jsx';
+import { FeedbackPanel, Mascot, Sheet, SpeechBubble } from '../ds/feedback.jsx';
 import { LessonHeader } from '../ds/progress.jsx';
 import { IntervalStep } from './IntervalStep.jsx';
 import { gradeKeyPoints, gradeListen, gradeMatch, gradeSequence } from '../engine/answer.js';
@@ -19,7 +19,7 @@ import { sounds } from '../lib/sound.js';
 import { daysAgoText, numWord } from '../lib/format.js';
 
 const body = { flex: 1, minHeight: 0, overflowY: 'auto', padding: '10px var(--gutter-screen) 16px', display: 'flex', flexDirection: 'column', gap: 16 };
-const lockBox = { display: 'flex', alignItems: 'center', gap: 12, background: 'var(--surface-locked)', borderRadius: 'var(--radius-md)', padding: '14px 16px' };
+const lockBox = { display: 'flex', alignItems: 'center', gap: 12, background: 'var(--surface-sunken)', border: '2px solid var(--border-default)', borderRadius: 'var(--radius-md)', padding: '12px 14px' };
 
 /** Bildschirm für die Teilübung selbst (nach Hören/Lesen des Originals). */
 function exercisePhase(card) {
@@ -193,7 +193,7 @@ function useSpeech(item, auto = false, onQuiz = null) {
 
 function TtsError({ onRetry, onShowText }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '14px 16px', borderRadius: 'var(--radius-md)', background: 'var(--surface-locked)', textAlign: 'left' }}>
+    <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '14px 16px', borderRadius: 'var(--radius-md)', background: 'var(--surface-sunken)', border: '2px solid var(--border-default)', textAlign: 'left' }}>
       <span style={{ color: 'var(--text-muted)', display: 'inline-flex' }}><Icon name="volume-x" /></span>
       <span style={{ display: 'flex', flexDirection: 'column', gap: 6, flex: 1 }}>
         <span style={{ font: 'var(--type-body)', fontWeight: 700, color: 'var(--text-ink)' }}>Vorlesen klappt gerade nicht.</span>
@@ -221,7 +221,7 @@ export function PersonAvatar({ person, active = false, size = 64, dim = false, p
         background: active ? t.solid : t.soft, color: active ? t.fg : t.shade, opacity: dim ? 0.55 : 1,
         boxShadow: `0 ${Math.max(3, Math.round(size / 16))}px 0 ${active ? t.shade : 'var(--border-default)'}`,
         font: 'var(--type-title)', fontSize: Math.round(size * 0.34), letterSpacing: '.02em',
-        transition: 'background var(--dur-fast) var(--ease-out-soft), color var(--dur-fast) var(--ease-out-soft), box-shadow var(--dur-fast) var(--ease-out-soft), opacity var(--dur-fast) var(--ease-out-soft)' }}>
+        transition: 'background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out), opacity var(--dur-fast) var(--ease-out)' }}>
         {person.initials}
       </span>
     </span>
@@ -278,7 +278,7 @@ function DevHintInner({ ex, kind }) {
    Zählt nicht für Intervalle, Herzen oder Federn: nur ein Aufmerksamkeits-Check. */
 const QUIZ_RESULT = {
   good: { state: 'correct', icon: 'check-circle-2', color: 'var(--spur-green-shade)', title: 'Richtig!', btn: 'correct', wait: 1700 },
-  partial: { state: 'partial', icon: 'history', color: 'var(--badge-amber-fg, #8A5A12)', title: 'Fast.', btn: 'amber', wait: 3200 },
+  partial: { state: 'partial', icon: 'history', color: 'var(--badge-amber-fg)', title: 'Fast.', btn: 'amber', wait: 3200 },
   poor: { state: 'wrong', icon: 'rotate-ccw', color: 'var(--spur-coral-shade)', title: 'Nicht ganz.', btn: 'wrong', wait: 3200 },
 };
 
@@ -322,7 +322,7 @@ function QuizBody({ quiz, sound, onDone }) {
         </div>
       ) : (
         <div key="ask" className="stack" style={{ gap: 4 }}>
-          <Button variant="listen" full disabled={!answer.trim()} onClick={() => check()}>Prüfen</Button>
+          <Button full disabled={!answer.trim()} onClick={() => check()}>Prüfen</Button>
           <Button variant="ghost" size="md" full onClick={() => check(true)}>Weiß ich nicht</Button>
         </div>
       )}
@@ -337,24 +337,22 @@ function PlayButton({ playing, paused, disabled, again, progress, showRing, onCl
   const c = 2 * Math.PI * r;
   return (
     <span style={{ position: 'relative', width: ring, height: ring, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flex: '0 0 auto' }}>
-      <svg aria-hidden="true" width={ring} height={ring} style={{ position: 'absolute', inset: 0, transform: 'rotate(-90deg)', opacity: showRing ? 1 : 0, transition: 'opacity var(--dur-base) var(--ease-out-soft)' }}>
+      <svg aria-hidden="true" width={ring} height={ring} style={{ position: 'absolute', inset: 0, transform: 'rotate(-90deg)', opacity: showRing ? 1 : 0, transition: 'opacity var(--dur-base) var(--ease-out)' }}>
         <circle cx={ring / 2} cy={ring / 2} r={r} fill="none" stroke="var(--surface-locked)" strokeWidth={6} />
         <circle cx={ring / 2} cy={ring / 2} r={r} fill="none" stroke="var(--track-listen)" strokeWidth={6} strokeLinecap="round"
           strokeDasharray={c} strokeDashoffset={c * (1 - progress)} opacity={progress > 0.005 ? 1 : 0} />
       </svg>
-      <button type="button" onClick={onClick} disabled={disabled}
+      {/* Großer blauer Lautsprecher-Knopf wie bei Duolingo; Drücken senkt ihn um seine Kante (.btn). */}
+      <button type="button" onClick={onClick} disabled={disabled} className="btn btn-icon"
         aria-label={playing ? 'Wiedergabe stoppen' : again ? 'Nochmal abspielen' : 'Gespräch abspielen'}
-        style={{ position: 'relative', width: size, height: size, borderRadius: '50%', border: 'none', cursor: disabled ? 'not-allowed' : 'pointer',
-          background: disabled ? 'var(--surface-locked)' : 'var(--track-listen)', color: disabled ? 'var(--text-subtle)' : '#fff',
-          boxShadow: disabled ? 'none' : '0 6px 0 var(--track-listen-shade)', marginTop: -6,
-          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4,
-          transition: 'background var(--dur-fast) var(--ease-out-soft), color var(--dur-fast) var(--ease-out-soft), box-shadow var(--dur-fast) var(--ease-out-soft)' }}>
+        style={{ '--btn-bg': 'var(--track-listen)', '--btn-edge': 'var(--track-listen-shade)', '--btn-fg': '#fff', '--btn-r': '50%', '--edge-depth': '6px',
+          width: size, height: size, marginTop: -6, gap: 4 }}>
         <span key={playing ? (paused ? 'pause' : 'eq') : again ? 'again' : 'play'} className="a-fade" style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
           {playing && paused
             ? <Icon name="pause" size={34} strokeWidth={2.4} fill="currentColor" />
             : playing
-            ? [0, 140, 280, 420].map((d) => <span key={d} className="rm-static" style={{ width: 5, height: 16, borderRadius: 999, background: '#fff', animation: `spur-eq 700ms ease-in-out ${d}ms infinite` }} />)
-            : <Icon name={again ? 'rotate-ccw' : 'play'} size={34} strokeWidth={2.4} fill={again ? 'none' : 'currentColor'} style={again ? undefined : { marginLeft: 4 }} />}
+            ? [0, 140, 280, 420].map((d) => <span key={d} className="rm-static eq-bar" style={{ width: 5, height: 16, background: '#fff', animationDelay: `${d}ms` }} />)
+            : <Icon name={again ? 'rotate-ccw' : 'play'} size={34} strokeWidth={2.6} fill={again ? 'none' : 'currentColor'} style={again ? undefined : { marginLeft: 4 }} />}
         </span>
       </button>
     </span>
@@ -441,7 +439,7 @@ function ListenOnly({ entry, card, onNext, sourceOnly = false }) {
               {!sourceOnly && (
                 <span aria-hidden="true" style={{ display: 'inline-flex', gap: 4 }}>
                   {Array.from({ length: MAX_PLAYS }, (_, i) => (
-                    <span key={i} style={{ width: 8, height: 8, borderRadius: '50%', background: i < left ? 'var(--track-listen)' : 'var(--surface-locked)', transition: 'background var(--dur-base) var(--ease-out-soft)' }} />
+                    <span key={i} style={{ width: 8, height: 8, borderRadius: '50%', background: i < left ? 'var(--track-listen)' : 'var(--surface-locked)', transition: 'background var(--dur-base) var(--ease-out)' }} />
                   ))}
                 </span>
               )}
@@ -453,8 +451,8 @@ function ListenOnly({ entry, card, onNext, sourceOnly = false }) {
       </div>
       <div className="lesson-cta">
         {sourceOnly
-          ? <Button variant="listen" full onClick={() => { speech.stop(); onNext(); }}>Fertig</Button>
-          : <Button variant="listen" full disabled={!heard || speech.playing} onClick={() => { speech.stop(); onNext(); }}>Weiter zu den Fragen</Button>}
+          ? <Button full onClick={() => { speech.stop(); onNext(); }}>Fertig</Button>
+          : <Button full disabled={!heard || speech.playing} onClick={() => { speech.stop(); onNext(); }}>Weiter zu den Fragen</Button>}
       </div>
       <Sheet open={!!pop} title="Kurze Zwischenfrage" closable={false}>
         {pop && <QuizBody key={pop.n} quiz={quizzes[pop.n]} sound={sound} onDone={closeQuiz} />}
@@ -501,7 +499,7 @@ function StoryIntro({ entries, pos, card, rec, cards, onNext }) {
           </div>
         )}
       </div>
-      <div className="lesson-cta"><Button variant={tone} full onClick={onNext}>Los geht’s</Button></div>
+      <div className="lesson-cta"><Button full onClick={onNext}>Los geht’s</Button></div>
     </>
   );
 }
@@ -522,7 +520,7 @@ function HelpListen({ card, used, onUse }) {
         aria-label={speech.playing ? 'Wiedergabe stoppen' : whole ? 'Gespräch nochmal anhören' : 'Stelle nochmal anhören'}>
         {speech.playing
           ? <span style={{ display: 'inline-flex', alignItems: 'center', gap: 3 }}>
-              {[0, 140, 280].map((d) => <span key={d} className="rm-static" style={{ width: 4, height: 12, borderRadius: 999, background: 'currentColor', animation: `spur-eq 700ms ease-in-out ${d}ms infinite` }} />)}
+              {[0, 140, 280].map((d) => <span key={d} className="rm-static eq-bar" style={{ width: 4, height: 12, background: 'currentColor', animationDelay: `${d}ms` }} />)}
               <span style={{ marginLeft: 6 }}>Stopp</span>
             </span>
           : whole ? 'Gespräch nochmal anhören' : 'Stelle nochmal anhören'}
@@ -549,12 +547,15 @@ function RecallQuestion({ entry, card, rec, answer, setAnswer, onCheck, onSkip, 
     <>
       <div style={{ ...body, gap: 18 }}>
         <ExerciseTop entry={entry} card={card} seenBefore={entry.mode !== 'new'} />
-        <div className="kb-shrink" style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
-          <Mascot pose={read ? 'neutral' : 'listening'} size={64} className="kb-mascot" />
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 6, paddingTop: 2 }}>
-            <h2 style={{ font: 'var(--type-title)', textWrap: 'pretty' }}>{card.question.prompt}</h2>
-            <p style={{ font: 'var(--type-body)', color: 'var(--text-muted)' }}>{contextLine(entry, card, rec)}</p>
+        {/* Wie bei Duolingo: Die Figur stellt die Frage in einer Sprechblase. */}
+        <div className="kb-shrink stack" style={{ gap: 8 }}>
+          <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8 }}>
+            <Mascot pose={read ? 'neutral' : 'listening'} size={72} className="kb-mascot" />
+            <SpeechBubble tail="left" style={{ flex: 1, marginBottom: 6, padding: '12px 16px' }}>
+              <h2 style={{ font: 'var(--type-headline)', fontWeight: 800, textWrap: 'pretty' }}>{card.question.prompt}</h2>
+            </SpeechBubble>
           </div>
+          <p style={{ font: 'var(--type-body)', color: 'var(--text-muted)' }}>{contextLine(entry, card, rec)}</p>
         </div>
         <DevHint ex={card.ex} kind="recall" />
         {help || (showLock && <LockHint>{read ? 'Das Buch bleibt zu — antworte aus dem Kopf.' : 'Der Originaltext bleibt aus — das ist der Sinn der Sache.'}</LockHint>)}
@@ -563,7 +564,7 @@ function RecallQuestion({ entry, card, rec, answer, setAnswer, onCheck, onSkip, 
           onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) { e.preventDefault(); if (answer.trim()) onCheck(); } }} />
       </div>
       <div className="lesson-cta" style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-        <Button variant={read ? 'read' : 'primary'} full disabled={!answer.trim()} onClick={onCheck}>Prüfen</Button>
+        <Button full disabled={!answer.trim()} onClick={onCheck}>Prüfen</Button>
         <Button variant="ghost" size="md" full onClick={onSkip}>Weiß ich nicht mehr</Button>
       </div>
     </>
@@ -599,19 +600,18 @@ function FollowUpExercise({ entry, card, onCheck, help, sound }) {
           {options.map((o, i) => {
             const on = sel === o;
             return (
-              <button key={o} type="button" role="radio" aria-checked={on} onClick={() => { setSel(o); if (sound) sounds.select(); }} className="a-rise"
-                style={{ position: 'relative', alignSelf: 'flex-end', maxWidth: '92%', padding: '12px 16px', borderRadius: '18px 18px 6px 18px', cursor: 'pointer', textAlign: 'left',
-                  font: 'var(--type-body)', fontSize: 'var(--text-body-l)', fontWeight: 600, lineHeight: 1.35, animationDelay: `${120 + i * 60}ms`,
-                  border: `2px solid ${on ? t.solid : 'var(--border-default)'}`, background: on ? t.soft : 'var(--surface-card)', color: 'var(--text-ink)',
-                  boxShadow: on ? `0 3px 0 ${t.solid}` : '0 3px 0 var(--border-default)',
-                  transition: 'background var(--dur-fast) var(--ease-out-soft), border-color var(--dur-fast) var(--ease-out-soft), box-shadow var(--dur-fast) var(--ease-out-soft)' }}>
-                {o}
-              </button>
+              <span key={o} className="a-rise" style={{ alignSelf: 'flex-end', maxWidth: '92%', display: 'flex', animationDelay: `${80 + i * 40}ms` }}>
+                <button type="button" role="radio" aria-checked={on} onClick={() => { setSel(o); if (sound) sounds.select(); }} className="tile"
+                  style={{ padding: '12px 16px', borderRadius: '18px 18px 6px 18px', font: 'var(--type-body)', fontSize: 'var(--text-body-l)', fontWeight: 700, lineHeight: 1.35,
+                    ...(on ? { '--tile-bg': t.soft, '--tile-line': t.solid, '--tile-fg': 'var(--text-ink)' } : null) }}>
+                  {o}
+                </button>
+              </span>
             );
           })}
         </div>
       </div>
-      <div className="lesson-cta"><Button variant="primary" full disabled={!sel} onClick={() => onCheck({ ...gradeMatch([sel], ex.correct), selected: [sel] })}>Ansprechen</Button></div>
+      <div className="lesson-cta"><Button full disabled={!sel} onClick={() => onCheck({ ...gradeMatch([sel], ex.correct), selected: [sel] })}>Ansprechen</Button></div>
     </>
   );
 }
@@ -622,7 +622,6 @@ function MatchExercise({ entry, card, rec, onCheck, help, sound }) {
   const options = seededShuffle(ex.options, card.id);
   const [sel, setSel] = useState([]);
   const toggle = (o) => { setSel((cur) => (cur.includes(o) ? cur.filter((x) => x !== o) : multi ? [...cur, o] : [o])); if (sound) sounds.select(); };
-  const tone = card.track === 'read' ? 'read' : 'listen';
   return (
     <>
       <div style={{ ...body, gap: 18 }}>
@@ -637,20 +636,15 @@ function MatchExercise({ entry, card, rec, onCheck, help, sound }) {
           {options.map((o) => {
             const on = sel.includes(o);
             return (
-              <button key={o} type="button" aria-pressed={on} onClick={() => toggle(o)}
-                style={{ padding: '12px 16px', minHeight: 48, borderRadius: 'var(--radius-md)', cursor: 'pointer', textAlign: 'left',
-                  font: 'var(--type-body)', fontSize: 'var(--text-body-l)', fontWeight: 600,
-                  border: `2px solid ${on ? `var(--track-${tone})` : 'var(--border-default)'}`,
-                  background: on ? `var(--track-${tone}-soft)` : 'var(--surface-card)', color: 'var(--text-ink)',
-                  boxShadow: on ? `0 3px 0 var(--track-${tone})` : '0 3px 0 var(--border-default)',
-                  transition: 'background var(--dur-fast) var(--ease-out-soft), border-color var(--dur-fast) var(--ease-out-soft), box-shadow var(--dur-fast) var(--ease-out-soft)' }}>
+              <button key={o} type="button" aria-pressed={on} onClick={() => toggle(o)} className="tile"
+                style={{ padding: '12px 16px', minHeight: 50, font: 'var(--type-body)', fontSize: 'var(--text-body-l)', fontWeight: 700 }}>
                 {o}
               </button>
             );
           })}
         </div>
       </div>
-      <div className="lesson-cta"><Button variant={tone === 'read' ? 'read' : 'primary'} full disabled={!sel.length} onClick={() => onCheck({ ...gradeMatch(sel, ex.correct), selected: sel })}>Prüfen</Button></div>
+      <div className="lesson-cta"><Button full disabled={!sel.length} onClick={() => onCheck({ ...gradeMatch(sel, ex.correct), selected: sel })}>Prüfen</Button></div>
     </>
   );
 }
@@ -662,7 +656,6 @@ function SequenceExercise({ entry, card, rec, onCheck, help, sound }) {
   if (shuffled.every((e, i) => e === ex.events[i])) shuffled = [...shuffled.slice(1), shuffled[0]];
   const [order, setOrder] = useState([]);
   const tap = (e) => { setOrder((cur) => (cur.includes(e) ? cur.filter((x) => x !== e) : [...cur, e])); if (sound) sounds.select(); };
-  const tone = card.track === 'read' ? 'read' : 'listen';
   const done = order.length === ex.events.length;
   return (
     <>
@@ -679,25 +672,21 @@ function SequenceExercise({ entry, card, rec, onCheck, help, sound }) {
             const n = order.indexOf(e);
             const on = n >= 0;
             return (
-              <button key={e} type="button" onClick={() => tap(e)} aria-label={on ? `${e}, Position ${n + 1}` : e}
-                style={{ display: 'flex', alignItems: 'center', gap: 12, width: '100%', padding: '12px 14px', minHeight: 56, cursor: 'pointer', textAlign: 'left',
-                  borderRadius: 'var(--radius-md)', border: `2px solid ${on ? `var(--track-${tone})` : 'var(--border-default)'}`,
-                  background: on ? `var(--track-${tone}-soft)` : 'var(--surface-card)', color: 'var(--text-ink)',
-                  boxShadow: on ? `0 3px 0 var(--track-${tone})` : '0 3px 0 var(--border-default)',
-                  transition: 'background var(--dur-fast) var(--ease-out-soft), border-color var(--dur-fast) var(--ease-out-soft), box-shadow var(--dur-fast) var(--ease-out-soft)' }}>
+              <button key={e} type="button" onClick={() => tap(e)} aria-label={on ? `${e}, Position ${n + 1}` : e} aria-pressed={on} className="tile"
+                style={{ display: 'flex', alignItems: 'center', gap: 12, width: '100%', padding: '12px 14px', minHeight: 56 }}>
                 <span style={{ width: 30, height: 30, borderRadius: '50%', flex: '0 0 auto', display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                  font: 'var(--type-label)', fontWeight: 700, background: on ? `var(--track-${tone})` : 'var(--surface-locked)', color: on ? '#fff' : 'var(--text-subtle)',
-                  transition: 'background var(--dur-fast) var(--ease-out-soft)' }}>
+                  font: 'var(--type-label)', fontWeight: 900, background: on ? 'var(--select-fg)' : 'var(--surface-locked)', color: on ? '#fff' : 'var(--text-subtle)',
+                  transition: 'background-color var(--dur-fast) var(--ease-out)' }}>
                   {on ? n + 1 : ''}
                 </span>
-                <span style={{ font: 'var(--type-body)', fontSize: 'var(--text-body-l)' }}>{e}</span>
+                <span style={{ font: 'var(--type-body)', fontSize: 'var(--text-body-l)', fontWeight: 700 }}>{e}</span>
               </button>
             );
           })}
         </div>
         {order.length > 0 && <button type="button" className="a-fade" onClick={() => setOrder([])} style={{ alignSelf: 'flex-start', background: 'none', border: 'none', cursor: 'pointer', font: 'var(--type-label)', color: 'var(--text-link)', padding: '4px 0' }}>Neu anfangen</button>}
       </div>
-      <div className="lesson-cta"><Button variant={tone === 'read' ? 'read' : 'primary'} full disabled={!done} onClick={() => onCheck({ ...gradeSequence(order, ex.events), order })}>Prüfen</Button></div>
+      <div className="lesson-cta"><Button full disabled={!done} onClick={() => onCheck({ ...gradeSequence(order, ex.events), order })}>Prüfen</Button></div>
     </>
   );
 }
@@ -723,8 +712,8 @@ function ReadText({ entry, card, onClose, tts, sourceOnly = false }) {
       </div>
       <div className="lesson-cta">
         {sourceOnly
-          ? <Button variant="read" full onClick={() => { stopSpeaking(); onClose(); }}>Fertig</Button>
-          : <Button variant="read" full icon="book" onClick={() => { stopSpeaking(); onClose(); }}>Buch zuklappen &amp; wiedergeben</Button>}
+          ? <Button full onClick={() => { stopSpeaking(); onClose(); }}>Fertig</Button>
+          : <Button full icon="book" onClick={() => { stopSpeaking(); onClose(); }}>Buch zuklappen &amp; wiedergeben</Button>}
       </div>
     </>
   );
@@ -749,7 +738,7 @@ function ReadRecall({ entry, card, rec, answer, setAnswer, onCompare }) {
         <LockHint>Das Buch bleibt zu. Erzähl es frei.</LockHint>
         <TextField value={answer} onChange={(e) => setAnswer(e.target.value)} rows={7} placeholder="Erzähl den Text so, wie du ihn jemandem erklären würdest …" hint="Reihenfolge ist egal." />
       </div>
-      <div className="lesson-cta"><Button variant="read" full disabled={!answer.trim()} onClick={onCompare}>Mit Kernpunkten vergleichen</Button></div>
+      <div className="lesson-cta"><Button full disabled={!answer.trim()} onClick={onCompare}>Mit Kernpunkten vergleichen</Button></div>
     </>
   );
 }
@@ -767,18 +756,17 @@ function KeyPoints({ entry, card, answer, checks, setChecks, onDone }) {
           <h2 style={{ font: 'var(--type-title)' }}>Was hast du getroffen?</h2>
           <p style={{ font: 'var(--type-body)', color: 'var(--text-muted)' }}>Tipp an, was in deiner Wiedergabe vorkam. Du bewertest dich selbst.</p>
         </div>
-        <Card tone="lavender" padding={16} elevated={false}>
+        <Card tone="sunken" padding={16} elevated={false}>
           <span className="overline" style={{ color: 'var(--text-muted)', display: 'block', marginBottom: 6 }}>Deine Wiedergabe</span>
           <p style={{ font: 'var(--type-body)', whiteSpace: 'pre-wrap' }}>{answer}</p>
         </Card>
         <span className="overline" style={{ color: 'var(--track-read-shade)' }}>Kernpunkte</span>
         <div className="stack" style={{ gap: 10 }}>
           {pts.map((kp, i) => (
-            <button key={kp} type="button" role="checkbox" aria-checked={!!checks[i]} onClick={() => setChecks((c) => { const n = [...c]; n[i] = !n[i]; return n; })}
-              style={{ display: 'flex', alignItems: 'flex-start', gap: 12, width: '100%', padding: '14px 16px', background: checks[i] ? 'var(--state-correct-soft)' : 'var(--surface-card)',
-                border: `2px solid ${checks[i] ? 'var(--spur-green)' : 'var(--border-default)'}`, borderRadius: 'var(--radius-md)', cursor: 'pointer', textAlign: 'left',
-                transition: 'background var(--dur-fast) var(--ease-out-soft), border-color var(--dur-fast) var(--ease-out-soft)' }}>
-              <span style={{ color: checks[i] ? 'var(--spur-green)' : 'var(--spur-locked)', display: 'inline-flex', transition: 'color var(--dur-fast) var(--ease-out-soft)' }}>
+            <button key={kp} type="button" role="checkbox" aria-checked={!!checks[i]} onClick={() => setChecks((c) => { const n = [...c]; n[i] = !n[i]; return n; })} className="tile"
+              style={{ display: 'flex', alignItems: 'flex-start', gap: 12, width: '100%', padding: '14px 16px',
+                ...(checks[i] ? { '--tile-bg': 'var(--state-correct-soft)', '--tile-line': 'var(--spur-green)', '--tile-fg': 'var(--text-ink)' } : null) }}>
+              <span style={{ color: checks[i] ? 'var(--spur-green)' : 'var(--spur-locked)', display: 'inline-flex', transition: 'color var(--dur-fast) var(--ease-out)' }}>
                 <Icon name={checks[i] ? 'check-circle-2' : 'circle'} />
               </span>
               <span style={{ font: 'var(--type-body)', fontSize: 'var(--text-body-l)', color: 'var(--text-ink)' }}>{kp}</span>
@@ -790,7 +778,7 @@ function KeyPoints({ entry, card, answer, checks, setChecks, onDone }) {
         <span aria-live="polite" style={{ font: 'var(--type-label)', fontWeight: 500, color: 'var(--text-muted)', textAlign: 'center' }}>
           {hits} von {pts.length} getroffen{enough ? ' — reicht für „gemerkt“.' : '.'}
         </span>
-        <Button variant="read" full onClick={onDone}>Weiter</Button>
+        <Button full onClick={onDone}>Weiter</Button>
       </div>
     </>
   );
@@ -882,25 +870,25 @@ function Feedback({ entry, card, rec, answer, result, combo, infiniteSaved, onOv
         <h2 style={{ font: 'var(--type-title)', textWrap: 'pretty' }}>{heading}</h2>
         {yourAnswer}
         <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 10 }}>
-          <Badge tone="amber" variant="solid" icon="feather" style={{ alignSelf: 'flex-start', animation: 'spur-popin 420ms cubic-bezier(.34,1.56,.64,1) 200ms both' }}>+{XP[grade]} Federn</Badge>
+          <Badge tone="amber" variant="solid" icon="feather" style={{ alignSelf: 'flex-start', animation: 'spur-popin 420ms var(--ease-bounce) 200ms both' }}>+{XP[grade]} Federn</Badge>
           {nextTime && (
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, font: 'var(--type-label)', fontWeight: 600, color: 'var(--text-muted)', animation: 'spur-rise 320ms cubic-bezier(.22,.8,.3,1) 320ms both' }}>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, font: 'var(--type-label)', fontWeight: 600, color: 'var(--text-muted)', animation: 'spur-rise 320ms var(--ease-out) 320ms both' }}>
               <Icon name="calendar" size={15} />Nächstes Mal: {nextTime}
             </span>
           )}
           {combo >= 3 && grade === 'good' && (
             <span style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 14px 8px 10px', borderRadius: 999, background: 'var(--accent-xp-soft)', color: 'var(--badge-amber-fg, var(--spur-amber-shade))', font: 'var(--type-label)', fontWeight: 700, animation: 'spur-popin 460ms cubic-bezier(.34,1.56,.64,1) 400ms both' }}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 14px 8px 10px', borderRadius: 999, background: 'var(--accent-xp-soft)', color: 'var(--badge-amber-fg, var(--spur-amber-shade))', font: 'var(--type-label)', fontWeight: 700, animation: 'spur-popin 460ms var(--ease-bounce) 400ms both' }}>
                 <Icon name="flame" size={18} fill="currentColor" />{combo} richtig in Folge
               </span>
-              <span style={{ display: 'flex', gap: 4, animation: 'spur-rise 320ms cubic-bezier(.22,.8,.3,1) 600ms both' }}>
-                {[0, 1, 2].map((i) => <span key={i} style={{ width: 10, height: 10, borderRadius: '50%', background: 'var(--spur-amber)', animation: i === 2 ? 'spur-popin 420ms cubic-bezier(.34,1.56,.64,1) 700ms both' : undefined }} />)}
+              <span style={{ display: 'flex', gap: 4, animation: 'spur-rise 320ms var(--ease-out) 600ms both' }}>
+                {[0, 1, 2].map((i) => <span key={i} style={{ width: 10, height: 10, borderRadius: '50%', background: 'var(--spur-amber)', animation: i === 2 ? 'spur-popin 420ms var(--ease-bounce) 700ms both' : undefined }} />)}
               </span>
             </span>
           )}
         </div>
         {infiniteSaved && (
-          <span style={{ alignSelf: 'flex-start', display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px 8px 10px', borderRadius: 999, background: 'var(--accent-xp-soft)', color: 'var(--badge-amber-fg, var(--spur-amber-shade))', font: 'var(--type-label)', fontWeight: 700, animation: 'spur-popin 420ms cubic-bezier(.34,1.56,.64,1) 500ms both' }}>
+          <span style={{ alignSelf: 'flex-start', display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px 8px 10px', borderRadius: 999, background: 'var(--accent-xp-soft)', color: 'var(--badge-amber-fg, var(--spur-amber-shade))', font: 'var(--type-label)', fontWeight: 700, animation: 'spur-popin 420ms var(--ease-bounce) 500ms both' }}>
             <Icon name="shield" size={18} />Kein Herz verloren — heute unendlich
           </span>
         )}
@@ -911,9 +899,9 @@ function Feedback({ entry, card, rec, answer, result, combo, infiniteSaved, onOv
           </button>
         )}
       </div>
-      <div style={{ flex: '0 0 auto', position: 'relative', animation: 'spur-sheet-in 420ms var(--ease-out-soft) 60ms both' }}>
+      <div style={{ flex: '0 0 auto', position: 'relative', animation: 'spur-sheet-in 300ms var(--ease-drawer) both' }}>
         <div className="fb-mascot" style={{ display: 'flex', justifyContent: 'center', marginBottom: -14, position: 'relative', zIndex: 2 }}>
-          <span key={pose} style={{ display: 'inline-flex', animation: 'spur-popin 460ms cubic-bezier(.34,1.56,.64,1) both' }}><Mascot pose={pose} size={96} /></span>
+          <span key={pose} style={{ display: 'inline-flex', animation: 'spur-popin 460ms var(--ease-bounce) both' }}><Mascot pose={pose} size={96} /></span>
         </div>
         <FeedbackPanel state={state} title={title} detail={detail} source={source} sourceLabel={sourceLabel} onAction={onNext} />
       </div>

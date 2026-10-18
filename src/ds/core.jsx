@@ -4,12 +4,12 @@ import { Icon } from './Icon.jsx';
 /* ---- Card ------------------------------------------------------------ */
 const CARD_TONES = {
   default:  { bg: 'var(--surface-card)', border: 'var(--border-default)' },
-  lavender: { bg: 'var(--surface-sunken)', border: 'var(--border-brand)' },
+  sunken:   { bg: 'var(--surface-sunken)', border: 'var(--border-default)' },
   listen:   { bg: 'var(--track-listen-soft)', border: 'var(--track-listen-soft)' },
   read:     { bg: 'var(--track-read-soft)', border: 'var(--track-read-soft)' },
-  mixed:    { bg: 'var(--surface-sunken)', border: 'var(--surface-sunken)' },
+  mixed:    { bg: 'var(--track-mixed-soft)', border: 'var(--track-mixed-soft)' },
   amber:    { bg: 'var(--accent-xp-soft)', border: 'var(--accent-xp-soft)' },
-  indigo:   { bg: 'var(--spur-indigo)', border: 'var(--spur-indigo)' },
+  brand:    { bg: 'var(--spur-brand)', border: 'var(--spur-brand)' },
 };
 
 export function Card({ tone = 'default', padding = 20, radius = 'var(--radius-lg)', elevated = true, children, style, ...rest }) {
@@ -17,9 +17,8 @@ export function Card({ tone = 'default', padding = 20, radius = 'var(--radius-lg
   return (
     <div style={{
       background: t.bg, border: `2px solid ${t.border}`, borderRadius: radius, padding,
-      color: tone === 'indigo' ? 'var(--text-inverse)' : 'var(--text-ink)',
+      color: tone === 'brand' ? '#fff' : 'var(--text-ink)',
       boxShadow: elevated ? 'var(--shadow-card)' : 'none',
-      transition: 'transform var(--dur-fast) var(--ease-out-soft), box-shadow var(--dur-fast) var(--ease-out-soft)',
       ...style,
     }} {...rest}>{children}</div>
   );
@@ -27,10 +26,10 @@ export function Card({ tone = 'default', padding = 20, radius = 'var(--radius-lg
 
 /* ---- Badge ----------------------------------------------------------- */
 const BADGE_TONES = {
-  neutral: { soft: 'var(--surface-sunken)', solid: 'var(--spur-ink)', fg: 'var(--text-brand)' },
-  indigo:  { soft: 'var(--spur-lavender)', solid: 'var(--spur-indigo)', fg: 'var(--spur-indigo)' },
-  mixed:   { soft: 'var(--spur-lavender)', solid: 'var(--spur-indigo)', fg: 'var(--spur-indigo)' },
-  amber:   { soft: 'var(--accent-xp-soft)', solid: 'var(--spur-amber)', fg: 'var(--badge-amber-fg, #8A5A12)' },
+  neutral: { soft: 'var(--surface-sunken)', solid: 'var(--spur-ink)', fg: 'var(--text-muted)' },
+  brand:   { soft: 'var(--spur-brand-soft)', solid: 'var(--spur-brand)', fg: 'var(--spur-brand-shade)' },
+  mixed:   { soft: 'var(--track-mixed-soft)', solid: 'var(--track-mixed)', fg: 'var(--track-mixed-shade)' },
+  amber:   { soft: 'var(--accent-xp-soft)', solid: 'var(--spur-amber)', fg: 'var(--badge-amber-fg)' },
   correct: { soft: 'var(--state-correct-soft)', solid: 'var(--spur-green)', fg: 'var(--spur-green-shade)' },
   wrong:   { soft: 'var(--state-wrong-soft)', solid: 'var(--spur-coral)', fg: 'var(--spur-coral-shade)' },
   listen:  { soft: 'var(--track-listen-soft)', solid: 'var(--track-listen)', fg: 'var(--track-listen-shade)' },
@@ -44,12 +43,13 @@ export function Badge({ tone = 'neutral', variant = 'soft', icon, children, size
   return (
     <span style={{
       display: 'inline-flex', alignItems: 'center', gap: 6, flex: '0 0 auto',
-      padding: sm ? '3px 8px' : '5px 12px', borderRadius: 'var(--radius-pill)',
-      background: solid ? t.solid : t.soft, color: solid ? (tone === 'amber' ? '#2B1C06' : '#fff') : t.fg,
-      font: 'var(--type-label)', fontSize: sm ? 'var(--text-caption)' : 'var(--text-label)',
+      padding: sm ? '4px 8px' : '6px 11px', borderRadius: 'var(--radius-sm)',
+      background: solid ? t.solid : t.soft, color: solid ? (tone === 'amber' ? 'var(--on-amber)' : '#fff') : t.fg,
+      // Duolingo-Etikett: klein, fett, Großbuchstaben.
+      font: 'var(--type-overline)', fontSize: sm ? 11 : 'var(--text-caption)', textTransform: 'uppercase', letterSpacing: 'var(--tracking-wide)',
       ...style,
     }} {...rest}>
-      {icon && <Icon name={icon} size={sm ? 12 : 14} />}
+      {icon && <Icon name={icon} size={sm ? 12 : 14} strokeWidth={2.6} />}
       {children}
     </span>
   );
@@ -57,8 +57,9 @@ export function Badge({ tone = 'neutral', variant = 'soft', icon, children, size
 
 /* ---- TextField --------------------------------------------------------- */
 const FIELD_STATE = {
-  default: { border: 'var(--border-default)', bg: 'var(--surface-card)' },
-  focus:   { border: 'var(--spur-indigo)', bg: 'var(--surface-card)' },
+  // Duolingo: Eingabefeld grau hinterlegt, beim Schreiben weiß mit blauem Rand.
+  default: { border: 'var(--border-default)', bg: 'var(--surface-sunken)' },
+  focus:   { border: 'var(--select-line)', bg: 'var(--surface-card)' },
   correct: { border: 'var(--spur-green)', bg: 'var(--state-correct-soft)' },
   partial: { border: 'var(--spur-amber)', bg: 'var(--accent-xp-soft)' },
   wrong:   { border: 'var(--spur-coral)', bg: 'var(--state-wrong-soft)' },
@@ -77,38 +78,39 @@ export function TextField({ value, onChange, placeholder, label, hint, state = '
           width: '100%', padding: '14px 16px', font: 'var(--type-body)', fontSize: 'var(--text-body-l)',
           lineHeight: 'var(--leading-relaxed)', color: 'var(--text-ink)', background: s.bg,
           border: `2px solid ${s.border}`, borderRadius: 'var(--radius-md)', outline: 'none', resize: 'none',
-          transition: 'border-color var(--dur-fast) var(--ease-out-soft), background var(--dur-fast) var(--ease-out-soft), max-height var(--dur-base) var(--ease-out-soft)',
+          transition: 'border-color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out), max-height var(--dur-base) var(--ease-out)',
         }} {...rest} />
-      {hint && <span style={{ font: 'var(--type-label)', fontWeight: 500, color: 'var(--text-muted)' }}>{hint}</span>}
+      {hint && <span style={{ font: 'var(--type-label)', fontWeight: 600, color: 'var(--text-muted)' }}>{hint}</span>}
     </label>
   );
 }
 
 /* ---- OptionTile -------------------------------------------------------- */
-export function OptionTile({ icon, title, description, selected = false, tone = 'indigo', badge, onSelect, style, ...rest }) {
-  const accent = tone === 'listen' ? 'var(--track-listen)' : tone === 'read' ? 'var(--track-read)' : 'var(--spur-indigo)';
-  const softBg = tone === 'listen' ? 'var(--track-listen-soft)' : tone === 'read' ? 'var(--track-read-soft)' : 'var(--spur-lavender)';
+const OPTION_ICON = {
+  listen: { fg: 'var(--track-listen)', bg: 'var(--track-listen-soft)' },
+  read:   { fg: 'var(--track-read)', bg: 'var(--track-read-soft)' },
+  amber:  { fg: 'var(--spur-amber-shade)', bg: 'var(--accent-xp-soft)' },
+  brand:  { fg: 'var(--spur-brand)', bg: 'var(--spur-brand-soft)' },
+};
+
+/** Auswahl-Kachel (.tile): gewählt in Duolingo-Blau, Druck senkt sie ab. */
+export function OptionTile({ icon, title, description, selected = false, tone = 'brand', badge, onSelect, style, ...rest }) {
+  const ic = OPTION_ICON[tone] || OPTION_ICON.brand;
   return (
-    <button type="button" onClick={onSelect} aria-pressed={selected}
-      style={{
-        display: 'flex', alignItems: 'center', gap: 14, width: '100%', minHeight: 72, padding: '14px 16px',
-        textAlign: 'left', background: selected ? softBg : 'var(--surface-card)',
-        border: `2px solid ${selected ? accent : 'var(--border-default)'}`, borderRadius: 'var(--radius-lg)',
-        boxShadow: selected ? `0 4px 0 ${accent}` : '0 4px 0 var(--border-default)', cursor: 'pointer',
-        transition: 'all var(--dur-fast) var(--ease-out-soft)', ...style,
-      }} {...rest}>
+    <button type="button" onClick={onSelect} aria-pressed={selected} className="tile"
+      style={{ display: 'flex', alignItems: 'center', gap: 14, width: '100%', minHeight: 72, padding: '14px 16px', borderRadius: 'var(--radius-lg)', ...style }} {...rest}>
       {icon && (
         <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 44, height: 44,
-          borderRadius: 'var(--radius-md)', background: selected ? 'var(--surface-card)' : softBg, color: accent, flex: '0 0 auto',
-          transition: 'background var(--dur-fast) var(--ease-out-soft)' }}>
-          <Icon name={icon} size={24} />
+          borderRadius: 'var(--radius-md)', background: selected ? 'var(--surface-card)' : ic.bg, color: ic.fg, flex: '0 0 auto',
+          transition: 'background-color var(--dur-fast) var(--ease-out)' }}>
+          <Icon name={icon} size={24} strokeWidth={2.4} />
         </span>
       )}
       <span style={{ display: 'flex', flexDirection: 'column', gap: 2, minWidth: 0, flex: 1 }}>
-        <span style={{ font: 'var(--type-headline)', fontSize: 'var(--text-body-l)', color: 'var(--text-ink)' }}>{title}</span>
+        <span style={{ font: 'var(--type-headline)', fontSize: 'var(--text-body-l)', color: selected ? 'var(--select-fg)' : 'var(--text-ink)' }}>{title}</span>
         {description && <span style={{ font: 'var(--type-body)', fontSize: 'var(--text-label)', color: 'var(--text-muted)' }}>{description}</span>}
       </span>
-      {badge && <Badge tone="indigo" size="sm">{badge}</Badge>}
+      {badge && <Badge tone="brand" size="sm">{badge}</Badge>}
     </button>
   );
 }
@@ -123,13 +125,13 @@ export const FEATHER_PATHS = (
 );
 
 export function Wordmark({ size = 32, inverse = false, glyphOnly = false, style, ...rest }) {
-  const ink = inverse ? '#FFFFFF' : 'var(--spur-indigo)';
+  const ink = inverse ? '#FFFFFF' : 'var(--spur-brand)';
   const glyph = <svg viewBox="0 0 24 24" width={size * 1.05} height={size * 1.05} style={{ color: 'var(--spur-amber)', flex: '0 0 auto' }} aria-hidden="true">{FEATHER_PATHS}</svg>;
   if (glyphOnly) return <span style={{ display: 'inline-flex', ...style }} {...rest}>{glyph}</span>;
   return (
     <span role="img" aria-label="spur" style={{ display: 'inline-flex', alignItems: 'center', gap: size * 0.22, ...style }} {...rest}>
       {glyph}
-      <span aria-hidden="true" style={{ font: 'var(--type-title)', fontSize: size, fontWeight: 700, color: ink, letterSpacing: '.01em', lineHeight: 1 }}>spur</span>
+      <span aria-hidden="true" style={{ font: 'var(--type-title)', fontSize: size, fontWeight: 900, color: ink, letterSpacing: '-.01em', lineHeight: 1 }}>spur</span>
     </span>
   );
 }
@@ -139,9 +141,9 @@ export function Switch({ checked, onChange, label }) {
   return (
     <button type="button" role="switch" aria-checked={checked} aria-label={label} onClick={() => onChange(!checked)}
       style={{ position: 'relative', width: 54, height: 32, borderRadius: 999, border: 'none', padding: 3, cursor: 'pointer', flex: '0 0 auto',
-        background: checked ? 'var(--spur-indigo)' : 'var(--spur-locked)', transition: 'background var(--dur-fast) var(--ease-out-soft)' }}>
-      <span style={{ position: 'absolute', top: 3, left: 3, width: 26, height: 26, borderRadius: '50%', background: '#fff',
-        transform: `translateX(${checked ? 22 : 0}px)`, transition: 'transform var(--dur-fast) var(--ease-out-soft)' }} />
+        background: checked ? 'var(--spur-dove)' : 'var(--surface-locked)', transition: 'background-color var(--dur-fast) var(--ease-out)' }}>
+      <span style={{ position: 'absolute', top: 3, left: 3, width: 26, height: 26, borderRadius: '50%', background: '#fff', boxShadow: '0 2px 0 rgba(0,0,0,.12)',
+        transform: `translateX(${checked ? 22 : 0}px)`, transition: 'transform var(--dur-fast) var(--ease-out)' }} />
     </button>
   );
 }

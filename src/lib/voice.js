@@ -15,9 +15,9 @@ const TONES = [
   { solid: 'var(--spur-dove)', soft: 'var(--spur-dove-soft)', shade: 'var(--spur-dove-shade)', fg: '#fff' },
   { solid: 'var(--spur-terracotta)', soft: 'var(--spur-terracotta-soft)', shade: 'var(--spur-terracotta-shade)', fg: '#fff' },
   { solid: 'var(--spur-green)', soft: 'var(--spur-green-soft)', shade: 'var(--spur-green-shade)', fg: '#fff' },
-  { solid: 'var(--spur-indigo)', soft: 'var(--spur-lavender)', shade: 'var(--spur-indigo-shade)', fg: '#fff' },
+  { solid: 'var(--spur-humpback)', soft: 'var(--spur-humpback-soft)', shade: 'var(--spur-humpback-shade)', fg: '#fff' },
   { solid: 'var(--spur-coral)', soft: 'var(--spur-coral-soft)', shade: 'var(--spur-coral-shade)', fg: '#fff' },
-  { solid: 'var(--spur-amber)', soft: 'var(--spur-amber-soft)', shade: 'var(--spur-amber-shade)', fg: '#2B1C06' },
+  { solid: 'var(--spur-fox)', soft: 'var(--spur-fox-soft)', shade: 'var(--spur-fox-shade)', fg: '#fff' },
 ];
 const toneIndex = (id) => { let h = 0; for (const c of String(id)) h = (h * 31 + c.charCodeAt(0)) >>> 0; return h % TONES.length; };
 

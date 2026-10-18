@@ -9,17 +9,16 @@ import { requestNotificationPermission, registerBackgroundReminder } from '../li
 
 const GOAL_BY_FREQ = { daily: 3, three: 5, flex: 1 };
 
+/** Fortschritt durchs Onboarding als Duolingo-Balken statt Punkten. */
 function Dots({ step }) {
   return (
-    <div style={{ display: 'flex', gap: 6, marginBottom: 28 }} aria-label={`Schritt ${step + 1} von 4`}>
-      {[0, 1, 2, 3].map((i) => (
-        <span key={i} style={{ width: 34, height: 6, borderRadius: 999, background: i <= step ? 'var(--spur-indigo)' : 'var(--spur-lavender-deep)', transition: 'background var(--dur-fast) var(--ease-out-soft)' }} />
-      ))}
+    <div style={{ marginBottom: 28 }} aria-label={`Schritt ${step + 1} von 4`}>
+      <ProgressBar value={(step + 1) / 4} height={14} label={`Schritt ${step + 1} von 4`} />
     </div>
   );
 }
 
-const h1 = { font: 'var(--weight-semibold) 32px/1.18 var(--font-display)', color: 'var(--text-ink)', margin: '0 0 6px', textWrap: 'pretty' };
+const h1 = { font: 'var(--weight-black) 28px/1.18 var(--font-display)', color: 'var(--text-ink)', margin: '0 0 6px', textWrap: 'pretty' };
 const sub = { font: 'var(--type-body)', color: 'var(--text-muted)', margin: '0 0 24px' };
 const page = { display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0, overflowY: 'auto', padding: 'calc(28px + env(safe-area-inset-top)) var(--gutter-screen) calc(24px + env(safe-area-inset-bottom))' };
 
@@ -83,7 +82,7 @@ export function Onboarding({ onDone }) {
         <div className="phase-in" style={{ ...page, justifyContent: 'safe center' }}>
           <div style={{ display: 'flex', alignItems: 'flex-end', gap: 10, marginBottom: 22 }}>
             <span className="a-bob rm-static" style={{ display: 'inline-flex' }}><Mascot pose="cheering" size={112} /></span>
-            <SpeechBubble tail="left" tone="lavender" style={{ flex: 1, marginBottom: 28 }}>Hallo, ich bin Miro. Ich merk mir alles.</SpeechBubble>
+            <SpeechBubble tail="left" style={{ flex: 1, marginBottom: 28 }}>Hallo, ich bin Miro. Ich merk mir alles.</SpeechBubble>
           </div>
           <h1 style={h1}>Merk dir, was Leute dir erzählen.</h1>
           <p style={{ ...sub, fontSize: 'var(--text-body-l)', lineHeight: 'var(--leading-normal)' }}>
@@ -120,7 +119,7 @@ export function Onboarding({ onDone }) {
           <div className="stack" style={{ gap: 12 }} role="radiogroup">
             <OptionTile icon="ear" tone="listen" title="Zuhören" description="Beiläufige Details aus Gesprächen behalten" selected={track === 'listen'} onSelect={() => setTrack('listen')} />
             <OptionTile icon="book-open" tone="read" title="Lesen" description="Texte aus dem Kopf wiedergeben" selected={track === 'read'} onSelect={() => setTrack('read')} />
-            <OptionTile icon="sparkles" tone="indigo" title="Beides" description="Im Wechsel, ein Pfad" selected={track === 'both'} onSelect={() => setTrack('both')} />
+            <OptionTile icon="sparkles" tone="brand" title="Beides" description="Im Wechsel, ein Pfad" selected={track === 'both'} onSelect={() => setTrack('both')} />
           </div>
           <div style={{ flex: 1, minHeight: 24 }} />
           <Button full disabled={!track} onClick={() => setStep(1)}>Weiter</Button>
@@ -155,11 +154,8 @@ export function Onboarding({ onDone }) {
           <p style={sub}>Eine Nachricht am Tag, zu deiner Uhrzeit. Nie mehr.</p>
           <div style={{ display: 'flex', gap: 8 }} role="radiogroup" aria-label="Uhrzeit">
             {['18:00', '19:30', '21:00'].map((v) => (
-              <button key={v} type="button" role="radio" aria-checked={time === v} onClick={() => setTime(v)}
-                style={{ flex: 1, minHeight: 48, borderRadius: 'var(--radius-md)', cursor: 'pointer', font: 'var(--type-button)',
-                  border: `2px solid ${time === v ? 'var(--spur-indigo)' : 'var(--border-default)'}`,
-                  background: time === v ? 'var(--spur-lavender)' : 'var(--surface-card)', color: time === v ? 'var(--spur-indigo)' : 'var(--text-ink)',
-                  transition: 'background var(--dur-fast) var(--ease-out-soft), border-color var(--dur-fast) var(--ease-out-soft)' }}>{v}</button>
+              <button key={v} type="button" role="radio" aria-checked={time === v} onClick={() => setTime(v)} className="tile"
+                style={{ flex: 1, minHeight: 52, textAlign: 'center', font: 'var(--type-button)', fontSize: 'var(--text-body-l)' }}>{v}</button>
             ))}
           </div>
           <div style={{ flex: 1, minHeight: 24 }} />
@@ -177,7 +173,7 @@ export function Onboarding({ onDone }) {
             className="a-bob rm-static" style={{ width: 210, height: 210, objectFit: 'contain' }} />
           <h2 style={{ font: 'var(--type-title)', margin: '18px 0 6px', textWrap: 'pretty' }}>Dein Trainingspfad wird gebaut …</h2>
           <p style={{ font: 'var(--type-body)', color: 'var(--text-muted)', margin: '0 0 26px', maxWidth: 280 }}>Ich lege die Intervalle an: 1 · 2 · 4 · 8 · 16 · 30 · 60 Tage.</p>
-          <ProgressBar value={loader} tone="indigo" label="Pfad wird gebaut" />
+          <ProgressBar value={loader} tone="brand" label="Pfad wird gebaut" />
           <p aria-live="polite" style={{ font: 'var(--type-label)', fontWeight: 500, color: 'var(--text-subtle)', margin: '14px 0 0' }}>{status}</p>
           <div style={{ flex: '0 0 40px' }} />
           <div style={{ width: '100%', minHeight: 56 }}>

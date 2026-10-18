@@ -1,11 +1,16 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import '@fontsource/quicksand/500.css';
-import '@fontsource/quicksand/600.css';
-import '@fontsource/quicksand/700.css';
+// Nur der Latin-Schnitt (enthält Umlaute, ß und „“ – —), damit der Offline-Cache klein bleibt.
+import '@fontsource/nunito/latin-600.css';
+import '@fontsource/nunito/latin-700.css';
+import '@fontsource/nunito/latin-800.css';
+import '@fontsource/nunito/latin-900.css';
 import './styles/tokens.css';
 import './styles/app.css';
 import App from './App.jsx';
+
+// iOS Safari zeigt :active (Druck-Feedback der Knöpfe) nur, wenn es einen touchstart-Listener gibt.
+document.addEventListener('touchstart', () => {}, { passive: true });
 
 const root = createRoot(document.getElementById('root'));
 // Testlevel (/testlevel): nur im Dev-Server. Im Build ist import.meta.env.DEV false, der

@@ -8,8 +8,24 @@ Trainiert zwei Fähigkeiten in täglichen Kurz-Sessions:
   sprichst du sie an? (Sie hat erzählt, dass sie wandern geht, also: „Und, wie war’s?“)
 - **Lesen** – einen Sachtext frei wiedergeben und sich selbst anhand von Kernpunkten bewerten
 
-Design, Farben, Typografie, Komponenten und Copy stammen 1:1 aus dem Claude-Design-Export
-(`SPUR App.dc.html`, SPUR Design System, `design_handoff_spur_app/README.md`).
+Aufbau, Komponenten und Copy stammen aus dem Claude-Design-Export (`SPUR App.dc.html`, SPUR
+Design System, `design_handoff_spur_app/README.md`). Farben und Look orientieren sich an
+**Duolingo**: Feather Green als Markenfarbe (alle Haupt-Knöpfe wie PRÜFEN und WEITER), Macaw-Blau
+fürs Zuhören, Beetle-Lila fürs Lesen, Bee-Gelb für Federn und Fälliges, Fox-Orange für den Streak,
+Cardinal-Rot für Herzen und Fehler. Schrift ist Nunito (rund, kräftig). Knöpfe und Antwort-Kacheln
+haben eine dicke Unterkante und senken sich beim Drücken. Gewählte Antworten sind blau, das
+Feedback kommt als hellgrüne bzw. hellrote Leiste von unten. Auf dem Pfad öffnet ein Knoten eine
+Sprechblase in der Spurfarbe (mit „+X Federn“), auch gesperrte Knoten sagen, warum sie zu sind.
+Kapitel-Banner sind voll eingefärbt, mit Fortschrittsring. Dark Mode folgt Duolingos dunklem
+Design (`#131F24`).
+
+Die Bewegung folgt Emil Kowalskis Animations-Regeln (Skills unter
+[emilkowalski/skills](https://github.com/emilkowalski/skills)): starke ease-out-Kurven als Tokens
+(`--ease-out`, `--ease-in-out`, `--ease-drawer` in `src/styles/tokens.css`), UI-Animationen unter
+300 ms, raus immer schneller als rein, nichts erscheint aus `scale(0)`, Dauer-Animationen nur über
+`transform`/`opacity` (Equalizer per `scaleY`, Fortschrittsbalken per `clip-path`), Druck-Feedback
+über CSS `:active` statt React-State, Popover wachsen aus ihrem Auslöser, Sheets lassen sich auch
+mit einem schnellen kurzen Wisch schließen.
 
 ## Starten
 
@@ -240,7 +256,7 @@ Jede Frage hat ihren eigenen Spaced-Repetition-Verlauf.
 | `detail_match` mit `followUp` | Wiedersehen: Worauf sprichst du die Person an? | eine pro Gespräch (optional) |
 
 Am Knoten zeigt ein **Segment-Ring** den Stand: ein Bogen pro Teil. Geschaffte Teile sind voll
-in der Spurfarbe, offene zu 28 %. Nach einem geschafften Teil füllt sich das Segment auf dem
+in der Spurfarbe, offene grau. Nach einem geschafften Teil füllt sich das Segment auf dem
 Pfad sichtbar. In der Übung steht oben „Teil X · Frage Y von Z“.
 
 Jede JSON-Datei in `src/content/chapters/` ist ein Kapitel. Ein neues Kapitel ist einfach eine
@@ -324,7 +340,7 @@ Unabhängig vom Pfad-Scheduling (`src/engine/game.js`, `schedulePopup` / `pickPo
 
 ## Daten & Datenschutz
 
-- Alles liegt in IndexedDB auf dem Gerät (Fallback: localStorage). Schrift (Quicksand), Icons
+- Alles liegt in IndexedDB auf dem Gerät (Fallback: localStorage). Schrift (Nunito), Icons
   (Lucide) und Vorlese-Audios sind mitgebündelt. Die App macht **keinen einzigen Netzwerk-Request** an Dritte, und
   der Service Worker cacht alles für die Offline-Nutzung.
 - „Fortschritt zurücksetzen“ löscht Karten, Intervalle, Federn und Streak. Die Einstellungen bleiben.

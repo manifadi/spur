@@ -26,12 +26,12 @@ export function useCountUp(to, { from = 0, delay = 0, duration = 900, run = true
 }
 
 /** Animationsstil mit fill-mode both. */
-export const anim = (name, ms, delay = 0, ease = 'cubic-bezier(.22,.8,.3,1)', extra = '') =>
+export const anim = (name, ms, delay = 0, ease = 'var(--ease-out)', extra = '') =>
   ({ animation: `${name} ${ms}ms ${ease} ${delay}ms ${extra} both` });
 
 export const EASE = {
-  soft: 'cubic-bezier(.22,.8,.3,1)',
-  bounce: 'cubic-bezier(.34,1.56,.64,1)',
+  soft: 'var(--ease-out)',
+  bounce: 'var(--ease-bounce)',
   sine: 'cubic-bezier(.37,0,.63,1)',
   jump: 'cubic-bezier(.34,1.3,.64,1)',
 };
